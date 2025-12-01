@@ -4,8 +4,7 @@ DO $$ BEGIN
         CREATE TYPE enum_u AS ENUM ('Chef','Studente');
     END IF;
 END$$;
-
--- Tabella utente
+-- Creazione tabella utente
 DROP TABLE IF EXISTS utente;
 CREATE TABLE utente (
     username VARCHAR(100) NOT NULL PRIMARY KEY,
