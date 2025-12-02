@@ -770,7 +770,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="umlRistrutturato" id="Tk5xRUqj3ZlXpo6v8RuO">
-    <mxGraphModel dx="679" dy="400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1426" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="ARW8zFCTI58Dk-qFyUjN-0" />
         <mxCell id="ARW8zFCTI58Dk-qFyUjN-1" parent="ARW8zFCTI58Dk-qFyUjN-0" />
@@ -1259,10 +1259,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="ecHrCov6Dt4G3b_ysJXw-1" value="Ricetta" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;align=left;" parent="1" vertex="1">
-          <mxGeometry x="329" y="846" width="120" height="70" as="geometry" />
+          <mxGeometry x="279" y="846" width="180" height="70" as="geometry" />
         </mxCell>
         <mxCell id="ecHrCov6Dt4G3b_ysJXw-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ecHrCov6Dt4G3b_ysJXw-1" vertex="1">
-          <mxGeometry y="30" width="120" height="40" as="geometry" />
+          <mxGeometry y="30" width="180" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ecHrCov6Dt4G3b_ysJXw-3" value="&lt;font style=&quot;color: rgb(204, 0, 0);&quot;&gt;&lt;u&gt;id&lt;/u&gt;&lt;u&gt;_ricetta&lt;/u&gt;&lt;/font&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="ecHrCov6Dt4G3b_ysJXw-2" vertex="1">
           <mxGeometry width="60" height="40" as="geometry">
@@ -1270,8 +1270,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="ecHrCov6Dt4G3b_ysJXw-4" value="nome" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="ecHrCov6Dt4G3b_ysJXw-2" vertex="1">
-          <mxGeometry x="60" width="60" height="40" as="geometry">
-            <mxRectangle width="60" height="40" as="alternateBounds" />
+          <mxGeometry x="60" width="51" height="40" as="geometry">
+            <mxRectangle width="51" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3TyISLFpfpVxixJZvuEN-1" value="descrizione" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;" vertex="1" parent="ecHrCov6Dt4G3b_ysJXw-2">
+          <mxGeometry x="111" width="69" height="40" as="geometry">
+            <mxRectangle width="69" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="voCJVd9ngF7U8t0pgvR4-1" value="Ingrediente" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;align=left;" parent="1" vertex="1">
@@ -1387,7 +1392,7 @@
         <mxCell id="usd32jtJKcPSHP20faUh-14" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" parent="1" source="ecHrCov6Dt4G3b_ysJXw-2" target="usd32jtJKcPSHP20faUh-7" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="360" y="964" />
+              <mxPoint x="310" y="964" />
               <mxPoint x="590" y="964" />
             </Array>
           </mxGeometry>
