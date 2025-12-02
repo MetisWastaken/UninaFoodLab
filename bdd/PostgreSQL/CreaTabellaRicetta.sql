@@ -1,4 +1,4 @@
--- Active: 1764577701438@@127.0.0.1@5432@uninafoodlab@public
+-- Active: 1759330605908@@127.0.0.1@5433@postgres
 DROP TABLE IF EXISTS ricetta CASCADE;
 CREATE TABLE ricetta (
     id_ricetta SERIAL PRIMARY KEY,
