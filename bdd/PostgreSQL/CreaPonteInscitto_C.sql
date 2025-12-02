@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS inscritto_c CASCADE;
 CREATE TABLE inscritto_c (
     stud_id VARCHAR(100) NOT NULL,
     corso_id INT NOT NULL,
+    data_iscrizione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_inscritto_c PRIMARY KEY (stud_id, corso_id),
     CONSTRAINT fk_inscrittoc_utente FOREIGN KEY (stud_id)
         REFERENCES utente(username) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -13,6 +14,7 @@ CREATE TABLE inscritto_c (
 COMMENT ON TABLE inscritto_c IS 'Tabella ponte: studenti iscritti ai corsi — PK: (stud_id, corso_id)';
 COMMENT ON COLUMN inscritto_c.stud_id IS 'FK -> utente(username); deve riferire un utente con tipo_utente = ''Studente''';
 COMMENT ON COLUMN inscritto_c.corso_id IS 'FK -> corso(id_corso)';
+COMMENT ON COLUMN inscritto_c.data_iscrizione IS 'Data e ora di iscrizione';
 
 -- Funzione che verifica che stud_id punti a un utente di tipo 'Studente' e che corso_id punti a un corso esistente
 CREATE OR REPLACE FUNCTION enforce_inscrittoc_checks()
