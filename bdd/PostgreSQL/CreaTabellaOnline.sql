@@ -10,5 +10,3 @@ CREATE TABLE online (
             REFERENCES corso(id_corso) ON DELETE CASCADE
 );
 COMMENT ON TABLE online IS 'Tabella memorizza i dati relativi alle sessioni online dei corsi';
-
---Eventualmente migliorare la gestione delle fk
