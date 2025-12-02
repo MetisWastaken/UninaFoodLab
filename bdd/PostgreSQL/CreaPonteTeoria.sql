@@ -1,4 +1,4 @@
--- Active: 1759330605908@@127.0.0.1@5433@postgres@public
+-- Creazione tabella ponte teoria
 CREATE TABLE teoria (
     online_id INT NOT NULL,
     ricetta_id INT NOT NULL,
@@ -12,3 +12,5 @@ CREATE TABLE teoria (
         FOREIGN KEY(ricetta_id)
             REFERENCES ricetta(id_ricetta) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+--crea vincoli domani

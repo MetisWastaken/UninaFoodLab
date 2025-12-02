@@ -1,4 +1,4 @@
--- Active: 1759330605908@@127.0.0.1@5433@postgres
+--Creazione tabella ricetta
 DROP TABLE IF EXISTS ricetta CASCADE;
 CREATE TABLE ricetta (
     id_ricetta SERIAL PRIMARY KEY,

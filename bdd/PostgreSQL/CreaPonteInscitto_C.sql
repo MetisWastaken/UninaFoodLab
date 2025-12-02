@@ -1,5 +1,5 @@
+--Creazione tabella ponte inscritto_c
 DROP TABLE IF EXISTS inscritto_c CASCADE;
-
 CREATE TABLE inscritto_c (
     stud_id VARCHAR(100) NOT NULL,
     corso_id INT NOT NULL,

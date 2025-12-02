@@ -1,4 +1,3 @@
--- Active: 1764577701438@@127.0.0.1@5432@uninafoodlab@public
 /*enum per unità di misura*/
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_i') THEN

@@ -1,3 +1,4 @@
+--Creazione tabella corso
 DROP TABLE IF EXISTS corso CASCADE;
 CREATE TABLE corso (
     id_corso SERIAL PRIMARY KEY,
