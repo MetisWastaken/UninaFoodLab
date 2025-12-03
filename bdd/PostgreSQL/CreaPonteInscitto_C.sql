@@ -5,10 +5,12 @@ CREATE TABLE inscritto_c (
     corso_id INT NOT NULL,
     data_iscrizione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_inscritto_c PRIMARY KEY (stud_id, corso_id),
-    CONSTRAINT fk_inscrittoc_utente FOREIGN KEY (stud_id)
-        REFERENCES utente(username) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_inscrittoc_corso FOREIGN KEY (corso_id)
-        REFERENCES corso(id_corso) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT fk_studente
+        FOREIGN KEY (stud_id)
+            REFERENCES utente(username) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_corso
+        FOREIGN KEY (corso_id)
+            REFERENCES corso(id_corso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 COMMENT ON TABLE inscritto_c IS 'Tabella ponte: studenti iscritti ai corsi — PK: (stud_id, corso_id)';
