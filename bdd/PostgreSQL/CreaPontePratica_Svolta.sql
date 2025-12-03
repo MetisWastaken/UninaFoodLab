@@ -8,3 +8,4 @@ CREATE TABLE pratica_svolta
         FOREIGN KEY(pratica_id) REFERENCES pratica(id_pratica) ON DELETE CASCADE,
         FOREIGN KEY(ricetta_id) REFERENCES ricetta(id_ricetta) ON DELETE CASCADE
 );
+COMMENT ON TABLE pratica_svolta IS 'Tabella ponte tra pratica e ricetta, memorizza le ricette svolte in una sessione pratica';
