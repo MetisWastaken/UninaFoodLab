@@ -503,7 +503,7 @@
             <mxPoint x="-8" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HBIzuvaIFvgAqcxwJA1V-10" value="Inscritto" style="rhombus;whiteSpace=wrap;html=1;" parent="O8QsLuavGhFdbjTdjQqE-1" vertex="1">
+        <mxCell id="HBIzuvaIFvgAqcxwJA1V-10" value="I&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;scritto&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="O8QsLuavGhFdbjTdjQqE-1" vertex="1">
           <mxGeometry x="358.5" y="300" width="115" height="60" as="geometry" />
         </mxCell>
         <mxCell id="q7hoL2kbrsm2QibLAYnc-7" value="" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;" parent="O8QsLuavGhFdbjTdjQqE-1" source="q7hoL2kbrsm2QibLAYnc-20" target="HBIzuvaIFvgAqcxwJA1V-4" edge="1">
