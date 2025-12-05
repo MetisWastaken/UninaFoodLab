@@ -12,6 +12,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE TRIGGER trg_enforce_chef_id_is_chef
 BEFORE INSERT OR UPDATE ON corso
 FOR EACH ROW EXECUTE FUNCTION enforce_chef_id_is_chef();
 
