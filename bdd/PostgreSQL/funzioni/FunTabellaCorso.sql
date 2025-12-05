@@ -31,3 +31,23 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_corso_data_in_is_minor_than_data_fin
 BEFORE INSERT OR UPDATE ON corso
 FOR EACH ROW EXECUTE FUNCTION enforce_corso_data_in_is_minor_than_data_fin();
+
+-- Funzione che verifica che il nome del corso non sia già in uso da un corso attivo
+CREATE OR REPLACE FUNCTION enforce_unique_nome_corso_attivo()
+RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM 1 FROM corso 
+    WHERE nome = NEW.nome 
+      AND (data_fin IS NULL OR data_fin >= CURRENT_DATE);
+    
+    IF FOUND THEN
+        RAISE EXCEPTION 'Esiste già un corso attivo con nome "%". Il nome può essere riutilizzato solo dopo il completamento del corso precedente.', NEW.nome;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_unique_nome_corso_attivo
+BEFORE INSERT OR UPDATE ON corso
+FOR EACH ROW EXECUTE FUNCTION enforce_unique_nome_corso_attivo();
