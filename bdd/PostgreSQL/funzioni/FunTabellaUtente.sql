@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION password_is_strong()
 RETURNS TRIGGER AS $$
 BEGIN
     IF length(NEW.password)<6 THEN 
-        RAISE EXECEPTION 'La password deve essere lunga almeno 6 caratteri';
+        RAISE EXCEPTION 'La password deve essere lunga almeno 6 caratteri';
     END IF;
     RETURN NEW;
 END;
