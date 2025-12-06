@@ -36,8 +36,7 @@ CREATE OR REPLACE FUNCTION enforce_unique_nome_corso_attivo()
 RETURNS TRIGGER AS $$
 BEGIN
     PERFORM 1 FROM corso 
-    WHERE nome = NEW.nome 
-      AND (data_fin IS NULL OR data_fin >= CURRENT_DATE);
+    WHERE nome = NEW.nome AND data_fin >= CURRENT_DATE);
     
     IF FOUND THEN
         RAISE EXCEPTION 'Esiste già un corso attivo con nome "%". Il nome può essere riutilizzato solo dopo il completamento del corso precedente.', NEW.nome;
