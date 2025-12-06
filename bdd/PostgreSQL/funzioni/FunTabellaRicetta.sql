@@ -1,17 +1,17 @@
--- Funzione e trigger per garantire che ricetta_id faccia riferimento a una ricetta non esistente
-CREATE OR REPLACE FUNCTION ENFORCED_ricetta_name_is_ricetta()
+-- Funzione e trigger per garantire che il nome della ricetta sia univoco
+CREATE OR REPLACE FUNCTION ENFORCED_ricetta_name_is_unique()
 RETURNS TRIGGER AS $$
     BEGIN
         IF NEW.nome IS NOT NULL THEN
-        PERFORM 1 FROM ricetta WHERE nome = NEW.ricetta.nome;
-        IF FOUND THEN
-            RAISE EXCEPTION 'ricetta_id "%" corrisponde a una ricetta esistente', NEW.nome;
+            PERFORM 1 FROM ricetta WHERE nome = NEW.nome AND id_ricetta <> NEW.id_ricetta;
+            IF FOUND THEN
+                RAISE EXCEPTION 'Una ricetta con nome "%" esiste già', NEW.nome;
+            END IF;
         END IF;
-    END IF;
-    RETURN NEW;
-END;
+        RETURN NEW;
+    END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_ricetta_name_is_ricetta
+CREATE TRIGGER trg_ricetta_name_is_unique
 BEFORE INSERT OR UPDATE ON ricetta
-FOR EACH ROW EXECUTE FUNCTION ENFORCED_ricetta_name_is_ricetta();
+FOR EACH ROW EXECUTE FUNCTION ENFORCED_ricetta_name_is_unique();
