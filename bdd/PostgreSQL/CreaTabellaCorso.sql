@@ -4,8 +4,8 @@ CREATE TABLE corso (
     id_corso SERIAL PRIMARY KEY,
     nome VARCHAR(200) NOT NULL,
     categoria VARCHAR(100),
-    data_in DATE,
-    data_fin DATE,
+    data_in DATE NOT NULL,
+    data_fin DATE NOT NULL,
     frequenza_settimanale VARCHAR(100),
     chef_id VARCHAR(100) NOT NULL
         REFERENCES utente(username) ON UPDATE CASCADE ON DELETE RESTRICT

@@ -20,10 +20,8 @@ FOR EACH ROW EXECUTE FUNCTION enforce_chef_id_is_chef();
 CREATE OR REPLACE FUNCTION enforce_corso_data_in_is_minor_than_data_fin()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.data_in IS NOT NULL AND NEW.data_fin IS NOT NULL THEN
         IF NEW.data_in > NEW.data_fin THEN
             RAISE EXCEPTION 'data_in "%" deve essere minore o uguale di data_fin "%"', NEW.data_in, NEW.data_fin;
-        END IF;
     END IF;
     RETURN NEW;
 END;
