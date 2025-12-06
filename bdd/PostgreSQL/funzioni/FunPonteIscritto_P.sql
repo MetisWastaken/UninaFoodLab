@@ -52,3 +52,26 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_enforce_max_iscritti_pratica
 BEFORE INSERT ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION enforce_max_iscritti_pratica();
+
+-- Funzione che verifica che lo studente sia iscritto al corso prima di iscriversi a una pratica di quel corso
+CREATE OR REPLACE FUNCTION enforce_student_enrolled_in_corso()
+RETURNS TRIGGER AS $$
+DECLARE
+    corso_id_pratica INT;
+BEGIN
+    SELECT corso_id INTO corso_id_pratica FROM pratica WHERE id_pratica = NEW.pratica_id;
+    
+    PERFORM 1 FROM iscritto_c WHERE stud_id = NEW.stud_id AND corso_id = corso_id_pratica;
+    
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Lo studente "%" non è iscritto al corso (id: %) a cui appartiene la pratica (id: %). Iscrizione non effettuata', 
+        NEW.stud_id, corso_id_pratica, NEW.pratica_id;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_enforce_student_enrolled_in_corso
+BEFORE INSERT OR UPDATE ON iscritto_p
+FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso();
