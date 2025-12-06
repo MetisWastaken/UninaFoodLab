@@ -38,3 +38,22 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_enforce_positive_quant_ing
 BEFORE INSERT OR UPDATE ON necessita
 FOR EACH ROW EXECUTE FUNCTION enforce_positive_quant_ing();
+
+--Trigger che impedice l'inserimento di valori con la non iteri se nell unit_misura di ingrediente è NULL(un pezzo)
+CREATE OR REPLACE FUNCTION enforce_non_integer_for_null_unit_misura()
+RETURNS TRIGGER AS $$
+DECLARE
+    unit_misura_val enum_i;
+BEGIN
+    SELECT unit_misura INTO unit_misura_val FROM ingrediente WHERE nome = NEW.ingrediente_id;
+
+    IF unit_misura_val IS NULL AND NEW.quant_ing != FLOOR(NEW.quant_ing) THEN
+        RAISE EXCEPTION 'Per l''ingrediente "%" con unità di misura NULL, la quantità deve essere un numero intero. Valore fornito: %', NEW.ingrediente_id, NEW.quant_ing;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_enforce_non_integer_for_null_unit_misura
+BEFORE INSERT OR UPDATE ON necessita
+FOR EACH ROW EXECUTE FUNCTION enforce_non_integer_for_null_unit_misura();
