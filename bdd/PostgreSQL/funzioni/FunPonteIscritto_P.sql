@@ -24,26 +24,12 @@ CREATE TRIGGER trg_enforce_iscrittop_checks
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittop_checks();
 
---funzione che conta il numero di iscritti a una pratica
-CREATE OR REPLACE FUNCTION count_iscritti_pratica(praticaId INT)    
-RETURNS INT AS $$
-DECLARE
-    iscritti_count INT;
-BEGIN
-    SELECT COUNT(*) INTO iscritti_count FROM iscritto_p WHERE pratica_id = praticaId;
-    RETURN iscritti_count;
-END;
-$$ LANGUAGE plpgsql;
-COMMENT ON FUNCTION count_iscritti_pratica(INT) IS 'Funzione che conta il numero di studenti iscritti a una specifica pratica identificata da praticaId';
-
 --trigger che vieta l'aggiunta di un nuovo iscrtto se la pratica ha gia raggiunto il numero massimo di iscritti
+-- Utilizza view_pratica_posti per il calcolo dei posti rimanenti
 CREATE OR REPLACE FUNCTION enforce_max_iscritti_pratica()
 RETURNS TRIGGER AS $$   
-DECLARE
-    current_iscritti INT;
 BEGIN
-    current_iscritti := count_iscritti_pratica(NEW.pratica_id);
-    IF current_iscritti >= (SELECT posti_totali FROM pratica WHERE id_pratica = NEW.pratica_id) THEN
+    IF (SELECT posti_rimanenti FROM view_pratica_posti WHERE id_pratica = NEW.pratica_id) <= 0 THEN
         RAISE EXCEPTION 'La pratica con id "%" ha raggiunto il numero massimo di iscritti', NEW.pratica_id;
     END IF;
     RETURN NEW;
@@ -74,4 +60,4 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_enforce_student_enrolled_in_corso
 BEFORE INSERT OR UPDATE ON iscritto_p
-FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso();
+FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso(); 
