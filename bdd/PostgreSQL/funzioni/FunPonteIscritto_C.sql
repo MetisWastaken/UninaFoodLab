@@ -23,3 +23,28 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_iscrittoc_checks
 BEFORE INSERT OR UPDATE ON iscritto_c
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_checks();
+
+-- Trigger che controlla se uno studente può disiscriversi da un corso
+---(non è iscritto a nessuna pratica associata a quel corso)
+---(o se la pratica non è ancora finita [is_pratica_finished(praticaId INT)])
+CREATE OR REPLACE FUNCTION enforce_iscrittoc_unenroll_checks()
+RETURNS TRIGGER AS $$
+DECLARE
+    pratica_record RECORD;
+BEGIN
+    FOR pratica_record IN
+        SELECT p.id_pratica
+        FROM pratica p
+        JOIN iscritto_p ip ON p.id_pratica = ip.pratica_id
+        WHERE ip.stud_id = OLD.stud_id AND p.corso_id = OLD.corso_id
+    LOOP
+        IF NOT is_pratica_finished(pratica_record.id_pratica) THEN
+            RAISE EXCEPTION 'Lo studente "%" non può disiscriversi dal corso "%" perché è iscritto a una pratica non ancora terminata (id_pratica="%")', OLD.stud_id, OLD.corso_id, pratica_record.id_pratica;
+        END IF;
+    END LOOP;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_enforce_iscrittoc_unenroll_checks
+BEFORE DELETE ON iscritto_c
+FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_unenroll_checks();
