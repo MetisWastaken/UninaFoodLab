@@ -8,7 +8,7 @@
 5. ~~se uno studente si vuole disiscrivere dal corso deve o finire le sessioni pratiche o prima uscire da queste ultime~~
 6. Se studente non è iscritto al corso iscritto_p bloccherà l'inserimento X
 7. Controllo necessario tra data iscrizione utente e data fine corso e pratica X
-8. View necessaria per controllo posti rimanenti (in pratica)
+8. ~~View necessaria per controllo posti rimanenti (in pratica)~~
 
 
 
