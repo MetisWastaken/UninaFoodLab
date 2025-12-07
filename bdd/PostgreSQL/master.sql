@@ -42,6 +42,7 @@
 \i 'funzioni/FunPonteTeoria.sql'
 \i 'funzioni/FunPontePratica_Svolta.sql'
 \i 'funzioni/FunPonteNecessita.sql'
+\i 'funzioni/View.sql'
 
 -- ============================================
 -- Setup completato!
