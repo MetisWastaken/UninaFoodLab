@@ -56,3 +56,17 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_prevent_online_pratica_date_conflict
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_online_pratica_date_conflict();
+
+--Funzione che restituisce true se una pratica(id) è finita(giorno_sessione passato), false altrimenti
+CREATE OR REPLACE FUNCTION is_pratica_finished(praticaId INT)
+RETURNS BOOLEAN AS $$
+DECLARE
+    pratica_date DATE;
+BEGIN
+    SELECT giorno_sessione INTO pratica_date FROM pratica WHERE id_pratica = praticaId;
+    IF pratica_date IS NULL THEN
+        RAISE EXCEPTION 'La pratica con id "%" non esiste', praticaId;
+    END IF;
+    RETURN pratica_date < CURRENT_DATE;
+END;
+$$ LANGUAGE plpgsql;
