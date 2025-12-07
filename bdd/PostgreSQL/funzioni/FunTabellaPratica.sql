@@ -24,7 +24,7 @@ BEGIN
     IF NEW.giorno_sessione IS NOT NULL AND NEW.corso_id IS NOT NULL THEN
         IF EXISTS (
             SELECT 1 FROM pratica
-            WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id
+            WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id AND id_pratica <> NEW.id_pratica
         ) THEN
             RAISE EXCEPTION 'Conflitto di data: esiste già una sessione pratica per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
         END IF;
@@ -38,7 +38,7 @@ BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_pratica_date_conflict();
 
 --trigger per evitare che sessioni online e pratica abbiano lo stesso giorno_sessione per lo stesso corso
-CREATE OR REPLACE FUNCTION prevent_online_pratica_date_conflict()
+CREATE OR REPLACE FUNCTION prevent_pratica_online_date_conflict()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.giorno_sessione IS NOT NULL AND NEW.corso_id IS NOT NULL THEN
@@ -53,9 +53,9 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER trg_prevent_online_pratica_date_conflict
+CREATE TRIGGER trg_prevent_pratica_online_date_conflict
 BEFORE INSERT OR UPDATE ON pratica
-FOR EACH ROW EXECUTE FUNCTION prevent_online_pratica_date_conflict();
+FOR EACH ROW EXECUTE FUNCTION prevent_pratica_online_date_conflict();
 
 --Funzione che restituisce true se una pratica(id) è finita(giorno_sessione passato), false altrimenti
 CREATE OR REPLACE FUNCTION is_pratica_finished(praticaId INT)
@@ -69,4 +69,4 @@ BEGIN
     END IF;
     RETURN pratica_date < CURRENT_DATE;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql; 

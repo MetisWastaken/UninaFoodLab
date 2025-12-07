@@ -25,7 +25,7 @@ BEGIN
     IF NEW.giorno_sessione IS NOT NULL AND NEW.corso_id IS NOT NULL THEN
         IF EXISTS (
             SELECT 1 FROM online
-            WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id
+            WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id AND id_online <> NEW.id_online
         ) THEN
             RAISE EXCEPTION 'Conflitto di data: esiste già una sessione online per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
         END IF;
@@ -60,3 +60,4 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_prevent_online_pratica_date_conflict
 BEFORE INSERT OR UPDATE ON online
 FOR EACH ROW EXECUTE FUNCTION prevent_online_pratica_date_conflict();
+ 
