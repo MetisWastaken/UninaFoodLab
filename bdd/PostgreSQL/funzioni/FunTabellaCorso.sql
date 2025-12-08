@@ -49,3 +49,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_unique_nome_corso_attivo
 BEFORE INSERT OR UPDATE ON corso
 FOR EACH ROW EXECUTE FUNCTION enforce_unique_nome_corso_attivo();
+
+--Questo trigger evita che la data inizio corso sia precedente alla data corrente
+CREATE OR REPLACE FUNCTION enforce_corso_data_in_not_past()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.data_in < CURRENT_DATE THEN
+        RAISE EXCEPTION 'data_in "%" non può essere precedente alla data corrente "%"', NEW.data_in, CURRENT_DATE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_corso_data_in_not_past
+BEFORE INSERT OR UPDATE ON corso
+FOR EACH ROW EXECUTE FUNCTION enforce_corso_data_in_not_past();
