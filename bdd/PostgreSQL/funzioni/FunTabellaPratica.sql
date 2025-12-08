@@ -70,3 +70,9 @@ BEGIN
     RETURN pratica_date < CURRENT_DATE;
 END;
 $$ LANGUAGE plpgsql; 
+
+--Trigger si trova a riga 68 in FunTabellaCorso.sql
+
+CREATE TRIGGER trg_enforce_sessione_date_within_corso
+BEFORE INSERT OR UPDATE ON pratica
+FOR EACH ROW EXECUTE FUNCTION enforce_sessione_date_within_corso();

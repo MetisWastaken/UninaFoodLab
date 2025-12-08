@@ -64,3 +64,21 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_corso_data_in_not_past
 BEFORE INSERT OR UPDATE ON corso
 FOR EACH ROW EXECUTE FUNCTION enforce_corso_data_in_not_past();
+
+--trigger che vieta l'inserimento di una sessione al di fuori delle date di inizio e fine corso
+CREATE OR REPLACE FUNCTION enforce_sessione_date_within_corso()
+RETURNS TRIGGER AS $$
+DECLARE
+    corso_start_date DATE;
+    corso_end_date DATE;
+BEGIN
+    SELECT data_in, data_fin INTO corso_start_date, corso_end_date FROM corso WHERE id_corso = NEW.corso_id;
+    IF corso_start_date IS NULL OR corso_end_date IS NULL THEN
+        RAISE EXCEPTION 'Il corso con id "%" non esiste', NEW.corso_id;
+    END IF;
+    IF NEW.giorno_sessione < corso_start_date OR NEW.giorno_sessione > corso_end_date THEN
+        RAISE EXCEPTION 'La data della sessione "%" deve essere compresa tra la data di inizio "%" e la data di fine "%" del corso', NEW.giorno_sessione, corso_start_date, corso_end_date;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
