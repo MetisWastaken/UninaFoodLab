@@ -61,3 +61,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_enforce_student_enrolled_in_corso
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso(); 
+
+-- Trigger che impedisce l'iscrizione a pratiche terminate (usa la funzione is_pratica_finished)
+CREATE OR REPLACE FUNCTION no_enroll_finished_pratica()
+RETURNS TRIGGER AS $$   
+BEGIN
+    IF is_pratica_finished(NEW.pratica_id, CURRENT_DATE - INTERVAL '1 day') THEN
+        RAISE EXCEPTION 'Non è possibile iscriversi alla pratica "%" perché è già terminata.', NEW.pratica_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_no_enroll_finished_pratica
+BEFORE INSERT OR UPDATE ON iscritto_p
+FOR EACH ROW EXECUTE FUNCTION no_enroll_finished_pratica();
