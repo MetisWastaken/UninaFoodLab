@@ -62,11 +62,11 @@ CREATE TRIGGER trg_enforce_student_enrolled_in_corso
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso(); 
 
--- Trigger che impedisce l'iscrizione a pratiche terminate (usa la funzione is_pratica_finished)
+-- Trigger che impedisce l'iscrizione a pratiche terminate (uno studente può iscriversi fino un giorno prima della fine)
 CREATE OR REPLACE FUNCTION no_enroll_finished_pratica()
 RETURNS TRIGGER AS $$   
 BEGIN
-    IF is_pratica_finished(NEW.pratica_id, CURRENT_DATE - INTERVAL '1 day') THEN
+    IF is_pratica_finished(NEW.pratica_id, (CURRENT_DATE + INTERVAL '1 d')::DATE) THEN
         RAISE EXCEPTION 'Non è possibile iscriversi alla pratica "%" perché è già terminata.', NEW.pratica_id;
     END IF;
     RETURN NEW;
