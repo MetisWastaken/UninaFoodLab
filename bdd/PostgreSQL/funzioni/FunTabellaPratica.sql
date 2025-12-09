@@ -58,7 +58,7 @@ BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_pratica_online_date_conflict();
 
 --Funzione che restituisce true se una pratica(id) è finita(giorno_sessione passato), false altrimenti
-CREATE OR REPLACE FUNCTION is_pratica_finished(praticaId INT)
+CREATE OR REPLACE FUNCTION is_pratica_finished(praticaId INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
 DECLARE
     pratica_date DATE;
@@ -67,9 +67,9 @@ BEGIN
     IF pratica_date IS NULL THEN
         RAISE EXCEPTION 'La pratica con id "%" non esiste', praticaId;
     END IF;
-    RETURN pratica_date < CURRENT_DATE;
+    RETURN pratica_date < checkDate;
 END;
-$$ LANGUAGE plpgsql; 
+$$ LANGUAGE plpgsql;
 
 --Trigger si trova a riga 68 in FunTabellaCorso.sql
 
