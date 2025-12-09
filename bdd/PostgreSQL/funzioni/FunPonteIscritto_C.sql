@@ -50,15 +50,15 @@ BEFORE DELETE ON iscritto_c
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_unenroll_checks();
 
 -- Trigger che impedisce l'iscrizione a corsi già terminati
-    CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
-    RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
+RETURNS TRIGGER AS $$
     BEGIN
     IF is_corso_finished(NEW.corso_id) THEN
         RAISE EXCEPTION 'Non è possibile iscriversi al corso "%" perché è già terminato.', NEW.corso_id;
     END IF;
     RETURN NEW;
-    END;
-    $$ LANGUAGE plpgsql;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_cant_enroll_finished_corso
 BEFORE INSERT ON iscritto_c
