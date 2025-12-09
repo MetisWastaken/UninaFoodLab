@@ -83,8 +83,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---Controllo se il corso è già stato concluso
-CREATE OR REPLACE FUNCTION is_corso_finished(corso_id INT)
+--Funzione che restituisce true se un corso(id) è finito(data_fin passato), false altrimenti
+CREATE OR REPLACE FUNCTION is_corso_finished(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
 DECLARE
     corso_end_date DATE;
@@ -93,6 +93,6 @@ BEGIN
     IF corso_end_date IS NULL THEN
         RAISE EXCEPTION 'Il corso con id "%" non esiste', corso_id;
     END IF;
-    RETURN corso_end_date < CURRENT_DATE;
+    RETURN corso_end_date < checkDate;
 END;
 $$ LANGUAGE plpgsql;
