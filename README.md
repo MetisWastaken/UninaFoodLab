@@ -12,9 +12,9 @@
 9. ~~Data inizio corso non può essere precedente a cuurent time~~
 10. ~~La pratica e online deve avere inserita all'interno di inizio e fine del corso in questione (due funzioni)~~
 11. In sessione online va presentata la ricetta prima di essere svolta in pratica, con annesso check della data di presentazione come minore di quella di sessione pratica
-12. ~~funzione che impedisce a uno studente di iscriversi a sessioni pratiche precedenti alla data corrente(finite; usa la funione[is_pratica_finished()]).~~
-14. ~~Uno stundente non può iscriversi ad un corso dopo la sua fine(crea la funione[is_corso_finished()])~~
-15. 
+12. funzione che impedisce a uno studente di iscriversi a sessioni pratiche precedenti alla data corrente(finite; usa la funione[is_pratica_finished()]).
+13. Uno stundente non può iscriversi ad un corso dopo la sua fine(crea la funione[is_corso_finished()])
+14. 
 
 
 
