@@ -25,16 +25,16 @@ CREATE TRIGGER trg_enforce_pratica_svolta_checks
 BEFORE INSERT OR UPDATE ON pratica_svolta
 FOR EACH ROW EXECUTE FUNCTION enforce_pratica_svolta_checks();
 
---Verifica della presentazione di una ricetta prima della pratica
-CREATE OR REPLACE check_ricetta_if_presentata()
+--Trigger che vieta l'inserimento di una ricetta non svolta in una sessione online precedente alla pratica
+CREATE OR REPLACE FUNCTION check_ricetta_if_presentata()
 RETURNS TRIGGER AS $$
 DECLARE
     corso_pratica INTEGER;
     giorno_pratica DATE;
-    giorno online DATE; 
+    giorno_online DATE; 
 BEGIN
-    SELECT corso_id, data_pratica INTO corso_pratica, giorno_pratica
-    FROM pratica WHERE id_pratica=NEW.id_pratica;
+    SELECT corso_id, giorno_sessione INTO corso_pratica, giorno_pratica
+    FROM pratica WHERE id_pratica=NEW.pratica_id;
 
     SELECT onl.giorno_sessione INTO giorno_online
     FROM teoria t JOIN online onl ON t.online_id = onl.id_online
@@ -42,7 +42,7 @@ BEGIN
     ORDER BY onl.giorno_sessione DESC LIMIT 1;
 
     IF giorno_online IS NULL THEN
-        RAISE EXCEPTION 'La ricetta_id "%" non è stata presentata in una sessione online prima della pratica_id "%"', NEW.ricetta_id, NEW.id_pratica;
+        RAISE EXCEPTION 'La ricetta_id "%" non è stata presentata in una sessione online prima della pratica_id "%"', NEW.ricetta_id, NEW.pratica_id;
     END IF;
     RETURN NEW;
 END;
