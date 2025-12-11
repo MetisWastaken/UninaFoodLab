@@ -5,7 +5,7 @@ RETURNS TRIGGER AS $$
         IF NEW.nome IS NOT NULL THEN
             PERFORM 1 FROM ricetta WHERE nome = NEW.nome AND id_ricetta <> NEW.id_ricetta;
             IF FOUND THEN
-                RAISE EXCEPTION 'Una ricetta con nome "%" esiste già', NEW.nome;
+                RAISE EXCEPTION 'Una ricetta con nome "%" esiste gia''', NEW.nome;
             END IF;
         END IF;
         RETURN NEW;

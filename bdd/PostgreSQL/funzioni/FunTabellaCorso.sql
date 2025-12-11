@@ -39,7 +39,7 @@ BEGIN
     WHERE nome = NEW.nome AND data_fin >= NEW.data_in AND id_corso <> NEW.id_corso;
     
     IF FOUND THEN
-        RAISE EXCEPTION 'Esiste già un corso attivo con nome "%". Il nome può essere riutilizzato solo dopo il completamento del corso precedente.', NEW.nome;
+        RAISE EXCEPTION 'Esiste gia'' un corso attivo con nome "%". Il nome puo'' essere riutilizzato solo dopo il completamento del corso precedente.', NEW.nome;
     END IF;
     
     RETURN NEW;
@@ -55,7 +55,7 @@ CREATE OR REPLACE FUNCTION enforce_corso_data_in_not_past()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.data_in < CURRENT_DATE THEN
-        RAISE EXCEPTION 'data_in "%" non può essere precedente alla data corrente "%"', NEW.data_in, CURRENT_DATE;
+        RAISE EXCEPTION 'data_in "%" non puo'' essere precedente alla data corrente "%"', NEW.data_in, CURRENT_DATE;
     END IF;
     RETURN NEW;
 END;

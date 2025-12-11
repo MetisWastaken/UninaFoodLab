@@ -39,7 +39,7 @@ BEGIN
         WHERE ip.stud_id = OLD.stud_id AND p.corso_id = OLD.corso_id
     LOOP
         IF NOT is_pratica_finished(pratica_record.id_pratica) THEN
-            RAISE EXCEPTION 'Lo studente "%" non può disiscriversi dal corso "%" perché è iscritto a una pratica non ancora terminata (id_pratica="%")', OLD.stud_id, OLD.corso_id, pratica_record.id_pratica;
+            RAISE EXCEPTION 'Lo studente "%" non puo'' disiscriversi dal corso "%" perche'' e'' iscritto a una pratica non ancora terminata (id_pratica="%")', OLD.stud_id, OLD.corso_id, pratica_record.id_pratica;
         END IF;
     END LOOP;
     RETURN OLD;

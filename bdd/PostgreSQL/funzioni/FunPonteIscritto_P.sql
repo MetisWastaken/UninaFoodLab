@@ -50,7 +50,7 @@ BEGIN
     PERFORM 1 FROM iscritto_c WHERE stud_id = NEW.stud_id AND corso_id = corso_id_pratica;
     
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'Lo studente "%" non è iscritto al corso (id: %) a cui appartiene la pratica (id: %). Iscrizione non effettuata', 
+        RAISE EXCEPTION 'Lo studente "%" non e'' iscritto al corso (id: %) a cui appartiene la pratica (id: %). Iscrizione non effettuata', 
         NEW.stud_id, corso_id_pratica, NEW.pratica_id;
     END IF;
     
@@ -67,7 +67,7 @@ CREATE OR REPLACE FUNCTION no_enroll_finished_pratica()
 RETURNS TRIGGER AS $$   
 BEGIN
     IF is_pratica_finished(NEW.pratica_id, (CURRENT_DATE + INTERVAL '1 d')::DATE) THEN
-        RAISE EXCEPTION 'Non è possibile iscriversi alla pratica "%" perché è già terminata.', NEW.pratica_id;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica "%" perche'' e'' gia'' terminata.', NEW.pratica_id;
     END IF;
     RETURN NEW;
 END;

@@ -27,7 +27,7 @@ BEGIN
             SELECT 1 FROM online
             WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id AND id_online <> NEW.id_online
         ) THEN
-            RAISE EXCEPTION 'Conflitto di data: esiste già una sessione online per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
+            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione online per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
         END IF;
     END IF;
 
@@ -48,7 +48,7 @@ BEGIN
             SELECT 1 FROM pratica
             WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id
         ) THEN
-            RAISE EXCEPTION 'Conflitto di data: esiste già una sessione pratica per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
+            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione pratica per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
         END IF;
     END IF;
 

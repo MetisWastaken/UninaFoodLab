@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION enforce_positive_quant_ing()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.quant_ing <= 0 THEN
-        RAISE EXCEPTION 'La quantità dell''ingrediente deve essere positiva. Valore fornito: %', NEW.quant_ing;
+        RAISE EXCEPTION 'La quantita'' dell''ingrediente deve essere positiva. Valore fornito: %', NEW.quant_ing;
     END IF;
     RETURN NEW;
 END;
@@ -48,7 +48,7 @@ BEGIN
     SELECT unit_misura INTO unit_misura_val FROM ingrediente WHERE nome = NEW.ingrediente_id;
 
     IF unit_misura_val IS NULL AND NEW.quant_ing != FLOOR(NEW.quant_ing) THEN
-        RAISE EXCEPTION 'Per l''ingrediente "%" con unità di misura NULL, la quantità deve essere un numero intero. Valore fornito: %', NEW.ingrediente_id, NEW.quant_ing;
+        RAISE EXCEPTION 'Per l''ingrediente "%" con unita'' di misura NULL, la quantita'' deve essere un numero intero. Valore fornito: %', NEW.ingrediente_id, NEW.quant_ing;
     END IF;
 
     RETURN NEW;
