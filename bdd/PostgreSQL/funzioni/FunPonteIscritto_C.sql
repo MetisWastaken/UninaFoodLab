@@ -54,7 +54,7 @@ CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
 RETURNS TRIGGER AS $$
     BEGIN
     IF is_corso_finished(NEW.corso_id) THEN
-        RAISE EXCEPTION 'Non è possibile iscriversi al corso "%" perché è già terminato.', NEW.corso_id;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso "%" perché e'' gia'' terminato.', NEW.corso_id;
     END IF;
     RETURN NEW;
 END;
