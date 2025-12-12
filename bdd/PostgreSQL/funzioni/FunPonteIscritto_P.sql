@@ -1,18 +1,21 @@
 -- funzione che verifica che stud_id punti a un utente di tipo 'Studente' e che pratica_id punti a una pratica esistente
 CREATE OR REPLACE FUNCTION enforce_iscrittop_checks()
 RETURNS TRIGGER AS $$   
+DECLARE
+    Data_sessione DATE;
 BEGIN
     IF NEW.stud_id IS NOT NULL THEN
         PERFORM 1 FROM utente WHERE username = NEW.stud_id AND tipo_utente = 'Studente';
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'stud_id "%" non corrisponde a un utente con tipo_utente = Studente', NEW.stud_id;
+            RAISE EXCEPTION 'studente con id: "%" non corrisponde a un utente con tipo_utente = Studente', NEW.stud_id;
         END IF;
     END IF;
 
     IF NEW.pratica_id IS NOT NULL THEN
         PERFORM 1 FROM pratica WHERE id_pratica = NEW.pratica_id;
+        SELECT giorno_sessione INTO Data_sessione FROM pratica WHERE id_pratica = NEW.pratica_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'pratica_id "%" non corrisponde a una pratica esistente', NEW.pratica_id;
+            RAISE EXCEPTION 'pratica con sessione in data "%" non corrisponde a una pratica esistente',Data_sessione;
         END IF;
     END IF;
 
@@ -28,9 +31,12 @@ FOR EACH ROW EXECUTE FUNCTION enforce_iscrittop_checks();
 -- Utilizza view_pratica_posti per il calcolo dei posti rimanenti
 CREATE OR REPLACE FUNCTION enforce_max_iscritti_pratica()
 RETURNS TRIGGER AS $$   
+DECLARE
+    Data_pratica DATE;
 BEGIN
     IF (SELECT posti_rimanenti FROM view_studenti_iscritti WHERE id_pratica = NEW.pratica_id) <= 0 THEN
-        RAISE EXCEPTION 'La pratica con id "%" ha raggiunto il numero massimo di iscritti', NEW.pratica_id;
+        SELECT giorno_sessione INTO Data_pratica FROM pratica WHERE id_pratica = NEW.pratica_id;
+        RAISE EXCEPTION 'La pratica con id "%" in data "%" ha raggiunto il numero massimo di iscritti', NEW.pratica_id, Data_pratica;
     END IF;
     RETURN NEW;
 END;
@@ -44,14 +50,20 @@ CREATE OR REPLACE FUNCTION enforce_student_enrolled_in_corso()
 RETURNS TRIGGER AS $$
 DECLARE
     corso_id_pratica INT;
+    corso_nome VARCHAR(50);
+    pratica_data DATE;
 BEGIN
-    SELECT corso_id INTO corso_id_pratica FROM pratica WHERE id_pratica = NEW.pratica_id;
-    
+    SELECT p.corso_id, c.nome, p.giorno_sessione
+    INTO corso_id_pratica, corso_nome, pratica_data
+    FROM pratica p
+    JOIN corso c ON p.corso_id = c.id_corso
+    WHERE p.id_pratica = NEW.pratica_id;
+
     PERFORM 1 FROM iscritto_c WHERE stud_id = NEW.stud_id AND corso_id = corso_id_pratica;
     
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'Lo studente "%" non e'' iscritto al corso (id: %) a cui appartiene la pratica (id: %). Iscrizione non effettuata', 
-        NEW.stud_id, corso_id_pratica, NEW.pratica_id;
+        RAISE EXCEPTION 'Lo studente "%" non e'' iscritto al corso "%" relativo alla pratica prevista per il giorno %', 
+        NEW.stud_id, corso_nome, pratica_data;
     END IF;
     
     RETURN NEW;
@@ -64,10 +76,19 @@ FOR EACH ROW EXECUTE FUNCTION enforce_student_enrolled_in_corso();
 
 -- Trigger che impedisce l'iscrizione a pratiche terminate (uno studente può iscriversi fino un giorno prima della fine)
 CREATE OR REPLACE FUNCTION no_enroll_finished_pratica()
-RETURNS TRIGGER AS $$   
+RETURNS TRIGGER AS $$  
+DECLARE
+    pratica_data DATE;
+    corso_nome VARCHAR(50);
 BEGIN
     IF is_pratica_finished(NEW.pratica_id, (CURRENT_DATE + INTERVAL '1 d')::DATE) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica "%" perche'' e'' gia'' terminata.', NEW.pratica_id;
+        SELECT p.giorno_sessione, c.nome
+        INTO pratica_data, corso_nome
+        FROM pratica p
+        JOIN corso c ON p.corso_id = c.id_corso
+        WHERE p.id_pratica = NEW.pratica_id;
+
+        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica del giorno % (corso: %) perche'' risulta gia'' terminata.', pratica_data, corso_nome;
     END IF;
     RETURN NEW;
 END;
