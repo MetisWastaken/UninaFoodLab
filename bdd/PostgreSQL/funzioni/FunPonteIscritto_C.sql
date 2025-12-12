@@ -31,17 +31,15 @@ CREATE OR REPLACE FUNCTION enforce_iscrittoc_unenroll_checks()
 RETURNS TRIGGER AS $$
 DECLARE
     pratica_record RECORD;
-    corso_nome VARCHAR(50);
-BEGIN   
-    SELECT nome INTO corso_nome FROM corso WHERE id_corso = OLD.corso_id;
+BEGIN
     FOR pratica_record IN
-        SELECT p.id_pratica, p.giorno_sessione
+        SELECT p.id_pratica
         FROM pratica p
         JOIN iscritto_p ip ON p.id_pratica = ip.pratica_id
         WHERE ip.stud_id = OLD.stud_id AND p.corso_id = OLD.corso_id
     LOOP
         IF NOT is_pratica_finished(pratica_record.id_pratica) THEN
-            RAISE EXCEPTION 'Lo studente "%" non puo'' disiscriversi dal corso "%" perche'' la pratica del giorno % non e'' ancora terminata.', OLD.stud_id, corso_nome, pratica_record.giorno_sessione;
+            RAISE EXCEPTION 'Lo studente "%" non puo'' disiscriversi dal corso "%" perche'' e'' iscritto a una pratica non ancora terminata (id_pratica="%")', OLD.stud_id, OLD.corso_id, pratica_record.id_pratica;
         END IF;
     END LOOP;
     RETURN OLD;
@@ -54,12 +52,9 @@ FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_unenroll_checks();
 -- Trigger che impedisce l'iscrizione a corsi già terminati
 CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
 RETURNS TRIGGER AS $$
-DECLARE
-    corso_nome VARCHAR(50);
-BEGIN
-    SELECT nome INTO corso_nome FROM corso WHERE id_corso = NEW.corso_id;
+    BEGIN
     IF is_corso_finished(NEW.corso_id) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso "%" perche'' risulta gia'' terminato.', corso_nome;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso "%" perché e'' gia'' terminato.', NEW.corso_id;
     END IF;
     RETURN NEW;
 END;
