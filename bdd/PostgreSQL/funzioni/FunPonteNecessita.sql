@@ -48,7 +48,7 @@ BEGIN
     SELECT unit_misura INTO unit_misura_val FROM ingrediente WHERE nome = NEW.ingrediente_id;
 
     IF unit_misura_val IS NULL AND NEW.quant_ing != FLOOR(NEW.quant_ing) THEN
-        RAISE EXCEPTION 'Per l''ingrediente "%" con unita'' di misura NULL, la quantita'' deve essere un numero intero. Valore fornito: %', NEW.ingrediente_id, NEW.quant_ing;
+        RAISE EXCEPTION 'Per l''ingrediente "%", la quantita'' deve essere un numero intero. Valore fornito: %', NEW.ingrediente_id, NEW.quant_ing;
     END IF;
 
     RETURN NEW;
