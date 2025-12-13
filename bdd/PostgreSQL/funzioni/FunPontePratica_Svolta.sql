@@ -42,7 +42,7 @@ BEGIN
     ORDER BY onl.giorno_sessione DESC LIMIT 1;
 
     IF giorno_online IS NULL THEN
-        RAISE EXCEPTION 'La ricetta_id "%" non e'' stata presentata in una sessione online prima della pratica_id "%"', NEW.ricetta_id, NEW.pratica_id;
+        RAISE EXCEPTION 'Il nome della "%" non e'' stata presentata in una sessione online prima della pratica del giorno "%"',(SELECT nome FROM ricetta WHERE id_ricetta = NEW.ricetta_id), (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id);
     END IF;
     RETURN NEW;
 END;
