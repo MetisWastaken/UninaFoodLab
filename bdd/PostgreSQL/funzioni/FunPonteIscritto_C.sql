@@ -12,7 +12,7 @@ BEGIN
     IF NEW.corso_id IS NOT NULL THEN
         PERFORM 1 FROM corso WHERE id_corso = NEW.corso_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'corso_id "%" non corrisponde a un corso esistente', NEW.corso_id;
+            RAISE EXCEPTION 'Il corso con id "%" non esiste', NEW.corso_id;
         END IF;
     END IF;
 

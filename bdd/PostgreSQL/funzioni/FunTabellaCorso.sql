@@ -5,7 +5,7 @@ BEGIN
     IF NEW.chef_id IS NOT NULL THEN
         PERFORM 1 FROM utente WHERE username = NEW.chef_id AND tipo_utente = 'Chef';
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'chef_id "%" non corrisponde a un utente con tipo_utente = Chef', NEW.chef_id;
+            RAISE EXCEPTION 'L''utente di nome "%" non e'' uno Chef', NEW.chef_id;
         END IF;
     END IF;
     RETURN NEW;
@@ -21,7 +21,7 @@ CREATE OR REPLACE FUNCTION enforce_corso_data_in_is_minor_than_data_fin()
 RETURNS TRIGGER AS $$
 BEGIN
         IF NEW.data_in > NEW.data_fin THEN
-            RAISE EXCEPTION 'data_in "%" deve essere minore o uguale di data_fin "%"', NEW.data_in, NEW.data_fin;
+            RAISE EXCEPTION 'La data d''inizio "%" deve essere minore o uguale di data di fine "%"', NEW.data_in, NEW.data_fin;
     END IF;
     RETURN NEW;
 END;
@@ -55,7 +55,7 @@ CREATE OR REPLACE FUNCTION enforce_corso_data_in_not_past()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.data_in < CURRENT_DATE THEN
-        RAISE EXCEPTION 'data_in "%" non puo'' essere precedente alla data corrente "%"', NEW.data_in, CURRENT_DATE;
+        RAISE EXCEPTION 'La data d''inizio "%" non puo'' essere precedente alla data corrente "%"', NEW.data_in, CURRENT_DATE;
     END IF;
     RETURN NEW;
 END;

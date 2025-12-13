@@ -12,7 +12,7 @@ BEGIN
     IF NEW.pratica_id IS NOT NULL THEN
         PERFORM 1 FROM pratica WHERE id_pratica = NEW.pratica_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'pratica_id "%" non corrisponde a una pratica esistente', NEW.pratica_id;
+            RAISE EXCEPTION 'La pratica con id "%" non esiste', NEW.pratica_id;
         END IF;
     END IF;
 

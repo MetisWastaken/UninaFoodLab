@@ -5,14 +5,14 @@ BEGIN
     IF NEW.online_id IS NOT NULL THEN
         PERFORM 1 FROM online WHERE id_online = NEW.online_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'online_id "%" non corrisponde a una sessione online esistente', NEW.online_id;
+            RAISE EXCEPTION 'La sessione online con id "%" non esiste', NEW.online_id;
         END IF;
     END IF;
 
     IF NEW.ricetta_id IS NOT NULL THEN
         PERFORM 1 FROM ricetta WHERE id_ricetta = NEW.ricetta_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'ricetta_id "%" non corrisponde a una ricetta esistente', NEW.ricetta_id;
+            RAISE EXCEPTION 'La ricetta con id "%" non esiste', NEW.ricetta_id;
         END IF;
     END IF;
 

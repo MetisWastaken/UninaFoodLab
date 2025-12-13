@@ -26,7 +26,7 @@ BEGIN
             SELECT 1 FROM pratica
             WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id AND id_pratica <> NEW.id_pratica
         ) THEN
-            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione pratica per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
+            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione pratica per il corso di nome "%" nella data "%" ', (SELECT nome FROM corso WHERE id_corso = NEW.corso_id), NEW.giorno_sessione;
         END IF;
     END IF;
 
@@ -46,7 +46,7 @@ BEGIN
             SELECT 1 FROM online
             WHERE giorno_sessione = NEW.giorno_sessione AND corso_id = NEW.corso_id
         ) THEN
-            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione online per il corso_id "%" nella data "%" ', NEW.corso_id, NEW.giorno_sessione;
+            RAISE EXCEPTION 'Conflitto di data: esiste gia'' una sessione online per il corso di nome "%" nella data "%" ', (SELECT nome FROM corso WHERE id_corso = NEW.corso_id), NEW.giorno_sessione;
         END IF;
     END IF;
 
@@ -71,7 +71,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---Trigger si trova a riga 68 in FunTabellaCorso.sql
+--Trigger si trova a riga 69 in FunTabellaCorso.sql
 
 CREATE TRIGGER trg_enforce_sessione_date_within_corso
 BEFORE INSERT OR UPDATE ON pratica

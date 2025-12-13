@@ -5,14 +5,14 @@ BEGIN
     IF NEW.pratica_id IS NOT NULL THEN
         PERFORM 1 FROM pratica WHERE id_pratica = NEW.pratica_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'pratica_id "%" non corrisponde a una sessione pratica esistente', NEW.pratica_id;
+            RAISE EXCEPTION 'La pratica con id "%" non corrisponde a una sessione pratica esistente', NEW.pratica_id;
         END IF;
     END IF;
 
     IF NEW.ricetta_id IS NOT NULL THEN
         PERFORM 1 FROM ricetta WHERE id_ricetta = NEW.ricetta_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'ricetta_id "%" non corrisponde a una ricetta esistente', NEW.ricetta_id;
+            RAISE EXCEPTION 'La ricetta con id "%" non esiste', NEW.ricetta_id;
         END IF;
     END IF;
 

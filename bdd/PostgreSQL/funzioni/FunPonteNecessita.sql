@@ -5,14 +5,14 @@ BEGIN
     IF NEW.ricetta_id IS NOT NULL THEN
         PERFORM 1 FROM ricetta WHERE id_ricetta = NEW.ricetta_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'ricetta_id "%" non corrisponde a una ricetta esistente', NEW.ricetta_id;
+            RAISE EXCEPTION 'La ricetta con id "%" non esiste', NEW.ricetta_id;
         END IF;
     END IF;
 
     IF NEW.ingrediente_id IS NOT NULL THEN
         PERFORM 1 FROM ingrediente WHERE nome = NEW.ingrediente_id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'ingrediente_id "%" non corrisponde a un ingrediente esistente', NEW.ingrediente_id;
+            RAISE EXCEPTION 'L''ingrediente di nome "%" non esiste', NEW.ingrediente_id;
         END IF;
     END IF;
 
