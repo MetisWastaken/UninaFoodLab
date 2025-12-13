@@ -33,7 +33,7 @@ FUNZIONI TABELLA CORSO (FunTabellaCorso.sql)
 
 6. enforce_sessione_date_within_corso()
    Descrizione: Vieta l'inserimento di una sessione al di fuori delle date di inizio e fine corso.
-   Trigger associato: trg_enforce_sessione_date_within_corso (su pratica)
+   Trigger associato: trg_enforce_sessione_date_within_corso
    Evento: BEFORE INSERT OR UPDATE on pratica e online
 
 7. is_corso_finished(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE) -> BOOLEAN
@@ -68,95 +68,107 @@ FUNZIONI TABELLA RICETTA (FunTabellaRicetta.sql)
     Trigger associato: trg_ricetta_name_is_unique
     Evento: BEFORE INSERT OR UPDATE on ricetta
 
+FUNZIONI TABELLA INGREDIENTE (FunTabellaIngrediente.sql)
+---------------------------------------------------------
+13. check_ingrediente_nome_univoco()
+    Descrizione: Controlla che il nome dell'ingrediente sia univoco nel database.
+    Trigger associato: trg_check_ingrediente_nome_univoco
+    Evento: BEFORE INSERT OR UPDATE on ingrediente
+
+14. check_ingrediente_nome_valido()
+    Descrizione: Assicura che il nome dell'ingrediente sia valido (contiene solo lettere, no numeri, simboli, spazi o vuoto).
+    Trigger associato: trg_check_ingrediente_nome_valido
+    Evento: BEFORE INSERT OR UPDATE on ingrediente
+
 FUNZIONI TABELLA ONLINE (FunTabellaOnline.sql)
 -----------------------------------------------
-13. enforce_online_checks()
+15. enforce_online_checks()
     Descrizione: Verifica che corso_id punti a un corso esistente nella tabella corso.
     Trigger associato: trg_enforce_online_checks
     Evento: BEFORE INSERT OR UPDATE on online
 
-14. prevent_online_date_conflict()
+16. prevent_online_date_conflict()
     Descrizione: Evita che due sessioni online dello stesso corso abbiano lo stesso giorno_sessione.
     Trigger associato: trg_prevent_online_date_conflict
     Evento: BEFORE INSERT OR UPDATE on online
 
-15. prevent_online_pratica_date_conflict()
+17. prevent_online_pratica_date_conflict()
     Descrizione: Evita che una sessione online e una sessione pratica dello stesso corso abbiano lo stesso giorno_sessione.
     Trigger associato: trg_prevent_online_pratica_date_conflict
     Evento: BEFORE INSERT OR UPDATE on online
 
 FUNZIONI PONTE ISCRITTO_C (FunPonteIscritto_C.sql)
 ---------------------------------------------------
-16. enforce_iscrittoc_checks()
+18. enforce_iscrittoc_checks()
     Descrizione: Verifica che stud_id sia un utente di tipo 'Studente' e che corso_id punti a un corso esistente.
     Trigger associato: trg_iscrittoc_checks
     Evento: BEFORE INSERT OR UPDATE on iscritto_c
 
-17. enforce_iscrittoc_unenroll_checks()
+19. enforce_iscrittoc_unenroll_checks()
     Descrizione: Controlla se uno studente può disiscriversi da un corso (non deve essere iscritto a pratiche non ancora terminate).
     Trigger associato: trg_enforce_iscrittoc_unenroll_checks
     Evento: BEFORE DELETE on iscritto_c
 
-18. no_enroll_finished_corso()
+20. no_enroll_finished_corso()
     Descrizione: Impedisce l'iscrizione a corsi già terminati.
     Trigger associato: trg_cant_enroll_finished_corso
     Evento: BEFORE INSERT on iscritto_c
 
 FUNZIONI PONTE ISCRITTO_P (FunPonteIscritto_P.sql)
 ---------------------------------------------------
-19. enforce_iscrittop_checks()
+21. enforce_iscrittop_checks()
     Descrizione: Verifica che stud_id sia un utente di tipo 'Studente' e che pratica_id punti a una pratica esistente.
     Trigger associato: trg_enforce_iscrittop_checks
     Evento: BEFORE INSERT OR UPDATE on iscritto_p
 
-20. enforce_max_iscritti_pratica()
+22. enforce_max_iscritti_pratica()
     Descrizione: Vieta l'aggiunta di un nuovo iscritto se la pratica ha raggiunto il numero massimo di partecipanti.
     Trigger associato: trg_enforce_max_iscritti_pratica
     Evento: BEFORE INSERT on iscritto_p
-    Dipendenza: view_pratica_posti
+    Dipendenza: view_studenti_iscritti
 
-21. enforce_student_enrolled_in_corso()
+23. enforce_student_enrolled_in_corso()
     Descrizione: Verifica che lo studente sia iscritto al corso prima di iscriversi a una pratica di quel corso.
     Trigger associato: trg_enforce_student_enrolled_in_corso
     Evento: BEFORE INSERT OR UPDATE on iscritto_p
 
-22. no_enroll_finished_pratica()
+24. no_enroll_finished_pratica()
     Descrizione: Impedisce l'iscrizione a pratiche terminate (uno studente può iscriversi fino un giorno prima della fine).
     Trigger associato: trg_no_enroll_finished_pratica
     Evento: BEFORE INSERT OR UPDATE on iscritto_p
 
 FUNZIONI PONTE NECESSITA (FunPonteNecessita.sql)
 -------------------------------------------------
-23. enforce_necessita_checks()
+25. enforce_necessita_checks()
     Descrizione: Verifica che ricetta_id punti a una ricetta esistente e ingrediente_id punti a un ingrediente esistente.
     Trigger associato: trg_enforce_necessita_checks
     Evento: BEFORE INSERT OR UPDATE on necessita
 
-24. enforce_positive_quant_ing()
+26. enforce_positive_quant_ing()
     Descrizione: Controlla che la quantità dell'ingrediente sia sempre positiva.
     Trigger associato: trg_enforce_positive_quant_ing
     Evento: BEFORE INSERT OR UPDATE on necessita
 
-25. enforce_non_integer_for_null_unit_misura()
+27. enforce_non_integer_for_null_unit_misura()
     Descrizione: Impedisce l'inserimento di valori non interi per ingredienti senza unità di misura (pezzi).
     Trigger associato: trg_enforce_non_integer_for_null_unit_misura
     Evento: BEFORE INSERT OR UPDATE on necessita
 
 FUNZIONI PONTE PRATICA_SVOLTA (FunPontePratica_Svolta.sql)
 ----------------------------------------------------------
-26. enforce_pratica_svolta_checks()
+28. enforce_pratica_svolta_checks()
     Descrizione: Verifica che pratica_id punti a una sessione pratica esistente e ricetta_id punti a una ricetta esistente.
     Trigger associato: trg_enforce_pratica_svolta_checks
     Evento: BEFORE INSERT OR UPDATE on pratica_svolta
 
-27. check_ricetta_if_presentata()
+29. check_ricetta_if_presentata()
     Descrizione: Vieta l'inserimento di una ricetta non svolta in una sessione online precedente alla pratica.
     Trigger associato: trg_check_ricetta_if_presentata
     Evento: BEFORE INSERT OR UPDATE on pratica_svolta
 
 FUNZIONI PONTE TEORIA (FunPonteTeoria.sql)
 -------------------------------------------
-28. enforce_teoria_checks()
+30. enforce_teoria_checks()
     Descrizione: Verifica che online_id punti a una sessione online esistente e ricetta_id punti a una ricetta esistente.
     Trigger associato: trg_enforce_teoria_checks
     Evento: BEFORE INSERT OR UPDATE on teoria
@@ -164,14 +176,14 @@ FUNZIONI PONTE TEORIA (FunPonteTeoria.sql)
 ===============================================
 VIEW (View.sql)
 ===============================================
-1. view_pratica_posti
+1. view_studenti_iscritti
    Descrizione: Visualizza il numero di posti totali, occupati e rimanenti per ogni sessione pratica.
    Dipendenze: tabella pratica, tabella iscritto_p
    Utilizzo: Controllo posti rimanenti nelle pratiche (enforce_max_iscritti_pratica)
 
 2. view_ingredienti_pratica
    Descrizione: Visualizza il totale di ingredienti utilizzati per ogni pratica (somma degli ingredienti di tutte le ricette associate, moltiplicato per il numero di iscritti).
-   Dipendenze: tabella pratica, tabella pratica_svolta, tabella ricetta, tabella necessita, tabella ingrediente, view_pratica_posti
+   Dipendenze: tabella pratica, tabella pratica_svolta, tabella ricetta, tabella necessita, tabella ingrediente, view_studenti_iscritti
    Utilizzo: Calcolo quantità ingredienti necessari per le sessioni pratiche
 
 ===============================================
