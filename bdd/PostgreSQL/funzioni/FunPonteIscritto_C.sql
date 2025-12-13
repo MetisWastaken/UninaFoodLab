@@ -5,7 +5,7 @@ BEGIN
     IF NEW.stud_id IS NOT NULL THEN
         PERFORM 1 FROM utente WHERE username = NEW.stud_id AND tipo_utente = 'Studente';
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'stud_id "%" non corrisponde a un utente con tipo_utente = Studente', NEW.stud_id;
+            RAISE EXCEPTION 'L''utente "%" non e'' uno Studente', NEW.stud_id;
         END IF;
     END IF;
 
@@ -39,7 +39,7 @@ BEGIN
         WHERE ip.stud_id = OLD.stud_id AND p.corso_id = OLD.corso_id
     LOOP
         IF NOT is_pratica_finished(pratica_record.id_pratica) THEN
-            RAISE EXCEPTION 'Lo studente "%" non puo'' disiscriversi dal corso "%" perche'' e'' iscritto a una pratica non ancora terminata (id_pratica="%")', OLD.stud_id, OLD.corso_id, pratica_record.id_pratica;
+            RAISE EXCEPTION 'Lo studente "%" non puo'' disiscriversi dal corso dal nome "%" perche'' e'' iscritto ad almeno una pratica non ancora terminata', OLD.stud_id, (SELECT nome FROM corso WHERE id_corso = OLD.corso_id);
         END IF;
     END LOOP;
     RETURN OLD;
@@ -54,7 +54,7 @@ CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
 RETURNS TRIGGER AS $$
     BEGIN
     IF is_corso_finished(NEW.corso_id) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso "%" perché e'' gia'' terminato.', NEW.corso_id;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché e'' gia'' terminato.', (SELECT nome FROM corso WHERE id_corso = NEW.corso_id);
     END IF;
     RETURN NEW;
 END;

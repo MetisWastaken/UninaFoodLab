@@ -5,7 +5,7 @@ BEGIN
     IF NEW.stud_id IS NOT NULL THEN
         PERFORM 1 FROM utente WHERE username = NEW.stud_id AND tipo_utente = 'Studente';
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'stud_id "%" non corrisponde a un utente con tipo_utente = Studente', NEW.stud_id;
+            RAISE EXCEPTION 'L''utente "%" non e'' uno Studente', NEW.stud_id;
         END IF;
     END IF;
 
@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION enforce_max_iscritti_pratica()
 RETURNS TRIGGER AS $$   
 BEGIN
     IF (SELECT posti_rimanenti FROM view_studenti_iscritti WHERE id_pratica = NEW.pratica_id) <= 0 THEN
-        RAISE EXCEPTION 'La pratica con id "%" ha raggiunto il numero massimo di iscritti', NEW.pratica_id;
+        RAISE EXCEPTION 'La pratica del giorno "%" ha raggiunto il numero massimo di iscritti', (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id);
     END IF;
     RETURN NEW;
 END;
@@ -50,8 +50,8 @@ BEGIN
     PERFORM 1 FROM iscritto_c WHERE stud_id = NEW.stud_id AND corso_id = corso_id_pratica;
     
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'Lo studente "%" non e'' iscritto al corso (id: %) a cui appartiene la pratica (id: %). Iscrizione non effettuata', 
-        NEW.stud_id, corso_id_pratica, NEW.pratica_id;
+        RAISE EXCEPTION 'Lo studente "%" non e'' iscritto al corso dal nome "%" a cui appartiene la pratica avente data "%". Iscrizione non effettuata', 
+        NEW.stud_id, (SELECT nome FROM corso WHERE id_corso = corso_id_pratica), (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id);
     END IF;
     
     RETURN NEW;
@@ -67,7 +67,7 @@ CREATE OR REPLACE FUNCTION no_enroll_finished_pratica()
 RETURNS TRIGGER AS $$   
 BEGIN
     IF is_pratica_finished(NEW.pratica_id, (CURRENT_DATE + INTERVAL '1 d')::DATE) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica "%" perche'' e'' gia'' terminata.', NEW.pratica_id;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica del giorno "%" in quanto e'' gia'' terminato il periodo d''iscrizione.', (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id);
     END IF;
     RETURN NEW;
 END;
