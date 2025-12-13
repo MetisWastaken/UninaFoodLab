@@ -29,7 +29,7 @@ FOR EACH ROW EXECUTE FUNCTION enforce_iscrittop_checks();
 CREATE OR REPLACE FUNCTION enforce_max_iscritti_pratica()
 RETURNS TRIGGER AS $$   
 BEGIN
-    IF (SELECT posti_rimanenti FROM view_pratica_posti WHERE id_pratica = NEW.pratica_id) <= 0 THEN
+    IF (SELECT posti_rimanenti FROM view_studenti_iscritti WHERE id_pratica = NEW.pratica_id) <= 0 THEN
         RAISE EXCEPTION 'La pratica con id "%" ha raggiunto il numero massimo di iscritti', NEW.pratica_id;
     END IF;
     RETURN NEW;

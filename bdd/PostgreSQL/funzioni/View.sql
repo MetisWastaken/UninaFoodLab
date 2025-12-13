@@ -1,5 +1,5 @@
 --View necessaria per controllo posti rimanenti (in pratica)
-CREATE OR REPLACE VIEW view_pratica_posti AS
+CREATE OR REPLACE VIEW view_studenti_iscritti AS
 SELECT 
     p.id_pratica,
     p.corso_id,
@@ -23,5 +23,5 @@ JOIN pratica_svolta ps ON p.id_pratica = ps.pratica_id
 JOIN ricetta r ON ps.ricetta_id = r.id_ricetta
 JOIN necessita n ON r.id_ricetta = n.ricetta_id
 JOIN ingrediente i ON n.ingrediente_id = i.nome
-LEFT JOIN view_pratica_posti vpp ON p.id_pratica = vpp.id_pratica
+LEFT JOIN view_studenti_iscritti vpp ON p.id_pratica = vpp.id_pratica
 GROUP BY p.id_pratica, i.nome;
