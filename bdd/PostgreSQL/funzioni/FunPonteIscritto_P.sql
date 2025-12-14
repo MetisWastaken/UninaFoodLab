@@ -76,3 +76,22 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_no_enroll_finished_pratica
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION no_enroll_finished_pratica();
+
+-- Trigger che impedisce l'inscrizione a pratiche dove il corso non è ancora iniziato
+CREATE OR REPLACE FUNCTION no_enroll_pratica_before_corso_start()
+RETURNS TRIGGER AS $$
+DECLARE
+    corso_id_pratica INT;
+BEGIN
+    SELECT corso_id INTO corso_id_pratica FROM pratica WHERE id_pratica = NEW.pratica_id;
+    
+    IF NOT is_corso_started(corso_id_pratica) THEN
+        RAISE EXCEPTION 'Non e'' possibile iscriversi alla pratica del giorno "%" prima dell''inizio del corso previsto per il "%".', 
+        (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id), (SELECT data_in FROM corso WHERE id_corso = corso_id_pratica);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_no_enroll_pratica_before_corso_start
+BEFORE INSERT OR UPDATE ON iscritto_p
+FOR EACH ROW EXECUTE FUNCTION no_enroll_pratica_before_corso_start();
