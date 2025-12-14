@@ -49,17 +49,40 @@ CREATE TRIGGER trg_enforce_iscrittoc_unenroll_checks
 BEFORE DELETE ON iscritto_c
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_unenroll_checks();
 
--- Trigger che impedisce l'iscrizione a corsi già terminati
-CREATE OR REPLACE FUNCTION no_enroll_finished_corso()
+-- Trigger che controlla se è possibile iscriversi al corso: il bando di iscrizione apre una settimana prima dell'inizio e chiude quando il corso inizia
+CREATE OR REPLACE FUNCTION enforce_enroll_corso_date_checks()
 RETURNS TRIGGER AS $$
-    BEGIN
-    IF is_corso_finished(NEW.corso_id) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché e'' gia'' terminato.', (SELECT nome FROM corso WHERE id_corso = NEW.corso_id);
+DECLARE
+    corso_start_date DATE;
+    corso_end_date DATE;
+    enroll_open_date DATE;
+    corso_nome VARCHAR;
+BEGIN
+    -- Recupera i dati del corso
+    SELECT data_in, data_fin, nome INTO corso_start_date, corso_end_date, corso_nome FROM corso WHERE id_corso = NEW.corso_id;
+    
+    -- Calcola la data di apertura del bando (una settimana prima dell'inizio)
+    enroll_open_date := corso_start_date - INTERVAL '7 days';
+    
+    -- Controlla se il corso è già terminato usando la funzione is_corso_finished
+    IF is_corso_finished(NEW.corso_id, NEW.data_iscrizione::DATE) THEN
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché e'' gia'' terminato il "%".', corso_nome, corso_end_date;
     END IF;
+    
+    -- Controlla se la data di iscrizione è prima dell'apertura del bando
+    IF NEW.data_iscrizione::DATE < enroll_open_date THEN
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il bando non è ancora aperto. Il bando aprirà il "%".', corso_nome, enroll_open_date;
+    END IF;
+    
+    -- Controlla se il corso è già iniziato usando la funzione is_corso_started
+    IF is_corso_started(NEW.corso_id, NEW.data_iscrizione::DATE) THEN
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il corso è già iniziato il "%".', corso_nome, corso_start_date;
+    END IF;
+    
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_cant_enroll_finished_corso
+CREATE TRIGGER trg_enforce_enroll_corso_date_checks
 BEFORE INSERT ON iscritto_c
-FOR EACH ROW EXECUTE FUNCTION no_enroll_finished_corso();
+FOR EACH ROW EXECUTE FUNCTION enforce_enroll_corso_date_checks();
