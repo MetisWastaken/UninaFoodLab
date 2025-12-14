@@ -96,3 +96,17 @@ BEGIN
     RETURN corso_end_date < checkDate;
 END;
 $$ LANGUAGE plpgsql;
+
+---Funzione che restituisce true se un corso(id) è iniziato(data_in passato), false altrimenti
+CREATE OR REPLACE FUNCTION is_corso_started(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE)
+RETURNS BOOLEAN AS $$
+DECLARE
+    corso_start_date DATE;
+BEGIN
+    SELECT data_in INTO corso_start_date FROM corso WHERE id_corso = corso_id;
+    IF corso_start_date IS NULL THEN
+        RAISE EXCEPTION 'Il corso con id "%" non esiste', corso_id;
+    END IF;
+    RETURN corso_start_date <= checkDate;
+END; 
+$$ LANGUAGE plpgsql;
