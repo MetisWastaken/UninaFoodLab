@@ -76,3 +76,33 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_enforce_sessione_date_within_corso
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION enforce_sessione_date_within_corso();
+
+--Trigger che evita l'inserimento di posti_totali negativi 
+CREATE OR REPLACE FUNCTION prevent_negative_posti_totali()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.posti_totali < 0 THEN
+        RAISE EXCEPTION 'Il numero di posti_totali non puo'' essere negativo: %', NEW.posti_totali;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_prevent_negative_posti_totali
+BEFORE INSERT OR UPDATE ON pratica
+FOR EACH ROW EXECUTE FUNCTION prevent_negative_posti_totali();
+
+--Trigger che previene l'inesimento di un numero di posti_toali diverso da 0 se aula è NULL
+CREATE OR REPLACE FUNCTION prevent_posti_totali_with_null_aula()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.aula IS NULL AND NEW.posti_totali <> 0 THEN
+        RAISE EXCEPTION 'Se aula e'' NULL, posti_totali deve essere 0, non %', NEW.posti_totali;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_prevent_posti_totali_with_null_aula
+BEFORE INSERT OR UPDATE ON pratica
+FOR EACH ROW EXECUTE FUNCTION prevent_posti_totali_with_null_aula();
