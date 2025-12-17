@@ -25,7 +25,7 @@ CREATE TRIGGER trg_enforce_pratica_svolta_checks
 BEFORE INSERT OR UPDATE ON pratica_svolta
 FOR EACH ROW EXECUTE FUNCTION enforce_pratica_svolta_checks();
 
---Trigger che vieta l'inserimento di una ricetta non svolta in una sessione online precedente alla pratica
+--Trigger che vieta l'inserimento di una ricetta non svolta in una sessione pratica precedente alla online
 CREATE OR REPLACE FUNCTION check_ricetta_if_presentata()
 RETURNS TRIGGER AS $$
 DECLARE

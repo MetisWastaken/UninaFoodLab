@@ -14,9 +14,9 @@ CREATE TABLE utente (
     cognome VARCHAR(100)
 );
 
-COMMENT ON TABLE utente IS 'Tabella utenti — PK: username';
-COMMENT ON COLUMN utente.username IS 'Primary key: username';
-COMMENT ON COLUMN utente.tipo_utente IS 'Tipo utente: enum_u (Chef, Studente)';
-COMMENT ON COLUMN utente.password IS 'Password (salvatela hashed)';
-COMMENT ON COLUMN utente.nome IS 'Nome';
-COMMENT ON COLUMN utente.cognome IS 'Cognome';
+COMMENT ON TABLE utente IS 'Registro di tutti gli utenti del sistema (Chef e Studenti)';
+COMMENT ON COLUMN utente.username IS 'Identificativo(anche detto "nickname") univoco scelto dall''utente per l''accesso';
+COMMENT ON COLUMN utente.tipo_utente IS 'Ruolo assegnato all''utente: può essere ''Chef'' o ''Studente''';
+COMMENT ON COLUMN utente.password IS 'Codice di accesso';
+COMMENT ON COLUMN utente.nome IS 'Nome di battesimo dell''utente';
+COMMENT ON COLUMN utente.cognome IS 'Cognome dell''utente';
