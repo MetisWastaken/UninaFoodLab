@@ -12,6 +12,6 @@ CREATE TABLE ingrediente (
     unit_misura enum_i 
 );
 
-COMMENT ON TABLE ingrediente IS 'Tabella ingrediente — PK: nome';
-COMMENT ON COLUMN ingrediente.nome IS 'Primary key: nome';
-COMMENT ON COLUMN ingrediente.unit_misura IS 'Unità di misura';
+COMMENT ON TABLE ingrediente IS 'Elenco degli ingredienti utilizzabili nelle ricette';
+COMMENT ON COLUMN ingrediente.nome IS 'Identificatore univoco dell''ingrediente (es. Farina, Zucchero)';
+COMMENT ON COLUMN ingrediente.unit_misura IS 'Unità di misura standard per l''ingrediente (chili o litri)';

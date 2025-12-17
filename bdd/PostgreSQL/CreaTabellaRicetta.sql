@@ -5,7 +5,7 @@ CREATE TABLE ricetta (
     nome VARCHAR(200) NOT NULL,
     descrizione TEXT
 );
-COMMENT ON TABLE ricetta IS 'Tabella ricetta — PK: id_ricetta';
-COMMENT ON COLUMN ricetta.id_ricetta IS 'Primary key: id_ricetta';
-COMMENT ON COLUMN ricetta.nome IS 'Nome ricetta';
-COMMENT ON COLUMN ricetta.descrizione IS 'Descrizione ricetta';
+COMMENT ON TABLE ricetta IS 'Registro delle ricette culinarie disponibili';
+COMMENT ON COLUMN ricetta.id_ricetta IS 'Identificativo univoco della ricetta autoincrementato';
+COMMENT ON COLUMN ricetta.nome IS 'Nome della ricetta (es. Carbonara, Tiramisù)';
+COMMENT ON COLUMN ricetta.descrizione IS 'Descrizione dettagliata della ricetta';

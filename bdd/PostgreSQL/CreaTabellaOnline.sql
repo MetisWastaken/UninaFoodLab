@@ -10,9 +10,9 @@ CREATE TABLE online (
         FOREIGN KEY(corso_id)
             REFERENCES corso(id_corso) ON DELETE CASCADE
 );
-COMMENT ON TABLE online IS 'Tabella memorizza i dati relativi alle sessioni online dei corsi';
-COMMENT ON COLUMN online.id_online IS 'Primary key: id della sessione online';
-COMMENT ON COLUMN online.giorno_sessione IS 'Data della sessione online';
-COMMENT ON COLUMN online.codice_meeting IS 'Codice meeting della sessione online';
-COMMENT ON COLUMN online.corso_id IS 'FK -> corso(id_corso)';
+COMMENT ON TABLE online IS 'Registro delle sessioni di lezione svolte in modalità online';
+COMMENT ON COLUMN online.id_online IS 'Identificativo univoco della sessione online';
+COMMENT ON COLUMN online.giorno_sessione IS 'Data in cui si svolge la sessione online';
+COMMENT ON COLUMN online.codice_meeting IS 'Codice o link per accedere al meeting virtuale';
+COMMENT ON COLUMN online.corso_id IS 'Riferimento al corso a cui è associata la sessione';
 
