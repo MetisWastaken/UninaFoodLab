@@ -31,12 +31,12 @@ CREATE TRIGGER trg_corso_data_in_is_minor_than_data_fin
 BEFORE INSERT OR UPDATE ON corso
 FOR EACH ROW EXECUTE FUNCTION enforce_corso_data_in_is_minor_than_data_fin();
 
--- Funzione che verifica che il nome del corso non sia già in uso da un corso attivo
+-- Funzione che verifica che il nome del corso non sia già in uso da un corso attivo dallo stesso chef
 CREATE OR REPLACE FUNCTION enforce_unique_nome_corso_attivo()
 RETURNS TRIGGER AS $$
 BEGIN
     PERFORM 1 FROM corso 
-    WHERE nome = NEW.nome AND data_fin >= NEW.data_in AND data_in <= NEW.data_fin AND id_corso != NEW.id_corso;
+    WHERE nome = NEW.nome AND data_fin >= NEW.data_in AND data_in <= NEW.data_fin AND id_corso != NEW.id_corso AND chef_id = NEW.chef_id;
     
     IF FOUND THEN
         RAISE EXCEPTION 'Esiste gia'' un corso attivo con nome "%". Il nome puo'' essere riutilizzato solo dopo il completamento del corso precedente.', NEW.nome;
