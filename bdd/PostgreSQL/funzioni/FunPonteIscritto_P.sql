@@ -95,3 +95,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_no_enroll_pratica_before_corso_start
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION no_enroll_pratica_before_corso_start();
+
+--Trigger che impedisce l'iscrizione doppia di uno studente a una stessa pratica
+CREATE OR REPLACE FUNCTION prevent_duplicate_iscrittop()
+RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM 1 FROM iscritto_p WHERE stud_id = NEW.stud_id AND pratica_id = NEW.pratica_id;
+    IF FOUND THEN
+        RAISE EXCEPTION 'Lo studente "%" e'' gia'' iscritto alla pratica del giorno "%".', NEW.stud_id, (SELECT giorno_sessione FROM pratica WHERE id_pratica = NEW.pratica_id);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_prevent_duplicate_iscrittop
+BEFORE INSERT ON iscritto_p
+FOR EACH ROW EXECUTE FUNCTION prevent_duplicate_iscrittop();
