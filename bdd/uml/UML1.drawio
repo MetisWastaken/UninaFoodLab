@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3" pages="4">
   <diagram name="umlNonRistrutturato" id="ENZ3iWuQieqsVz6XCxMn">
-    <mxGraphModel dx="1188" dy="701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="933" dy="649" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -128,7 +128,7 @@
         <mxCell id="70OSQXmNKH6yk3NbkV3s-1" value="- studenti_iscritti: &amp;lt;&amp;lt;derive&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="X1jLTdcPYDGRBD4U8DlR-112" vertex="1">
           <mxGeometry y="78" width="247" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="6WwbBFeEXDTR-4AJxXGg-1" value="- ingredienti_pratica: &amp;lt;&amp;lt;derive&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="X1jLTdcPYDGRBD4U8DlR-112">
+        <mxCell id="6WwbBFeEXDTR-4AJxXGg-1" value="- ingredienti_pratica: &amp;lt;&amp;lt;derive&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="X1jLTdcPYDGRBD4U8DlR-112" vertex="1">
           <mxGeometry y="104" width="247" height="26" as="geometry" />
         </mxCell>
         <mxCell id="X1jLTdcPYDGRBD4U8DlR-114" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="X1jLTdcPYDGRBD4U8DlR-112" vertex="1">
@@ -346,7 +346,7 @@
             <mxPoint x="-14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ehidrKADBSV_SplcXYf4-7" value="&lt;span style=&quot;font-size: 11px; font-weight: 400; text-wrap-mode: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;Iscitto&lt;/span&gt;" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="ehidrKADBSV_SplcXYf4-7" value="&lt;span style=&quot;font-size: 11px; font-weight: 400; text-wrap-mode: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;Iscritto&lt;/span&gt;" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="410" y="360" width="170" height="86" as="geometry" />
         </mxCell>
         <mxCell id="ehidrKADBSV_SplcXYf4-8" value="- dataIscrizione: Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="ehidrKADBSV_SplcXYf4-7" vertex="1">
