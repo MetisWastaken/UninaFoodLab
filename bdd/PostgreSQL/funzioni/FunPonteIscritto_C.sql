@@ -86,3 +86,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_enforce_enroll_corso_date_checks
 BEFORE INSERT ON iscritto_c
 FOR EACH ROW EXECUTE FUNCTION enforce_enroll_corso_date_checks();
+
+-- Trigger che impedisce l'iscrizione doppia di uno studente a uno stesso corso
+CREATE OR REPLACE FUNCTION prevent_duplicate_iscrittoc()
+RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM 1 FROM iscritto_c WHERE stud_id = NEW.stud_id AND corso_id = NEW.corso_id;
+    IF FOUND THEN
+        RAISE EXCEPTION 'Lo studente "%" e'' gia'' iscritto al corso con nome "%".', NEW.stud_id, (SELECT nome FROM corso WHERE id_corso = NEW.corso_id);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_prevent_duplicate_iscrittoc
+BEFORE INSERT ON iscritto_c
+FOR EACH ROW EXECUTE FUNCTION prevent_duplicate_iscrittoc();
