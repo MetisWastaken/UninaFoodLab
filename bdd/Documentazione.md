@@ -74,13 +74,13 @@
 
 | Titolo | Descrizione | Classi Associate |
 |--------|-------------|------------------|
-| Formato_da_online | Figlio della aggregazione con genitore "corso", presenta la possibilità di quest'ultimo di essere formato da sessioni tenute su piattaforme in remoto | Corso [0,1] - Online [1,*] |
-| Formato_da_pratica | Figlio della aggregazione con genitore "corso", presenta la possibilità di quest'ultimo di essere formato da sessioni tenute nelle aule di cucina in presenza | Corso [0,1] - Pratica [1,*] |
-| Iscritto_C | Rappresenta l'iscrizione di uno studente a un corso. Un corso può avere diversi iscritti, ma uno studente può iscriversi a molteplici corsi | Corso [1,*] - Utente [0,*] |
-| Iscritto_P | Rappresenta l'iscrizione di uno studente a una sessione pratica. Una sessione pratica può avere diversi iscritti, mentre uno studente può iscriversi a molteplici sessioni pratiche | Pratica [0,*] - Utente [0,*] |
-| Teoria | Durante le sessioni online si considera la necessità di presentare almeno una ricetta che verrà successivamente preparata durante la sessione pratica | Online [0,*] - Ricetta [0,*] |
-| Pratica_Svolta | Rappresenta le ricette svolte durante una sessione pratica (e presentate precedentemente in una sessione online). Una sessione pratica è basata su una o più ricette, mentre una ricetta può essere svolta in molteplici sessioni pratiche | Pratica [1,*] - Ricetta [0,*] |
-| Necessita | Ogni ricetta ha bisogno di diversi ingredienti per essere preparata | Ricetta [1,*] - Ingrediente [1,*] |
+| Formato_da_online | Figlio della aggregazione con genitore "corso", presenta la possibilità di quest'ultimo di essere formato da sessioni tenute su piattaforme in remoto | Corso [0,1] - Online [1,\*] |
+| Formato_da_pratica | Figlio della aggregazione con genitore "corso", presenta la possibilità di quest'ultimo di essere formato da sessioni tenute nelle aule di cucina in presenza | Corso [0,1] - Pratica [1,\*] |
+| Iscritto_C | Rappresenta l'iscrizione di uno studente a un corso. Un corso può avere diversi iscritti, ma uno studente può iscriversi a molteplici corsi | Corso [1,\*] - Utente [0,\*] |
+| Iscritto_P | Rappresenta l'iscrizione di uno studente a una sessione pratica. Una sessione pratica può avere diversi iscritti, mentre uno studente può iscriversi a molteplici sessioni pratiche | Pratica [0,\*] - Utente [0,\*] |
+| Teoria | Durante le sessioni online si considera la necessità di presentare almeno una ricetta che verrà successivamente preparata durante la sessione pratica | Online [0,\*] - Ricetta [0,\*] |
+| Pratica_Svolta | Rappresenta le ricette svolte durante una sessione pratica (e presentate precedentemente in una sessione online). Una sessione pratica è basata su una o più ricette, mentre una ricetta può essere svolta in molteplici sessioni pratiche | Pratica [1,\*] - Ricetta [0,\*] |
+| Necessita | Ogni ricetta ha bisogno di diversi ingredienti per essere preparata | Ricetta [1,\*] - Ingrediente [1,\*] |
 
 ---
 
