@@ -2,9 +2,10 @@
 
 ## Utente
 
+**Descrizione:** Registro di tutti gli utenti del sistema. Un utente può essere Chef o Studente, e sulla base di ciò ottenere differenti permessi.
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Utente** | | Registro di tutti gli utenti del sistema. Un utente può essere Chef o Studente, e sulla base di ciò ottenere differenti permessi. |
 | Username | [1] | Identificativo univoco scelto da un utente per l'accesso |
 | Tipo_utente | [1] | Ruolo assegnato all'utente che può essere "Studente" o "Chef" |
 | Password | [1] | Codice di accesso |
@@ -13,9 +14,10 @@
 
 ## Corso
 
+**Descrizione:** Catalogo di tutti i corsi di cucina disponibili nel database
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Corso** | | Catalogo di tutti i corsi di cucina disponibili nel database |
 | Corso_id | [1] | Identificativo numerico univoco del corso (autoincrementato) |
 | Nome | [1] | Titolo descrittivo del corso |
 | Categoria | [0,1] | Tipologia culinaria del corso |
@@ -26,9 +28,10 @@
 
 ## Pratica
 
+**Descrizione:** Registro di tutte le sessioni pratiche associate ai corsi del sistema. Una sessione pratica è un'attività di formazione pratica legata a un corso specifico, con una data, un'aula assegnata e un numero massimo di partecipanti.
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Pratica** | | Registro di tutte le sessioni pratiche associate ai corsi del sistema. Una sessione pratica è un'attività di formazione pratica legata a un corso specifico, con una data, un'aula assegnata e un numero massimo di partecipanti. |
 | Id_pratica | [1] | Identificativo univoco della sessione pratica generato automaticamente |
 | Giorno_sessione | [1] | Data in cui si svolge la sessione pratica |
 | Aula | [0,1] | Numero o nome dell'aula in cui si tiene la sessione pratica |
@@ -37,9 +40,10 @@
 
 ## Online
 
+**Descrizione:** Registro di tutte le sessioni online associate ai corsi del sistema. Una sessione online è un'attività di formazione a distanza legata a un corso specifico, con una data di svolgimento e un codice meeting per l'accesso.
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Online** | | Registro di tutte le sessioni online associate ai corsi del sistema. Una sessione online è un'attività di formazione a distanza legata a un corso specifico, con una data di svolgimento e un codice meeting per l'accesso. |
 | Id_online | [1] | Identificativo univoco della sessione online generato automaticamente |
 | Giorno_sessione | [1] | Data in cui si svolge la sessione online |
 | Codice_meeting | [0,1] | Codice di accesso o link univoco della sessione online |
@@ -47,18 +51,20 @@
 
 ## Ricetta
 
+**Descrizione:** Registro di tutte le ricette presenti nel sistema. Una ricetta contiene informazioni generali su un piatto culinario, con nome descrittivo e dettagli sugli ingredienti e i procedimenti necessari per la preparazione.
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Ricetta** | | Registro di tutte le ricette presenti nel sistema. Una ricetta contiene informazioni generali su un piatto culinario, con nome descrittivo e dettagli sugli ingredienti e i procedimenti necessari per la preparazione. |
 | Id_ricetta | [1] | Identificativo univoco della ricetta autoincrementato |
 | Nome | [1] | Nome della ricetta |
 | Descrizione | [0,1] | Descrizione dettagliata della ricetta |
 
 ## Ingrediente
 
+**Descrizione:** Elenco degli ingredienti utilizzabili nelle ricette
+
 | Attributo | Cardinalità | Descrizione |
 |-----------|-------------|-------------|
-| **CLASSE: Ingrediente** | | Elenco degli ingredienti utilizzabili nelle ricette |
 | Nome | [1] | Identificativo univoco dell'ingrediente |
 | Unit_misura | [0,1] | Enumerativo per identificare il tipo di unità usata per i vari ingredienti |
 
