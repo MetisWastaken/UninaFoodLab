@@ -21,7 +21,7 @@ CREATE OR REPLACE FUNCTION enforce_corso_data_in_is_minor_than_data_fin()
 RETURNS TRIGGER AS $$
 BEGIN
         IF NEW.data_in > NEW.data_fin THEN
-            RAISE EXCEPTION 'La data d''inizio "%" deve essere minore o uguale di data di fine "%"', NEW.data_in, NEW.data_fin;
+            RAISE EXCEPTION 'La data d''inizio "%" deve essere minore o uguale alla data di fine "%"', NEW.data_in, NEW.data_fin;
     END IF;
     RETURN NEW;
 END;

@@ -77,7 +77,7 @@ CREATE TRIGGER trg_no_enroll_finished_pratica
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION no_enroll_finished_pratica();
 
--- Trigger che impedisce l'inscrizione a pratiche dove il corso non è ancora iniziato
+-- Trigger che impedisce l'iscrizione a pratiche dove il corso non è ancora iniziato
 CREATE OR REPLACE FUNCTION no_enroll_pratica_before_corso_start()
 RETURNS TRIGGER AS $$
 DECLARE

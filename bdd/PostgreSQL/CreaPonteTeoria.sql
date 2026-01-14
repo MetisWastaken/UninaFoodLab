@@ -14,7 +14,7 @@ CREATE TABLE teoria (
             REFERENCES ricetta(id_ricetta) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-COMMENT ON TABLE teoria IS 'Tabella ponte: ricette trattate nelle sessioni online — PK: (online_id, ricetta_id)';
-COMMENT ON COLUMN teoria.online_id IS 'FK -> online(id_online)';
-COMMENT ON COLUMN teoria.ricetta_id IS 'FK -> ricetta(id_ricetta)';
+COMMENT ON TABLE teoria IS 'Collega le ricette che vengono insegnate durante le lezioni online. Una lezione può trattare più ricette e la stessa ricetta può essere spiegata in diverse lezioni';
+COMMENT ON COLUMN teoria.online_id IS 'Riferimento alla lezione online in cui viene trattata la ricetta';
+COMMENT ON COLUMN teoria.ricetta_id IS 'Riferimento alla ricetta che viene spiegata durante la lezione online';
 

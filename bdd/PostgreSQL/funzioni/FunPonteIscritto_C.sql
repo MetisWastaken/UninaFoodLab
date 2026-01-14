@@ -60,20 +60,16 @@ DECLARE
 BEGIN
     -- Recupera i dati del corso
     SELECT data_in, data_fin, nome INTO corso_start_date, corso_end_date, corso_nome FROM corso WHERE id_corso = NEW.corso_id;
-    
     -- Calcola la data di apertura del bando (una settimana prima dell'inizio)
-    enroll_open_date := corso_start_date - INTERVAL '7 days';
-    
-    -- Controlla se il corso è già terminato usando la funzione is_corso_finished
+    enroll_open_date := corso_start_date - INTERVAL '7 days'; 
+    -- Controlla se il corso è già terminato (con funzione is_corso_finished)
     IF is_corso_finished(NEW.corso_id, NEW.data_iscrizione::DATE) THEN
         RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché e'' gia'' terminato il "%".', corso_nome, corso_end_date;
     END IF;
-    
     -- Controlla se la data di iscrizione è prima dell'apertura del bando
     IF NEW.data_iscrizione::DATE < enroll_open_date THEN
         RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il bando non è ancora aperto. Il bando aprirà il "%".', corso_nome, enroll_open_date;
     END IF;
-    
     -- Controlla se il corso è già iniziato usando la funzione is_corso_started
     IF is_corso_started(NEW.corso_id, NEW.data_iscrizione::DATE) THEN
         RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il corso è già iniziato il "%".', corso_nome, corso_start_date;

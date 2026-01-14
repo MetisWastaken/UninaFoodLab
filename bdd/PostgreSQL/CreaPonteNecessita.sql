@@ -13,8 +13,8 @@ CREATE TABLE necessita (
             REFERENCES ingrediente(nome) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-COMMENT ON TABLE necessita IS 'Tabella ponte: ingredienti necessari per una ricetta — PK: (ricetta_id, ingrediente_id)';
-COMMENT ON COLUMN necessita.ricetta_id IS 'FK -> ricetta(id_ricetta)';
-COMMENT ON COLUMN necessita.ingrediente_id IS 'FK -> ingrediente(nome)';
-COMMENT ON COLUMN necessita.quant_ing IS 'Quantità dell''ingrediente necessaria per la ricetta';
+COMMENT ON TABLE necessita IS 'Rappresenta la lista degli ingredienti che servono per preparare ogni ricetta, con le rispettive quantità. Una ricetta richiede più ingredienti e lo stesso ingrediente può essere usato in ricette diverse';
+COMMENT ON COLUMN necessita.ricetta_id IS 'Riferimento alla ricetta per cui serve l''ingrediente';
+COMMENT ON COLUMN necessita.ingrediente_id IS 'Nome dell''ingrediente necessario per realizzare la ricetta';
+COMMENT ON COLUMN necessita.quant_ing IS 'Quantità specifica dell''ingrediente richiesta dalla ricetta (espressa nell''unità di misura dell''ingrediente: chili o litri)';
 
