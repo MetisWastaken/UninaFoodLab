@@ -44,89 +44,89 @@ FUNZIONI TABELLA CORSO (FunTabellaCorso.sql)
    Descrizione: Restituisce true se un corso è iniziato (data_in passato), false altrimenti.
    Tipo: Funzione utility
 
-9. enforce_enroll_corso_date_checks()
-   Descrizione: Controlla se è possibile iscriversi al corso - il bando di iscrizione apre una settimana prima dell'inizio e chiude quando il corso inizia.
-   Trigger associato: trg_enforce_enroll_corso_date_checks
-   Evento: BEFORE INSERT on iscritto_c
-
 FUNZIONI TABELLA PRATICA (FunTabellaPratica.sql)
 -------------------------------------------------
-10. enforce_pratica_checks()
+9. enforce_pratica_checks()
    Descrizione: Verifica che corso_id punti a un corso esistente nella tabella corso.
    Trigger associato: trg_enforce_pratica_checks
    Evento: BEFORE INSERT OR UPDATE on pratica
 
-11. prevent_pratica_date_conflict()
+10. prevent_pratica_date_conflict()
    Descrizione: Evita che due sessioni pratiche dello stesso corso abbiano lo stesso giorno_sessione.
    Trigger associato: trg_prevent_pratica_date_conflict
    Evento: BEFORE INSERT OR UPDATE on pratica
 
-12. prevent_pratica_online_date_conflict()
+11. prevent_pratica_online_date_conflict()
     Descrizione: Evita che una sessione pratica e una sessione online dello stesso corso abbiano lo stesso giorno_sessione.
     Trigger associato: trg_prevent_pratica_online_date_conflict
     Evento: BEFORE INSERT OR UPDATE on pratica
 
-13. is_pratica_finished(praticaId INT, checkDate DATE DEFAULT CURRENT_DATE) -> BOOLEAN
+12. is_pratica_finished(praticaId INT, checkDate DATE DEFAULT CURRENT_DATE) -> BOOLEAN
    Descrizione: Restituisce true se una pratica è finita (giorno_sessione è passato), false altrimenti.
    Tipo: Funzione utility
 
-14. prevent_negative_posti_totali()
+13. prevent_negative_posti_totali()
     Descrizione: Evita l'inserimento di un numero di posti_totali negativo.
     Trigger associato: trg_prevent_negative_posti_totali
     Evento: BEFORE INSERT OR UPDATE on pratica
 
-15. prevent_posti_totali_with_null_aula()
+14. prevent_posti_totali_with_null_aula()
     Descrizione: Previene l'inserimento di un numero di posti_totali diverso da 0 se aula è NULL.
     Trigger associato: trg_prevent_posti_totali_with_null_aula
     Evento: BEFORE INSERT OR UPDATE on pratica
 
 FUNZIONI TABELLA RICETTA (FunTabellaRicetta.sql)
 -------------------------------------------------
-16. ENFORCED_ricetta_name_is_unique()
+15. ENFORCED_ricetta_name_is_unique()
     Descrizione: Garantisce che il nome della ricetta sia univoco nel database.
     Trigger associato: trg_ricetta_name_is_unique
     Evento: BEFORE INSERT OR UPDATE on ricetta
 
 FUNZIONI TABELLA INGREDIENTE (FunTabellaIngrediente.sql)
 ---------------------------------------------------------
-17. check_ingrediente_nome_univoco()
+16. check_ingrediente_nome_univoco()
     Descrizione: Controlla che il nome dell'ingrediente sia univoco nel database.
     Trigger associato: trg_check_ingrediente_nome_univoco
     Evento: BEFORE INSERT OR UPDATE on ingrediente
 
-18. check_ingrediente_nome_valido()
+17. check_ingrediente_nome_valido()
     Descrizione: Assicura che il nome dell'ingrediente sia valido (contiene solo lettere, no numeri, simboli, spazi o vuoto).
     Trigger associato: trg_check_ingrediente_nome_valido
     Evento: BEFORE INSERT OR UPDATE on ingrediente
 
 FUNZIONI TABELLA ONLINE (FunTabellaOnline.sql)
 -----------------------------------------------
-19. enforce_online_checks()
+18. enforce_online_checks()
     Descrizione: Verifica che corso_id punti a un corso esistente nella tabella corso.
     Trigger associato: trg_enforce_online_checks
     Evento: BEFORE INSERT OR UPDATE on online
 
-20. prevent_online_date_conflict()
+19. prevent_online_date_conflict()
     Descrizione: Evita che due sessioni online dello stesso corso abbiano lo stesso giorno_sessione.
     Trigger associato: trg_prevent_online_date_conflict
     Evento: BEFORE INSERT OR UPDATE on online
 
-21. prevent_online_pratica_date_conflict()
+20. prevent_online_pratica_date_conflict()
     Descrizione: Evita che una sessione online e una sessione pratica dello stesso corso abbiano lo stesso giorno_sessione.
     Trigger associato: trg_prevent_online_pratica_date_conflict
     Evento: BEFORE INSERT OR UPDATE on online
 
 FUNZIONI PONTE ISCRITTO_C (FunPonteIscritto_C.sql)
 ---------------------------------------------------
-22. enforce_iscrittoc_checks()
+21. enforce_iscrittoc_checks()
     Descrizione: Verifica che stud_id sia un utente di tipo 'Studente' e che corso_id punti a un corso esistente.
     Trigger associato: trg_iscrittoc_checks
     Evento: BEFORE INSERT OR UPDATE on iscritto_c
 
-23. enforce_iscrittoc_unenroll_checks()
+22. enforce_iscrittoc_unenroll_checks()
     Descrizione: Controlla se uno studente può disiscriversi da un corso (non deve essere iscritto a pratiche non ancora terminate).
     Trigger associato: trg_enforce_iscrittoc_unenroll_checks
     Evento: BEFORE DELETE on iscritto_c
+
+23. enforce_enroll_corso_date_checks()
+    Descrizione: Controlla se è possibile iscriversi al corso - il bando di iscrizione apre una settimana prima dell'inizio e chiude quando il corso inizia.
+    Trigger associato: trg_enforce_enroll_corso_date_checks
+    Evento: BEFORE INSERT on iscritto_c
 
 24. prevent_duplicate_iscrittoc()
     Descrizione: Impedisce l'iscrizione doppia di uno studente a uno stesso corso.
