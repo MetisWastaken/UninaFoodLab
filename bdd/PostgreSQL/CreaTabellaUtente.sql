@@ -1,10 +1,10 @@
-/* Enum per tipo utente */
+-- Enum per tipo utente 
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_u') THEN
         CREATE TYPE enum_u AS ENUM ('Chef','Studente');
     END IF;
 END$$;
--- Creazione tabella utente
+
 DROP TABLE IF EXISTS utente;
 CREATE TABLE utente (
     username VARCHAR(100) NOT NULL PRIMARY KEY,

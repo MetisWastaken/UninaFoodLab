@@ -1,4 +1,4 @@
---Creazione tabella pratica
+
 DROP TABLE IF EXISTS pratica CASCADE;;
 CREATE TABLE pratica (
     id_pratica SERIAL PRIMARY KEY,

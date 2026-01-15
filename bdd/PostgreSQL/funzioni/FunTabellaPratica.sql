@@ -17,7 +17,7 @@ CREATE TRIGGER trg_enforce_pratica_checks
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION enforce_pratica_checks();
 
---trigger per stesso giorno_sessione in pratica
+--trigger per check della presenza di una sessione nello stesso giorno_sessione in pratica
 CREATE OR REPLACE FUNCTION prevent_pratica_date_conflict()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -33,6 +33,9 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+--trigger che utilizza la funzione prevent_pratica_date_conflict
+
 CREATE TRIGGER trg_prevent_pratica_date_conflict
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_pratica_date_conflict();
@@ -92,12 +95,12 @@ CREATE TRIGGER trg_prevent_negative_posti_totali
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_negative_posti_totali();
 
---Trigger che previene l'inesimento di un numero di posti_toali diverso da 0 se aula è NULL
+--Trigger che previene l'inserimento di un numero di posti_totali diverso da 0 se aula è NULL
 CREATE OR REPLACE FUNCTION prevent_posti_totali_with_null_aula()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.aula IS NULL AND NEW.posti_totali <> 0 THEN
-        RAISE EXCEPTION 'Se aula e'' NULL, posti_totali deve essere 0, non %', NEW.posti_totali;
+        RAISE EXCEPTION 'Se aula e'' NULL, il numero di posti totali deve essere 0, non %', NEW.posti_totali;
     END IF;
 
     RETURN NEW;
