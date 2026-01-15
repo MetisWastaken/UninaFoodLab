@@ -1,4 +1,4 @@
--- Creazione tabella online
+
 DROP TABLE IF EXISTS online CASCADE;
 CREATE TABLE online (
     id_online SERIAL PRIMARY KEY,

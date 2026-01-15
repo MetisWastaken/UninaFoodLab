@@ -13,7 +13,7 @@ CREATE TABLE pratica_svolta
         FOREIGN KEY(ricetta_id)
             REFERENCES ricetta(id_ricetta) ON DELETE CASCADE ON UPDATE CASCADE
 );
-COMMENT ON TABLE pratica_svolta IS 'Tabella ponte tra pratica e ricetta, memorizza le ricette svolte in una sessione pratica';
-COMMENT ON COLUMN pratica_svolta.pratica_id IS 'FK -> pratica(id_pratica)';
-COMMENT ON COLUMN pratica_svolta.ricetta_id IS 'FK -> ricetta(id_ricetta)'; 
+COMMENT ON TABLE pratica_svolta IS 'Collega le pratiche alle ricette che sono state effettivamente svolte durante la sessione';
+COMMENT ON COLUMN pratica_svolta.pratica_id IS 'Identificativo della pratica svolta';
+COMMENT ON COLUMN pratica_svolta.ricetta_id IS 'Identificativo della ricetta utilizzata'; 
 

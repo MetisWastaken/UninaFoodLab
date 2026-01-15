@@ -1,11 +1,11 @@
-/*enum per unità di misura*/
+--Enum per gestione delle unità di misura degli ingredienti
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_i') THEN
         CREATE TYPE enum_i AS ENUM ('chili','litri');
     END IF;
 END$$;
 
--- Creazione tabella ingrediente
+
 DROP TABLE IF EXISTS ingrediente CASCADE;
 CREATE TABLE ingrediente (
     nome VARCHAR(100) NOT NULL PRIMARY KEY,
