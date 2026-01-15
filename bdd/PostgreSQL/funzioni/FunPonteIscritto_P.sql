@@ -24,7 +24,7 @@ CREATE TRIGGER trg_enforce_iscrittop_checks
 BEFORE INSERT OR UPDATE ON iscritto_p
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittop_checks();
 
---trigger che vieta l'aggiunta di un nuovo iscrtto se la pratica ha gia raggiunto il numero massimo di iscritti
+--trigger che vieta l'aggiunta di un nuovo iscritto se la pratica ha gia raggiunto il numero massimo di iscritti
 -- Utilizza view_pratica_posti per il calcolo dei posti rimanenti
 CREATE OR REPLACE FUNCTION enforce_max_iscritti_pratica()
 RETURNS TRIGGER AS $$   

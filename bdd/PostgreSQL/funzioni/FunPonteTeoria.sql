@@ -25,7 +25,7 @@ CREATE TRIGGER trg_enforce_teoria_checks
 BEFORE INSERT OR UPDATE ON teoria
 FOR EACH ROW EXECUTE FUNCTION enforce_teoria_checks();
 
--- Trigger che impedisce l'iscrizione doppia di una stessa ricetta in una sessione online
+-- Trigger che impedisce l'assegnazione doppia di una stessa ricetta in una sessione online
 CREATE OR REPLACE FUNCTION prevent_duplicate_ricetta_in_online()
 RETURNS TRIGGER AS $$
 BEGIN
