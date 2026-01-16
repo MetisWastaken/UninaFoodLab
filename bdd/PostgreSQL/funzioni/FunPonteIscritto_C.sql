@@ -24,7 +24,7 @@ CREATE TRIGGER trg_iscrittoc_checks
 BEFORE INSERT OR UPDATE ON iscritto_c
 FOR EACH ROW EXECUTE FUNCTION enforce_iscrittoc_checks();
  
--- Trigger che controlla se uno studente può disiscriversi da un corso (non è iscritto a nessuna pratica associata a quel corso)
+-- Trigger che controlla se uno studente può disiscriversi da un corso (se non è iscritto a nessuna pratica associata a quel corso)
 --(o se la pratica non è ancora finita)
 CREATE OR REPLACE FUNCTION enforce_iscrittoc_unenroll_checks()
 RETURNS TRIGGER AS $$
