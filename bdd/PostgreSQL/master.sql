@@ -8,6 +8,7 @@
 -- 1. Tabelle
 -- 2. Ponti (relazioni)
 -- 3. Funzioni
+-- 4. Inserimenti di esempio
 
 -- ============================================
 -- 1. CREAZIONE TABELLE
@@ -44,6 +45,14 @@
 \i 'funzioni/FunPonteNecessita.sql'
 \i 'funzioni/View.sql'
 
+-- ============================================
+-- 3. INSERIMENTI DI ESEMPIO
+-- ============================================
+\i 'insert/1InserisciUtente.sql'
+\i 'insert/2InserisciCorso.sql'
+\i 'insert/3InserisciRicetta.sql'
+\i 'insert/4InserisciOnline.sql'
+\i 'insert/5InserisciPratica.sql'
 -- ============================================
 -- Setup completato!
 -- ============================================
