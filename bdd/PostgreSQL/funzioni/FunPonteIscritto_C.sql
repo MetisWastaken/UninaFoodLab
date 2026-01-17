@@ -67,11 +67,11 @@ BEGIN
     END IF;
     -- Controlla se la data di iscrizione è prima dell'apertura del bando
     IF NEW.data_iscrizione::DATE < enroll_open_date THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il bando non è ancora aperto. Il bando aprirà il "%".', corso_nome, enroll_open_date;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il bando non e'' ancora aperto. Il bando aprira'' il "%".', corso_nome, enroll_open_date;
     END IF;
     -- Controlla se il corso è già iniziato usando la funzione is_corso_started()
     IF is_corso_started(NEW.corso_id, NEW.data_iscrizione::DATE) THEN
-        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il corso è già iniziato il "%".', corso_nome, corso_start_date;
+        RAISE EXCEPTION 'Non e'' possibile iscriversi al corso di nome"%" perché il corso e'' gia'' iniziato il "%".', corso_nome, corso_start_date;
     END IF;
     
     RETURN NEW;

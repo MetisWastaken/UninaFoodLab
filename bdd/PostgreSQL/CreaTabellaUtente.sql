@@ -10,8 +10,8 @@ CREATE TABLE utente (
     username VARCHAR(100) NOT NULL PRIMARY KEY,
     tipo_utente enum_u NOT NULL DEFAULT 'Studente',
     password VARCHAR(255) NOT NULL,
-    nome VARCHAR(100),
-    cognome VARCHAR(100)
+    nome VARCHAR(100) NOT NULL,
+    cognome VARCHAR(100) NOT NULL
 );
 
 COMMENT ON TABLE utente IS 'Registro di tutti gli utenti del sistema (Chef e Studenti)';
