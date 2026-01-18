@@ -6,8 +6,8 @@ VALUES ('2026-02-27', 'Aula 101', (SELECT id_corso FROM corso WHERE nome = 'Cors
     ('2026-07-12', 'Aula 202', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), 15);
 
 --update data d'inizio corso
-UPDATE corso SET data_in = '2026-01-17' WHERE nome = 'Corso di Pasta Fresca';
-UPDATE corso SET data_in = '2026-01-17' WHERE nome = 'Corso di Pasticceria Base';
+UPDATE corso SET data_in = CURRENT_DATE WHERE nome = 'Corso di Pasta Fresca';
+UPDATE corso SET data_in = CURRENT_DATE WHERE nome = 'Corso di Pasticceria Base';
 
 --inserimento iscritto_p di esempio
 INSERT INTO iscritto_p (stud_id, pratica_id) 
