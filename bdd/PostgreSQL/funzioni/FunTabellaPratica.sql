@@ -60,7 +60,7 @@ CREATE TRIGGER trg_prevent_pratica_online_date_conflict
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_pratica_online_date_conflict();
 
---Funzione che restituisce true se una pratica(id) è finita(giorno_sessione passato), false altrimenti
+--Funzione che restituisce true se una pratica(id) è finita(giorno_sessione passato), false altrimenti (ausiliaria)
 CREATE OR REPLACE FUNCTION is_pratica_finished(praticaId INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
 DECLARE
@@ -106,6 +106,7 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 CREATE TRIGGER trg_prevent_posti_totali_with_null_aula
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_posti_totali_with_null_aula();

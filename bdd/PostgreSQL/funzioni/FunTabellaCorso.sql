@@ -83,7 +83,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---Funzione che restituisce true se un corso(id) è finito(data_fin passato), false altrimenti
+--Funzione che restituisce true se un corso(id) è finito(data_fin passato), false altrimenti(ausiliaria)
 CREATE OR REPLACE FUNCTION is_corso_finished(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
 DECLARE
