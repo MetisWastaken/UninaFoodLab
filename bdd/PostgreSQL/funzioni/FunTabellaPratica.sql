@@ -74,7 +74,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---Trigger si trova a riga 69 in FunTabellaCorso.sql
+--Trigger, si trova a riga 69 in FunTabellaCorso.sql
 
 CREATE TRIGGER trg_enforce_sessione_date_within_corso
 BEFORE INSERT OR UPDATE ON pratica
@@ -100,7 +100,7 @@ CREATE OR REPLACE FUNCTION prevent_posti_totali_with_null_aula()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.aula IS NULL AND NEW.posti_totali <> 0 THEN
-        RAISE EXCEPTION 'Se aula e'' NULL, il numero di posti totali deve essere 0, non %', NEW.posti_totali;
+        RAISE EXCEPTION 'Se aula e'' impostata al valore NULL, il numero di posti totali deve essere 0, non %', NEW.posti_totali;
     END IF;
 
     RETURN NEW;

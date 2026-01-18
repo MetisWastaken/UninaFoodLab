@@ -17,8 +17,8 @@ FOR EACH ROW EXECUTE FUNCTION check_ingrediente_nome_univoco();
 CREATE OR REPLACE FUNCTION check_ingrediente_nome_valido()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.nome !~ '^[A-Za-zàáâãäåèéêëìíîïòóôõöùúûüñç]+$' THEN
-        RAISE EXCEPTION 'Errore: il nome dell''ingrediente % non è valido. Deve contenere solo lettere.', NEW.nome;
+    IF NEW.nome !~ '^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$' THEN
+        RAISE EXCEPTION 'Errore: il nome dell''ingrediente % non è valido. Deve contenere solo lettere e spazi.', NEW.nome;
     END IF;
     RETURN NEW;
 END;

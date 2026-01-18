@@ -83,6 +83,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+--Trigger definito in tabella pratica
+
 --Funzione che restituisce true se un corso(id) è finito(data_fin passato), false altrimenti(ausiliaria)
 CREATE OR REPLACE FUNCTION is_corso_finished(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
@@ -97,7 +99,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
----Funzione che restituisce true se un corso(id) è iniziato(data_in passato), false altrimenti
+--Funzione che restituisce true se un corso(id) è iniziato(data_in passato), false altrimenti
 CREATE OR REPLACE FUNCTION is_corso_started(corso_id INT, checkDate DATE DEFAULT CURRENT_DATE)
 RETURNS BOOLEAN AS $$
 DECLARE

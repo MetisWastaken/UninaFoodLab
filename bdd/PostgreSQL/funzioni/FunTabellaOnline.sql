@@ -61,7 +61,7 @@ CREATE TRIGGER trg_prevent_online_pratica_date_conflict
 BEFORE INSERT OR UPDATE ON online
 FOR EACH ROW EXECUTE FUNCTION prevent_online_pratica_date_conflict();
  
- --Trigger si trova a riga 69 in FunTabellaCorso.sql
+ --Trigger, si trova a riga 69 in FunTabellaCorso.sql
 
 CREATE TRIGGER trg_enforce_sessione_date_within_corso
 BEFORE INSERT OR UPDATE ON online
