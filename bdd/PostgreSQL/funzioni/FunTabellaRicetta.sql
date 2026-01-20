@@ -1,5 +1,5 @@
 -- Funzione e trigger per garantire che il nome della ricetta sia univoco
-CREATE OR REPLACE FUNCTION ENFORCED_ricetta_name_is_unique()
+CREATE OR REPLACE FUNCTION enforce_ricetta_name_is_unique()
 RETURNS TRIGGER AS $$
     BEGIN
         IF NEW.nome IS NOT NULL THEN
