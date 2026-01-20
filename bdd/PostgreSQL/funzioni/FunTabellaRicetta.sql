@@ -14,4 +14,4 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_ricetta_name_is_unique
 BEFORE INSERT OR UPDATE ON ricetta
-FOR EACH ROW EXECUTE FUNCTION ENFORCED_ricetta_name_is_unique();
+FOR EACH ROW EXECUTE FUNCTION enforce_ricetta_name_is_unique();
