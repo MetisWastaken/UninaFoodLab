@@ -2,8 +2,8 @@
 CREATE OR REPLACE FUNCTION check_ingrediente_nome_univoco()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF EXISTS (SELECT 1 FROM ingrediente WHERE nome = NEW.nome) THEN
         RAISE EXCEPTION 'Errore: esiste già un ingrediente con il nome %', NEW.nome;
+    IF EXISTS (SELECT 1 FROM ingrediente WHERE nome = NEW.nome AND nome <> OLD.nome) THEN
     END IF;
     RETURN NEW;
 END;
