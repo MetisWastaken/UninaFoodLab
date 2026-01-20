@@ -2,8 +2,8 @@
 CREATE OR REPLACE FUNCTION check_ingrediente_nome_univoco()
 RETURNS TRIGGER AS $$
 BEGIN
-        RAISE EXCEPTION 'Errore: esiste già un ingrediente con il nome %', NEW.nome;
     IF EXISTS (SELECT 1 FROM ingrediente WHERE nome = NEW.nome AND nome <> OLD.nome) THEN
+        RAISE EXCEPTION 'Errore: esiste gia'' un ingrediente con il nome %', NEW.nome;
     END IF;
     RETURN NEW;
 END;
@@ -18,7 +18,7 @@ CREATE OR REPLACE FUNCTION check_ingrediente_nome_valido()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.nome !~ '^[A-Za-zàáâãäåèéêëìíîïòóôõöùúûüñç]+$' THEN
-        RAISE EXCEPTION 'Errore: il nome dell''ingrediente % non è valido. Deve contenere solo lettere.', NEW.nome;
+        RAISE EXCEPTION 'Errore: il nome dell''ingrediente % non e'' valido. Deve contenere solo lettere.', NEW.nome;
     END IF;
     RETURN NEW;
 END;

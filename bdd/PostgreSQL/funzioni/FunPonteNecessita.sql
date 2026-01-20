@@ -67,7 +67,7 @@ BEGIN
         SELECT 1 FROM necessita
         WHERE ricetta_id = NEW.ricetta_id AND ingrediente_id = NEW.ingrediente_id
     ) THEN
-        RAISE EXCEPTION 'L''ingrediente "%" è già presente nella ricetta con nome %', NEW.ingrediente_id, (SELECT nome FROM ricetta WHERE id_ricetta = NEW.ricetta_id);
+        RAISE EXCEPTION 'L''ingrediente "%" e'' già presente nella ricetta con nome %', NEW.ingrediente_id, (SELECT nome FROM ricetta WHERE id_ricetta = NEW.ricetta_id);
     END IF;
     RETURN NEW;
 END;
