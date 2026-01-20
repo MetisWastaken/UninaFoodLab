@@ -17,7 +17,7 @@ CREATE OR REPLACE VIEW view_ingredienti_pratica AS
 SELECT 
     p.id_pratica,
     i.nome AS ingrediente_nome,
-    SUM(n.quant_ing * COALESCE(vpp.posti_occupati, 1)) AS quantita
+    SUM(n.quant_ing * COALESCE(NULLIF(vpp.posti_occupati, 0), 1)) AS quantita
 FROM pratica p
 JOIN pratica_svolta ps ON p.id_pratica = ps.pratica_id
 JOIN ricetta r ON ps.ricetta_id = r.id_ricetta
