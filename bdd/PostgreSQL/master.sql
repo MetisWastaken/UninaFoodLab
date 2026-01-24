@@ -30,6 +30,8 @@
 \i 'funzioni/FunPonteNecessita.sql'
 \i 'funzioni/View.sql'
 
+-- CREAZIONE PROCEDURE
+\i 'funzioni/ProcedureCRUD/CRUDTabellaUtente.sql'
 
 -- INSERIMENTI DI ESEMPIO
 
