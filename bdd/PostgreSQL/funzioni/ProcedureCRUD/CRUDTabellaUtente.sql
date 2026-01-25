@@ -16,15 +16,16 @@ BEGIN
 END;
 $$;
 
---Procedura per la lettura delle informazioni di un utente
-CREATE OR REPLACE PROCEDURE read_utente(p_username VARCHAR)
+--Funzione per la lettura delle informazioni di un utente
+CREATE OR REPLACE FUNCTION read_utente(p_username VARCHAR)
+RETURNS SETOF utente
 LANGUAGE plpgsql
 AS $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM utente WHERE username = p_username) THEN
         RAISE EXCEPTION 'Username % non trovato.', p_username;
     END IF;
-    PERFORM * FROM utente WHERE username = p_username;
+    RETURN QUERY SELECT * FROM utente WHERE username = p_username;
 END;
 $$;
 
