@@ -32,6 +32,7 @@
 
 -- CREAZIONE PROCEDURE
 \i 'funzioni/ProcedureCRUD/CRUDTabellaUtente.sql'
+\i 'funzioni/ProcedureCRUD/CRUDTabellaRicetta.sql'
 
 -- INSERIMENTI DI ESEMPIO
 
