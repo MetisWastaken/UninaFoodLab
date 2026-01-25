@@ -16,7 +16,7 @@ BEGIN
 END;
 $$;
 
----Procedura per la lettura delle informazioni di un utente
+--Procedura per la lettura delle informazioni di un utente
 CREATE OR REPLACE PROCEDURE read_utente(p_username VARCHAR)
 LANGUAGE plpgsql
 AS $$
