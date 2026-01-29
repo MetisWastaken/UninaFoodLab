@@ -6,6 +6,7 @@
 \i 'CreaTabellaRicetta.sql'
 \i 'CreaTabellaPratica.sql'
 \i 'CreaTabellaOnline.sql'
+\i 'CreaTabellaNotifica.sql'
 
 -- CREAZIONE PONTI (Relazioni)
 
@@ -28,6 +29,7 @@
 \i 'funzioni/FunPonteTeoria.sql'
 \i 'funzioni/FunPontePratica_Svolta.sql'
 \i 'funzioni/FunPonteNecessita.sql'
+\i 'funzioni/FunTabellaNotifica.sql'
 \i 'funzioni/View.sql'
 
 -- CREAZIONE PROCEDURE
