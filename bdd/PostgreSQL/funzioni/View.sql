@@ -25,3 +25,36 @@ JOIN necessita n ON r.id_ricetta = n.ricetta_id
 JOIN ingrediente i ON n.ingrediente_id = i.nome
 LEFT JOIN view_studenti_iscritti vpp ON p.id_pratica = vpp.id_pratica
 GROUP BY p.id_pratica, i.nome;
+
+-- View per visualizzare le notifiche inviate da uno chef entro 10 giorni dalla data_creazione
+--(se solo_iscritti è true, mostra le notifiche solo agli studenti iscritti al corso)
+--(altrimenti mostra le notifiche agli studenti iscritti ad almeno un corso dello chef)
+CREATE OR REPLACE VIEW view_notifiche_studente AS
+SELECT DISTINCT
+    n.id_notifica,
+    u.username AS studente_username
+FROM notifica n
+JOIN utente u ON u.tipo_utente = 'Studente'
+WHERE 
+    n.data_creazione >= CURRENT_TIMESTAMP - INTERVAL '10 days'
+    AND (
+        -- Caso 1: solo_iscritti = TRUE, mostra solo agli iscritti al corso specifico
+        (
+            n.solo_iscritti = TRUE
+            AND n.corso_id IS NOT NULL
+            AND EXISTS (
+                SELECT 1 FROM iscritto_c ic 
+                WHERE ic.corso_id = n.corso_id AND ic.stud_id = u.username
+            )
+        )
+        OR
+        (
+            -- Caso 2: solo_iscritti = FALSE, mostra agli iscritti ad almeno un corso dello chef
+            n.solo_iscritti = FALSE
+            AND EXISTS (
+                SELECT 1 FROM iscritto_c ic
+                JOIN corso c ON ic.corso_id = c.id_corso
+                WHERE ic.stud_id = u.username AND c.chef_id = n.username_chef
+            )
+        )
+    );

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS iscritto_c CASCADE;
 CREATE TABLE iscritto_c (
     stud_id VARCHAR(100) NOT NULL,
     corso_id INT NOT NULL,
-    data_iscrizione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_iscrizione TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_iscritto_c PRIMARY KEY (stud_id, corso_id),
     CONSTRAINT fk_studente
         FOREIGN KEY (stud_id)
