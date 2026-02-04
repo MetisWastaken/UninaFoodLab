@@ -8,17 +8,24 @@ public abstract class Utente {
     protected String password;
     protected String nome;
     protected String cognome;
+    protected String tipo;
 
-    public Utente(String username, String password) {
+    public Utente(String username, String password, String tipo) {
         this.username = username;
         this.password = password;
+        this.tipo = tipo;
     }
 
-    public Utente(String username, String password, String nome, String cognome) {
-        this(username, password);
+    public Utente(String username, String password, String nome, String cognome, String tipo) {
+        this(username, password, tipo);
         this.nome = nome;
         this.cognome = cognome;
     }
+
+    public boolean verify(){
+        return false;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -34,12 +41,10 @@ public abstract class Utente {
     public String getCognome() {
         return cognome;
     }
-
-    public List<Notifica> getNotifiche() {
-        return null;
+    public String getTipo() {
+        return tipo;
     }
+    abstract public List<Notifica> getNotifiche();
     
-    public ArrayList<Corso> getCorsi() {
-        return null;
-    }
+    abstract public ArrayList<Corso> getCorsi();
 }
