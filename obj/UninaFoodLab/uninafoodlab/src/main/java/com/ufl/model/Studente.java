@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Studente extends Utente {
-    private Map<Corso,LocalDate> date_iscrizione_corsi;
+    private Map<Integer,LocalDate> date_iscrizione_corsi;
 
     public Studente(String username, String password) {
         super(username, password, "Studente");
@@ -27,18 +27,18 @@ public class Studente extends Utente {
         return null;
     }
 
-    public void iscrittoCorso(Corso corso) {
-        date_iscrizione_corsi.put(corso, LocalDate.now());
+    public void iscrittoCorso(int id_corso) {
+        date_iscrizione_corsi.put(id_corso, LocalDate.now());
     }
 
-    public Map<Corso, LocalDate> getDateIscrizioneCorsi() {
+    public Map<Integer, LocalDate> getDateIscrizioneCorsi() {
         return date_iscrizione_corsi;
     }
 
-    public void iscrittoPratica(Corso corso, Pratica pratica) {
-        date_iscrizione_corsi.put(corso, LocalDate.now());
+    public void iscrittoPratica(Integer id_corso, LocalDate giorno_sessione) {
+        // TODO Auto-generated method stub
     }
-
+    //metodo da modificare o controllare in futuro
     public List<Pratica> getPratiche() {
         // TODO Auto-generated method stub
         return null;
