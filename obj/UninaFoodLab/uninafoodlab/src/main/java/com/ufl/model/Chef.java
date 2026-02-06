@@ -7,11 +7,13 @@ public class Chef extends Utente {
     private ArrayList<Report> resoconti;
 
 
-    public Chef(String username, String password) {
+    public Chef(String username, String password, ArrayList<Report> resoconti) {
         super(username, password, "Chef");
+        this.resoconti = resoconti;
     }
     public Chef(String username, String password, String nome, String cognome) {
         super(username, password, nome, cognome, "Chef");
+        this.resoconti = new ArrayList<>();
     }
 
     @Override
