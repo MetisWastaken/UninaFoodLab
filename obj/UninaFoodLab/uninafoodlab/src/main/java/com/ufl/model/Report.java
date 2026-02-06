@@ -15,10 +15,6 @@ public class Report {
         this.numero_ricette_per_sessione = numero_ricette_per_sessione;
     }
 
-    public void generaStatistiche() {
-        // TODO: il controller calcolerà i valori e li passerà al model
-    }
-
     public void visualizzaGrafico() {
         // TODO: compito della view
     }
