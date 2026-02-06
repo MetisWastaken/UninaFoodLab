@@ -2,17 +2,20 @@ package com.ufl.model;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Studente extends Utente {
     private Map<Integer,LocalDate> date_iscrizione_corsi;
 
-    public Studente(String username, String password) {
+    public Studente(String username, String password, Map<Integer, LocalDate> date_iscrizione_corsi) {
         super(username, password, "Studente");
+        this.date_iscrizione_corsi = date_iscrizione_corsi;
     }
     public Studente(String username, String password, String nome, String cognome) {
         super(username, password, nome, cognome, "Studente");
+        this.date_iscrizione_corsi = new HashMap<>();
     }
 
     @Override
