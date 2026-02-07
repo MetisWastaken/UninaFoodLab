@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Corso {
-    private int id;
+    private Integer id;
     private String nome;
     private String categoria;
     private LocalDate data_in;
@@ -14,7 +14,7 @@ public class Corso {
     private List<Pratica> sessioni_pratiche;
     private List<Online> sessioni_online;
 
-    public Corso(int id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef, List<Pratica> sessioni_pratiche, List<Online> sessioni_online) {
+    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef, List<Pratica> sessioni_pratiche, List<Online> sessioni_online) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
@@ -26,7 +26,7 @@ public class Corso {
         this.sessioni_online = sessioni_online;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
