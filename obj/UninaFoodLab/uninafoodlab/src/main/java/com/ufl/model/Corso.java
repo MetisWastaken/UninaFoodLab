@@ -85,4 +85,14 @@ public class Corso {
         // This method should modify an existing online session.
         // Implementation depends on how sessions are identified and stored.
     }
+
+    public void eliminaSessione(Pratica sessione, Notifica notifica) {
+        // This method should remove an existing practical session.
+        // Implementation depends on how sessions are identified and stored.
+    }
+
+    public void eliminaSessione(Online sessione, Notifica notifica) {
+        // This method should remove an existing online session.
+        // Implementation depends on how sessions are identified and stored.
+    }
 }
