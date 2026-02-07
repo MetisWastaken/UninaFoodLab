@@ -36,16 +36,19 @@ public class Chef extends Utente {
         // TODO Auto-generated method stub
     }
 
-    public void aggiungiCorso(Corso corso){
-        // TODO Auto-generated method stub
-    }
-
     public void aggiungiNotifica(Notifica notifica){
         // TODO Auto-generated method stub
     }
 
-    public void aggiungiNotifica(Corso corso, Notifica notifica){
+    public void aggiungiCorso(Corso corso){
         // TODO Auto-generated method stub
     }
 
+    public void modificaCorso(Corso corso, Notifica notifica){
+        // TODO Auto-generated method stub
+    }
+
+    public void eliminaCorso(Corso corso, Notifica notifica){
+        // TODO Auto-generated method stub
+    }
 }
