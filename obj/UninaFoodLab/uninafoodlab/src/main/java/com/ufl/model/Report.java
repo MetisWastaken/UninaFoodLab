@@ -34,6 +34,6 @@ public class Report {
     }
 
     public Map<Sessione, Integer> getNumeroRicettePerSessione() {
-        return new Map<>(numero_ricette_per_sessione);
+        return numero_ricette_per_sessione;
     }
 }
