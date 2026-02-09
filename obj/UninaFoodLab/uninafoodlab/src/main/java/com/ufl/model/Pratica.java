@@ -2,6 +2,7 @@ package com.ufl.model;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Pratica extends Sessione {
     private String aula;
