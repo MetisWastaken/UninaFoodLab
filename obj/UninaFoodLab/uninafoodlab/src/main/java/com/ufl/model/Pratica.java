@@ -1,6 +1,6 @@
 package com.ufl.model;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class Pratica extends Sessione {
