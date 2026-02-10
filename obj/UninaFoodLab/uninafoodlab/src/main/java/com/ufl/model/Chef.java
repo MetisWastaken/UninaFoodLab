@@ -17,6 +17,12 @@ public class Chef extends Utente {
     }
 
     @Override
+    public boolean verify() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
     public List<Notifica> getNotifiche() {
         // TODO Auto-generated method stub
         return null;
@@ -32,7 +38,7 @@ public class Chef extends Utente {
         return resoconti;
     }
 
-    public void generaReport(){
+    public void aggiungiReport(Report report){
         // TODO Auto-generated method stub
     }
 
