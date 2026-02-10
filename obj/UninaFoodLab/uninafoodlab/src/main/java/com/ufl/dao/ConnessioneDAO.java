@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnessioneDAO {
-    private static String url = "jdbc:mysql://localhost:5433/uninafoodlab";
+    private static String url = "jdbc:postgresql://localhost:5432/uninafoodlab";
     private static String username = "postgres";
     private static String password = "root";
 
