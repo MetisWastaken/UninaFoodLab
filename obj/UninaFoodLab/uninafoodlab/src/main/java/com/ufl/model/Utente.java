@@ -23,10 +23,6 @@ public abstract class Utente {
         this.cognome = cognome;
     }
 
-    public boolean verify(){
-        return false;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -45,6 +41,9 @@ public abstract class Utente {
     public String getTipo() {
         return tipo;
     }
+
+    abstract public boolean verify();
+
     abstract public List<Notifica> getNotifiche();
     
     abstract public ArrayList<Corso> getCorsi();

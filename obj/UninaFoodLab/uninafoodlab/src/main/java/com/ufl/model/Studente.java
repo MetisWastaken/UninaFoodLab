@@ -19,6 +19,12 @@ public class Studente extends Utente {
     }
 
     @Override
+    public boolean verify() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
     public List<Notifica> getNotifiche() {
         // TODO Auto-generated method stub
         return null;
