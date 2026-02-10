@@ -10,20 +10,20 @@ public class Notifica {
     private LocalDate data_creazione;
     private int corso_id;
 
-    public Notifica(String username_chef, String titolo, String messaggio) {
+    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione) {
         this.username_chef = username_chef;
         this.titolo = titolo;
         this.messaggio = messaggio;
         this.solo_iscritti = false;
-        this.data_creazione = LocalDate.now();
+        this.data_creazione = data_creazione;
         this.corso_id = -1;
     }
-    public Notifica(String username_chef, String titolo, String messaggio, int corso_id) {
+    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione, int corso_id) {
         this.username_chef = username_chef;
         this.titolo = titolo;
         this.messaggio = messaggio;
         this.solo_iscritti = true;
-        this.data_creazione = LocalDate.now();
+        this.data_creazione = data_creazione;
         this.corso_id = corso_id;
     }
 
