@@ -3,23 +3,18 @@ package com.ufl.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ufl.dao.UtenteDAO;
+import com.ufl.dao.ChefDAO;
+
 public class Chef extends Utente {
-    private ArrayList<Report> resoconti;
+    private ArrayList<Report> resoconti=null;
 
 
-    public Chef(String username, String password, ArrayList<Report> resoconti) {
+    public Chef(String username, String password) {
         super(username, password, "Chef");
-        this.resoconti = resoconti;
     }
     public Chef(String username, String password, String nome, String cognome) {
-        super(username, password, nome, cognome, "Chef");
-        this.resoconti = new ArrayList<>();
-    }
-
-    @Override
-    public boolean verify() {
-        // TODO Auto-generated method stub
-        return false;
+        super(username, password, "Chef", nome, cognome);
     }
 
     @Override
