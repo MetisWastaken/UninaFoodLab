@@ -18,9 +18,13 @@ public abstract class Utente {
         this.password = password;
     }
 
-    public Utente(String username, String password, String tipo, String nome, String cognome) {
+    public Utente(String username, String password, String tipo) {
         this(username, password);
         this.tipo = tipo;
+    }
+
+    public Utente(String username, String password, String tipo, String nome, String cognome) {
+        this(username, password, tipo);
         this.nome = nome;
         this.cognome = cognome;
     }
