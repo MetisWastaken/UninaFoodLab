@@ -8,7 +8,7 @@ public class Notifica {
     private String messaggio;
     private boolean solo_iscritti;
     private LocalDate data_creazione;
-    private int corso_id;
+    private Integer corso_id;
 
     public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione) {
         this.username_chef = username_chef;
@@ -16,9 +16,9 @@ public class Notifica {
         this.messaggio = messaggio;
         this.solo_iscritti = false;
         this.data_creazione = data_creazione;
-        this.corso_id = -1;
+        this.corso_id = null;
     }
-    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione, int corso_id) {
+    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione, Integer corso_id) {
         this.username_chef = username_chef;
         this.titolo = titolo;
         this.messaggio = messaggio;
@@ -46,7 +46,7 @@ public class Notifica {
         return data_creazione;
     }
 
-    public int getCorsoId() {
+    public Integer getCorsoId() {
         return corso_id;
     }
 }   
