@@ -18,15 +18,18 @@ public abstract class Utente {
         this.password = password;
     }
 
-    public Utente(String username, String password, String tipo) {
+    public Utente(String username, String password, String tipo, String nome, String cognome) {
         this(username, password);
         this.tipo = tipo;
-    }
-
-    public Utente(String username, String password, String tipo, String nome, String cognome) {
-        this(username, password, tipo);
         this.nome = nome;
         this.cognome = cognome;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        // This method should compare two Utente objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
     }
 
     public String getUsername() {
@@ -65,11 +68,7 @@ public abstract class Utente {
         return UtenteDAO.verify(this);
     }
 
-    public boolean equals(Object obj){
-        // This method should compare two Utente objects for equality.
-        // Implementation depends on which attributes should be compared.
-        return false; // Placeholder return statement
-    }
+    
 
     abstract public List<Notifica> getNotifiche();
     
