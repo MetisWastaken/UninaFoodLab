@@ -7,11 +7,11 @@ import com.ufl.dao.UtenteDAO;
 import com.ufl.dao.ChefDAO;
 
 public class Chef extends Utente {
-    private ArrayList<Report> resoconti=null;
+    private Report resoconto=null;
 
 
     public Chef(String username, String password) {
-        super(username, password, "Chef");
+        super(username, password);
     }
     public Chef(String username, String password, String nome, String cognome) {
         super(username, password, "Chef", nome, cognome);
@@ -29,12 +29,21 @@ public class Chef extends Utente {
         return null;
     }
 
-    public ArrayList<Report> getResoconti() {
-        return resoconti;
+    public boolean equals(Utente utente){
+        // This method should compare two Chef objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
     }
 
-    public void aggiungiReport(Report report){
-        // TODO Auto-generated method stub
+    public void recResoconto(){
+        // This method should retrieve the report/resoconto for the chef.
+        // Implementation depends on how reports are stored and associated with the chef.
+    }
+
+    public Report getResoconto(){
+        // This method should return the report/resoconto for the chef.
+        // Implementation depends on how reports are retrieved.
+        return resoconto; // Return the stored resoconto
     }
 
     public void aggiungiNotifica(Notifica notifica){
@@ -53,20 +62,7 @@ public class Chef extends Utente {
         // TODO Auto-generated method stub
     }
 
-    public boolean equals(Utente utente){
-        // This method should compare two Chef objects for equality.
-        // Implementation depends on which attributes should be compared.
-        return false; // Placeholder return statement
-    }
+    
 
-    public void recResoconto(){
-        // This method should retrieve the report/resoconto for the chef.
-        // Implementation depends on how reports are stored and associated with the chef.
-    }
-
-    public Report getResoconto(){
-        // This method should return the report/resoconto for the chef.
-        // Implementation depends on how reports are retrieved.
-        return null; // Placeholder return statement
-    }
+    
 }
