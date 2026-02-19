@@ -11,16 +11,11 @@ public class Studente extends Utente {
     private Map<Integer,LocalDate> date_iscrizione_corsi=null;
 
     public Studente(String username, String password) {
-        super(username, password, "Studente");
-    }
-    public Studente(String username, String password, String nome, String cognome) {
-        super(username, password, nome, cognome, "Studente");
+        super(username, password);
     }
 
-    @Override
-    public boolean verify() {
-        // TODO Auto-generated method stub
-        return false;
+    public Studente(String username, String password, String nome, String cognome) {
+        super(username, password, nome, cognome, "Studente");
     }
 
     @Override
@@ -34,13 +29,11 @@ public class Studente extends Utente {
         return StudenteDAO.getCorsi(this.username);
     }
 
-    public void iscrittoCorso(int id_corso) {
-        date_iscrizione_corsi.put(id_corso, LocalDate.now());
-    }
-
-    public void disiscrittoCorso(int id_corso) {
-        // This method should remove the student from a course.
-        // Implementation depends on how course enrollments are managed.
+    
+    public boolean equals(Utente utente) {
+        // This method should compare two Studente objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
     }
 
     public void recDateIscrizioneCorsi(){
@@ -50,6 +43,15 @@ public class Studente extends Utente {
 
     public Map<Integer, LocalDate> getDateIscrizioneCorsi() {
         return date_iscrizione_corsi;
+    }
+
+    public void iscrittoCorso(int id_corso) {
+        date_iscrizione_corsi.put(id_corso, LocalDate.now());
+    }
+
+    public void disiscrittoCorso(int id_corso) {
+        // This method should remove the student from a course.
+        // Implementation depends on how course enrollments are managed.
     }
 
     public void iscrittoPratica(Integer id_corso, LocalDate giorno_sessione) {
@@ -67,9 +69,4 @@ public class Studente extends Utente {
         return null;
     }
 
-    public boolean equals(Utente utente) {
-        // This method should compare two Studente objects for equality.
-        // Implementation depends on which attributes should be compared.
-        return false; // Placeholder return statement
-    }
 }
