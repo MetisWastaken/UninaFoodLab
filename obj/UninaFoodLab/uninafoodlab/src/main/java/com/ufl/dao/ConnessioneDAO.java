@@ -13,8 +13,8 @@ public class ConnessioneDAO {
 
     public static Connection getConnessione(){
         try{
-            Connection connessione=DriverManager.getConnection(url,username,password);
-            return connessione;
+            Connection conn=DriverManager.getConnection(url,username,password);
+            return conn;
         }catch(SQLException e){
             e.printStackTrace();
             return null;
