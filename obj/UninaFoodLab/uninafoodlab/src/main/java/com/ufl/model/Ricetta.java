@@ -6,10 +6,9 @@ public class Ricetta {
     private String descrizione;
     private List<Ingrediente> ingredienti;
 
-    public Ricetta(String nome, String descrizione, List<Ingrediente> ingredienti) {
+    public Ricetta(String nome, String descrizione) {
         this.nome = nome;
         this.descrizione = descrizione;
-        this.ingredienti = ingredienti;
     }
 
     public String getNome() {
@@ -20,8 +19,19 @@ public class Ricetta {
         return descrizione;
     }
 
+    public void recIngredienti() {
+        // This method should retrieve the list of ingredients for the recipe.
+        // Implementation depends on how ingredients are stored and associated with the recipe.
+    }
+
     public List<Ingrediente> getIngredienti() {
         return ingredienti;
+    }
+
+    public Integer getIdRicetta() {
+        // This method should retrieve the ID of the recipe.
+        // Implementation depends on how recipe IDs are stored and associated with the recipe.
+        return null;
     }
 
     public void AggiungiIngrediente(Ingrediente ingrediente) {
