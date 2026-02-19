@@ -14,6 +14,11 @@ public class Pratica extends Sessione {
         this.posti_totali = posti_totali;
     }
 
+    public void recRicette(){
+        // This method should retrieve the recipes for the practical session.
+        // Implementation depends on how recipes are stored and associated with the session.
+    }
+
     public String getAula() {
         return aula;
     }

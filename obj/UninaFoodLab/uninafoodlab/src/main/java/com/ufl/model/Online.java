@@ -10,9 +10,15 @@ public class Online extends Sessione {
         super(corso_id, giorno_sessione, ricette);
         this.codice_meeting = codice_meeting;
     }
+    
+        public void recRicette(){
+        // This method should retrieve the meeting code for the online session.
+        // Implementation depends on how meeting codes are stored and associated with the session.
+    }
 
     public String getCodiceMeeting() {
         return codice_meeting;
     }
+
 
 }

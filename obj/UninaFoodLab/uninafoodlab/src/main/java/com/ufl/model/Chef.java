@@ -52,4 +52,21 @@ public class Chef extends Utente {
     public void eliminaCorso(Corso corso, Notifica notifica){
         // TODO Auto-generated method stub
     }
+
+    public boolean equals(Utente utente){
+        // This method should compare two Chef objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
+    }
+
+    public void recResoconto(){
+        // This method should retrieve the report/resoconto for the chef.
+        // Implementation depends on how reports are stored and associated with the chef.
+    }
+
+    public Report getResoconto(){
+        // This method should return the report/resoconto for the chef.
+        // Implementation depends on how reports are retrieved.
+        return null; // Placeholder return statement
+    }
 }

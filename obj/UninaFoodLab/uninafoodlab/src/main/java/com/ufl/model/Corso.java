@@ -51,6 +51,10 @@ public class Corso {
     public Chef getChef() {
         return chef;
     }
+    public void recChef(){
+        // This method should retrieve the chef associated with the course.
+        // Implementation depends on how the chef is retrieved from the database.
+    }
     public void recSessioniPratiche(){
         // This method should retrieve the list of practical sessions for the course.
         // Implementation depends on how sessions are stored and associated with the course.

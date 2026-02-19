@@ -38,8 +38,14 @@ public class Studente extends Utente {
         date_iscrizione_corsi.put(id_corso, LocalDate.now());
     }
 
-    public void recIscrizioneCorsi(){
-        //TODO Auto-generated method stub
+    public void disiscrittoCorso(int id_corso) {
+        // This method should remove the student from a course.
+        // Implementation depends on how course enrollments are managed.
+    }
+
+    public void recDateIscrizioneCorsi(){
+        // This method should retrieve the enrollment dates for courses.
+        // Implementation depends on how enrollment dates are stored and associated with the student.
     }
 
     public Map<Integer, LocalDate> getDateIscrizioneCorsi() {
@@ -50,9 +56,20 @@ public class Studente extends Utente {
         // TODO Auto-generated method stub
     }
     
+    public void disiscrittoPratica(int id_corso, LocalDate giorno_sessione) {
+        // This method should remove the student from a practical session.
+        // Implementation depends on how practical session enrollments are managed.
+    }
+    
     //metodo da modificare o controllare in futuro
     public List<Pratica> getPratiche() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public boolean equals(Utente utente) {
+        // This method should compare two Studente objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
     }
 }

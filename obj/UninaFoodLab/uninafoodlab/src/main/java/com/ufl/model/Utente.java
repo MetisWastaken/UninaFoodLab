@@ -65,6 +65,12 @@ public abstract class Utente {
         return UtenteDAO.verify(this);
     }
 
+    public boolean equals(Object obj){
+        // This method should compare two Utente objects for equality.
+        // Implementation depends on which attributes should be compared.
+        return false; // Placeholder return statement
+    }
+
     abstract public List<Notifica> getNotifiche();
     
     abstract public ArrayList<Corso> getCorsi();
