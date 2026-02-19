@@ -2,17 +2,18 @@ package com.ufl.model;
 import java.util.Map;
 
 public class Report {
-
+    private String username_chef;
     private int numero_corsi_totali;
     private int numero_sessioni_online;
     private int numero_sessioni_pratiche;
-    private Map<Sessione, Integer> numero_ricette_per_sessione;
+    private Map<Sessione, Integer> numero_ricette_per_sessione= null;
 
-    public Report(int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche, Map<Sessione, Integer> numero_ricette_per_sessione) {
+    public Report(String username_chef, int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche) {
+        this.username_chef = username_chef;
         this.numero_corsi_totali = numero_corsi_totali;
         this.numero_sessioni_online = numero_sessioni_online;
         this.numero_sessioni_pratiche = numero_sessioni_pratiche;
-        this.numero_ricette_per_sessione = numero_ricette_per_sessione;
+        
     }
 
     public void visualizzaGrafico() {
@@ -20,7 +21,9 @@ public class Report {
     }
 
     // getters 
-
+    public String getUsernameChef() {
+        return username_chef;
+    }
     public int getNumeroCorsiTotali() {
         return numero_corsi_totali;
     }
@@ -32,12 +35,13 @@ public class Report {
     public int getNumeroSessioniPratiche() {
         return numero_sessioni_pratiche;
     }
-
-    public Map<Sessione, Integer> getNumeroRicettePerSessione() {
-        return numero_ricette_per_sessione;
+    
+    public void recNumeroRicettePerSessione() {
+        // This method should retrieve the number of recipes per session for the report.
+        // Implementation depends on how this data is stored and associated with the report.
     }
 
-    public Map<Sessione, Integer> getNumeroRicettePerSessione(Sessione sessione) {
+    public Map<Sessione, Integer> getNumeroRicettePerSessione() {
         return numero_ricette_per_sessione;
     }
 }
