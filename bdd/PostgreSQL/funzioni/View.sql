@@ -59,3 +59,42 @@ WHERE
             )
         )
     );
+
+
+-- una view che mostra il numero di ricette svolte per ogni pratica, organizzando i risultati in questo modo:
+-- username_chef / id_pratica / numero_ricette_svolte
+-- questo è visualizzato dall'inizio del mese finoalla fine del mese corrente
+
+CREATE OR REPLACE VIEW view_numero_ricette_per_sessione AS
+SELECT 
+    c.chef_id AS username_chef,
+    p.id_pratica,
+    COUNT(ps.ricetta_id) AS numero_ricette_svolte
+FROM pratica p
+JOIN corso c ON p.corso_id = c.id_corso
+LEFT JOIN pratica_svolta ps ON p.id_pratica = ps.pratica_id
+WHERE EXTRACT(YEAR FROM p.giorno_sessione) = EXTRACT(YEAR FROM CURRENT_DATE)
+  AND EXTRACT(MONTH FROM p.giorno_sessione) = EXTRACT(MONTH FROM CURRENT_DATE)
+GROUP BY c.chef_id, p.id_pratica
+ORDER BY p.giorno_sessione DESC, c.chef_id;
+
+
+-- una view che mostra il numero di corsi e sessioni, organizzando i risultati in questo modo:
+-- username_chef / numero_corsi_totali / numero_sessioni_online / numero_sessioni_pratiche
+-- questo è visualizzato dall'inizio del mese finoalla fine del mese corrente
+CREATE OR REPLACE VIEW view_get_report AS
+SELECT
+    c.chef_id AS chef_username,
+    COUNT(DISTINCT c.id_corso)  AS numero_corsi_totali,
+    COUNT(DISTINCT o.id_online)  AS numero_sessioni_online,
+    COUNT(DISTINCT p.id_pratica) AS numero_sessioni_pratiche
+FROM corso c
+LEFT JOIN pratica p ON p.corso_id = c.id_corso 
+  AND EXTRACT(YEAR FROM p.giorno_sessione) = EXTRACT(YEAR FROM CURRENT_DATE)
+  AND EXTRACT(MONTH FROM p.giorno_sessione) = EXTRACT(MONTH FROM CURRENT_DATE)
+LEFT JOIN online o ON o.corso_id = c.id_corso 
+  AND EXTRACT(YEAR FROM o.giorno_sessione) = EXTRACT(YEAR FROM CURRENT_DATE)
+  AND EXTRACT(MONTH FROM o.giorno_sessione) = EXTRACT(MONTH FROM CURRENT_DATE)
+WHERE c.data_in <= (DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day')
+  AND c.data_fin >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY c.chef_id;
