@@ -3,28 +3,31 @@ package com.ufl.model;
 import java.time.LocalDate;
 
 public class Notifica {
+    private Integer id_notifica = null;
     private String username_chef;
     private String titolo;
     private String messaggio;
-    private boolean solo_iscritti;
+    private boolean solo_iscritti=false;
     private LocalDate data_creazione;
     private Integer corso_id;
 
-    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione) {
+    public Notifica(String username_chef, String titolo, String messaggio, boolean solo_iscritti, LocalDate data_creazione, Integer corso_id) {
         this.username_chef = username_chef;
         this.titolo = titolo;
         this.messaggio = messaggio;
-        this.solo_iscritti = false;
-        this.data_creazione = data_creazione;
-        this.corso_id = null;
-    }
-    public Notifica(String username_chef, String titolo, String messaggio, LocalDate data_creazione, Integer corso_id) {
-        this.username_chef = username_chef;
-        this.titolo = titolo;
-        this.messaggio = messaggio;
-        this.solo_iscritti = true;
+        this.solo_iscritti = solo_iscritti;
         this.data_creazione = data_creazione;
         this.corso_id = corso_id;
+    }
+    public Notifica(Integer id_notifica, String username_chef, String titolo, Integer corso_id) {
+        this.id_notifica = id_notifica;
+        this.username_chef = username_chef;
+        this.titolo = titolo;
+        this.corso_id = corso_id;
+    }
+
+    public Integer getIdNotifica() {
+        return id_notifica;
     }
 
     public String getUsernameChef() {
@@ -35,6 +38,10 @@ public class Notifica {
         return titolo;
     }
     
+    public void recMessagio(){
+        // Implementazione per ricevere il messaggio completo della notifica, se necessario
+    }
+
     public String getMessaggio() {
         return messaggio;
     }
@@ -42,6 +49,11 @@ public class Notifica {
     public boolean isSoloIscritti() {
         return solo_iscritti;
     }
+
+    public void recDataCreazione(){
+        // Implementazione per ricevere la data di creazione della notifica, se necessario
+    }
+
     public LocalDate getDataCreazione() {
         return data_creazione;
     }

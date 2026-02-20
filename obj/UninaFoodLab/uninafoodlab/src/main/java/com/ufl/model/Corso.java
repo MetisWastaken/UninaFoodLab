@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Corso {
-    private Integer id;
+    private Integer id=null;
     private String nome;
     private String categoria;
     private LocalDate data_in;
@@ -23,8 +23,8 @@ public class Corso {
         this.frequenza_settimanale = frequenza_settimanale;
     }
 
-    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef) {
-        this(id, nome, categoria, data_in, data_fin, frequenza_settimanale);
+    public Corso(String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef) {
+        this(null, nome, categoria, data_in, data_fin, frequenza_settimanale);
         this.chef = chef;
     }
 
