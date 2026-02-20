@@ -1,22 +1,3 @@
---- Funzione e trigger per garantire che username_chef in notifica sia uno Chef
-CREATE OR REPLACE FUNCTION enforce_notifica_username_chef_is_chef()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.username_chef IS NOT NULL THEN
-        PERFORM 1 FROM utente WHERE username = NEW.username_chef AND tipo_utente = 'Chef';
-        IF NOT FOUND THEN
-            RAISE EXCEPTION 'L''utente di nome "%" non e'' uno Chef', NEW.username_chef;
-        END IF;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trg_enforce_notifica_username_chef_is_chef
-BEFORE INSERT OR UPDATE ON notifica
-FOR EACH ROW
-EXECUTE FUNCTION enforce_notifica_username_chef_is_chef();
-
 -- Funzione e trigger per garantire che corso_id in notifica faccia riferimento a un corso esistente(se sollo_iscritti è TRUE)
 CREATE OR REPLACE FUNCTION enforce_notifica_corso_id_exists()
 RETURNS TRIGGER AS $$

@@ -1,22 +1,3 @@
---trigger che verifica che corso_id punti a un corso esistente
-CREATE OR REPLACE FUNCTION enforce_pratica_checks()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.corso_id IS NOT NULL THEN
-        PERFORM 1 FROM corso WHERE id_corso = NEW.corso_id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION 'corso_id "%" non corrisponde a un corso esistente', NEW.corso_id;
-        END IF;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
--- Trigger che utilizza la funzione enforce_pratica_checks per applicare i controlli
-CREATE TRIGGER trg_enforce_pratica_checks
-BEFORE INSERT OR UPDATE ON pratica
-FOR EACH ROW EXECUTE FUNCTION enforce_pratica_checks();
-
 --trigger per check della presenza di una sessione nello stesso giorno_sessione in pratica
 CREATE OR REPLACE FUNCTION prevent_pratica_date_conflict()
 RETURNS TRIGGER AS $$

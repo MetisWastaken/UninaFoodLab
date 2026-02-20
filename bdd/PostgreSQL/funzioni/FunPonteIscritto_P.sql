@@ -9,13 +9,6 @@ BEGIN
         END IF;
     END IF;
 
-    IF NEW.pratica_id IS NOT NULL THEN
-        PERFORM 1 FROM pratica WHERE id_pratica = NEW.pratica_id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION 'La pratica con id "%" non esiste', NEW.pratica_id;
-        END IF;
-    END IF;
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

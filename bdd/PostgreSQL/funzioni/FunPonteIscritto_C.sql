@@ -9,13 +9,6 @@ BEGIN
         END IF;
     END IF;
 
-    IF NEW.corso_id IS NOT NULL THEN
-        PERFORM 1 FROM corso WHERE id_corso = NEW.corso_id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION 'Il corso con id "%" non esiste', NEW.corso_id;
-        END IF;
-    END IF;
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

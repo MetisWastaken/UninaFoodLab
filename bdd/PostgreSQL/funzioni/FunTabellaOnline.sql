@@ -1,22 +1,3 @@
---trigger che verifica che corso_id punti a un corso esistente
-CREATE OR REPLACE FUNCTION enforce_online_checks()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.corso_id IS NOT NULL THEN
-        PERFORM 1 FROM corso WHERE id_corso = NEW.corso_id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION 'corso_id "%" non corrisponde a un corso esistente', NEW.corso_id;
-        END IF;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Trigger che utilizza la funzione enforce_online_checks per applicare i controlli
-CREATE TRIGGER trg_enforce_online_checks
-BEFORE INSERT OR UPDATE ON online
-FOR EACH ROW EXECUTE FUNCTION enforce_online_checks();
 
 --trigger per stesso giorno_sessione in online
 CREATE OR REPLACE FUNCTION prevent_online_date_conflict()
