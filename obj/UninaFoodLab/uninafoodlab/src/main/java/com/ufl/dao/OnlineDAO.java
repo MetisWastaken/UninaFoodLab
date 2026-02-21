@@ -8,20 +8,20 @@ import java.sql.PreparedStatement;
 import com.ufl.model.Online;
 
 public class OnlineDAO extends ConnessioneDAO {
-    public static Online get(String codice_meeting){
-        String query="SELECT * FROM online WHERE codice_meeting=?";
+    public static Online get(Integer corso_id, LocalDate giorno_sessione){
+        String query="SELECT * FROM online WHERE corso_id=? AND giorno_sessione=?";
 
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
-            ps.setString(1, codice_meeting);
+            ps.setInt(1, corso_id);
+            ps.setDate(2, java.sql.Date.valueOf(giorno_sessione));
 
             ResultSet rs=ps.executeQuery();
 
             if(rs.next()){
-                Integer id_corso=rs.getInt("id_corso");
-                LocalDate giorno_sessione=rs.getDate("data_ora").toLocalDate();
+                String codice_meeting=rs.getString("codice_meeting");
 
-                return new Online(id_corso, giorno_sessione, codice_meeting);
+                return new Online(corso_id, giorno_sessione, codice_meeting);
             }
         }catch(SQLException e){
             e.printStackTrace();            
