@@ -5,16 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ufl.model.Ricetta;
+
 public class RicettaDAO extends ConnessioneDAO {
-    public Ricetta get(String nome) {
-      String  query= "SELECT * FROM ricetta WHERE nome = ?";
+    public static Ricetta get(Integer id_ricetta) {
+      String  query= "SELECT * FROM ricetta WHERE id_ricetta = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setString(1, nome);
+            ps.setInt(1, id_ricetta);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                String nome = rs.getString("nome");
                 String descrizione = rs.getString("descrizione");
                 return new Ricetta(nome, descrizione);
             }
