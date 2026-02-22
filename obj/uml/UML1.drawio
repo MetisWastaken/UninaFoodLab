@@ -711,7 +711,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="zm07d2_IBClaOcFRHgl8" name="dao">
-    <mxGraphModel dx="815" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="541" dy="378" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -750,8 +750,7 @@
         <mxCell id="pYHw3BNLLNPOtac5_4_N-19" edge="1" parent="1" source="pRezoLBZ_KDvUUvxMxkM-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="WXIEgsgQzTcrv4qVOCVf-7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1020" y="1530" />
-              <mxPoint x="1020" y="1470" />
+              <mxPoint x="570" y="1470" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -764,10 +763,10 @@
         <mxCell id="sY9JVOpN17zZzIMPv1Fw-4" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get(Integer id_ricetta): Ricetta" vertex="1">
           <mxGeometry height="26" width="417" y="34" as="geometry" />
         </mxCell>
-        <mxCell id="2xVTuclVpGwpXOwivm2Y-1" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIdRicetta(String nome): Integer&amp;nbsp;" vertex="1">
+        <mxCell id="sY9JVOpN17zZzIMPv1Fw-1" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ recIngredienti(Ricetta ricetta): Array&amp;lt;Ingrediente&amp;gt;" vertex="1">
           <mxGeometry height="26" width="417" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="sY9JVOpN17zZzIMPv1Fw-1" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ recIngredienti(Ricetta ricetta): Array&amp;lt;Ingrediente&amp;gt;" vertex="1">
+        <mxCell id="2xVTuclVpGwpXOwivm2Y-1" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIdRicetta(String nome): Integer&amp;nbsp;" vertex="1">
           <mxGeometry height="26" width="417" y="86" as="geometry" />
         </mxCell>
         <mxCell id="sY9JVOpN17zZzIMPv1Fw-2" parent="pRezoLBZ_KDvUUvxMxkM-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ aggiungiIngrediente(Ricetta ricetta,&amp;nbsp;Ingrediente ingrediente) : boolean" vertex="1">
@@ -807,7 +806,7 @@
           <mxGeometry height="26" width="280" y="86" as="geometry" />
         </mxCell>
         <mxCell id="WXIEgsgQzTcrv4qVOCVf-7" parent="1" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="IngredienteDAO" vertex="1">
-          <mxGeometry height="60" width="288" x="1090" y="1440" as="geometry" />
+          <mxGeometry height="60" width="288" x="530" y="1360" as="geometry" />
         </mxCell>
         <mxCell id="WXIEgsgQzTcrv4qVOCVf-8" parent="WXIEgsgQzTcrv4qVOCVf-7" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="288" y="26" as="geometry" />
@@ -819,14 +818,6 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1634" y="1580" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="RfTWt84hcwUXUb-lK5d8-1" edge="1" parent="1" source="WXIEgsgQzTcrv4qVOCVf-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="WXIEgsgQzTcrv4qVOCVf-7">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1419" y="1430" />
-              <mxPoint x="1419" y="1470" />
             </Array>
           </mxGeometry>
         </mxCell>
