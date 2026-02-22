@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
-import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 
 public class PraticaDAO extends ConnessioneDAO {
