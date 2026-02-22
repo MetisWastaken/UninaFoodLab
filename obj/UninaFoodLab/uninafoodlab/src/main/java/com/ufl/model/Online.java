@@ -2,6 +2,8 @@ package com.ufl.model;
 
 import java.time.LocalDate;
 
+import com.ufl.dao.OnlineDAO;
+
 public class Online extends Sessione {
     private String codice_meeting;
 
@@ -12,8 +14,12 @@ public class Online extends Sessione {
     
     @Override
     public void recRicette(){
-        // This method should retrieve the meeting code for the online session.
-        // Implementation depends on how meeting codes are stored and associated with the session.
+        ricette = OnlineDAO.recRicette(this);
+    }
+
+    @Override
+     public Integer getIdSessione() {
+        return OnlineDAO.getIdSessione(this);
     }
 
     public String getCodiceMeeting() {

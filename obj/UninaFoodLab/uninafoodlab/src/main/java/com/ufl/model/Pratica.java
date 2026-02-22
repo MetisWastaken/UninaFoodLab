@@ -4,6 +4,8 @@ package com.ufl.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ufl.dao.PraticaDAO;
+
 public class Pratica extends Sessione {
     private String aula;
     private int posti_totali;
@@ -16,8 +18,12 @@ public class Pratica extends Sessione {
 
     @Override
     public void recRicette(){
-        // This method should retrieve the recipes for the practical session.
-        // Implementation depends on how recipes are stored and associated with the session.
+        ricette = PraticaDAO.recRicette(this);
+    }
+
+    @Override
+     public Integer getIdSessione() {
+        return PraticaDAO.getIdSessione(this); 
     }
 
     public String getAula() {
@@ -29,12 +35,10 @@ public class Pratica extends Sessione {
     }
 
     public int getNStudentiIscritti() {
-        // TODO Auto-generated method stub
-        return 0;
+        return PraticaDAO.getNStudentiIscritti(this);
     }
 
     public List<Ingrediente> getIngredientiUsati(){
-        // TODO Auto-generated method stub
-        return null;
+        return PraticaDAO.getIngredientiUsati(this);
     }
 }
