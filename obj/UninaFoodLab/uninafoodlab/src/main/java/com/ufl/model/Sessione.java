@@ -25,6 +25,8 @@ public abstract class Sessione {
         return ricette;
     }
 
+    abstract public Integer getIdSessione();
+
     public void aggiungiRicetta(Ricetta ricetta){
          // TODO Auto-generated method stub
     }
