@@ -47,3 +47,18 @@ FOR EACH ROW EXECUTE FUNCTION prevent_online_pratica_date_conflict();
 CREATE TRIGGER trg_enforce_sessione_date_within_corso
 BEFORE INSERT OR UPDATE ON online
 FOR EACH ROW EXECUTE FUNCTION enforce_sessione_date_within_corso();
+
+--trigger per impedire l'eliminazione di una sessione online già passata
+CREATE OR REPLACE FUNCTION prevent_past_sessione_online_deletion()
+RETURNS TRIGGER AS $$  
+BEGIN
+    IF OLD.giorno_sessione < CURRENT_DATE THEN
+        RAISE EXCEPTION 'Non è possibile eliminare una sessione già passata. La sessione del giorno % non può essere eliminata.', OLD.giorno_sessione;
+    END IF;
+
+    RETURN OLD;
+END;
+
+CREATE TRIGGER trg_prevent_past_sessione_online_deletion
+BEFORE DELETE ON online
+FOR EACH ROW EXECUTE FUNCTION prevent_past_sessione_online_deletion();

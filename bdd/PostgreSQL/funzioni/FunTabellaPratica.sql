@@ -91,3 +91,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_prevent_posti_totali_with_null_aula
 BEFORE INSERT OR UPDATE ON pratica
 FOR EACH ROW EXECUTE FUNCTION prevent_posti_totali_with_null_aula();
+
+--trigger per impedire l'eliminazione di una sessione praticagià passata
+CREATE OR REPLACE FUNCTION prevent_past_sessione_pratica_deletion()
+RETURNS TRIGGER AS $$  
+BEGIN
+    IF OLD.giorno_sessione < CURRENT_DATE THEN
+        RAISE EXCEPTION 'Non è possibile eliminare una sessione già passata. La sessione del giorno % non può essere eliminata.', OLD.giorno_sessione;
+    END IF;
+
+    RETURN OLD;
+END;
+
+CREATE TRIGGER trg_prevent_past_sessione_pratica_deletion
+BEFORE DELETE ON pratica
+FOR EACH ROW EXECUTE FUNCTION prevent_past_sessione_pratica_deletion();
