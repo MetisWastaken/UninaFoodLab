@@ -40,9 +40,7 @@ public class Pratica extends Sessione {
     }
 
     public String getStudentiIscritti(){
-        // This method should retrieve the list of enrolled students for the course.
-        // Implementation depends on how student enrollments are stored and associated with the course.
-        return null;
+        return PraticaDAO.getStudentiIscritti(this);
     }
 
     public void aggiungiRicetta(Ricetta ricetta){
