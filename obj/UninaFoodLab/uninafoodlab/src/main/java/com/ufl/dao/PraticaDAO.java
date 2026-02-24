@@ -7,12 +7,8 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.ufl.dao.RicettaDAO;
-import com.ufl.dao.IngredienteDAO;
-
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
-import com.ufl.model.Ingrediente;
 
 public class PraticaDAO extends ConnessioneDAO {
     public static Pratica get(Integer id_pratica){
@@ -38,6 +34,75 @@ public class PraticaDAO extends ConnessioneDAO {
         return null;
     }
     
+    
+
+    public static boolean insert(Pratica pratica) {
+        String query = "CALL InsertPratica(?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setDate(1, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setString(2, pratica.getAula());
+            ps.setInt(3, pratica.getPostiTotali());
+            ps.setInt(4, pratica.getCorsoId());
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean update(Integer id_pratica, Pratica pratica) {
+        String query = "CALL UpdatePratica(?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id_pratica);
+            ps.setDate(2, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setString(3, pratica.getAula());
+            ps.setInt(4, pratica.getPostiTotali());
+            ps.setInt(5, pratica.getCorsoId());
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean delete(Integer id_pratica) {
+        String query = "CALL DeletePratica(?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id_pratica);
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static Integer getIdSessione(Pratica pratica) {
+        String query = "SELECT id_pratica FROM pratica WHERE giorno_sessione = ? AND corso_id = ?";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setDate(1, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setInt(2, pratica.getCorsoId());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                return rs.getInt("id_pratica");
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static ArrayList<Ricetta> recRicette(Pratica pratica){
         String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
         ArrayList<Ricetta> ricette = new ArrayList<>();
@@ -60,60 +125,38 @@ public class PraticaDAO extends ConnessioneDAO {
         return ricette; 
     }
 
-    public static Integer getIdSessione(Pratica pratica) {
-        String query = "SELECT id_pratica FROM pratica WHERE giorno_sessione = ? AND corso_id = ?";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, java.sql.Date.valueOf(pratica.getGiornoSessione()));
-            ps.setInt(2, pratica.getCorsoId());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()) {
-                return rs.getInt("id_pratica");
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static int getNStudentiIscritti(Pratica pratica) {
-        String query = "SELECT posti_occupati FROM view_studenti_iscritti WHERE id_pratica = ?";
-        try {
+    public static String getStudentiIscritti(Pratica pratica){
+        String query = "SELECT u.nome, u.cognome FROM iscritto_p ip JOIN utente u ON ip.stud_id = u.username WHERE ip.pratica_id = ?";
+        StringBuilder studenti = new StringBuilder();
+        try{
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, pratica.getIdSessione());
             
             ResultSet rs = ps.executeQuery();
             
-            if(rs.next()) {
-                return rs.getInt("posti_occupati");
+            while(rs.next()){
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                studenti.append(nome).append(" ").append(cognome).append("\n");
             }
-        } catch(SQLException e) {
+        }catch(SQLException e){
             e.printStackTrace();
         }
-        return 0;
+        return studenti.toString();
     }
 
-    public static ArrayList<Ingrediente> getIngredientiUsati(Pratica pratica) {
-        String query = "SELECT ingrediente_nome, unit_misura, quantita FROM view_ingredienti_pratica WHERE id_pratica = ?";
-        ArrayList<Ingrediente> ingredienti = new ArrayList<>();
+    public static boolean aggiungiRicetta(Pratica pratica, Ricetta ricetta){
+        String query = "INSERT INTO pratica_svolta (pratica_id, ricetta_id) VALUES (?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, pratica.getIdSessione());
+            ps.setInt(2, ricetta.getIdRicetta());
             
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
-                String nome = rs.getString("ingrediente_nome");
-                String unita_misura = rs.getString("unit_misura");
-                double quantita = rs.getDouble("quantita");
-                
-                ingredienti.add(new Ingrediente(nome, unita_misura, quantita));
-            }
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return ingredienti;
+        return false;
     }
 }
