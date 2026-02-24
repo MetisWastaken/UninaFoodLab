@@ -36,3 +36,20 @@ BEFORE INSERT OR UPDATE ON notifica
 FOR EACH ROW
 EXECUTE FUNCTION enforce_notifica_no_corso_id_if_not_solo_iscritti();
 
+--Funzione che impedisce l'inserimento di una notifica con titolo uguale
+CREATE OR REPLACE FUNCTION prevent_notifica_titolo_duplicato()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.titolo IS NOT NULL THEN
+        PERFORM 1 FROM notifica WHERE titolo = NEW.titolo AND id_notifica <> NEW.id_notifica;
+        IF FOUND THEN
+            RAISE EXCEPTION 'Esiste già una notifica con il titolo "%" ', NEW.titolo;
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_prevent_notifica_titolo_duplicato
+BEFORE INSERT OR UPDATE ON Notifica
+EXECUTE FUNCTION prevent_notifica_titolo_duplicato();
