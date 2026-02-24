@@ -33,8 +33,10 @@
 \i 'funzioni/View.sql'
 
 -- CREAZIONE PROCEDURE
-\i 'funzioni/ProcedureCRUD/CRUDTabellaUtente.sql'
-\i 'funzioni/ProcedureCRUD/CRUDTabellaRicetta.sql'
+\i 'funzioni/ProcedureCRUD/CRUDTabellaCorso.sql'
+\i 'funzioni/ProcedureCRUD/CRUDTabellaNotifica.sql'
+\i 'funzioni/ProcedureCRUD/CRUDTabellaOnline.sql'
+\i 'funzioni/ProcedureCRUD/CRUDTabellaPratica.sql'
 
 -- INSERIMENTI DI ESEMPIO
 
