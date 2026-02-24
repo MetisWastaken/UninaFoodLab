@@ -58,6 +58,7 @@ BEGIN
 
     RETURN OLD;
 END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_prevent_past_sessione_online_deletion
 BEFORE DELETE ON online

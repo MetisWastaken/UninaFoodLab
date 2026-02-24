@@ -102,6 +102,7 @@ BEGIN
 
     RETURN OLD;
 END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_prevent_past_sessione_pratica_deletion
 BEFORE DELETE ON pratica
