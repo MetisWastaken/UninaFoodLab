@@ -14,7 +14,13 @@ public class Chef extends Utente {
         super(username, password);
     }
     public Chef(String username, String password, String nome, String cognome) {
-        super(username, password, "Chef", nome, cognome);
+        super(username, password, nome, cognome);
+    }
+
+    
+    @Override
+    public boolean verify() {
+        return ChefDAO.verify(this);
     }
 
     @Override
@@ -50,15 +56,11 @@ public class Chef extends Utente {
         // TODO Auto-generated method stub
     }
 
+    public void eliminaNotifica(Notifica notifica){
+        // TODO Auto-generated method stub
+    }
+
     public void aggiungiCorso(Corso corso){
-        // TODO Auto-generated method stub
-    }
-
-    public void modificaCorso(Corso corso, Notifica notifica){
-        // TODO Auto-generated method stub
-    }
-
-    public void eliminaCorso(Corso corso, Notifica notifica){
         // TODO Auto-generated method stub
     }
 

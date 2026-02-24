@@ -10,22 +10,22 @@ public class Corso {
     private LocalDate data_in;
     private LocalDate data_fin;
     private String frequenza_settimanale;
-    private Chef chef=null;
+    private Chef chef;
     private List<Pratica> sessioni_pratiche=null;
     private List<Online> sessioni_online=null;
 
-    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale) {
-        this.id = id;
+    public Corso(String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef) {
         this.nome = nome;
         this.categoria = categoria;
         this.data_in = data_in;
         this.data_fin = data_fin;
         this.frequenza_settimanale = frequenza_settimanale;
+        this.chef = chef;
     }
 
-    public Corso(String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef) {
-        this(null, nome, categoria, data_in, data_fin, frequenza_settimanale);
-        this.chef = chef;
+    public void recId(){
+        // This method should retrieve the ID of the course, if necessary.
+        // Implementation depends on how the ID is generated and stored in the database.
     }
 
     public Integer getId() {
@@ -52,35 +52,33 @@ public class Corso {
         return frequenza_settimanale;
     }
     
-    public void recChef(){
-        // This method should retrieve the chef associated with the course.
-        // Implementation depends on how the chef is retrieved from the database.
-    }
-    public void recSessioniPratiche(){
-        // This method should retrieve the list of practical sessions for the course.
-        // Implementation depends on how sessions are stored and associated with the course.
-    }
-    public void recSessioniOnline(){
-        // This method should retrieve the list of online sessions for the course.
-        // Implementation depends on how sessions are stored and associated with the course.
-    }
 
     public Chef getChef() {
         return chef;
     }
     
+    public void recSessioniPratiche(){
+        // This method should retrieve the list of practical sessions for the course.
+        // Implementation depends on how sessions are stored and associated with the course.
+    }
+
     public List<Pratica> getSessioniPratiche() {
         return sessioni_pratiche;
+    }
+
+    public void recSessioniOnline(){
+        // This method should retrieve the list of online sessions for the course.
+        // Implementation depends on how sessions are stored and associated with the course.
     }
 
     public List<Online> getSessioniOnline() {
         return sessioni_online;
     }
 
-    public List<Studente> getStudenti() {
-        // This method should return the list of students enrolled in the course.
-        // Implementation depends on how students are associated with the course.
-        return null; // Placeholder return statement
+    public String getStudentiIscritti(){
+        // This method should retrieve the list of enrolled students for the course.
+        // Implementation depends on how student enrollments are stored and associated with the course.
+        return null;
     }
 
     public void aggiungiSessione(Pratica sessione) {

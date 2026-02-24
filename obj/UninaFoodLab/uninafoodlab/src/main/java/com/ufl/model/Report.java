@@ -6,7 +6,7 @@ public class Report {
     private int numero_corsi_totali;
     private int numero_sessioni_online;
     private int numero_sessioni_pratiche;
-    private Map<Sessione, Integer> numero_ricette_per_sessione= null;
+    private Map<Pratica, Integer> numero_ricette_per_pratica= null;
 
     public Report(String username_chef, int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche) {
         this.username_chef = username_chef;
@@ -36,12 +36,12 @@ public class Report {
         return numero_sessioni_pratiche;
     }
     
-    public void recNumeroRicettePerSessione() {
+    public void recNumeroRicettePerPratiche() {
         // This method should retrieve the number of recipes per session for the report.
         // Implementation depends on how this data is stored and associated with the report.
     }
 
-    public Map<Sessione, Integer> getNumeroRicettePerSessione() {
-        return numero_ricette_per_sessione;
+    public Map<Pratica, Integer> getNumeroRicettePerPratiche() {
+        return numero_ricette_per_pratica;
     }
 }

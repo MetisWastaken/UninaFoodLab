@@ -4,17 +4,13 @@ import java.time.LocalDate;
 
 import com.ufl.dao.OnlineDAO;
 
+
 public class Online extends Sessione {
     private String codice_meeting;
 
     public Online(int corso_id, LocalDate giorno_sessione, String codice_meeting) {
         super(corso_id, giorno_sessione);
         this.codice_meeting = codice_meeting;
-    }
-    
-    @Override
-    public void recRicette(){
-        ricette = OnlineDAO.recRicette(this);
     }
 
     @Override

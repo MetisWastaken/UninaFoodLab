@@ -11,19 +11,22 @@ public class Notifica {
     private LocalDate data_creazione;
     private Integer corso_id;
 
-    public Notifica(String username_chef, String titolo, String messaggio, boolean solo_iscritti, LocalDate data_creazione, Integer corso_id) {
-        this.username_chef = username_chef;
-        this.titolo = titolo;
-        this.messaggio = messaggio;
-        this.solo_iscritti = solo_iscritti;
-        this.data_creazione = data_creazione;
-        this.corso_id = corso_id;
-    }
     public Notifica(Integer id_notifica, String username_chef, String titolo, Integer corso_id) {
         this.id_notifica = id_notifica;
         this.username_chef = username_chef;
         this.titolo = titolo;
         this.corso_id = corso_id;
+    }
+
+    public Notifica(String username_chef, String titolo, String messaggio, boolean solo_iscritti, LocalDate data_creazione, Integer corso_id) {
+        this(null, username_chef, titolo, corso_id);
+        this.messaggio = messaggio;
+        this.solo_iscritti = solo_iscritti;
+        this.data_creazione = data_creazione;
+    }
+    
+    public void recIdNotifica() {
+        // Implementazione per ricevere l'ID della notifica, se necessario
     }
 
     public Integer getIdNotifica() {
@@ -46,6 +49,10 @@ public class Notifica {
         return messaggio;
     }
 
+    public void recSoloIscritti() {
+        // Implementazione per ricevere il valore booleano "solo_iscritti", se necessario
+    }
+
     public boolean isSoloIscritti() {
         return solo_iscritti;
     }
@@ -60,5 +67,10 @@ public class Notifica {
 
     public Integer getCorsoId() {
         return corso_id;
+    }
+
+    public String getUsernameRiceventi() {
+        // Implementazione per ricevere gli username dei destinatari della notifica, se necessario
+        return null;
     }
 }   

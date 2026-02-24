@@ -3,12 +3,10 @@ package com.ufl.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ufl.dao.UtenteDAO;
 
 public abstract class Utente {
     protected String username;
     protected String password;
-    protected String tipo;
     protected String nome;
     protected String cognome;
     
@@ -18,9 +16,8 @@ public abstract class Utente {
         this.password = password;
     }
 
-    public Utente(String username, String password, String tipo, String nome, String cognome) {
+    public Utente(String username, String password, String nome, String cognome) {
         this(username, password);
-        this.tipo = tipo;
         this.nome = nome;
         this.cognome = cognome;
     }
@@ -40,33 +37,26 @@ public abstract class Utente {
         return password;
     }
 
-    public void recTipo(){
-        // This method should retrieve the type of the user.
-        // Implementation depends on how user types are stored and associated with the user.
-    }
     public void recNome(){
         // This method should retrieve the name of the user.
         // Implementation depends on how names are stored and associated with the user.
     }
+
+    public String getNome() {
+        return nome;
+    }
+
     public void recCognome(){
         // This method should retrieve the surname of the user.
         // Implementation depends on how surnames are stored and associated with the user.
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-    public String getNome() {
-        return nome;
-    }
     public String getCognome() {
         return cognome;
     }
     
 
-    public boolean verify(){
-        return UtenteDAO.verify(this);
-    }
+    abstract public boolean verify();
 
     
 

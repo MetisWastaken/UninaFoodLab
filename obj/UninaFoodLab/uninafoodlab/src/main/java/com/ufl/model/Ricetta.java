@@ -34,11 +34,4 @@ public class Ricetta {
         return null;
     }
 
-    public void AggiungiIngrediente(Ingrediente ingrediente) {
-        // TODO - da rivedere alla creazione della struttura DAO
-    }
-
-    public void Ingrediente(Ingrediente ingrediente) {
-        // TODO - da rivedere alla creazione della struttura DAO
-    }
 }

@@ -9,6 +9,7 @@ import com.ufl.dao.PraticaDAO;
 public class Pratica extends Sessione {
     private String aula;
     private int posti_totali;
+    private List<Ricetta> ricette = null;
 
     public Pratica(Integer corso_id, LocalDate giorno_sessione, String aula, int posti_totali) {
         super(corso_id, giorno_sessione);
@@ -17,12 +18,7 @@ public class Pratica extends Sessione {
     }
 
     @Override
-    public void recRicette(){
-        ricette = PraticaDAO.recRicette(this);
-    }
-
-    @Override
-     public Integer getIdSessione() {
+    public Integer getIdSessione() {
         return PraticaDAO.getIdSessione(this); 
     }
 
@@ -34,11 +30,24 @@ public class Pratica extends Sessione {
         return posti_totali;
     }
 
-    public int getNStudentiIscritti() {
-        return PraticaDAO.getNStudentiIscritti(this);
+    public void recRicette(){
+        ricette = PraticaDAO.recRicette(this);
     }
 
-    public List<Ingrediente> getIngredientiUsati(){
-        return PraticaDAO.getIngredientiUsati(this);
+    
+    public List<Ricetta> getRicette() {
+        return ricette;
+    }
+
+    public String getStudentiIscritti(){
+        // This method should retrieve the list of enrolled students for the course.
+        // Implementation depends on how student enrollments are stored and associated with the course.
+        return null;
+    }
+
+    public void aggiungiRicetta(Ricetta ricetta){
+        if(PraticaDAO.aggiungiRicetta(this, ricetta)){
+            ricette.add(ricetta);
+        }
     }
 }
