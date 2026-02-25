@@ -10,9 +10,18 @@ public class Corso {
     private LocalDate data_in;
     private LocalDate data_fin;
     private String frequenza_settimanale;
-    private Chef chef;
+    private Chef chef = null;
     private List<Pratica> sessioni_pratiche=null;
     private List<Online> sessioni_online=null;
+
+    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale) {
+        this.id = id;
+        this.nome = nome;
+        this.categoria = categoria;
+        this.data_in = data_in;
+        this.data_fin = data_fin;
+        this.frequenza_settimanale = frequenza_settimanale;
+    }
 
     public Corso(String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale, Chef chef) {
         this.nome = nome;
@@ -52,7 +61,11 @@ public class Corso {
         return frequenza_settimanale;
     }
     
-
+    public void recChef(){
+        // This method should retrieve the chef associated with the course, if necessary.
+        // Implementation depends on how the chef is associated and stored in the database.
+    } 
+    
     public Chef getChef() {
         return chef;
     }
