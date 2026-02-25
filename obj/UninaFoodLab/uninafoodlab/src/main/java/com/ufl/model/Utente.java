@@ -3,6 +3,7 @@ package com.ufl.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ufl.dao.UtenteDAO;
 
 public abstract class Utente {
     protected String username;
@@ -24,9 +25,15 @@ public abstract class Utente {
 
     @Override
     public boolean equals(Object obj){
-        // This method should compare two Utente objects for equality.
-        // Implementation depends on which attributes should be compared.
-        return false; // Placeholder return statement
+        if (this == obj){
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+
+        Utente utente = (Utente) obj;
+        return username.equals(utente.username);
     }
 
     public String getUsername() {
@@ -38,8 +45,7 @@ public abstract class Utente {
     }
 
     public void recNome(){
-        // This method should retrieve the name of the user.
-        // Implementation depends on how names are stored and associated with the user.
+        nome = UtenteDAO.recNome(this);
     }
 
     public String getNome() {
@@ -47,8 +53,7 @@ public abstract class Utente {
     }
 
     public void recCognome(){
-        // This method should retrieve the surname of the user.
-        // Implementation depends on how surnames are stored and associated with the user.
+        cognome = UtenteDAO.recCognome(this);
     }
 
     public String getCognome() {
@@ -57,8 +62,6 @@ public abstract class Utente {
     
 
     abstract public boolean verify();
-
-    
 
     abstract public List<Notifica> getNotifiche();
     
