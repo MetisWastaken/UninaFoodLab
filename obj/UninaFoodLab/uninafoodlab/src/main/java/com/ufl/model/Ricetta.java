@@ -1,9 +1,8 @@
 package com.ufl.model;
 import java.util.List;
-om.ufl.dao.RicettaDAO
+import com.ufl.dao.RicettaDAO;
 
 public class Ricetta {
-    private Integer id_ricetta;
     private String nome;
     private String descrizione;
     private List<Ingrediente> ingredienti;
@@ -23,7 +22,7 @@ public class Ricetta {
     }
 
     public void recIngredienti() {
-        this.ingredienti = com.ufl.dao.RicettaDAO.recIngredienti(this);
+        this.ingredienti = RicettaDAO.recIngredienti(this);
     }
 
     public List<Ingrediente> getIngredienti() {
@@ -31,7 +30,7 @@ public class Ricetta {
     }
 
     public Integer getIdRicetta() {
-        return id_ricetta;
+        return RicettaDAO.getIdRicetta(this);
     }
 
 }

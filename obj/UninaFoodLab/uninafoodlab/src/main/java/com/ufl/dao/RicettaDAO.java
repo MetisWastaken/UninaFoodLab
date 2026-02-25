@@ -28,20 +28,23 @@ public class RicettaDAO extends ConnessioneDAO {
         return null;
     }
 
-        public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta){
-        String query = "SELECT * FROM ingrediente WHERE nome = ?";
+    public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta) {
+        String query = "SELECT ingrediente_id FROM necessita WHERE ricetta_id = ?";
         ArrayList<Ingrediente> ingredienti = new ArrayList<>();
+        IngredienteDAO ingredienteDAO = new IngredienteDAO();
+        Integer id_ricetta = ricetta.getIdRicetta();
         try{
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setString(1, ricetta.getNome());
+            ps.setInt(1, id_ricetta);
             
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                String nome = rs.getString("nome");
-                String unita_misura = rs.getString("unita_misura");
-                double quantita = rs.getDouble("quantita");
-                ingredienti.add(new Ingrediente(nome, unita_misura, quantita));
+                String nome = rs.getString("ingrediente_id");
+                Ingrediente ing = ingredienteDAO.get(nome, id_ricetta);
+                if(ing != null){
+                    ingredienti.add(ing);
+                }
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -49,11 +52,11 @@ public class RicettaDAO extends ConnessioneDAO {
         return ingredienti; 
     }
 
-        public static Integer getidRicetta(String Nome){
+    public static Integer getIdRicetta(Ricetta ricetta){
         String query = "SELECT id_ricetta FROM ricetta WHERE nome = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setString(1, Nome);
+            ps.setString(1, ricetta.getNome());
 
             ResultSet rs = ps.executeQuery();
 
