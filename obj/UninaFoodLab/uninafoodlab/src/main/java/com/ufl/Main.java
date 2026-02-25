@@ -3,6 +3,7 @@ package com.ufl;
 import java.time.LocalDate;
 import com.ufl.dao.PraticaDAO;
 import com.ufl.model.Pratica;
+import com.ufl.model.Ricetta;
 import com.ufl.dao.RicettaDAO;
 import com.ufl.dao.OnlineDAO;
 import com.ufl.model.Online;
@@ -31,8 +32,22 @@ public class Main {
             System.out.println("Errore nella connessione al database.");
         }
     }
+
+        public static void testRicetta(){
+        Ricetta ricetta = RicettaDAO.get(1);
+        if(ricetta != null){
+            System.out.println("Ricetta trovata: " + ricetta.getIdRicetta() + ", " + ricetta.getNome() + ", " + ricetta.getDescrizione());
+            ricetta.recIngredienti();
+            System.out.println("Ingredienti della ricetta:");
+            ricetta.getIngredienti().forEach(ingrediente -> System.out.println("- " + ingrediente.getNome()));
+        } else {
+            System.out.println("Errore nella connessione al database.");
+        }
+    }
+
     public static void main(String[] args) {
        //testPratica();
-       testOnline();
+       //testOnline();
+       testRicetta();
     }
 }

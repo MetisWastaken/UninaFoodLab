@@ -1,10 +1,13 @@
 package com.ufl.model;
 import java.util.List;
+om.ufl.dao.RicettaDAO
 
 public class Ricetta {
+    private Integer id_ricetta;
     private String nome;
     private String descrizione;
     private List<Ingrediente> ingredienti;
+    
 
     public Ricetta(String nome, String descrizione) {
         this.nome = nome;
@@ -20,8 +23,7 @@ public class Ricetta {
     }
 
     public void recIngredienti() {
-        // This method should retrieve the list of ingredients for the recipe.
-        // Implementation depends on how ingredients are stored and associated with the recipe.
+        this.ingredienti = com.ufl.dao.RicettaDAO.recIngredienti(this);
     }
 
     public List<Ingrediente> getIngredienti() {
@@ -29,9 +31,7 @@ public class Ricetta {
     }
 
     public Integer getIdRicetta() {
-        // This method should retrieve the ID of the recipe.
-        // Implementation depends on how recipe IDs are stored and associated with the recipe.
-        return null;
+        return id_ricetta;
     }
 
 }
