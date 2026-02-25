@@ -1,7 +1,7 @@
 --Enum per gestione delle unità di misura degli ingredienti
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_i') THEN
-        CREATE TYPE enum_i AS ENUM ('Kg','L', 'Pz');
+        CREATE TYPE enum_i AS ENUM ('Kg','L','Pz');
     END IF;
 END$$;
 

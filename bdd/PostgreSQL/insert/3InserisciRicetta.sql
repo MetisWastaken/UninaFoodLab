@@ -1,11 +1,11 @@
 --Inserimento ingredienti di esempio
 INSERT INTO ingrediente (nome, unit_misura) VALUES
-('Farina', 'chili'),
-('Uova', NULL),
-('Burro', 'chili'),
-('Cioccolato', 'chili'),
-('Zucchero', 'chili'),
-('Latte', 'litri');
+('Farina', 'Kg'),
+('Uova', 'Pz'),
+('Burro', 'Kg'),
+('Cioccolato', 'Kg'),
+('Zucchero', 'Kg'),
+('Latte', 'L');
 
 
 --Inserimento ricette di esempio
