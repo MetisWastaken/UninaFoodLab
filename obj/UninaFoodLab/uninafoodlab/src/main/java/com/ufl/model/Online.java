@@ -22,5 +22,15 @@ public class Online extends Sessione {
         return codice_meeting;
     }
 
+    public boolean insert() {
+        return OnlineDAO.insert(this);
+    }
 
+    public boolean update(Online online) {
+        return OnlineDAO.update(this.getIdSessione(), online);
+    }
+
+    public boolean delete() {
+        return OnlineDAO.delete(this.getIdSessione());
+    }
 }
