@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 import com.ufl.model.Corso;
 
+import com.ufl.model.Chef;
+
 public class CorsoDAO extends ConnessioneDAO {
     
     public Corso get(Integer id) {
@@ -30,5 +32,23 @@ public class CorsoDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    public static boolean insert(Corso corso){
+        String query = "CALL InsertCorso(?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setString(1, corso.getNome());
+            ps.setString(2, corso.getCategoria());
+            ps.setDate(3, java.sql.Date.valueOf(corso.getDataIn()));
+            ps.setDate(4, java.sql.Date.valueOf(corso.getDataFin()));
+            ps.setString(5, corso.getFrequenzaSettimanale());
+            ps.setString(6, corso.getChef().getUsername());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
