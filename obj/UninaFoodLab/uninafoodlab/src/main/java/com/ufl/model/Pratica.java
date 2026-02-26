@@ -43,6 +43,17 @@ public class Pratica extends Sessione {
         return PraticaDAO.getStudentiIscritti(this);
     }
 
+    public boolean insert() {
+        return PraticaDAO.insert(this);
+    }
+
+    public boolean update(Pratica pratica) {
+        return PraticaDAO.update(this.getIdSessione(), pratica);
+    }    
+    public boolean delete() {
+        return PraticaDAO.delete(this.getIdSessione());
+    }
+
     public void aggiungiRicetta(Ricetta ricetta){
         if(PraticaDAO.aggiungiRicetta(this, ricetta)){
             ricette.add(ricetta);
