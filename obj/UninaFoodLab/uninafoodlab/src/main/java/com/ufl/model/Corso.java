@@ -3,6 +3,8 @@ package com.ufl.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ufl.dao.CorsoDAO;
+
 public class Corso {
     private Integer id=null;
     private String nome;
@@ -92,6 +94,10 @@ public class Corso {
         // This method should retrieve the list of enrolled students for the course.
         // Implementation depends on how student enrollments are stored and associated with the course.
         return null;
+    }
+
+    public void insert(){
+        CorsoDAO.insert(this);
     }
 
     public void aggiungiSessione(Pratica sessione) {
