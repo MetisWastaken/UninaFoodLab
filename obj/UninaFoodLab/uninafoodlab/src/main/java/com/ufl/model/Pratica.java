@@ -50,6 +50,7 @@ public class Pratica extends Sessione {
     public boolean update(Pratica pratica) {
         return PraticaDAO.update(this.getIdSessione(), pratica);
     }    
+    
     public boolean delete() {
         return PraticaDAO.delete(this.getIdSessione());
     }
