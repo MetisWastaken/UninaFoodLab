@@ -1,12 +1,14 @@
 package com.ufl.model;
 import java.util.Map;
+import java.util.HashMap;
+import com.ufl.dao.ReportDAO;
 
 public class Report {
     private String username_chef;
     private int numero_corsi_totali;
     private int numero_sessioni_online;
     private int numero_sessioni_pratiche;
-    private Map<Pratica, Integer> numero_ricette_per_pratica= null;
+    private Map<Pratica, Integer> numero_ricette_per_pratica = new HashMap<>();
 
     public Report(String username_chef, int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche) {
         this.username_chef = username_chef;
@@ -37,8 +39,7 @@ public class Report {
     }
     
     public void recNumeroRicettePerPratiche() {
-        // This method should retrieve the number of recipes per session for the report.
-        // Implementation depends on how this data is stored and associated with the report.
+        numero_ricette_per_pratica = ReportDAO.getNumeroRicettePerPratiche(this.username_chef);
     }
 
     public Map<Pratica, Integer> getNumeroRicettePerPratiche() {

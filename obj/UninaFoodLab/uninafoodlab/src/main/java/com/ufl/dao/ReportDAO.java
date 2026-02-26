@@ -3,8 +3,12 @@ package com.ufl.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ufl.model.Report;
+import com.ufl.model.Pratica;
+
 
 public class ReportDAO extends ConnessioneDAO {
     public static Report get(String username_chef){
@@ -27,5 +31,24 @@ public class ReportDAO extends ConnessioneDAO {
             e.printStackTrace();            
         }
         return null;
+    }
+
+    public static Map<Pratica, Integer> getNumeroRicettePerPratiche(String username_chef){
+        String query = "SELECT id_pratica, numero_ricette_svolte FROM view_numero_ricette_per_sessione WHERE username_chef = ?";
+        Map<Pratica, Integer> result = new HashMap<>();
+        try{
+            PreparedStatement ps= connessione.prepareStatement(query);
+            ps.setString(1, username_chef);
+
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Pratica pratica = PraticaDAO.get(rs.getInt("id_pratica"));
+                result.put(pratica, rs.getInt("numero_ricette_svolte"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();            
+        }
+        return result;
     }
 }
