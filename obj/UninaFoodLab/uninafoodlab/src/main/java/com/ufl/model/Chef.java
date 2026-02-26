@@ -44,15 +44,15 @@ public class Chef extends Utente {
     }
 
     public void aggiungiNotifica(Notifica notifica){
-        // TODO Auto-generated method stub
+        notifica.insert();
     }
 
     public void eliminaNotifica(Notifica notifica){
-        // TODO Auto-generated method stub
+        notifica.delete();
     }
 
     public void aggiungiCorso(Corso corso){
-        // TODO Auto-generated method stub
+        corso.insert();
     }
 
     
