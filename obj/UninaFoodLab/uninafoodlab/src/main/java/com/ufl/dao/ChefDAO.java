@@ -115,19 +115,4 @@ public class ChefDAO extends ConnessioneDAO {
     public static Report recResoconto(Chef chef){
         return ReportDAO.get(chef.getUsername());
     }
-
-    public static void aggiungiNotifica(Chef chef, Notifica notifica){
-        // This method should add a notification for the given chef in the database.
-        // Implementation depends on how notifications are stored and associated with the chef.
-    }
-
-    public static void eliminaNotifica(Chef chef, Integer id_notifica){
-        // This method should remove a notification for the given chef from the database.
-        // Implementation depends on how notifications are stored and associated with the chef.
-    }
-
-    public static void aggiungiCorso(Chef chef, Corso corso){
-        // This method should add a course for the given chef in the database.
-        // Implementation depends on how courses are stored and associated with the chef.
-    }
 }
