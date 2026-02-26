@@ -2,6 +2,8 @@ package com.ufl.model;
 
 import java.time.LocalDate;
 
+import com.ufl.dao.NotificaDAO;
+
 public class Notifica {
     private Integer id_notifica = null;
     private String username_chef;
@@ -72,5 +74,13 @@ public class Notifica {
     public String getUsernameRiceventi() {
         // Implementazione per ricevere gli username dei destinatari della notifica, se necessario
         return null;
+    }
+
+    public void insert() {
+        NotificaDAO.insert(this);
+    }
+
+    public void delete() {
+        NotificaDAO.delete(this.id_notifica);
     }
 }   
