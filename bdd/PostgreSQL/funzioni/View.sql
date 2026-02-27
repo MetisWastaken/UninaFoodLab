@@ -8,7 +8,7 @@ SELECT DISTINCT
 FROM notifica n
 JOIN utente u ON u.tipo_utente = 'Studente'
 WHERE 
-    n.data_creazione >= CURRENT_TIMESTAMP - INTERVAL '10 days'
+    n.data_creazione >= CURRENT_TIMESTAMP - INTERVAL '30 days'
     AND (
         -- Caso 1: solo_iscritti = TRUE, mostra solo agli iscritti al corso specifico
         (
