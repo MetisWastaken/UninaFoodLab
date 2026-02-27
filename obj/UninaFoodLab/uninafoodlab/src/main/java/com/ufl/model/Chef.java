@@ -24,19 +24,16 @@ public class Chef extends Utente {
 
     @Override
     public List<Notifica> getNotifiche() {
-        // TODO Auto-generated method stub
-        return null;
+        return ChefDAO.getNotifiche(this);
     }
 
     @Override
     public ArrayList<Corso> getCorsi() {
-        // TODO Auto-generated method stub
-        return null;
+        return ChefDAO.getCorsi(this);
     }
 
     public void recResoconto(){
-        // This method should retrieve the report/resoconto for the chef.
-        // Implementation depends on how reports are stored and associated with the chef.
+        resoconto = ChefDAO.recResoconto(this);
     }
 
     public Report getResoconto(){

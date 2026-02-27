@@ -115,4 +115,5 @@ public class ChefDAO extends ConnessioneDAO {
     public static Report recResoconto(Chef chef){
         return ReportDAO.get(chef.getUsername());
     }
+    
 }

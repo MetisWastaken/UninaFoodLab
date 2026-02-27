@@ -7,7 +7,7 @@ CREATE TABLE notifica(
     data_creazione TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     username_chef VARCHAR(100) NOT NULL
         REFERENCES utente(username) ON UPDATE CASCADE ON DELETE RESTRICT,
-    corso_id INT
+    corso_id INT DEFAULT NULL
         REFERENCES corso(id_corso) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

@@ -21,7 +21,7 @@ public class NotificaDAO extends ConnessioneDAO {
 
             if(rs.next()){
                 String username_chef=rs.getString("username_chef");
-                String titolo=rs.getString("testo");
+                String titolo=rs.getString("titolo");
                 Integer id_corso=rs.getInt("id_corso");
 
                 return new Notifica(id_Notifica, username_chef, titolo, id_corso);
@@ -33,7 +33,14 @@ public class NotificaDAO extends ConnessioneDAO {
     }
 
     public static boolean insert(Notifica notifica){
-        String query ="CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
+        String query;
+        if(notifica.getCorsoId() == null) {
+            query = "INSERT INTO notifica (titolo, messaggio, solo_iscritti, data_creazione, username_chef)\r\n" + //
+                    "    VALUES (?, ?, ?, ?, ?);";
+        } else {
+            query ="INSERT INTO notifica (titolo, messaggio, solo_iscritti, data_creazione, username_chef, corso_id)\r\n" + //
+                        "    VALUES (?, ?, ?, ?, ?, ?);";   
+        }
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
             ps.setString(1, notifica.getTitolo());
@@ -41,7 +48,10 @@ public class NotificaDAO extends ConnessioneDAO {
             ps.setBoolean(3, notifica.isSoloIscritti());
             ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
             ps.setString(5, notifica.getUsernameChef());
-            ps.setInt(6, notifica.getCorsoId());
+
+            if(notifica.getCorsoId() != null) {
+                ps.setInt(6, notifica.getCorsoId());
+            }
 
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
@@ -52,7 +62,7 @@ public class NotificaDAO extends ConnessioneDAO {
     }
 
     public static boolean delete(Integer id_notifica){
-        String query = "DELETE FROM notifica WHERE id_notifica = ?";
+        String query = "CALL DeleteNotifica(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_notifica);
