@@ -82,7 +82,7 @@ public class Main {
         } else {
             System.out.println("Verifica chef fallita.");
         }
-        
+        //Ludovica è stata qui
     }
 
     public static void main(String[] args) {
