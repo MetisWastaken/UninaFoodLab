@@ -33,14 +33,7 @@ public class NotificaDAO extends ConnessioneDAO {
     }
 
     public static boolean insert(Notifica notifica){
-        String query;
-        if(notifica.getCorsoId() == null) {
-            query = "INSERT INTO notifica (titolo, messaggio, solo_iscritti, data_creazione, username_chef)\r\n" + //
-                    "    VALUES (?, ?, ?, ?, ?);";
-        } else {
-            query ="INSERT INTO notifica (titolo, messaggio, solo_iscritti, data_creazione, username_chef, corso_id)\r\n" + //
-                        "    VALUES (?, ?, ?, ?, ?, ?);";   
-        }
+        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
             ps.setString(1, notifica.getTitolo());
@@ -48,9 +41,11 @@ public class NotificaDAO extends ConnessioneDAO {
             ps.setBoolean(3, notifica.isSoloIscritti());
             ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
             ps.setString(5, notifica.getUsernameChef());
-
+            
             if(notifica.getCorsoId() != null) {
                 ps.setInt(6, notifica.getCorsoId());
+            } else {
+                ps.setNull(6, java.sql.Types.INTEGER);
             }
 
             int rowsAffected = ps.executeUpdate();
