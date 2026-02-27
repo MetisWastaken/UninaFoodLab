@@ -22,7 +22,7 @@ public class NotificaDAO extends ConnessioneDAO {
             if(rs.next()){
                 String username_chef=rs.getString("username_chef");
                 String titolo=rs.getString("titolo");
-                Integer id_corso=rs.getInt("id_corso");
+                Integer id_corso=rs.getInt("corso_id");
 
                 return new Notifica(id_Notifica, username_chef, titolo, id_corso);
             }
