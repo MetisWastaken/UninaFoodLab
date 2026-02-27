@@ -26,10 +26,6 @@ public class Notifica {
         this.solo_iscritti = solo_iscritti;
         this.data_creazione = data_creazione;
     }
-    
-    public void recIdNotifica() {
-        // Implementazione per ricevere l'ID della notifica, se necessario
-    }
 
     public Integer getIdNotifica() {
         return id_notifica;
@@ -44,7 +40,7 @@ public class Notifica {
     }
     
     public void recMessagio(){
-        // Implementazione per ricevere il messaggio completo della notifica, se necessario
+        messaggio = NotificaDAO.recMessaggio(this);
     }
 
     public String getMessaggio() {
@@ -52,7 +48,7 @@ public class Notifica {
     }
 
     public void recSoloIscritti() {
-        // Implementazione per ricevere il valore booleano "solo_iscritti", se necessario
+        solo_iscritti = NotificaDAO.recSoloIscritti(this);
     }
 
     public boolean isSoloIscritti() {
@@ -60,7 +56,7 @@ public class Notifica {
     }
 
     public void recDataCreazione(){
-        // Implementazione per ricevere la data di creazione della notifica, se necessario
+        data_creazione = NotificaDAO.recDataCreazione(this);
     }
 
     public LocalDate getDataCreazione() {
@@ -72,8 +68,7 @@ public class Notifica {
     }
 
     public String getUsernameRiceventi() {
-        // Implementazione per ricevere gli username dei destinatari della notifica, se necessario
-        return null;
+        return NotificaDAO.getUsernameRiceventi(this.id_notifica);
     }
 
     public void insert() {
