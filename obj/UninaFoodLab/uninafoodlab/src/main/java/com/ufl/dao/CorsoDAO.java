@@ -32,7 +32,7 @@ public class CorsoDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return null;
-    }
+    }//Ludovica è stata anche qui
     public static boolean insert(Corso corso){
         String query = "CALL InsertCorso(?, ?, ?, ?, ?, ?)";
         try {
