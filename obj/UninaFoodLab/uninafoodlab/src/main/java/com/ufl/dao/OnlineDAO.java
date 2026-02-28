@@ -3,8 +3,8 @@ package com.ufl.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 import java.sql.PreparedStatement;
+import java.sql.Date;
 
 import com.ufl.model.Online;
 
@@ -38,7 +38,7 @@ public class OnlineDAO extends ConnessioneDAO {
         String query = "CALL InsertOnline(?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, java.sql.Date.valueOf(online.getGiornoSessione()));
+            ps.setDate(1, Date.valueOf(online.getGiornoSessione()));
             ps.setString(2, online.getCodiceMeeting());
             ps.setInt(3, online.getCorsoId());
 
@@ -55,7 +55,7 @@ public class OnlineDAO extends ConnessioneDAO {
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_online);
-            ps.setDate(2, java.sql.Date.valueOf(online.getGiornoSessione()));
+            ps.setDate(2, Date.valueOf(online.getGiornoSessione()));
             ps.setString(3, online.getCodiceMeeting());
             ps.setInt(4, online.getCorsoId());
             
@@ -85,7 +85,7 @@ public class OnlineDAO extends ConnessioneDAO {
         String query = "SELECT id_online FROM online WHERE giorno_sessione = ? AND corso_id = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, java.sql.Date.valueOf(online.getGiornoSessione()));
+            ps.setDate(1, Date.valueOf(online.getGiornoSessione()));
             ps.setInt(2, online.getCorsoId());
             
             ResultSet rs = ps.executeQuery();
