@@ -4,6 +4,8 @@ package com.ufl.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Date;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -40,7 +42,7 @@ public class PraticaDAO extends ConnessioneDAO {
         String query = "CALL InsertPratica(?, ?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setDate(1, Date.valueOf(pratica.getGiornoSessione()));
             ps.setString(2, pratica.getAula());
             ps.setInt(3, pratica.getPostiTotali());
             ps.setInt(4, pratica.getCorsoId());
@@ -58,7 +60,7 @@ public class PraticaDAO extends ConnessioneDAO {
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_pratica);
-            ps.setDate(2, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setDate(2, Date.valueOf(pratica.getGiornoSessione()));
             ps.setString(3, pratica.getAula());
             ps.setInt(4, pratica.getPostiTotali());
             ps.setInt(5, pratica.getCorsoId());
@@ -89,7 +91,7 @@ public class PraticaDAO extends ConnessioneDAO {
         String query = "SELECT id_pratica FROM pratica WHERE giorno_sessione = ? AND corso_id = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, java.sql.Date.valueOf(pratica.getGiornoSessione()));
+            ps.setDate(1, Date.valueOf(pratica.getGiornoSessione()));
             ps.setInt(2, pratica.getCorsoId());
             
             ResultSet rs = ps.executeQuery();
