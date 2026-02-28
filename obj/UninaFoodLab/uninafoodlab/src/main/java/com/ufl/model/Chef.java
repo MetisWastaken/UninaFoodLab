@@ -16,20 +16,17 @@ public class Chef extends Utente {
         super(username, password, nome, cognome);
     }
 
-    
-    @Override
     public boolean verify() {
         return ChefDAO.verify(this);
     }
 
-    @Override
+    
     public List<Notifica> getNotifiche() {
         return ChefDAO.getNotifiche(this);
     }
 
-    @Override
-    public ArrayList<Corso> getCorsi() {
-        return ChefDAO.getCorsi(this);
+    public ArrayList<Corso> getCorsi(boolean mieiCorsi, String filtroCategoria) {
+        return ChefDAO.getCorsi(this, mieiCorsi, filtroCategoria);
     }
 
     public void recResoconto(){
