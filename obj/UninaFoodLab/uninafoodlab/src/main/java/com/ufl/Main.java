@@ -1,5 +1,7 @@
 package com.ufl;
 
+import java.time.LocalDate;
+
 
 import com.ufl.dao.PraticaDAO;
 import com.ufl.model.Pratica;
@@ -11,13 +13,8 @@ import com.ufl.model.Ricetta;
 import com.ufl.dao.RicettaDAO;
 
 import com.ufl.model.Chef;
-import com.ufl.dao.ChefDAO;
-
-import com.ufl.model.Report;
-import com.ufl.dao.ReportDAO;
 
 import com.ufl.model.Notifica;
-import com.ufl.dao.NotificaDAO;
 
 import com.ufl.model.Corso;
 import com.ufl.dao.CorsoDAO;
@@ -75,20 +72,55 @@ public class Main {
             chef.getResoconto().getNumeroRicettePerPratiche().forEach((pratica, numeroRicette) -> {
                 System.out.println("Pratica del " + pratica.getGiornoSessione() + " in aula " + pratica.getAula() + ": " + numeroRicette + " ricette");
             });
-            chef.aggiungiNotifica(new Notifica("GEsposito", "Palle2","Belle palle fratello",false,java.time.LocalDate.now(),null));
+            
+            chef.aggiungiNotifica(new Notifica("GEsposito", "Palle","Belle palle fratello",false,LocalDate.now(),null));
+            chef.aggiungiNotifica(new Notifica("GEsposito", "Male Male","Le tue palle puzzano",true,LocalDate.now(),2));
             chef.getNotifiche().forEach(notifica -> {
+                notifica.recMessagio();
+                notifica.recDataCreazione();
+                notifica.recSoloIscritti();
                 System.out.println("Notifica: " + notifica.getTitolo() + " - " + notifica.getMessaggio() +" (Data: " + notifica.getDataCreazione() + ", Corso: " + notifica.getCorsoId() + ")");
+                System.out.println("Chi può ricevere la notifica: " + notifica.getUsernameRiceventi());
+                notifica.delete();
+            });
+            chef.getCorsi(true,"Ita").forEach(corso -> {
+                System.out.println("Corso: " + corso.getNome() + " - " + corso.getCategoria() + " (Data inizio: " + corso.getDataIn() + ", Data fine: " + corso.getDataFin() + ", Frequenza: " + corso.getFrequenzaSettimanale() +")");
             });
         } else {
             System.out.println("Verifica chef fallita.");
         }
-        //Ludovica è stata qui
+        
     }
-
+    public static void testCorso(){
+        Corso corso = CorsoDAO.get(2);
+        if(corso != null){
+            System.out.println("Corso trovato: " + corso.getNome() + ", " + corso.getCategoria() + ", " + corso.getDataIn() + ", " + corso.getDataFin() + ", " + corso.getFrequenzaSettimanale());
+            corso.recChef();
+            System.out.println("Chi lo ha creato: " + corso.getChef().getNome()+ " " + corso.getChef().getCognome());
+            corso.recSessioniPratiche();
+            System.out.println("\nSessioni pratiche del corso:");
+            corso.getSessioniPratiche().forEach(pratica -> {
+                System.out.println("- Pratica del " + pratica.getGiornoSessione() + " in aula " + pratica.getAula() + " con " + pratica.getPostiTotali() + " posti totali");
+                pratica.recRicette();
+                System.out.println("  Ricette associate alla pratica:");
+                pratica.getRicette().forEach(ricetta -> System.out.println("  - " + ricetta.getNome()));
+            });
+            corso.recSessioniOnline();
+            corso.modificaSessione(OnlineDAO.get(2), new Online(1, LocalDate.now().plusDays(143), "MEET12346"), new Notifica("GEsposito", "Modifica Sessione1","Palle meeting",true,LocalDate.now(),2));
+            System.out.println("\nSessioni online del corso:");
+            corso.getSessioniOnline().forEach(online -> {
+                System.out.println("- Online del " + online.getGiornoSessione() + " con codice meeting: " + online.getCodiceMeeting());
+            });
+            System.out.println("Studenti iscritti al corso: " + corso.getStudentiIscritti());
+        } else {
+            System.out.println("Errore nella connessione al database.");
+        }
+    }
     public static void main(String[] args) {
-       //testPratica();
-       //testOnline();
-       //testRicetta();
-        testChef();
+        //testPratica();
+        //testOnline();
+        //testRicetta();
+        //testChef();
+        //testCorso();
     }
 }
