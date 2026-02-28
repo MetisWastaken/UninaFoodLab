@@ -34,11 +34,6 @@ public class Corso {
         this.chef = chef;
     }
 
-    public void recId(){
-        // This method should retrieve the ID of the course, if necessary.
-        // Implementation depends on how the ID is generated and stored in the database.
-    }
-
     public Integer getId() {
         return id;
     }
@@ -64,8 +59,7 @@ public class Corso {
     }
     
     public void recChef(){
-        // This method should retrieve the chef associated with the course, if necessary.
-        // Implementation depends on how the chef is associated and stored in the database.
+        chef = CorsoDAO.recChef(this);
     } 
     
     public Chef getChef() {
@@ -73,8 +67,7 @@ public class Corso {
     }
     
     public void recSessioniPratiche(){
-        // This method should retrieve the list of practical sessions for the course.
-        // Implementation depends on how sessions are stored and associated with the course.
+        sessioni_pratiche = CorsoDAO.recSessioniPratiche(this);
     }
 
     public List<Pratica> getSessioniPratiche() {
@@ -82,8 +75,7 @@ public class Corso {
     }
 
     public void recSessioniOnline(){
-        // This method should retrieve the list of online sessions for the course.
-        // Implementation depends on how sessions are stored and associated with the course.
+        sessioni_online = CorsoDAO.recSessioniOnline(this);
     }
 
     public List<Online> getSessioniOnline() {
@@ -91,9 +83,7 @@ public class Corso {
     }
 
     public String getStudentiIscritti(){
-        // This method should retrieve the list of enrolled students for the course.
-        // Implementation depends on how student enrollments are stored and associated with the course.
-        return null;
+        return CorsoDAO.getStudentiIscritti(this);
     }
 
     public void insert(){
@@ -101,30 +91,43 @@ public class Corso {
     }
 
     public void aggiungiSessione(Pratica sessione) {
-        sessioni_pratiche.add(sessione);
+        if(sessione.insert()){
+            sessioni_pratiche.add(sessione);
+        }
+        
     }
 
     public void aggiungiSessione(Online sessione) {
-        sessioni_online.add(sessione);
+        if(sessione.insert()){
+            sessioni_online.add(sessione);
+        }
     }
 
-    public void modificaSessione(Pratica sessione, Notifica notifica) {
-        // This method should modify an existing practical session.
-        // Implementation depends on how sessions are identified and stored.
+    public void modificaSessione(Pratica sessione1,Pratica sessione2, Notifica notifica) {
+        if(sessione1.update(sessione2)){
+            notifica.insert();
+            sessioni_pratiche.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
+        }
     }
 
-    public void modificaSessione(Online sessione, Notifica notifica) {
-        // This method should modify an existing online session.
-        // Implementation depends on how sessions are identified and stored.
+    public void modificaSessione(Online sessione1,Online sessione2, Notifica notifica) {
+        if(sessione1.update(sessione2)){
+            notifica.insert();
+            sessioni_online.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
+        }
     }
 
     public void eliminaSessione(Pratica sessione, Notifica notifica) {
-        // This method should remove an existing practical session.
-        // Implementation depends on how sessions are identified and stored.
+        if(sessione.delete()){
+            notifica.insert();
+           sessioni_pratiche.remove(sessione);
+        }
     }
 
     public void eliminaSessione(Online sessione, Notifica notifica) {
-        // This method should remove an existing online session.
-        // Implementation depends on how sessions are identified and stored.
+        if(sessione.delete()){
+            notifica.insert();
+            sessioni_online.remove(sessione);
+        }
     }
 }

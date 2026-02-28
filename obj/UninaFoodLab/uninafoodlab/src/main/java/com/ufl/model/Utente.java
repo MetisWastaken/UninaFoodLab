@@ -1,8 +1,5 @@
 package com.ufl.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ufl.dao.UtenteDAO;
 
 public abstract class Utente {
@@ -60,10 +57,4 @@ public abstract class Utente {
         return cognome;
     }
     
-
-    abstract public boolean verify();
-
-    abstract public List<Notifica> getNotifiche();
-    
-    abstract public ArrayList<Corso> getCorsi();
 }

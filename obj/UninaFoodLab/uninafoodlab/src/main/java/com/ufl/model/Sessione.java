@@ -11,6 +11,19 @@ public abstract class Sessione {
         this.giorno_sessione = giorno_sessione;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+
+        Sessione sessione = (Sessione) obj;
+        return corso_id.equals(sessione.corso_id) && giorno_sessione.equals(sessione.giorno_sessione);
+    }
+
     public Integer getCorsoId() {
         return corso_id;
     }
