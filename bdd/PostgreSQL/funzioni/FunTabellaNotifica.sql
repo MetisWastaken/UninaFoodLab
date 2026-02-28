@@ -1,4 +1,4 @@
--- Funzione e trigger per garantire che corso_id in notifica faccia riferimento a un corso esistente(se sollo_iscritti è TRUE)
+-- Funzione e trigger per garantire che corso_id in notifica faccia riferimento a un corso esistente(se solo_iscritti è TRUE)
 CREATE OR REPLACE FUNCTION enforce_notifica_corso_id_exists()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -36,18 +36,18 @@ BEFORE INSERT OR UPDATE ON notifica
 FOR EACH ROW
 EXECUTE FUNCTION enforce_notifica_no_corso_id_if_not_solo_iscritti();
 
---Funzione che impedisce l'inserimento di una notifica con titolo uguale
+--Funzione che impedisce l'inserimento di una notifica con titolo uguale per lo stesso chef
 CREATE OR REPLACE FUNCTION prevent_notifica_titolo_duplicato()
 RETURNS TRIGGER AS $$
-    BEGIN
-        IF NEW.titolo IS NOT NULL THEN
-            PERFORM 1 FROM notifica WHERE titolo = NEW.titolo AND id_notifica <> NEW.id_notifica;
-            IF FOUND THEN
-                RAISE EXCEPTION 'Esiste già una notifica con il titolo "%" ', NEW.titolo;
-            END IF;
+BEGIN
+    IF NEW.titolo IS NOT NULL THEN
+        PERFORM 1 FROM notifica WHERE titolo = NEW.titolo AND id_chef = NEW.id_chef AND id_notifica <> NEW.id_notifica;
+        IF FOUND THEN
+            RAISE EXCEPTION 'Esiste gia'' una notifica con il titolo "%" (per questo chef)', NEW.titolo;
         END IF;
-        RETURN NEW;
-    END;
+    END IF;
+    RETURN NEW;
+END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_prevent_notifica_titolo_duplicato
