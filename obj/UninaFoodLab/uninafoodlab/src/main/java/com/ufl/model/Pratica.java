@@ -34,13 +34,20 @@ public class Pratica extends Sessione {
         ricette = PraticaDAO.recRicette(this);
     }
 
-    
     public List<Ricetta> getRicette() {
         return ricette;
     }
 
+    public int getNStudentiIscritti(){
+        return PraticaDAO.getNStudentiIscritti(this);
+    }
+
     public String getStudentiIscritti(){
         return PraticaDAO.getStudentiIscritti(this);
+    }
+
+    public List<Ingrediente> getIngredientiPratica(){
+        return PraticaDAO.getIngredientiPratica(this);
     }
 
     public boolean insert() {
