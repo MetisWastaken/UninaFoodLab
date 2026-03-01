@@ -8,8 +8,11 @@ import java.sql.Date;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.ufl.model.Ingrediente;
 import com.ufl.model.Pratica;
+import com.ufl.model.Ingrediente;
 import com.ufl.model.Ricetta;
 
 public class PraticaDAO extends ConnessioneDAO {
@@ -127,6 +130,23 @@ public class PraticaDAO extends ConnessioneDAO {
         return ricette; 
     }
 
+    public static int getNStudentiIscritti(Pratica pratica){
+        String query = "SELECT posti_occupati FROM view_n_studenti_iscritti WHERE id_pratica = ?";
+        try{
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, pratica.getIdSessione());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("posti_occupati");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static String getStudentiIscritti(Pratica pratica){
         String query = "SELECT u.nome, u.cognome FROM iscritto_p ip JOIN utente u ON ip.stud_id = u.username WHERE ip.pratica_id = ?";
         StringBuilder studenti = new StringBuilder();
@@ -139,12 +159,38 @@ public class PraticaDAO extends ConnessioneDAO {
             while(rs.next()){
                 String nome = rs.getString("nome");
                 String cognome = rs.getString("cognome");
-                studenti.append(nome).append(" ").append(cognome).append("\n");
+                studenti.append(nome).append(" ").append(cognome);
+                if(rs.isLast()) {
+                    studenti.append(".");
+                } else {
+                    studenti.append(", ");
+                }
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
         return studenti.toString();
+    }
+
+    public static List<Ingrediente> getIngredientiPratica(Pratica pratica){
+        String query = "SELECT ingrediente_nome, quantita, unit_misura FROM view_ingredienti_pratica WHERE id_pratica = ?";
+        List<Ingrediente> ingredienti = new ArrayList<>();
+        try{
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, pratica.getIdSessione());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                String nome = rs.getString("ingrediente_nome");
+                double quantita = rs.getDouble("quantita");
+                String unitMisura = rs.getString("unit_misura");
+                ingredienti.add(new Ingrediente(nome, unitMisura, quantita));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return ingredienti;
     }
 
     public static boolean aggiungiRicetta(Pratica pratica, Ricetta ricetta){
