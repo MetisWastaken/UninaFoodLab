@@ -41,7 +41,7 @@ CREATE OR REPLACE FUNCTION prevent_notifica_titolo_duplicato()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.titolo IS NOT NULL THEN
-        PERFORM 1 FROM notifica WHERE titolo = NEW.titolo AND id_chef = NEW.id_chef AND id_notifica <> NEW.id_notifica;
+        PERFORM 1 FROM notifica WHERE titolo = NEW.titolo AND  username_chef = NEW.username_chef AND id_notifica <> NEW.id_notifica;
         IF FOUND THEN
             RAISE EXCEPTION 'Esiste gia'' una notifica con il titolo "%" (per questo chef)', NEW.titolo;
         END IF;
