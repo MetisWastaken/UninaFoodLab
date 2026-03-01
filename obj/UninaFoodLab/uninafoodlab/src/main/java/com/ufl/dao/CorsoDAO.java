@@ -132,7 +132,12 @@ public class CorsoDAO extends ConnessioneDAO {
             while(rs.next()){
                 String nome = rs.getString("nome");
                 String cognome = rs.getString("cognome");
-                studenti.append(nome).append(" ").append(cognome).append("\n");
+                studenti.append(nome).append(" ").append(cognome);
+                if(rs.isLast()) {
+                    studenti.append(".");
+                } else {
+                    studenti.append(", ");
+                }
             }
         }catch(SQLException e){
             e.printStackTrace();
