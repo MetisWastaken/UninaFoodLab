@@ -131,11 +131,14 @@ public class NotificaDAO extends ConnessioneDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                if (usernames.length() > 0) {
-                    usernames.append(" , ");
-                }
                 usernames.append(rs.getString("studente_username"));
+                if(rs.isLast()) {
+                    usernames.append(".");
+                } else {
+                    usernames.append(", ");
+                }
             }
+            
             
             return usernames.length() > 0 ? usernames.toString() : null;
         } catch (SQLException e) {
