@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import com.ufl.model.Ingrediente;
 
 public class IngredienteDAO extends ConnessioneDAO  {
-    public Ingrediente get(String nome, Integer id_ricetta){
+    public Ingrediente get(String nome, Integer id_ricetta) throws SQLException {
         String query = "SELECT i.unit_misura, n.quant_ing FROM ingrediente i JOIN necessita n ON i.nome = n.ingrediente_id WHERE i.nome = ? AND n.ricetta_id = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -24,7 +24,7 @@ public class IngredienteDAO extends ConnessioneDAO  {
                 return new Ingrediente(nome, unita_misura, quantita);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }

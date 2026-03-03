@@ -12,7 +12,7 @@ import com.ufl.model.Online;
 
 public class OnlineDAO extends ConnessioneDAO {
 
-    public static Online get(Integer id_online){
+    public static Online get(Integer id_online) throws SQLException {
         String query="SELECT * FROM online WHERE id_online=?";
 
         try{
@@ -29,12 +29,12 @@ public class OnlineDAO extends ConnessioneDAO {
                 return new Online(corso_id, giorno_sessione, codice_meeting);
             }
         }catch(SQLException e){
-            e.printStackTrace();            
+            throw e;
         }
         return null;
     }
 
-    public static boolean insert(Online online) {
+    public static boolean insert(Online online) throws SQLException {
         String query = "CALL InsertOnline(?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -45,12 +45,11 @@ public class OnlineDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static boolean update(Integer id_online, Online online) {
+    public static boolean update(Integer id_online, Online online) throws SQLException {
         String query = "CALL UpdateOnline(?, ?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -62,12 +61,11 @@ public class OnlineDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static boolean delete(Integer id_online) {
+    public static boolean delete(Integer id_online) throws SQLException {
         String query = "CALL DeleteOnline(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -76,12 +74,11 @@ public class OnlineDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static Integer getIdSessione(Online online) {
+    public static Integer getIdSessione(Online online) throws SQLException {
         String query = "SELECT id_online FROM online WHERE giorno_sessione = ? AND corso_id = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -94,7 +91,7 @@ public class OnlineDAO extends ConnessioneDAO {
                 return rs.getInt("id_online");
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }

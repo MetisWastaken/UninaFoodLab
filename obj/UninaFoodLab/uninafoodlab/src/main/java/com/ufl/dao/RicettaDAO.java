@@ -9,7 +9,7 @@ import com.ufl.model.Ingrediente;
 import com.ufl.model.Ricetta;
 
 public class RicettaDAO extends ConnessioneDAO {
-    public static Ricetta get(Integer id_ricetta) {
+    public static Ricetta get(Integer id_ricetta) throws SQLException {
       String  query= "SELECT * FROM ricetta WHERE id_ricetta = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -23,12 +23,12 @@ public class RicettaDAO extends ConnessioneDAO {
                 return new Ricetta(nome, descrizione);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta) {
+    public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta) throws SQLException {
         String query = "SELECT ingrediente_id FROM necessita WHERE ricetta_id = ?";
         ArrayList<Ingrediente> ingredienti = new ArrayList<>();
         IngredienteDAO ingredienteDAO = new IngredienteDAO();
@@ -47,12 +47,12 @@ public class RicettaDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return ingredienti; 
     }
 
-    public static Integer getIdRicetta(Ricetta ricetta){
+    public static Integer getIdRicetta(Ricetta ricetta) throws SQLException {
         String query = "SELECT id_ricetta FROM ricetta WHERE nome = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -64,7 +64,7 @@ public class RicettaDAO extends ConnessioneDAO {
                 return rs.getInt("id_ricetta");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }

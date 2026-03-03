@@ -16,7 +16,7 @@ import com.ufl.model.Chef;
 
 public class CorsoDAO extends ConnessioneDAO {
     
-    public static Corso get(Integer id) {
+    public static Corso get(Integer id) throws SQLException {
         String query = "SELECT * FROM corso WHERE id_corso = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -34,12 +34,12 @@ public class CorsoDAO extends ConnessioneDAO {
                 return new Corso(id, nome, descrizione, dataIn, dataFin, frequenzaSettimanale);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static boolean insert(Corso corso){
+    public static boolean insert(Corso corso) throws SQLException {
         String query = "CALL InsertCorso(?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -53,12 +53,11 @@ public class CorsoDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static Chef recChef(Corso corso){
+    public static Chef recChef(Corso corso) throws SQLException {
         String query = "SELECT chef_id FROM corso WHERE id_corso = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -71,12 +70,12 @@ public class CorsoDAO extends ConnessioneDAO {
                 return ChefDAO.get(chefUsername);
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static List<Pratica> recSessioniPratiche(Corso corso){
+    public static List<Pratica> recSessioniPratiche(Corso corso) throws SQLException {
         String query = "SELECT id_pratica FROM pratica WHERE corso_id = ?";
         List<Pratica> pratiche = new ArrayList<>();
         try {
@@ -93,12 +92,12 @@ public class CorsoDAO extends ConnessioneDAO {
                 }
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return pratiche;
     }
 
-    public static List<Online> recSessioniOnline(Corso corso){
+    public static List<Online> recSessioniOnline(Corso corso) throws SQLException {
         String query = "SELECT id_online FROM online WHERE corso_id = ?";
         List<Online> pratiche = new ArrayList<>();
         try {
@@ -115,12 +114,12 @@ public class CorsoDAO extends ConnessioneDAO {
                 }
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return pratiche;
     }
 
-    public static String getStudentiIscritti(Corso corso){
+    public static String getStudentiIscritti(Corso corso) throws SQLException {
         String query = "SELECT u.nome, u.cognome FROM iscritto_c ic JOIN utente u ON ic.stud_id = u.username WHERE ic.corso_id = ?";
         StringBuilder studenti = new StringBuilder();
         try{
@@ -140,7 +139,7 @@ public class CorsoDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return studenti.toString();
     }

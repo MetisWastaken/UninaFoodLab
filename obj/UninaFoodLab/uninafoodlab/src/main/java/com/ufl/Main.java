@@ -1,5 +1,6 @@
 package com.ufl;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -21,7 +22,7 @@ import com.ufl.dao.CorsoDAO;
     
 public class Main {
 
-    public static void testPratica() {
+    public static void testPratica() throws SQLException{
         Pratica pratica = PraticaDAO.get(2);
         if (pratica != null) {
             System.out.println("Pratica trovata: " + pratica.getCorsoId() + ", " + pratica.getGiornoSessione() + ", " + pratica.getAula() + ", " + pratica.getPostiTotali());
@@ -38,7 +39,7 @@ public class Main {
         }
     }
 
-    public static void testOnline(){
+    public static void testOnline() throws SQLException{
         Online online = OnlineDAO.get(2);
         if(online != null){
             System.out.println("Online trovato: " + online.getCorsoId() + ", " + online.getGiornoSessione() + ", " + online.getCodiceMeeting());
@@ -47,7 +48,7 @@ public class Main {
         }
     }
 
-    public static void testRicetta(){
+    public static void testRicetta() throws SQLException{
         Ricetta ricetta = RicettaDAO.get(2);
         if(ricetta != null){
             System.out.println("Ricetta trovata: " + ricetta.getIdRicetta() + ", " + ricetta.getNome() + ", " + ricetta.getDescrizione());
@@ -59,7 +60,7 @@ public class Main {
         }
     }
 
-    public static void testChef(){
+    public static void testChef() throws SQLException{
         Chef chef =  new Chef("GEsposito", "pizza123");  
         if(chef.verify()){
             chef.recNome();
@@ -95,7 +96,7 @@ public class Main {
         
     }
 
-    public static void testCorso(){
+    public static void testCorso() throws SQLException{
         Corso corso = CorsoDAO.get(2);
         if(corso != null){
             System.out.println("Corso trovato: " + corso.getNome() + ", " + corso.getCategoria() + ", " + corso.getDataIn() + ", " + corso.getDataFin() + ", " + corso.getFrequenzaSettimanale());
@@ -121,10 +122,14 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-        testPratica();
-        //testOnline();
-        //testRicetta();
-        //testChef();
-        //testCorso();
+        try {
+            testPratica();
+            //testOnline();
+            //testRicetta();
+            //testChef();
+            //testCorso();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

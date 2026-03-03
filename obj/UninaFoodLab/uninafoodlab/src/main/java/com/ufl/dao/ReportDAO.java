@@ -11,7 +11,7 @@ import com.ufl.model.Pratica;
 
 
 public class ReportDAO extends ConnessioneDAO {
-    public static Report get(String username_chef){
+    public static Report get(String username_chef) throws SQLException {
         String query = "SELECT chef_username, numero_corsi_totali, numero_sessioni_online, numero_sessioni_pratiche FROM view_get_report WHERE chef_username = ?";
         
         try{
@@ -28,12 +28,12 @@ public class ReportDAO extends ConnessioneDAO {
                 return new Report(username_chef, numero_corsi_totali, numero_sessioni_online, numero_sessioni_pratiche);
             }
         }catch(SQLException e){
-            e.printStackTrace();            
+            throw e;
         }
         return null;
     }
 
-    public static Map<Pratica, Integer> getNumeroRicettePerPratiche(String username_chef){
+    public static Map<Pratica, Integer> getNumeroRicettePerPratiche(String username_chef) throws SQLException{
         String query = "SELECT id_pratica, numero_ricette_svolte FROM view_numero_ricette_per_sessione WHERE username_chef = ?";
         Map<Pratica, Integer> result = new HashMap<>();
         try{
@@ -47,7 +47,7 @@ public class ReportDAO extends ConnessioneDAO {
                 result.put(pratica, rs.getInt("numero_ricette_svolte"));
             }
         }catch(SQLException e){
-            e.printStackTrace();            
+            throw e;
         }
         return result;
     }

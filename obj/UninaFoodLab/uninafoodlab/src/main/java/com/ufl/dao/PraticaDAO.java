@@ -12,11 +12,10 @@ import java.util.List;
 
 import com.ufl.model.Ingrediente;
 import com.ufl.model.Pratica;
-import com.ufl.model.Ingrediente;
 import com.ufl.model.Ricetta;
 
 public class PraticaDAO extends ConnessioneDAO {
-    public static Pratica get(Integer id_pratica){
+    public static Pratica get(Integer id_pratica) throws SQLException {
         String query="SELECT * FROM pratica WHERE id_pratica=?";
 
         try{
@@ -34,14 +33,14 @@ public class PraticaDAO extends ConnessioneDAO {
                 return new Pratica(corso_id, giorno_sessione, aula, posti_totali);
             }
         }catch(SQLException e){
-            e.printStackTrace();            
+            throw e;            
         }
         return null;
     }
     
     
 
-    public static boolean insert(Pratica pratica) {
+    public static boolean insert(Pratica pratica) throws SQLException {
         String query = "CALL InsertPratica(?, ?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -53,12 +52,12 @@ public class PraticaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
+        
     }
 
-    public static boolean update(Integer id_pratica, Pratica pratica) {
+    public static boolean update(Integer id_pratica, Pratica pratica) throws SQLException{
         String query = "CALL UpdatePratica(?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -71,12 +70,11 @@ public class PraticaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static boolean delete(Integer id_pratica) {
+    public static boolean delete(Integer id_pratica) throws SQLException{
         String query = "CALL DeletePratica(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -85,12 +83,11 @@ public class PraticaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static Integer getIdSessione(Pratica pratica) {
+    public static Integer getIdSessione(Pratica pratica) throws SQLException{
         String query = "SELECT id_pratica FROM pratica WHERE giorno_sessione = ? AND corso_id = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -103,12 +100,12 @@ public class PraticaDAO extends ConnessioneDAO {
                 return rs.getInt("id_pratica");
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static ArrayList<Ricetta> recRicette(Pratica pratica){
+    public static ArrayList<Ricetta> recRicette(Pratica pratica) throws SQLException {
         String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
         ArrayList<Ricetta> ricette = new ArrayList<>();
         try{
@@ -125,12 +122,12 @@ public class PraticaDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return ricette; 
     }
 
-    public static int getNStudentiIscritti(Pratica pratica){
+    public static int getNStudentiIscritti(Pratica pratica) throws SQLException {
         String query = "SELECT posti_occupati FROM view_n_studenti_iscritti WHERE id_pratica = ?";
         try{
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -142,12 +139,12 @@ public class PraticaDAO extends ConnessioneDAO {
                 return rs.getInt("posti_occupati");
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return 0;
     }
 
-    public static String getStudentiIscritti(Pratica pratica){
+    public static String getStudentiIscritti(Pratica pratica) throws SQLException{
         String query = "SELECT u.nome, u.cognome FROM iscritto_p ip JOIN utente u ON ip.stud_id = u.username WHERE ip.pratica_id = ?";
         StringBuilder studenti = new StringBuilder();
         try{
@@ -167,12 +164,12 @@ public class PraticaDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return studenti.toString();
     }
 
-    public static List<Ingrediente> getIngredientiPratica(Pratica pratica){
+    public static List<Ingrediente> getIngredientiPratica(Pratica pratica) throws SQLException{
         String query = "SELECT ingrediente_nome, quantita, unit_misura FROM view_ingredienti_pratica WHERE id_pratica = ?";
         List<Ingrediente> ingredienti = new ArrayList<>();
         try{
@@ -188,12 +185,12 @@ public class PraticaDAO extends ConnessioneDAO {
                 ingredienti.add(new Ingrediente(nome, unitMisura, quantita));
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
         return ingredienti;
     }
 
-    public static boolean aggiungiRicetta(Pratica pratica, Ricetta ricetta){
+    public static boolean aggiungiRicetta(Pratica pratica, Ricetta ricetta) throws SQLException{
         String query = "INSERT INTO pratica_svolta (pratica_id, ricetta_id) VALUES (?, ?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -203,8 +200,7 @@ public class PraticaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 }

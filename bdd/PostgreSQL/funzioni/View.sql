@@ -63,7 +63,7 @@ WHERE
 
 -- una view che mostra il numero di ricette svolte per ogni pratica, organizzando i risultati in questo modo:
 -- username_chef / id_pratica / numero_ricette_svolte
--- questo è visualizzato dall'inizio del mese finoalla fine del mese corrente
+-- questo è visualizzato dall'inizio del mese fino alla fine del mese corrente
 
 CREATE OR REPLACE VIEW view_numero_ricette_per_sessione AS
 SELECT 

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import com.ufl.model.Notifica;
 
 public class NotificaDAO extends ConnessioneDAO {
-    public static Notifica get(Integer id_Notifica){
+    public static Notifica get(Integer id_Notifica) throws SQLException {
         String query="SELECT * FROM notifica WHERE id_notifica=?";
 
         try{
@@ -27,12 +27,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return new Notifica(id_Notifica, username_chef, titolo, id_corso);
             }
         }catch(SQLException e){
-            e.printStackTrace();            
+            throw e;
         }
         return null;
     }
 
-    public static boolean insert(Notifica notifica){
+    public static boolean insert(Notifica notifica) throws SQLException {
         String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
@@ -51,12 +51,11 @@ public class NotificaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         }catch(SQLException e){
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static boolean delete(Integer id_notifica){
+    public static boolean delete(Integer id_notifica) throws SQLException {
         String query = "CALL DeleteNotifica(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -65,12 +64,11 @@ public class NotificaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
-    public static String recMessaggio(Notifica notifica){
+    public static String recMessaggio(Notifica notifica) throws SQLException {
         String query = "SELECT messaggio FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -82,12 +80,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getString("messaggio");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static boolean recSoloIscritti(Notifica notifica){
+    public static boolean recSoloIscritti(Notifica notifica) throws SQLException {
         String query = "SELECT solo_iscritti FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -99,12 +97,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getBoolean("solo_iscritti");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return false;
     }
 
-    public static LocalDate recDataCreazione(Notifica notifica){
+    public static LocalDate recDataCreazione(Notifica notifica) throws SQLException {
         String query = "SELECT data_creazione FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -116,12 +114,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getDate("data_creazione").toLocalDate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return null;
     }
 
-    public static String getUsernameRiceventi(Integer id_notifica) {
+    public static String getUsernameRiceventi(Integer id_notifica) throws SQLException {
         String query = "SELECT studente_username FROM view_notifiche_studente WHERE id_notifica = ?";
         StringBuilder usernames = new StringBuilder();
         try {
@@ -139,12 +137,10 @@ public class NotificaDAO extends ConnessioneDAO {
                 }
             }
             
-            
-            return usernames.length() > 0 ? usernames.toString() : null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
+        return usernames.toString();
     }
 
 }
