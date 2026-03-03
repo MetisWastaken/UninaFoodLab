@@ -16,7 +16,7 @@ import com.ufl.model.Report;
 
 public class ChefDAO extends ConnessioneDAO {
 
-    public static Chef get(String username)throws SQLException {
+    public static Chef get(String username){
 
         String query="SELECT * FROM utente WHERE username=?";
 
@@ -38,12 +38,12 @@ public class ChefDAO extends ConnessioneDAO {
 
             }
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
         return null;
     }
 
-    public static boolean verify(Chef chef) throws SQLException {
+    public static boolean verify(Chef chef) {
         String query="SELECT * FROM utente WHERE username=? AND password=? AND tipo_utente='Chef'";
 
         try{
@@ -61,11 +61,12 @@ public class ChefDAO extends ConnessioneDAO {
             return false;
 
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public static List<Notifica> getNotifiche(Chef chef) throws SQLException {
+    public static List<Notifica> getNotifiche(Chef chef) {
         String query = "SELECT id_notifica FROM notifica WHERE username_chef=?";
         List<Notifica> notifiche = new ArrayList<>();
         
@@ -83,12 +84,12 @@ public class ChefDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
         return notifiche; 
     }
 
-    public static ArrayList<Corso> getCorsi(Chef chef , boolean mieiCorsi, String filtroCategoria) throws SQLException {
+    public static ArrayList<Corso> getCorsi(Chef chef , boolean mieiCorsi, String filtroCategoria){
         String query;
         ArrayList<Corso> corsi = new ArrayList<>();
         if(mieiCorsi){
@@ -121,12 +122,12 @@ public class ChefDAO extends ConnessioneDAO {
                 }
             }
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
         return corsi; 
     }
 
-    public static Report recResoconto(Chef chef) throws SQLException {
+    public static Report recResoconto(Chef chef) {
         return ReportDAO.get(chef.getUsername());
     }
 }

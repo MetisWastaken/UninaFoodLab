@@ -8,7 +8,7 @@ import com.ufl.model.Utente;
 
 public class UtenteDAO extends ConnessioneDAO {
     
-    public static String recNome(Utente utente) throws SQLException {
+    public static String recNome(Utente utente) {
 
         String sql = "SELECT nome FROM utente WHERE username = ?";
         
@@ -26,14 +26,14 @@ public class UtenteDAO extends ConnessioneDAO {
         } 
         catch (SQLException e) 
         {
-            throw e;
+            e.printStackTrace();
 
         }
         
         return null;
     }
 
-    public static String recCognome(Utente utente) throws SQLException{
+    public static String recCognome(Utente utente) {
         String sql = "SELECT cognome FROM utente WHERE username = ?";
         
         try 
@@ -50,7 +50,7 @@ public class UtenteDAO extends ConnessioneDAO {
         } 
         catch (SQLException e) 
         {
-            throw e;
+            e.printStackTrace();
 
         }
         

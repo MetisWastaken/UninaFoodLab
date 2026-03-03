@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import com.ufl.model.Notifica;
 
 public class NotificaDAO extends ConnessioneDAO {
-    public static Notifica get(Integer id_Notifica) throws SQLException {
+    public static Notifica get(Integer id_Notifica){
         String query="SELECT * FROM notifica WHERE id_notifica=?";
 
         try{
@@ -27,12 +27,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return new Notifica(id_Notifica, username_chef, titolo, id_corso);
             }
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
         return null;
     }
 
-    public static boolean insert(Notifica notifica) throws SQLException {
+    public static boolean insert(Notifica notifica){
         String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
@@ -51,11 +51,12 @@ public class NotificaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         }catch(SQLException e){
-            throw e;
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public static boolean delete(Integer id_notifica) throws SQLException {
+    public static boolean delete(Integer id_notifica) {
         String query = "CALL DeleteNotifica(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -64,11 +65,12 @@ public class NotificaDAO extends ConnessioneDAO {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public static String recMessaggio(Notifica notifica) throws SQLException {
+    public static String recMessaggio(Notifica notifica)  {
         String query = "SELECT messaggio FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -80,12 +82,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getString("messaggio");
             }
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
         return null;
     }
 
-    public static boolean recSoloIscritti(Notifica notifica) throws SQLException {
+    public static boolean recSoloIscritti(Notifica notifica) {
         String query = "SELECT solo_iscritti FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -97,12 +99,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getBoolean("solo_iscritti");
             }
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
         return false;
     }
 
-    public static LocalDate recDataCreazione(Notifica notifica) throws SQLException {
+    public static LocalDate recDataCreazione(Notifica notifica) {
         String query = "SELECT data_creazione FROM notifica WHERE id_notifica = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
@@ -114,12 +116,12 @@ public class NotificaDAO extends ConnessioneDAO {
                 return rs.getDate("data_creazione").toLocalDate();
             }
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
         return null;
     }
 
-    public static String getUsernameRiceventi(Integer id_notifica) throws SQLException {
+    public static String getUsernameRiceventi(Integer id_notifica) {
         String query = "SELECT studente_username FROM view_notifiche_studente WHERE id_notifica = ?";
         StringBuilder usernames = new StringBuilder();
         try {
@@ -138,7 +140,7 @@ public class NotificaDAO extends ConnessioneDAO {
             }
             
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
         return usernames.toString();
     }
