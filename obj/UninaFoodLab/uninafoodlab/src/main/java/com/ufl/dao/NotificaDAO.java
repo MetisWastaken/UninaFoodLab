@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import com.ufl.model.Notifica;
 
 public class NotificaDAO extends ConnessioneDAO {
+
+    // ---- GET ----
+
     public static Notifica get(Integer id_Notifica){
         String query="SELECT * FROM notifica WHERE id_notifica=?";
 
@@ -32,43 +35,31 @@ public class NotificaDAO extends ConnessioneDAO {
         return null;
     }
 
-    public static boolean insert(Notifica notifica){
-        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
-        try{
-            PreparedStatement ps=connessione.prepareStatement(query);
-            ps.setString(1, notifica.getTitolo());
-            ps.setString(2, notifica.getMessaggio());
-            ps.setBoolean(3, notifica.isSoloIscritti());
-            ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
-            ps.setString(5, notifica.getUsernameChef());
-            
-            if(notifica.getCorsoId() != null) {
-                ps.setInt(6, notifica.getCorsoId());
-            } else {
-                ps.setNull(6, java.sql.Types.INTEGER);
-            }
-
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean delete(Integer id_notifica) {
-        String query = "CALL DeleteNotifica(?)";
+    public static String getUsernameRiceventi(Integer id_notifica) {
+        String query = "SELECT studente_username FROM view_notifiche_studente WHERE id_notifica = ?";
+        StringBuilder usernames = new StringBuilder();
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_notifica);
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                usernames.append(rs.getString("studente_username"));
+                if(rs.isLast()) {
+                    usernames.append(".");
+                } else {
+                    usernames.append(", ");
+                }
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return usernames.toString();
     }
+
+    // ---- REC ----
 
     public static String recMessaggio(Notifica notifica)  {
         String query = "SELECT messaggio FROM notifica WHERE id_notifica = ?";
@@ -121,28 +112,44 @@ public class NotificaDAO extends ConnessioneDAO {
         return null;
     }
 
-    public static String getUsernameRiceventi(Integer id_notifica) {
-        String query = "SELECT studente_username FROM view_notifiche_studente WHERE id_notifica = ?";
-        StringBuilder usernames = new StringBuilder();
+    // ---- METODI ----
+
+    public static boolean insert(Notifica notifica){
+        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
+        try{
+            PreparedStatement ps=connessione.prepareStatement(query);
+            ps.setString(1, notifica.getTitolo());
+            ps.setString(2, notifica.getMessaggio());
+            ps.setBoolean(3, notifica.isSoloIscritti());
+            ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
+            ps.setString(5, notifica.getUsernameChef());
+            
+            if(notifica.getCorsoId() != null) {
+                ps.setInt(6, notifica.getCorsoId());
+            } else {
+                ps.setNull(6, java.sql.Types.INTEGER);
+            }
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean delete(Integer id_notifica) {
+        String query = "CALL DeleteNotifica(?)";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_notifica);
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                usernames.append(rs.getString("studente_username"));
-                if(rs.isLast()) {
-                    usernames.append(".");
-                } else {
-                    usernames.append(", ");
-                }
-            }
-            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return usernames.toString();
+        return false;
     }
 
 }

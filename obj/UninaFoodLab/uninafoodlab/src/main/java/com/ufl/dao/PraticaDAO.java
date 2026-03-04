@@ -15,6 +15,9 @@ import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
 
 public class PraticaDAO extends ConnessioneDAO {
+
+    // ---- GET ----
+
     public static Pratica get(Integer id_pratica){
         String query="SELECT * FROM pratica WHERE id_pratica=?";
 
@@ -37,58 +40,6 @@ public class PraticaDAO extends ConnessioneDAO {
         }
         return null;
     }
-    
-    
-
-    public static boolean insert(Pratica pratica) {
-        String query = "CALL InsertPratica(?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(pratica.getGiornoSessione()));
-            ps.setString(2, pratica.getAula());
-            ps.setInt(3, pratica.getPostiTotali());
-            ps.setInt(4, pratica.getCorsoId());
-            
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-        
-    }
-
-    public static boolean update(Integer id_pratica, Pratica pratica) {
-        String query = "CALL UpdatePratica(?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, id_pratica);
-            ps.setDate(2, Date.valueOf(pratica.getGiornoSessione()));
-            ps.setString(3, pratica.getAula());
-            ps.setInt(4, pratica.getPostiTotali());
-            ps.setInt(5, pratica.getCorsoId());
-            
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean delete(Integer id_pratica) {
-        String query = "CALL DeletePratica(?)";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, id_pratica);
-            
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public static Integer getIdSessione(Pratica pratica) {
         String query = "SELECT id_pratica FROM pratica WHERE giorno_sessione = ? AND corso_id = ?";
@@ -106,28 +57,6 @@ public class PraticaDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static ArrayList<Ricetta> recRicette(Pratica pratica) {
-        String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
-        ArrayList<Ricetta> ricette = new ArrayList<>();
-        try{
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, pratica.getIdSessione());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                Integer id_ricetta = rs.getInt("ricetta_id");
-                Ricetta ricetta = RicettaDAO.get(id_ricetta);
-                if(ricetta != null){
-                    ricette.add(ricetta);
-                }
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return ricette; 
     }
 
     public static int getNStudentiIscritti(Pratica pratica)  {
@@ -191,6 +120,81 @@ public class PraticaDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return ingredienti;
+    }
+
+    // ---- REC ----
+
+    public static ArrayList<Ricetta> recRicette(Pratica pratica) {
+        String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
+        ArrayList<Ricetta> ricette = new ArrayList<>();
+        try{
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, pratica.getIdSessione());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Integer id_ricetta = rs.getInt("ricetta_id");
+                Ricetta ricetta = RicettaDAO.get(id_ricetta);
+                if(ricetta != null){
+                    ricette.add(ricetta);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return ricette; 
+    }
+
+    // ---- METODI ----
+
+    public static boolean insert(Pratica pratica) {
+        String query = "CALL InsertPratica(?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(pratica.getGiornoSessione()));
+            ps.setString(2, pratica.getAula());
+            ps.setInt(3, pratica.getPostiTotali());
+            ps.setInt(4, pratica.getCorsoId());
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean update(Integer id_pratica, Pratica pratica) {
+        String query = "CALL UpdatePratica(?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id_pratica);
+            ps.setDate(2, Date.valueOf(pratica.getGiornoSessione()));
+            ps.setString(3, pratica.getAula());
+            ps.setInt(4, pratica.getPostiTotali());
+            ps.setInt(5, pratica.getCorsoId());
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean delete(Integer id_pratica) {
+        String query = "CALL DeletePratica(?)";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id_pratica);
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static boolean aggiungiRicetta(Pratica pratica, Ricetta ricetta) {

@@ -12,6 +12,8 @@ import com.ufl.model.Online;
 
 public class OnlineDAO extends ConnessioneDAO {
 
+    // ---- GET ----
+
     public static Online get(Integer id_online){
         String query="SELECT * FROM online WHERE id_online=?";
 
@@ -33,6 +35,26 @@ public class OnlineDAO extends ConnessioneDAO {
         }
         return null;
     }
+
+    public static Integer getIdSessione(Online online){
+        String query = "SELECT id_online FROM online WHERE giorno_sessione = ? AND corso_id = ?";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(online.getGiornoSessione()));
+            ps.setInt(2, online.getCorsoId());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                return rs.getInt("id_online");
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // ---- METODI ----
 
     public static boolean insert(Online online){
         String query = "CALL InsertOnline(?, ?, ?)";
@@ -79,23 +101,5 @@ public class OnlineDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static Integer getIdSessione(Online online){
-        String query = "SELECT id_online FROM online WHERE giorno_sessione = ? AND corso_id = ?";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(online.getGiornoSessione()));
-            ps.setInt(2, online.getCorsoId());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()) {
-                return rs.getInt("id_online");
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

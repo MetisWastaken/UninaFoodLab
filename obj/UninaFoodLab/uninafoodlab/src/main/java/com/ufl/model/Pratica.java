@@ -17,9 +17,11 @@ public class Pratica extends Sessione {
         this.posti_totali = posti_totali;
     }
 
+    // ---- GET ----
+
     @Override
     public Integer getIdSessione() {
-        return PraticaDAO.getIdSessione(this); 
+        return PraticaDAO.getIdSessione(this);
     }
 
     public String getAula() {
@@ -30,25 +32,29 @@ public class Pratica extends Sessione {
         return posti_totali;
     }
 
-    public void recRicette(){
-        ricette = PraticaDAO.recRicette(this);
-    }
-
     public List<Ricetta> getRicette() {
         return ricette;
     }
 
-    public int getNStudentiIscritti(){
+    public int getNStudentiIscritti() {
         return PraticaDAO.getNStudentiIscritti(this);
     }
 
-    public String getStudentiIscritti(){
+    public String getStudentiIscritti() {
         return PraticaDAO.getStudentiIscritti(this);
     }
 
-    public List<Ingrediente> getIngredientiPratica(){
+    public List<Ingrediente> getIngredientiPratica() {
         return PraticaDAO.getIngredientiPratica(this);
     }
+
+    // ---- REC ----
+
+    public void recRicette() {
+        ricette = PraticaDAO.recRicette(this);
+    }
+
+    // ---- METODI ----
 
     public boolean insert() {
         return PraticaDAO.insert(this);
@@ -56,14 +62,14 @@ public class Pratica extends Sessione {
 
     public boolean update(Pratica pratica) {
         return PraticaDAO.update(this.getIdSessione(), pratica);
-    }    
-    
+    }
+
     public boolean delete() {
         return PraticaDAO.delete(this.getIdSessione());
     }
 
-    public void aggiungiRicetta(Ricetta ricetta){
-        if(PraticaDAO.aggiungiRicetta(this, ricetta)){
+    public void aggiungiRicetta(Ricetta ricetta) {
+        if (PraticaDAO.aggiungiRicetta(this, ricetta)) {
             ricette.add(ricetta);
         }
     }
