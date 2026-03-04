@@ -129,7 +129,7 @@ public class ChefDAO extends ConnessioneDAO {
         return corsi; 
     }
 
-    // ---- REC ---- p
+    // ---- REC ----
 
     public static Report recResoconto(Chef chef) {
         return ReportDAO.get(chef.getUsername());
