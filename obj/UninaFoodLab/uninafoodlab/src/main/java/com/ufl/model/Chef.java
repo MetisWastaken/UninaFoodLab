@@ -51,8 +51,5 @@ public class Chef extends Utente {
     public boolean verify() {
         return ChefDAO.verify(this);
     }
-
-    
-
     
 }
