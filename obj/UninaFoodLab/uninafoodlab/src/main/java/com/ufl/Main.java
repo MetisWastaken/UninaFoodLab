@@ -1,7 +1,7 @@
 package com.ufl;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.awt.*;
 
 
 import com.ufl.dao.PraticaDAO;
@@ -19,10 +19,13 @@ import com.ufl.model.Notifica;
 
 import com.ufl.model.Corso;
 import com.ufl.dao.CorsoDAO;
+
+import com.ufl.view.MainFrame;
+import com.ufl.view.UiUtil;
     
 public class Main {
 
-    public static void testPratica() throws SQLException{
+    public static void testPratica(){
         Pratica pratica = PraticaDAO.get(2);
         if (pratica != null) {
             System.out.println("Pratica trovata: " + pratica.getCorsoId() + ", " + pratica.getGiornoSessione() + ", " + pratica.getAula() + ", " + pratica.getPostiTotali());
@@ -39,7 +42,7 @@ public class Main {
         }
     }
 
-    public static void testOnline() throws SQLException{
+    public static void testOnline(){
         Online online = OnlineDAO.get(2);
         if(online != null){
             System.out.println("Online trovato: " + online.getCorsoId() + ", " + online.getGiornoSessione() + ", " + online.getCodiceMeeting());
@@ -48,7 +51,7 @@ public class Main {
         }
     }
 
-    public static void testRicetta() throws SQLException{
+    public static void testRicetta(){
         Ricetta ricetta = RicettaDAO.get(2);
         if(ricetta != null){
             System.out.println("Ricetta trovata: " + ricetta.getIdRicetta() + ", " + ricetta.getNome() + ", " + ricetta.getDescrizione());
@@ -60,7 +63,7 @@ public class Main {
         }
     }
 
-    public static void testChef() throws SQLException{
+    public static void testChef(){
         Chef chef =  new Chef("GEsposito", "pizza123");  
         if(chef.verify()){
             chef.recNome();
@@ -96,7 +99,7 @@ public class Main {
         
     }
 
-    public static void testCorso() throws SQLException{
+    public static void testCorso(){
         Corso corso = CorsoDAO.get(2);
         if(corso != null){
             System.out.println("Corso trovato: " + corso.getNome() + ", " + corso.getCategoria() + ", " + corso.getDataIn() + ", " + corso.getDataFin() + ", " + corso.getFrequenzaSettimanale());
@@ -122,14 +125,17 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-        try {
-            testPratica();
-            //testOnline();
-            //testRicetta();
-            //testChef();
-            //testCorso();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        MainFrame mainframe = new MainFrame();
+        UiUtil.BlankPanel blankPanel = new UiUtil.BlankPanel(new Dimension(400, 300));
+        blankPanel.add(UiUtil.createButton("Test Button"));
+        mainframe.setContent(blankPanel);
+        mainframe.showError("Questo è un messaggio di errore di test.");
+
+        //testPratica();
+        //testOnline();
+        //testRicetta();
+        //testChef();
+        //testCorso();
+
     }
 }
