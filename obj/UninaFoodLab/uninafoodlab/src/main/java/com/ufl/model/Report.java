@@ -18,14 +18,12 @@ public class Report {
         
     }
 
-    public void visualizzaGrafico() {
-        // TODO: compito della view
-    }
+    // ---- GET ----
 
-    // getters 
     public String getUsernameChef() {
         return username_chef;
     }
+
     public int getNumeroCorsiTotali() {
         return numero_corsi_totali;
     }
@@ -37,12 +35,20 @@ public class Report {
     public int getNumeroSessioniPratiche() {
         return numero_sessioni_pratiche;
     }
-    
+
+    public Map<Pratica, Integer> getNumeroRicettePerPratiche() {
+        return numero_ricette_per_pratica;
+    }
+
+    // ---- REC ----
+
     public void recNumeroRicettePerPratiche() {
         numero_ricette_per_pratica = ReportDAO.getNumeroRicettePerPratiche(this.username_chef);
     }
 
-    public Map<Pratica, Integer> getNumeroRicettePerPratiche() {
-        return numero_ricette_per_pratica;
+    // ---- METODI ----
+
+    public void visualizzaGrafico() {
+        // TODO: compito della view
     }
 }

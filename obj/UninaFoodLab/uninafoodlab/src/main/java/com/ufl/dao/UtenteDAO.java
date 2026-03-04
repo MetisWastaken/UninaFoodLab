@@ -8,6 +8,8 @@ import com.ufl.model.Utente;
 
 public class UtenteDAO extends ConnessioneDAO {
     
+    // ---- REC ----
+
     public static String recNome(Utente utente) {
 
         String sql = "SELECT nome FROM utente WHERE username = ?";

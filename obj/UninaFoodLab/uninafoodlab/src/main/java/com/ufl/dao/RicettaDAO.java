@@ -9,8 +9,11 @@ import com.ufl.model.Ingrediente;
 import com.ufl.model.Ricetta;
 
 public class RicettaDAO extends ConnessioneDAO {
-    public static Ricetta get(Integer id_ricetta)  {
-      String  query= "SELECT * FROM ricetta WHERE id_ricetta = ?";
+
+    // ---- GET ----
+
+    public static Ricetta get(Integer id_ricetta) {
+        String query = "SELECT * FROM ricetta WHERE id_ricetta = ?";
         try {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_ricetta);
@@ -28,30 +31,6 @@ public class RicettaDAO extends ConnessioneDAO {
         return null;
     }
 
-    public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta)  {
-        String query = "SELECT ingrediente_id FROM necessita WHERE ricetta_id = ?";
-        ArrayList<Ingrediente> ingredienti = new ArrayList<>();
-        IngredienteDAO ingredienteDAO = new IngredienteDAO();
-        Integer id_ricetta = ricetta.getIdRicetta();
-        try{
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, id_ricetta);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                String nome = rs.getString("ingrediente_id");
-                Ingrediente ing = ingredienteDAO.get(nome, id_ricetta);
-                if(ing != null){
-                    ingredienti.add(ing);
-                }
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return ingredienti; 
-    }
-
     public static Integer getIdRicetta(Ricetta ricetta) {
         String query = "SELECT id_ricetta FROM ricetta WHERE nome = ?";
         try {
@@ -67,5 +46,31 @@ public class RicettaDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    // ---- REC ----
+
+    public static ArrayList<Ingrediente> recIngredienti(Ricetta ricetta) {
+        String query = "SELECT ingrediente_id FROM necessita WHERE ricetta_id = ?";
+        ArrayList<Ingrediente> ingredienti = new ArrayList<>();
+        IngredienteDAO ingredienteDAO = new IngredienteDAO();
+        Integer id_ricetta = ricetta.getIdRicetta();
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id_ricetta);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                String nome = rs.getString("ingrediente_id");
+                Ingrediente ing = ingredienteDAO.get(nome, id_ricetta);
+                if (ing != null) {
+                    ingredienti.add(ing);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ingredienti; 
     }
 }

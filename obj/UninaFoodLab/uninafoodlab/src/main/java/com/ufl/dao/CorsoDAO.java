@@ -15,7 +15,9 @@ import com.ufl.model.Pratica;
 import com.ufl.model.Chef;
 
 public class CorsoDAO extends ConnessioneDAO {
-    
+
+    // ---- GET ----
+
     public static Corso get(Integer id) {
         String query = "SELECT * FROM corso WHERE id_corso = ?";
         try {
@@ -39,24 +41,32 @@ public class CorsoDAO extends ConnessioneDAO {
         return null;
     }
 
-    public static boolean insert(Corso corso) {
-        String query = "CALL InsertCorso(?, ?, ?, ?, ?, ?)";
-        try {
+    public static String getStudentiIscritti(Corso corso) {
+        String query = "SELECT u.nome, u.cognome FROM iscritto_c ic JOIN utente u ON ic.stud_id = u.username WHERE ic.corso_id = ?";
+        StringBuilder studenti = new StringBuilder();
+        try{
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setString(1, corso.getNome());
-            ps.setString(2, corso.getCategoria());
-            ps.setDate(3, Date.valueOf(corso.getDataIn()));
-            ps.setDate(4, Date.valueOf(corso.getDataFin()));
-            ps.setString(5, corso.getFrequenzaSettimanale());
-            ps.setString(6, corso.getChef().getUsername());
-
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
+            ps.setInt(1, corso.getId());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                studenti.append(nome).append(" ").append(cognome);
+                if(rs.isLast()) {
+                    studenti.append(".");
+                } else {
+                    studenti.append(", ");
+                }
+            }
+        }catch(SQLException e){
             e.printStackTrace();
         }
-        return false;
+        return studenti.toString();
     }
+
+    // ---- REC ----
 
     public static Chef recChef(Corso corso){
         String query = "SELECT chef_id FROM corso WHERE id_corso = ?";
@@ -120,28 +130,24 @@ public class CorsoDAO extends ConnessioneDAO {
         return pratiche;
     }
 
-    public static String getStudentiIscritti(Corso corso) {
-        String query = "SELECT u.nome, u.cognome FROM iscritto_c ic JOIN utente u ON ic.stud_id = u.username WHERE ic.corso_id = ?";
-        StringBuilder studenti = new StringBuilder();
-        try{
+    // ---- METODI ----
+
+    public static boolean insert(Corso corso) {
+        String query = "CALL InsertCorso(?, ?, ?, ?, ?, ?)";
+        try {
             PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, corso.getId());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                String nome = rs.getString("nome");
-                String cognome = rs.getString("cognome");
-                studenti.append(nome).append(" ").append(cognome);
-                if(rs.isLast()) {
-                    studenti.append(".");
-                } else {
-                    studenti.append(", ");
-                }
-            }
-        }catch(SQLException e){
+            ps.setString(1, corso.getNome());
+            ps.setString(2, corso.getCategoria());
+            ps.setDate(3, Date.valueOf(corso.getDataIn()));
+            ps.setDate(4, Date.valueOf(corso.getDataFin()));
+            ps.setString(5, corso.getFrequenzaSettimanale());
+            ps.setString(6, corso.getChef().getUsername());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return studenti.toString();
+        return false;
     }
 }

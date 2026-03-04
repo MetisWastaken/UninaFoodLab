@@ -27,6 +27,8 @@ public class Notifica {
         this.data_creazione = data_creazione;
     }
 
+    // ---- GET ----
+
     public Integer getIdNotifica() {
         return id_notifica;
     }
@@ -38,25 +40,13 @@ public class Notifica {
     public String getTitolo() {
         return titolo;
     }
-    
-    public void recMessagio(){
-        messaggio = NotificaDAO.recMessaggio(this);
-    }
 
     public String getMessaggio() {
         return messaggio;
     }
 
-    public void recSoloIscritti() {
-        solo_iscritti = NotificaDAO.recSoloIscritti(this);
-    }
-
     public boolean isSoloIscritti() {
         return solo_iscritti;
-    }
-
-    public void recDataCreazione(){
-        data_creazione = NotificaDAO.recDataCreazione(this);
     }
 
     public LocalDate getDataCreazione() {
@@ -70,6 +60,22 @@ public class Notifica {
     public String getUsernameRiceventi() {
         return NotificaDAO.getUsernameRiceventi(this.id_notifica);
     }
+
+    // ---- REC ----
+
+    public void recMessagio() {
+        messaggio = NotificaDAO.recMessaggio(this);
+    }
+
+    public void recSoloIscritti() {
+        solo_iscritti = NotificaDAO.recSoloIscritti(this);
+    }
+
+    public void recDataCreazione() {
+        data_creazione = NotificaDAO.recDataCreazione(this);
+    }
+
+    // ---- METODI ----
 
     public void insert() {
         NotificaDAO.insert(this);

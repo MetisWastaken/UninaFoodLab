@@ -20,18 +20,7 @@ public abstract class Utente {
         this.cognome = cognome;
     }
 
-    @Override
-    public boolean equals(Object obj){
-        if (this == obj){
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()){
-            return false;
-        }
-
-        Utente utente = (Utente) obj;
-        return username.equals(utente.username);
-    }
+    // ---- GET ----
 
     public String getUsername() {
         return username;
@@ -41,20 +30,36 @@ public abstract class Utente {
         return password;
     }
 
-    public void recNome(){
-        nome = UtenteDAO.recNome(this);
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void recCognome(){
-        cognome = UtenteDAO.recCognome(this);
     }
 
     public String getCognome() {
         return cognome;
     }
-    
+
+    // ---- REC ----
+
+    public void recNome() {
+        nome = UtenteDAO.recNome(this);
+    }
+
+    public void recCognome() {
+        cognome = UtenteDAO.recCognome(this);
+    }
+
+    // ---- METODI ----
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Utente utente = (Utente) obj;
+        return username.equals(utente.username);
+    }
+
 }

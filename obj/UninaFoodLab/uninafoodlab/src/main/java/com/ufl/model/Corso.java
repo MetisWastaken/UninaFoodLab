@@ -34,6 +34,8 @@ public class Corso {
         this.chef = chef;
     }
 
+    // ---- GET ----
+
     public Integer getId() {
         return id;
     }
@@ -57,75 +59,78 @@ public class Corso {
     public String getFrequenzaSettimanale() {
         return frequenza_settimanale;
     }
-    
-    public void recChef(){
-        chef = CorsoDAO.recChef(this);
-    } 
-    
+
     public Chef getChef() {
         return chef;
-    }
-    
-    public void recSessioniPratiche(){
-        sessioni_pratiche = CorsoDAO.recSessioniPratiche(this);
     }
 
     public List<Pratica> getSessioniPratiche() {
         return sessioni_pratiche;
     }
 
-    public void recSessioniOnline(){
-        sessioni_online = CorsoDAO.recSessioniOnline(this);
-    }
-
     public List<Online> getSessioniOnline() {
         return sessioni_online;
     }
 
-    public String getStudentiIscritti(){
+    public String getStudentiIscritti() {
         return CorsoDAO.getStudentiIscritti(this);
     }
 
-    public void insert(){
+    // ---- REC ----
+
+    public void recChef() {
+        chef = CorsoDAO.recChef(this);
+    }
+
+    public void recSessioniPratiche() {
+        sessioni_pratiche = CorsoDAO.recSessioniPratiche(this);
+    }
+
+    public void recSessioniOnline() {
+        sessioni_online = CorsoDAO.recSessioniOnline(this);
+    }
+
+    // ---- METODI ----
+
+    public void insert() {
         CorsoDAO.insert(this);
     }
 
     public void aggiungiSessione(Pratica sessione) {
-        if(sessione.insert()){
+        if (sessione.insert()) {
             sessioni_pratiche.add(sessione);
         }
-        
     }
 
     public void aggiungiSessione(Online sessione) {
-        if(sessione.insert()){
+        if (sessione.insert()) {
             sessioni_online.add(sessione);
         }
     }
 
-    public void modificaSessione(Pratica sessione1,Pratica sessione2, Notifica notifica) {
-        if(sessione1.update(sessione2)){
+    public void modificaSessione(Pratica sessione1, Pratica sessione2, Notifica notifica) {
+        if (sessione1.update(sessione2)) {
             notifica.insert();
             sessioni_pratiche.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
         }
     }
 
-    public void modificaSessione(Online sessione1,Online sessione2, Notifica notifica) {
-        if(sessione1.update(sessione2)){
+    public void modificaSessione(Online sessione1, Online sessione2, Notifica notifica) {
+        if (sessione1.update(sessione2)) {
             notifica.insert();
             sessioni_online.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
         }
     }
 
     public void eliminaSessione(Pratica sessione, Notifica notifica) {
-        if(sessione.delete()){
+        if (sessione.delete()) {
             notifica.insert();
-           sessioni_pratiche.remove(sessione);
+            sessioni_pratiche.remove(sessione);
         }
     }
 
     public void eliminaSessione(Online sessione, Notifica notifica) {
-        if(sessione.delete()){
+        if (sessione.delete()) {
             notifica.insert();
             sessioni_online.remove(sessione);
         }

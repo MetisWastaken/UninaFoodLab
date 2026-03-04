@@ -16,6 +16,8 @@ import com.ufl.model.Report;
 
 public class ChefDAO extends ConnessioneDAO {
 
+    // ---- GET ----
+
     public static Chef get(String username){
 
         String query="SELECT * FROM utente WHERE username=?";
@@ -126,6 +128,8 @@ public class ChefDAO extends ConnessioneDAO {
         }
         return corsi; 
     }
+
+    // ---- REC ----
 
     public static Report recResoconto(Chef chef) {
         return ReportDAO.get(chef.getUsername());

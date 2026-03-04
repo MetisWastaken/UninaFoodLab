@@ -16,25 +16,24 @@ public class Chef extends Utente {
         super(username, password, nome, cognome);
     }
 
-    public boolean verify() {
-        return ChefDAO.verify(this);
-    }
+    // --- Getters e Recs ---
 
+        public Report getResoconto(){
+        return resoconto; 
+    }
     
     public List<Notifica> getNotifiche() {
         return ChefDAO.getNotifiche(this);
-    }
-
-    public ArrayList<Corso> getCorsi(boolean mieiCorsi, String filtroCategoria) {
-        return ChefDAO.getCorsi(this, mieiCorsi, filtroCategoria);
     }
 
     public void recResoconto(){
         resoconto = ChefDAO.recResoconto(this);
     }
 
-    public Report getResoconto(){
-        return resoconto; 
+    //--- Metodi ---
+
+    public ArrayList<Corso> getCorsi(boolean mieiCorsi, String filtroCategoria) {
+        return ChefDAO.getCorsi(this, mieiCorsi, filtroCategoria);
     }
 
     public void aggiungiNotifica(Notifica notifica){
@@ -49,7 +48,8 @@ public class Chef extends Utente {
         corso.insert();
     }
 
-    
-
+    public boolean verify() {
+        return ChefDAO.verify(this);
+    }
     
 }

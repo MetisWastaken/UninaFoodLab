@@ -13,6 +13,8 @@ public class Ricetta {
         this.descrizione = descrizione;
     }
 
+    // ---- GET ----
+
     public String getNome() {
         return nome;
     }
@@ -21,16 +23,18 @@ public class Ricetta {
         return descrizione;
     }
 
-    public void recIngredienti() {
-        this.ingredienti = RicettaDAO.recIngredienti(this);
-    }
-
     public List<Ingrediente> getIngredienti() {
         return ingredienti;
     }
 
     public Integer getIdRicetta() {
         return RicettaDAO.getIdRicetta(this);
+    }
+
+    // ---- REC ----
+
+    public void recIngredienti() {
+        this.ingredienti = RicettaDAO.recIngredienti(this);
     }
 
 }
