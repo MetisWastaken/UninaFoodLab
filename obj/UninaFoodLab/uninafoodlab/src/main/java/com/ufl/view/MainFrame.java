@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
 public class MainFrame extends JFrame {
 
     // Window Configuration
@@ -19,7 +20,7 @@ public class MainFrame extends JFrame {
     // Logo Configuration
     private static final int LOGO_WIDTH = 80;
     private static final int LOGO_HEIGHT = 70;
-    private static final int LOGO_BORDER_THICKNESS = 2;
+    private static final int LOGO_BORDER_THICKNESS = 2; //non usato al momento, ma potremmo reintrodurlo successivamente, lascio qui 
 
     // Container Margins (Percentages)
     private static final double CONTAINER_HORIZONTAL_MARGIN_PERCENT = 0.10;
@@ -50,6 +51,7 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel;
     private JPanel topPanel;
     private JPanel containerPanel;
+    private JPanel contentPanel; // Panel interno al container, per gestire meglio i cambi di contenuto
     private JPanel infoLogPanel;
     private JLabel infoLogLabel;
     private JLabel closeInfoLogBtn;
@@ -100,8 +102,9 @@ public class MainFrame extends JFrame {
     public JPanel buildLogoPanel() {
         JPanel logoPanel = new JPanel();
         logoPanel.setPreferredSize(new Dimension(LOGO_WIDTH, LOGO_HEIGHT));
-        logoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, LOGO_BORDER_THICKNESS));
-        JLabel logoLabel = new JLabel("Logo\nImmagine");
+        JLabel logoLabel = new JLabel();
+        logoPanel.setOpaque(false); // Rende il pannello trasparente per mostrare solo il logo in png
+        logoLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/Logo.png")).getImage().getScaledInstance(LOGO_WIDTH, LOGO_HEIGHT, java.awt.Image.SCALE_SMOOTH))); //Inserimento del logo ridimensionato
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoPanel.add(logoLabel);
         return logoPanel;
@@ -150,9 +153,10 @@ public class MainFrame extends JFrame {
 
     
     public JPanel buildContentPanel() {
-        JPanel contentPanel = new JPanel();
+        contentPanel = new JPanel(new BorderLayout()); //BorderLayout per poter sfruttare al meglio lo spazio del container interno
         contentPanel.setBackground(UiUtil.COLORE_SFONDO);
-        contentPanel.add(new JLabel("Contenuto principale - personalizza qui"));
+        contentPanel.setBorder(BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS)); //Bordo interno del container, per dividere meglio il contenuto
+        contentPanel.add(new LoginPage(this), BorderLayout.CENTER); // Imposta la LoginPage come contenuto iniziale,appena aperta l'app
         return contentPanel;
     }
 
