@@ -7,18 +7,59 @@ import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
 
+    // Window Configuration
+    private static final int WINDOW_WIDTH = 1024;
+    private static final int WINDOW_HEIGHT = 768;
+
+    // Border and Padding
+    private static final int MAIN_PANEL_BORDER = 10;
+    private static final int MAIN_PANEL_GAP = 10;
+    private static final int TOP_PANEL_GAP = 5;
+
+    // Logo Configuration
+    private static final int LOGO_WIDTH = 80;
+    private static final int LOGO_HEIGHT = 70;
+    private static final int LOGO_BORDER_THICKNESS = 2;
+
+    // Container Margins (Percentages)
+    private static final double CONTAINER_HORIZONTAL_MARGIN_PERCENT = 0.10;
+    private static final double CONTAINER_VERTICAL_MARGIN_PERCENT = 0.05;
+    private static final int CONTAINER_BORDER_THICKNESS = 3;
+
+    // InfoLog Margins Configuration
+    private static final double INFO_LOG_HORIZONTAL_MARGIN_PERCENT = 0.15;
+    private static final int INFO_LOG_BOTTOM_OFFSET = 10;
+    private static final int INFO_LOG_BORDER_THICKNESS = 2;
+
+    // InfoLog Configuration
+    private static final String INFO_LOG_TYPE_ERROR = "ERR";
+    private static final String INFO_LOG_TYPE_SUCCESS = "SUCC";
+    private static final Color INFO_LOG_SUCCESS_COLOR = new Color(240, 255, 240);
+    private static final Color INFO_LOG_ERROR_COLOR = new Color(255, 240, 240);
+    private static final Color INFO_LOG_VOID_COLOR = new Color(0, 0, 0, 0); // Trasparente
+
+    // Font Configuration
+    private static final String FONT_FAMILY = "Arial";
+    private static final int TITLE_FONT_SIZE = 28;
+    private static final int ERROR_LABEL_FONT_SIZE = 14;
+    private static final int ERROR_BUTTON_FONT_SIZE = 18;
+
+    // Color Configuration
+    private static final int CLOSE_BUTTON_WIDTH = 20;
+    private static final int CLOSE_BUTTON_HEIGHT = 20;
+
     private JPanel mainPanel;
     private JPanel topPanel;
-    private JPanel wrapperPanel;
     private JPanel containerPanel;
-    private JPanel errorPanel;
-    private JLabel errorLabel;
+    private JPanel infoLogPanel;
+    private JLabel infoLogLabel;
+    private JLabel closeInfoLogBtn;
     private JLayeredPane layeredPane;
 
     public MainFrame() {
         setTitle("UninaFoodLab");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1024, 768);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setResizable(true);
 
@@ -29,9 +70,9 @@ public class MainFrame extends JFrame {
 
     /** Costruisce il panel principale che racchiude tutto */
     public JPanel buildMainPanel() {
-        mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel = new JPanel(new BorderLayout(MAIN_PANEL_GAP, MAIN_PANEL_GAP));
         mainPanel.setBackground(Color.WHITE);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(MAIN_PANEL_BORDER, MAIN_PANEL_BORDER, MAIN_PANEL_BORDER, MAIN_PANEL_BORDER));
 
         mainPanel.add(buildTopPanel(), BorderLayout.NORTH);
         mainPanel.add(buildLayeredPane(), BorderLayout.CENTER);
@@ -41,71 +82,61 @@ public class MainFrame extends JFrame {
 
     /** Costruisce il panel superiore con titolo e logo */
     public JPanel buildTopPanel() {
-        topPanel = new JPanel(new BorderLayout(5, 5));
+        topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.WHITE);
 
-        JLabel titleLabel = new JLabel("UninaFoodLab");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        topPanel.add(titleLabel, BorderLayout.WEST);
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, TOP_PANEL_GAP, 0));
+        centerPanel.setBackground(Color.WHITE);
 
-        topPanel.add(buildLogoPanel(), BorderLayout.EAST);
+        centerPanel.add(buildLogoPanel());
+
+        JLabel titleLabel = new JLabel("UninaFoodLab");
+        titleLabel.setFont(new Font(FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
+        centerPanel.add(titleLabel);
+        topPanel.add(centerPanel, BorderLayout.CENTER);
         return topPanel;
     }
 
     /** Costruisce il panel del logo */
     public JPanel buildLogoPanel() {
         JPanel logoPanel = new JPanel();
-        logoPanel.setPreferredSize(new Dimension(80, 70));
-        logoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        logoPanel.setPreferredSize(new Dimension(LOGO_WIDTH, LOGO_HEIGHT));
+        logoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, LOGO_BORDER_THICKNESS));
         JLabel logoLabel = new JLabel("Logo\nImmagine");
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoPanel.add(logoLabel);
         return logoPanel;
     }
 
-    /** JLayeredPane che contiene wrapper (sotto) ed errorPanel (overlay in primo piano) */
+    /** JLayeredPane che contiene containerPanel (sotto) ed errorPanel (overlay in primo piano) */
     public JLayeredPane buildLayeredPane() {
         layeredPane = new JLayeredPane() {
             @Override
             public void doLayout() {
                 int w = getWidth();
                 int h = getHeight();
-                if (wrapperPanel != null)
-                    wrapperPanel.setBounds(0, 0, w, h);
-                if (errorPanel != null) {
-                    int hPad = (int)(w * 0.15);
-                    int errH = errorPanel.getPreferredSize().height;
-                    errorPanel.setBounds(hPad, h - errH - 10, w - hPad * 2, errH);
+                if (containerPanel != null) {
+                    int hPad = (int)(w * CONTAINER_HORIZONTAL_MARGIN_PERCENT);
+                    int vPad = (int)(h * CONTAINER_VERTICAL_MARGIN_PERCENT);
+                    containerPanel.setBounds(hPad, vPad, w - hPad * 2, h - vPad * 2);
+                }
+                if (infoLogPanel != null) {
+                    int hPad = (int)(w * INFO_LOG_HORIZONTAL_MARGIN_PERCENT);
+                    int errH = infoLogPanel.getPreferredSize().height;
+                    infoLogPanel.setBounds(hPad, h - errH - INFO_LOG_BOTTOM_OFFSET, w - hPad * 2, errH);
                 }
             }
         };
-        layeredPane.add(buildWrapperPanel(), JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(buildErrorPanel(), JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(buildContainerPanel(), JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(buildInfoLogPanel(), JLayeredPane.PALETTE_LAYER);
         return layeredPane;
-    }
-
-    /** Wrapper trasparente che posiziona containerPanel con margini proporzionali */
-    public JPanel buildWrapperPanel() {
-        wrapperPanel = new JPanel(null) {
-            @Override
-            public void doLayout() {
-                int hPad = (int)(getWidth()  * 0.10);
-                int vPad = (int)(getHeight() * 0.05);
-                for (Component c : getComponents()) {
-                    c.setBounds(hPad, vPad, getWidth() - hPad * 2, getHeight() - vPad * 2);
-                }
-            }
-        };
-        wrapperPanel.setBackground(Color.WHITE);
-        wrapperPanel.add(buildContainerPanel());
-        return wrapperPanel;
     }
 
     /** Costruisce il container verde principale */
     public JPanel buildContainerPanel() {
         containerPanel = new JPanel(new BorderLayout());
         containerPanel.setBackground(UiUtil.COLORE_SFONDO);
-        containerPanel.setBorder(BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, 3));
+        containerPanel.setBorder(BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS));
         containerPanel.add(buildContentPanel(), BorderLayout.CENTER);
         return containerPanel;
     }
@@ -127,42 +158,72 @@ public class MainFrame extends JFrame {
     }
 
     /** Costruisce il panel degli errori (invisibile di default) */
-    public JPanel buildErrorPanel() {
-        errorPanel = new JPanel(new BorderLayout());
-        errorPanel.setBackground(new Color(255, 240, 240));
-        errorPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+    public JPanel buildInfoLogPanel() {
+        infoLogPanel = new JPanel(new BorderLayout());
+        infoLogPanel.setBackground(INFO_LOG_VOID_COLOR);
+        infoLogPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, INFO_LOG_BORDER_THICKNESS));
 
-        errorLabel = new JLabel("Errore");
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        errorPanel.add(errorLabel, BorderLayout.CENTER);
+        // Header panel con la X in alto a destra
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setOpaque(false);
+        headerPanel.setPreferredSize(new Dimension(0, CLOSE_BUTTON_HEIGHT));
 
-        JLabel closeErrorBtn = new JLabel("X");
-        closeErrorBtn.setForeground(Color.RED);
-        closeErrorBtn.setFont(new Font("Arial", Font.BOLD, 18));
-        closeErrorBtn.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        closeErrorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        closeErrorBtn.addMouseListener(new MouseAdapter() {
+        closeInfoLogBtn = new JLabel("X");
+        closeInfoLogBtn.setForeground(Color.BLACK);
+        closeInfoLogBtn.setFont(new Font(FONT_FAMILY, Font.BOLD, ERROR_BUTTON_FONT_SIZE));
+        closeInfoLogBtn.setPreferredSize(new Dimension(CLOSE_BUTTON_WIDTH, CLOSE_BUTTON_HEIGHT));
+        closeInfoLogBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        closeInfoLogBtn.setVerticalAlignment(SwingConstants.CENTER);
+        closeInfoLogBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        closeInfoLogBtn.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) { hideError(); }
+            public void mouseClicked(MouseEvent e) { hideInfoLog(); }
         });
-        errorPanel.add(closeErrorBtn, BorderLayout.EAST);
+        headerPanel.add(closeInfoLogBtn, BorderLayout.EAST);
+        infoLogPanel.add(headerPanel, BorderLayout.NORTH);
 
-        errorPanel.setVisible(false);
-        return errorPanel;
+        // Label del messaggio al centro
+        infoLogLabel = new JLabel();
+        infoLogLabel.setForeground(Color.BLACK);
+        infoLogLabel.setFont(new Font(FONT_FAMILY, Font.BOLD, ERROR_LABEL_FONT_SIZE));
+        infoLogLabel.setVerticalAlignment(SwingConstants.CENTER);
+        infoLogLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        infoLogPanel.add(infoLogLabel, BorderLayout.CENTER);
+
+        infoLogPanel.setVisible(false);
+        return infoLogPanel;
     }
 
     
-    public void showError(String message) {
-        errorLabel.setText("Errore : " + message);
-        errorPanel.setVisible(true);
+    public void showInfoLog(String tipo, String message) {
+        Color backgroundColor, textColor;
+        
+        if (INFO_LOG_TYPE_SUCCESS.equals(tipo)) {
+            backgroundColor = INFO_LOG_SUCCESS_COLOR;
+            textColor = Color.GREEN;
+        } else if(INFO_LOG_TYPE_ERROR.equals(tipo)) {
+            backgroundColor = INFO_LOG_ERROR_COLOR;
+            textColor = Color.RED;
+        }else{
+            backgroundColor = INFO_LOG_VOID_COLOR;
+            textColor = Color.BLACK;
+        }
+
+        
+        infoLogPanel.setBackground(backgroundColor);
+        infoLogPanel.setBorder(BorderFactory.createLineBorder(textColor, INFO_LOG_BORDER_THICKNESS));
+        infoLogLabel.setText("<html>" + tipo + " : " + message + "</html>");
+        infoLogLabel.setForeground(textColor);
+        closeInfoLogBtn.setForeground(textColor);
+        
+        infoLogPanel.setVisible(true);
         layeredPane.revalidate();
         layeredPane.repaint();
     }
 
-    /** Nasconde il panel errore */
-    public void hideError() {
-        errorPanel.setVisible(false);
+    /** Nasconde il panel infolog */
+    public void hideInfoLog() {
+        infoLogPanel.setVisible(false);
         layeredPane.repaint();
     }
 

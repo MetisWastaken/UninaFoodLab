@@ -128,8 +128,16 @@ public class Main {
         MainFrame mainframe = new MainFrame();
         UiUtil.BlankPanel blankPanel = new UiUtil.BlankPanel(new Dimension(400, 300));
         blankPanel.add(UiUtil.createButton("Test Button"));
+        blankPanel.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                mainframe.showInfoLog("SUCC", "Bottone cliccato!");
+            }
+        });
+        
         mainframe.setContent(blankPanel);
-        mainframe.showError("Questo è un messaggio di errore di test.");
+        mainframe.showInfoLog("ERR", "Questo è un messaggio di Errore di test, ma non è abbastanza lungo dovrebbe andare a capo automaticamente e gestire così la lunghezza massima.");
+        
 
         //testPratica();
         //testOnline();
