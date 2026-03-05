@@ -5,11 +5,28 @@ import java.awt.*;
 import javax.swing.*;
 
 public class UiUtil {
+    
+    // Color Configuration
     public static final Color COLORE_SFONDO = new Color(250, 248, 240); // Crema chiaro
     public static final Color COLORE_PRIMARIO = new Color(160, 82, 45); // Terracotta/Marrone
     public static final Color COLORE_ACCENTO = new Color(218, 165, 32); // Oro scuro
     public static final Color COLORE_TESTO1 = new Color(60, 40, 30);     // Marrone scuro
     public static final Color COLORE_TESTO2 = new Color(46, 69, 63);    // Verde scuro
+    private static final Color HINT_COLOR = new Color(180, 160, 140);    // Grigio caldo per hint
+    
+    // Font Configuration
+    public static final String FONT_FAMILY = "Arial";
+    private static final int BUTTON_FONT_SIZE = 14;
+    private static final int HINT_FONT_SIZE = 12;
+    
+    // Border Configuration
+    private static final int TEXT_FIELD_BORDER_THICKNESS = 2;
+    private static final int TEXT_FIELD_PADDING_TOP = 4;
+    private static final int TEXT_FIELD_PADDING_LEFT = 8;
+    private static final int TEXT_FIELD_PADDING_RIGHT = 8;
+    private static final int TEXT_FIELD_PADDING_BOTTOM = 4;
+    private static final int TEXT_FIELD_HINT_OFFSET_X = 2;
+
 
     public static class TestFrame extends JFrame {
         public TestFrame() {
@@ -37,7 +54,7 @@ public class UiUtil {
         button.setForeground(COLORE_ACCENTO);
         button.setFocusPainted(false);
 
-        
+        button.setFont(new Font(FONT_FAMILY, Font.BOLD, BUTTON_FONT_SIZE));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         
@@ -64,10 +81,10 @@ public class UiUtil {
                 if (getText().isEmpty() && !isFocusOwner()) {
                     Graphics2D g2 = (Graphics2D) g.create();
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setColor(new Color(180, 160, 140)); // colore hint grigio caldo
-                    g2.setFont(getFont().deriveFont(Font.ITALIC));
+                    g2.setColor(HINT_COLOR);
+                    g2.setFont(new Font(FONT_FAMILY, Font.ITALIC, HINT_FONT_SIZE));
                     Insets ins = getInsets();
-                    g2.drawString(hint, ins.left + 2, getHeight() / 2 + getFont().getSize() / 2 - 2);
+                    g2.drawString(hint, ins.left + TEXT_FIELD_HINT_OFFSET_X, getHeight() / 2 + getFont().getSize() / 2 - 2);
                     g2.dispose();
                 }
             }
@@ -76,8 +93,8 @@ public class UiUtil {
         textField.setForeground(COLORE_TESTO1);
         textField.setPreferredSize(dimension);
         textField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(COLORE_PRIMARIO, 2, true),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
+            BorderFactory.createLineBorder(COLORE_PRIMARIO, TEXT_FIELD_BORDER_THICKNESS, true),
+            BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING_TOP, TEXT_FIELD_PADDING_LEFT, TEXT_FIELD_PADDING_BOTTOM, TEXT_FIELD_PADDING_RIGHT)
         ));
         // Ridisegna quando il focus cambia
         textField.addFocusListener(new java.awt.event.FocusAdapter() {

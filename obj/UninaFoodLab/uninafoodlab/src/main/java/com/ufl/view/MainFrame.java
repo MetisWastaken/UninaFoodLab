@@ -39,7 +39,6 @@ public class MainFrame extends JFrame {
     private static final Color INFO_LOG_VOID_COLOR = new Color(0, 0, 0, 0); // Trasparente
 
     // Font Configuration
-    private static final String FONT_FAMILY = "Arial";
     private static final int TITLE_FONT_SIZE = 28;
     private static final int ERROR_LABEL_FONT_SIZE = 14;
     private static final int ERROR_BUTTON_FONT_SIZE = 18;
@@ -91,7 +90,7 @@ public class MainFrame extends JFrame {
         centerPanel.add(buildLogoPanel());
 
         JLabel titleLabel = new JLabel("UninaFoodLab");
-        titleLabel.setFont(new Font(FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
+        titleLabel.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
         centerPanel.add(titleLabel);
         topPanel.add(centerPanel, BorderLayout.CENTER);
         return topPanel;
@@ -170,7 +169,7 @@ public class MainFrame extends JFrame {
 
         closeInfoLogBtn = new JLabel("X");
         closeInfoLogBtn.setForeground(Color.BLACK);
-        closeInfoLogBtn.setFont(new Font(FONT_FAMILY, Font.BOLD, ERROR_BUTTON_FONT_SIZE));
+        closeInfoLogBtn.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, ERROR_BUTTON_FONT_SIZE));
         closeInfoLogBtn.setPreferredSize(new Dimension(CLOSE_BUTTON_WIDTH, CLOSE_BUTTON_HEIGHT));
         closeInfoLogBtn.setHorizontalAlignment(SwingConstants.CENTER);
         closeInfoLogBtn.setVerticalAlignment(SwingConstants.CENTER);
@@ -185,7 +184,7 @@ public class MainFrame extends JFrame {
         // Label del messaggio al centro
         infoLogLabel = new JLabel();
         infoLogLabel.setForeground(Color.BLACK);
-        infoLogLabel.setFont(new Font(FONT_FAMILY, Font.BOLD, ERROR_LABEL_FONT_SIZE));
+        infoLogLabel.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, ERROR_LABEL_FONT_SIZE));
         infoLogLabel.setVerticalAlignment(SwingConstants.CENTER);
         infoLogLabel.setHorizontalAlignment(SwingConstants.LEFT);
         infoLogPanel.add(infoLogLabel, BorderLayout.CENTER);
