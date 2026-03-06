@@ -20,7 +20,6 @@ public class MainFrame extends JFrame {
     // Logo Configuration
     private static final int LOGO_WIDTH = 80;
     private static final int LOGO_HEIGHT = 70;
-    private static final int LOGO_BORDER_THICKNESS = 2; //non usato al momento, ma potremmo reintrodurlo successivamente, lascio qui 
 
     // Container Margins (Percentages)
     private static final double CONTAINER_HORIZONTAL_MARGIN_PERCENT = 0.10;
@@ -51,7 +50,6 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel;
     private JPanel topPanel;
     private JPanel containerPanel;
-    private JPanel contentPanel; // Panel interno al container, per gestire meglio i cambi di contenuto
     private JPanel infoLogPanel;
     private JLabel infoLogLabel;
     private JLabel closeInfoLogBtn;
@@ -134,11 +132,10 @@ public class MainFrame extends JFrame {
         return layeredPane;
     }
 
-    /** Costruisce il container verde principale */
+    /** Costruisce il container principale */
     public JPanel buildContainerPanel() {
-        containerPanel = new JPanel(new BorderLayout());
+        containerPanel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS, 30);
         containerPanel.setBackground(UiUtil.COLORE_SFONDO);
-        containerPanel.setBorder(BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS));
         containerPanel.add(buildContentPanel(), BorderLayout.CENTER);
         return containerPanel;
     }
@@ -153,10 +150,8 @@ public class MainFrame extends JFrame {
 
     
     public JPanel buildContentPanel() {
-        contentPanel = new JPanel(new BorderLayout()); //BorderLayout per poter sfruttare al meglio lo spazio del container interno
-        contentPanel.setBackground(UiUtil.COLORE_SFONDO);
-        contentPanel.setBorder(BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS)); //Bordo interno del container, per dividere meglio il contenuto
-        contentPanel.add(new LoginPage(this), BorderLayout.CENTER); // Imposta la LoginPage come contenuto iniziale,appena aperta l'app
+        JPanel contentPanel = new JPanel();
+        contentPanel.add(new JLabel("Contenuto principale - personalizza qui"));
         return contentPanel;
     }
 

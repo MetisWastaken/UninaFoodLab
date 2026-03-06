@@ -1,62 +1,89 @@
 package com.ufl.view;
 
 import javax.swing.*;
+
 import java.awt.*;
 
-public class LoginPage extends JPanel {
-    private MainFrame mainFrame; //non so perchè pianga tbh
+import java.awt.event.ActionListener;
 
-    public LoginPage(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
-
-        setBackground(UiUtil.COLORE_SFONDO);
-
-        setLayout(new GridBagLayout());
-
-        JPanel loginCard = buildLoginCard();
-        add(loginCard);
-    }
-    private JPanel buildLoginCard() {
-        JPanel card = new JPanel();
-  
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS)); //Costruisce il quadrato contenente gli elementi del login
-        card.setBackground(Color.WHITE);
-        // Bordo esterno: una linea colorata 
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, 2, true),
-            BorderFactory.createEmptyBorder(30, 40, 30, 40)  // Bordo interno: spazio vuoto(padding)
-        ));
-
-        //titolo, campi di testo e bottone di login: settati al centro con i rispettivi font
+public class LoginPage extends UiUtil.BorderedPanel {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+    
+    public LoginPage(){
+        super(UiUtil.COLORE_PRIMARIO, 3, 30);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setOpaque(true);
+        setBackground(Color.WHITE);
+        
         JLabel titleLabel = new JLabel("Benvenuto, Chef!");
         titleLabel.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel usernameLabel = new JLabel("Inserisci Username:");
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField usernameField = UiUtil.createInputTextField("Username", new Dimension(250, 35));
+        
+        this.usernameField = UiUtil.createInputTextField("Username", new Dimension(250, 35));
+        this.usernameField.setMaximumSize(new Dimension(250, 35));
+        this.usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel passwordLabel = new JLabel("Inserisci Password:");
         passwordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JPasswordField passwordField = new JPasswordField(20);
         
-        JButton loginButton = UiUtil.createButton("Accedi");
-        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-/********************************************************************************************************************/
-//Costruttore della card graficamente immettendo gli elementi e aggiungendo spazi verticali
+        this.passwordField = createPasswordTextField(new Dimension(250, 35));
+        this.passwordField.setMaximumSize(new Dimension(250, 35));
+        this.passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        this.loginButton = UiUtil.createButton("Accedi");
+        this.loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        add(Box.createVerticalStrut(10));
+        add(titleLabel);
+        add(Box.createVerticalStrut(25));
+        add(usernameLabel);
+        add(Box.createVerticalStrut(15));
+        add(this.usernameField);
+        add(Box.createVerticalStrut(25));
+        add(passwordLabel);
+        add(Box.createVerticalStrut(15));
+        add(this.passwordField);
+        add(Box.createVerticalStrut(25));
+        add(this.loginButton);
+        add(Box.createVerticalGlue());
+    }
 
-        card.add(titleLabel);
-        card.add(Box.createVerticalStrut(25)); 
-        card.add(usernameLabel);
-        card.add(Box.createVerticalStrut(5));
-        card.add(usernameField);
-        card.add(Box.createVerticalStrut(15));
-        card.add(passwordLabel);
-        card.add(Box.createVerticalStrut(5));
-        card.add(passwordField);
-        card.add(Box.createVerticalStrut(25));
-        card.add(loginButton);
 
-        return card;
+    private static JPasswordField createPasswordTextField(Dimension dimension) {
+        JPasswordField passwordTextField = new JPasswordField();
+        passwordTextField.setBackground(UiUtil.COLORE_SFONDO);
+        passwordTextField.setForeground(UiUtil.COLORE_TESTO1);
+        passwordTextField.setPreferredSize(dimension);
+        passwordTextField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, UiUtil.TEXT_FIELD_BORDER_THICKNESS, true),
+            BorderFactory.createEmptyBorder(UiUtil.TEXT_FIELD_PADDING_TOP, UiUtil.TEXT_FIELD_PADDING_LEFT, UiUtil.TEXT_FIELD_PADDING_BOTTOM, UiUtil.TEXT_FIELD_PADDING_RIGHT)
+        ));
+       
+        return passwordTextField;
+    }
+
+    public void addLoginListener(ActionListener listener) {
+        this.loginButton.addActionListener(listener);
+    }
+
+    public String getUsername() {
+        return this.usernameField.getText();
+    }
+
+    public String getPassword() {
+        return new String(this.passwordField.getPassword());
+    }
+    public static void main(String[] args) {
+        UiUtil.TestFrame frame = new UiUtil.TestFrame();
+        frame.setLayout(new FlowLayout());
+        frame.setBackground(UiUtil.COLORE_SFONDO);
+        JPanel loginPanel = new LoginPage();
+        frame.add(loginPanel);
+        frame.revalidate();
     }
 }

@@ -2,6 +2,7 @@ package com.ufl;
 
 import java.time.LocalDate;
 import java.awt.*;
+import javax.swing.*;
 
 
 import com.ufl.dao.PraticaDAO;
@@ -19,9 +20,9 @@ import com.ufl.model.Notifica;
 
 import com.ufl.model.Corso;
 import com.ufl.dao.CorsoDAO;
-
+import com.ufl.view.LoginPage;
 import com.ufl.view.MainFrame;
-import com.ufl.view.UiUtil;
+
     
 public class Main {
 
@@ -124,26 +125,31 @@ public class Main {
             System.out.println("Errore nella connessione al database.");
         }
     }
-    public static void main(String[] args) {
+    public static void testLoginPage(){
         MainFrame mainframe = new MainFrame();
-        UiUtil.BlankPanel blankPanel = new UiUtil.BlankPanel(new Dimension(400, 300));
-        blankPanel.add(UiUtil.createButton("Test Button"));
-        blankPanel.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                mainframe.showInfoLog("SUCC", "Bottone cliccato!");
+        LoginPage loginPage = new LoginPage();
+        
+        loginPage.addLoginListener(e -> {
+            String username = loginPage.getUsername();
+            String password = loginPage.getPassword();
+            System.out.println("Tentativo di login con username: " + username + " e password: " + password);
+             
+            if (new Chef(loginPage.getUsername(), loginPage.getPassword()).verify()) {
+                mainframe.showInfoLog("SUCC", "Login effettuato con successo!");
+                // Dopo il login, puoi caricare il contenuto principale o fare altre operazioni
+            } else {
+                mainframe.showInfoLog("ERR", "Credenziali errate. Riprova.");
             }
         });
-        
-        mainframe.setContent(blankPanel);
-        mainframe.showInfoLog("ERR", "Questo è un messaggio di Errore di test, ma non è abbastanza lungo dovrebbe andare a capo automaticamente e gestire così la lunghezza massima.");
-        
-
+        mainframe.setContent(loginPage);
+    }
+    
+    public static void main(String[] args) {
         //testPratica();
         //testOnline();
         //testRicetta();
         //testChef();
         //testCorso();
-
+        testLoginPage();
     }
 }

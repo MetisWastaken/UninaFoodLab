@@ -12,7 +12,7 @@ public class UiUtil {
     public static final Color COLORE_ACCENTO = new Color(218, 165, 32); // Oro scuro
     public static final Color COLORE_TESTO1 = new Color(60, 40, 30);     // Marrone scuro
     public static final Color COLORE_TESTO2 = new Color(46, 69, 63);    // Verde scuro
-    private static final Color HINT_COLOR = new Color(180, 160, 140);    // Grigio caldo per hint
+    public static final Color HINT_COLOR = new Color(180, 160, 140);    // Grigio caldo per hint
     
     // Font Configuration
     public static final String FONT_FAMILY = "Arial";
@@ -20,12 +20,12 @@ public class UiUtil {
     private static final int HINT_FONT_SIZE = 12;
     
     // Border Configuration
-    private static final int TEXT_FIELD_BORDER_THICKNESS = 2;
-    private static final int TEXT_FIELD_PADDING_TOP = 4;
-    private static final int TEXT_FIELD_PADDING_LEFT = 8;
-    private static final int TEXT_FIELD_PADDING_RIGHT = 8;
-    private static final int TEXT_FIELD_PADDING_BOTTOM = 4;
-    private static final int TEXT_FIELD_HINT_OFFSET_X = 2;
+    public static final int TEXT_FIELD_BORDER_THICKNESS = 2;
+    public static final int TEXT_FIELD_PADDING_TOP = 4;
+    public static final int TEXT_FIELD_PADDING_LEFT = 8;
+    public static final int TEXT_FIELD_PADDING_RIGHT = 8;
+    public static final int TEXT_FIELD_PADDING_BOTTOM = 4;
+    public static final int TEXT_FIELD_HINT_OFFSET_X = 2;
 
 
     public static class TestFrame extends JFrame {
@@ -36,6 +36,16 @@ public class UiUtil {
             setLocationRelativeTo(null);
             setResizable(true);
             setVisible(true);
+        }
+    }
+
+    public static class BorderedPanel extends JPanel {
+        public BorderedPanel(Color borderColor, int borderThickness, int padding) {
+            setOpaque(true);
+            setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(borderColor, borderThickness, true),
+                BorderFactory.createEmptyBorder(padding, padding, padding, padding)
+            ));
         }
     }
 
