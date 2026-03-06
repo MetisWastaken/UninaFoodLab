@@ -24,7 +24,7 @@ import com.ufl.view.LoginPage;
 import com.ufl.view.MainFrame;
 
     
-public class Main {
+public class MainTest {
 
     public static void testPratica(){
         Pratica pratica = PraticaDAO.get(2);

@@ -1,14 +1,26 @@
 package com.ufl.controller;
 
-import com.ufl.model.Utente;
+import com.ufl.MainController;
+
 import com.ufl.model.Chef;
 
-import com.ufl.view.LoginPage;
-import com.ufl.view.UiUtil;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LoginController {
-    
+    public static void createLoginListener(MainController mainController) {
+        mainController.getLoginPage().addLoginListener(e -> {
+                String username = mainController.getLoginPage().getUsername();
+                String password = mainController.getLoginPage().getPassword();
+                System.out.println("Tentativo di login con username: " + username + " e password: " + password);
+                Chef chefAutenticato =new Chef(username, password);
+                if (chefAutenticato.verify()) {
+                    mainController.getMainframe().showInfoLog("SUCC", "Login effettuato con successo!");
+                    mainController.setChefAttivo(chefAutenticato);
+                    mainController.logAvvenuto();
+                } else {
+                    mainController.getMainframe().showInfoLog("ERR", "Credenziali errate. Riprova.");
+                }
+            }
+        );
+    }
+
 }

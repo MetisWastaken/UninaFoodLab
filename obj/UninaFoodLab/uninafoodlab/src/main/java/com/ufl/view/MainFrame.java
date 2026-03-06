@@ -11,6 +11,7 @@ public class MainFrame extends JFrame {
     // Window Configuration
     private static final int WINDOW_WIDTH = 1024;
     private static final int WINDOW_HEIGHT = 768;
+    
 
     // Border and Padding
     private static final int MAIN_PANEL_BORDER = 10;
@@ -59,6 +60,7 @@ public class MainFrame extends JFrame {
         setTitle("UninaFoodLab");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setLocationRelativeTo(null);
         setResizable(true);
 
