@@ -142,7 +142,7 @@ public class MainTest {
                 mainframe.showInfoLog("ERR", "Credenziali errate. Riprova.");
             }
         });
-        mainframe.setContent(loginPage);
+        mainframe.setContentCentered(loginPage);
     }
 
     public static void testHomepageContainer(){
@@ -157,7 +157,7 @@ public class MainTest {
         //testRicetta();
         //testChef();
         //testCorso();
-        //testLoginPage();
-        testHomepageContainer();
+        testLoginPage();
+        //testHomepageContainer();
     }
 }

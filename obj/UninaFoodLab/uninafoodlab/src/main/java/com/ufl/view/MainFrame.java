@@ -137,6 +137,7 @@ public class MainFrame extends JFrame {
     /** Costruisce il container principale */
     public JPanel buildContainerPanel() {
         container_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS, 5);
+        container_panel.setLayout(new BorderLayout()); 
         container_panel.setBackground(UiUtil.COLORE_SFONDO);
         container_panel.add(buildContentPanel(), BorderLayout.CENTER);
         return container_panel;
@@ -145,9 +146,17 @@ public class MainFrame extends JFrame {
     /** Sostituisce il contenuto del container con il panel fornito */
     public void setContent(JPanel panel) {
         container_panel.removeAll();
-        container_panel.add(panel);
+        container_panel.add(panel, BorderLayout.CENTER); 
         container_panel.revalidate();
         container_panel.repaint();
+    }
+
+    /** Sostituisce il contenuto centrandolo alla sua dimensione preferita (es. LoginPage) */
+    public void setContentCentered(JPanel panel) {
+        JPanel centrpanel = new JPanel(new GridBagLayout());
+        centrpanel.setOpaque(false);
+        centrpanel.add(panel);
+        setContent(centrpanel);
     }
 
     

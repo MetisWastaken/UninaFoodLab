@@ -54,12 +54,12 @@ public class MainController {
         this.login_page = new LoginPage();
         
         LoginController.createLoginListener(this);
-        main_frame.setContent(login_page);
+        main_frame.setContentCentered(login_page);
         
     }
     public void logAvvenuto() {
         System.out.println("Login effettuato con successo!");
-        main_frame.setContent(null);
+        main_frame.setContent(null); 
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainController());
