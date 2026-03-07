@@ -1,8 +1,7 @@
 package com.ufl;
 
 import java.time.LocalDate;
-import java.awt.*;
-import javax.swing.*;
+
 
 
 import com.ufl.dao.PraticaDAO;
@@ -142,7 +141,7 @@ public class MainTest {
                 mainframe.showInfoLog("ERR", "Credenziali errate. Riprova.");
             }
         });
-        mainframe.setContentCentered(loginPage);
+        mainframe.setContent(loginPage);
     }
 
     public static void testHomepageContainer(){
@@ -158,7 +157,7 @@ public class MainTest {
         //testChef();
         //testCorso();
         
-        //testLoginPage();
-        testHomepageContainer();
+        testLoginPage();
+        //testHomepageContainer();
     }
 }

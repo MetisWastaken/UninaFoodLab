@@ -48,8 +48,6 @@ public class MainFrame extends JFrame {
     private static final int CLOSE_BUTTON_WIDTH = 20;
     private static final int CLOSE_BUTTON_HEIGHT = 20;
 
-    private JPanel main_panel;
-    private JPanel top_panel;
     private JPanel container_panel;
     private JPanel info_log_panel;
     private JLabel info_log_label;
@@ -71,7 +69,7 @@ public class MainFrame extends JFrame {
 
     /** Costruisce il panel principale che racchiude tutto */
     public JPanel buildMainPanel() {
-        main_panel = new JPanel(new BorderLayout(MAIN_PANEL_GAP, MAIN_PANEL_GAP));
+        JPanel main_panel = new JPanel(new BorderLayout(MAIN_PANEL_GAP, MAIN_PANEL_GAP));
         main_panel.setBackground(Color.WHITE);
         main_panel.setBorder(BorderFactory.createEmptyBorder(MAIN_PANEL_BORDER, MAIN_PANEL_BORDER, MAIN_PANEL_BORDER, MAIN_PANEL_BORDER));
 
@@ -83,7 +81,7 @@ public class MainFrame extends JFrame {
 
     /** Costruisce il panel superiore con titolo e logo */
     public JPanel buildTopPanel() {
-        top_panel = new JPanel(new BorderLayout());
+        JPanel top_panel = new JPanel(new BorderLayout());
         top_panel.setBackground(Color.WHITE);
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, TOP_PANEL_GAP, 0));
@@ -135,7 +133,7 @@ public class MainFrame extends JFrame {
     }
 
     /** Costruisce il container principale */
-    public JPanel buildContainerPanel() {
+    private JPanel buildContainerPanel() {
         container_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS, 1);
         container_panel.setLayout(new BorderLayout()); 
         container_panel.setBackground(UiUtil.COLORE_SFONDO);
@@ -160,14 +158,14 @@ public class MainFrame extends JFrame {
     }
 
     
-    public JPanel buildContentPanel() {
+    private JPanel buildContentPanel() {
         JPanel content_panel = new JPanel();
         content_panel.add(new JLabel("Contenuto principale - personalizza qui"));
         return content_panel;
     }
 
     /** Costruisce il panel degli errori (invisibile di default) */
-    public JPanel buildInfoLogPanel() {
+    private JPanel buildInfoLogPanel() {
         info_log_panel = new JPanel(new BorderLayout());
         info_log_panel.setBackground(UiUtil.TRASPARENT_COLOR);
         info_log_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, INFO_LOG_BORDER_THICKNESS));
