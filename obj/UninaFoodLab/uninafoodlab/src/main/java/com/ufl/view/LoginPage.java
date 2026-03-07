@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginPage extends UiUtil.BorderedPanel {
-    private JTextField usernameField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
+    private JTextField username_field;
+    private JPasswordField password_field;
+    private JButton login_button;
     
     public LoginPage(){
         super(UiUtil.COLORE_PRIMARIO, 3, 30);
@@ -24,32 +24,32 @@ public class LoginPage extends UiUtil.BorderedPanel {
         JLabel usernameLabel = new JLabel("Inserisci Username:");
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        this.usernameField = UiUtil.createInputTextField("Username", new Dimension(250, 35));
-        this.usernameField.setMaximumSize(new Dimension(250, 35));
-        this.usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.username_field = UiUtil.createInputTextField("Username", new Dimension(250, 35));
+        this.username_field.setMaximumSize(new Dimension(250, 35));
+        this.username_field.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel passwordLabel = new JLabel("Inserisci Password:");
         passwordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        this.passwordField = createPasswordTextField(new Dimension(250, 35));
-        this.passwordField.setMaximumSize(new Dimension(250, 35));
-        this.passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.password_field = createPasswordTextField(new Dimension(250, 35));
+        this.password_field.setMaximumSize(new Dimension(250, 35));
+        this.password_field.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        this.loginButton = UiUtil.createButton("Accedi");
-        this.loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.login_button = UiUtil.createButton("Accedi");
+        this.login_button.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         add(Box.createVerticalStrut(10));
         add(titleLabel);
         add(Box.createVerticalStrut(25));
         add(usernameLabel);
         add(Box.createVerticalStrut(15));
-        add(this.usernameField);
+        add(this.username_field);
         add(Box.createVerticalStrut(25));
         add(passwordLabel);
         add(Box.createVerticalStrut(15));
-        add(this.passwordField);
+        add(this.password_field);
         add(Box.createVerticalStrut(25));
-        add(this.loginButton);
+        add(this.login_button);
         add(Box.createVerticalGlue());
     }
 
@@ -68,16 +68,17 @@ public class LoginPage extends UiUtil.BorderedPanel {
     }
 
     public void addLoginListener(ActionListener listener) {
-        this.loginButton.addActionListener(listener);
+        this.login_button.addActionListener(listener);
     }
 
     public String getUsername() {
-        return this.usernameField.getText();
+        return this.username_field.getText();
     }
 
     public String getPassword() {
-        return new String(this.passwordField.getPassword());
+        return new String(this.password_field.getPassword());
     }
+    
     public static void main(String[] args) {
         UiUtil.TestFrame frame = new UiUtil.TestFrame();
         frame.setLayout(new FlowLayout());

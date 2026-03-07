@@ -6,18 +6,18 @@ import com.ufl.model.Chef;
 
 
 public class LoginController {
-    public static void createLoginListener(MainController mainController) {
-        mainController.getLoginPage().addLoginListener(e -> {
-                String username = mainController.getLoginPage().getUsername();
-                String password = mainController.getLoginPage().getPassword();
+    public static void createLoginListener(MainController main_controller) {
+        main_controller.getLoginPage().addLoginListener(e -> {
+                String username = main_controller.getLoginPage().getUsername();
+                String password = main_controller.getLoginPage().getPassword();
                 System.out.println("Tentativo di login con username: " + username + " e password: " + password);
                 Chef chefAutenticato =new Chef(username, password);
                 if (chefAutenticato.verify()) {
-                    mainController.getMainframe().showInfoLog("SUCC", "Login effettuato con successo!");
-                    mainController.setChefAttivo(chefAutenticato);
-                    mainController.logAvvenuto();
+                    main_controller.getMainframe().showInfoLog("SUCC", "Login effettuato con successo!");
+                    main_controller.setChefAttivo(chefAutenticato);
+                    main_controller.logAvvenuto();
                 } else {
-                    mainController.getMainframe().showInfoLog("ERR", "Credenziali errate. Riprova.");
+                    main_controller.getMainframe().showInfoLog("ERR", "Credenziali errate. Riprova.");
                 }
             }
         );

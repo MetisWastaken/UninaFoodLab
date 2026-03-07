@@ -20,6 +20,7 @@ import com.ufl.model.Notifica;
 
 import com.ufl.model.Corso;
 import com.ufl.dao.CorsoDAO;
+import com.ufl.view.HomepageContainer;
 import com.ufl.view.LoginPage;
 import com.ufl.view.MainFrame;
 
@@ -143,6 +144,12 @@ public class MainTest {
         });
         mainframe.setContent(loginPage);
     }
+
+    public static void testHomepageContainer(){
+        MainFrame mainframe = new MainFrame();
+        HomepageContainer homepageContainer = new HomepageContainer();
+        mainframe.setContent(homepageContainer);
+    }
     
     public static void main(String[] args) {
         //testPratica();
@@ -150,6 +157,7 @@ public class MainTest {
         //testRicetta();
         //testChef();
         //testCorso();
-        testLoginPage();
+        //testLoginPage();
+        testHomepageContainer();
     }
 }

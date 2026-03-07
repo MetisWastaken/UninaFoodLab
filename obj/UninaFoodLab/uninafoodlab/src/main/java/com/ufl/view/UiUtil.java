@@ -13,6 +13,7 @@ public class UiUtil {
     public static final Color COLORE_TESTO1 = new Color(60, 40, 30);     // Marrone scuro
     public static final Color COLORE_TESTO2 = new Color(46, 69, 63);    // Verde scuro
     public static final Color HINT_COLOR = new Color(180, 160, 140);    // Grigio caldo per hint
+    public static final Color TRASPARENT_COLOR = new Color(0, 0, 0, 0); // Trasparente
     
     // Font Configuration
     public static final String FONT_FAMILY = "Arial";
@@ -51,6 +52,11 @@ public class UiUtil {
 
     public static class BlankPanel extends JPanel
     {
+        public BlankPanel(Color backgroundColor){
+            setOpaque(true);
+            setBackground(backgroundColor);
+        }
+
         public BlankPanel(Dimension dimension)
         {
             setOpaque(false);
@@ -116,13 +122,10 @@ public class UiUtil {
 
     public static void main(String[] args){
         TestFrame frame = new TestFrame();
-        frame.setLayout(new FlowLayout()); 
-        frame.setBackground(COLORE_SFONDO);
+        
 
-        BlankPanel blankPanel = new BlankPanel(new Dimension(200, 50));
-        blankPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); 
+        BlankPanel blankPanel = new BlankPanel(TRASPARENT_COLOR);
         blankPanel.add(createButton("Test"));
-        frame.add(createInputTextField("null", new Dimension(200, 50)));
         frame.add(blankPanel);
         frame.revalidate();
     }
