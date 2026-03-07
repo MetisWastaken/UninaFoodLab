@@ -148,7 +148,7 @@ public class MainTest {
     public static void testHomepageContainer(){
         MainFrame mainframe = new MainFrame();
         HomepageContainer homepageContainer = new HomepageContainer();
-        mainframe.setContentCentered(homepageContainer);
+        mainframe.setContent(homepageContainer);
     }
     
     public static void main(String[] args) {
@@ -157,7 +157,8 @@ public class MainTest {
         //testRicetta();
         //testChef();
         //testCorso();
-        testLoginPage();
-        //testHomepageContainer();
+        
+        //testLoginPage();
+        testHomepageContainer();
     }
 }
