@@ -148,7 +148,7 @@ public class MainTest {
     public static void testHomepageContainer(){
         MainFrame mainframe = new MainFrame();
         HomepageContainer homepageContainer = new HomepageContainer();
-        mainframe.setContent(homepageContainer);
+        mainframe.setContentCentered(homepageContainer);
     }
     
     public static void main(String[] args) {
