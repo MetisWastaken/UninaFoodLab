@@ -61,6 +61,8 @@ public class UiUtil {
         {
             setOpaque(false);
             setPreferredSize(dimension);
+            setMinimumSize(dimension);
+            setMaximumSize(dimension);
         }
     }
 
