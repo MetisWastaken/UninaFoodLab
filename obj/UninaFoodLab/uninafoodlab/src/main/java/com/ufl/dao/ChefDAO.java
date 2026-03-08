@@ -98,7 +98,7 @@ public class ChefDAO extends ConnessioneDAO {
             query = "SELECT id_corso FROM corso WHERE chef_id=?";
         }
         else{
-            query = "SELECT id_corso FROM corso WHERE chef_id IS NOT ?";
+            query = "SELECT id_corso FROM corso WHERE chef_id <> ?";
         }
         
         if(filtro_categoria != null && !filtro_categoria.isEmpty()){

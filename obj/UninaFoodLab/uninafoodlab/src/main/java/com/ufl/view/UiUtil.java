@@ -66,11 +66,11 @@ public class UiUtil {
         }
     }
 
-        public static class ScrollablePanel extends JScrollPane {
+    public static class ScrollablePanel extends JScrollPane {
         public ScrollablePanel(JPanel container_panel) {
             super(container_panel);
             setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             setBorder(null);
             getVerticalScrollBar().setUnitIncrement(16);
             
@@ -105,29 +105,7 @@ public class UiUtil {
                 }
             });
             
-            getHorizontalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
-                @Override
-                protected void configureScrollBarColors() {
-                    this.thumbColor = COLORE_PRIMARIO;
-                    this.trackColor = COLORE_ACCENTO;
-                }
-                
-                @Override
-                protected JButton createDecreaseButton(int orientation) {
-                    JButton button = super.createDecreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
-                    button.setForeground(COLORE_PRIMARIO);
-                    return button;
-                }
-                
-                @Override
-                protected JButton createIncreaseButton(int orientation) {
-                    JButton button = super.createIncreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
-                    button.setForeground(COLORE_PRIMARIO);
-                    return button;
-                }
-            });
+            
         }
     }
 

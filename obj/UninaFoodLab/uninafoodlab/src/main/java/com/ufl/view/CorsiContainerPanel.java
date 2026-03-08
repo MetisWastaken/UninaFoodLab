@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionListener;
 
 import com.ufl.view.UiUtil;
-
+import com.ufl.view.UiUtil.ScrollablePanel;
 import com.ufl.model.Corso;
 import com.ufl.model.Chef;
 import com.ufl.dao.ChefDAO;
@@ -22,12 +22,19 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
     private CorsiPanel corsi_panel;
 
     public CorsiContainerPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
-        super(UiUtil.COLORE_ACCENTO);
+        super(UiUtil.TRASPARENT_COLOR);
         setLayout(new BorderLayout());
         add(new SearchCatPanel(), BorderLayout.NORTH);
 
-        this.corsi_panel = new CorsiPanel(corsi);
-        add(this.corsi_panel);
+
+        this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
+        if(miei_corsi){
+            this.corsi_panel.getCorsiPanel().forEach(corso_panel -> {
+                corso_panel.enableModificaButton();
+            });
+        }
+        ScrollablePanel scrollPane = new ScrollablePanel(this.corsi_panel);
+        add(scrollPane);
 
 
     }
@@ -51,27 +58,56 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         }
     }
 
-    private class CorsiPanel extends UiUtil.BlankPanel {
-        ArrayList<CorsoPanel> corsi_panel;
-        public CorsiPanel(ArrayList<Corso> corsi) {
+    public class CorsiPanel extends UiUtil.BlankPanel {
+        private ArrayList<CorsoPanel> corsi_panel;
+        private AddCorsoButton add_corso_btn;
+        public CorsiPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
             super(UiUtil.TRASPARENT_COLOR);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            if(miei_corsi){
+                add_corso_btn = new AddCorsoButton();
+                add(Box.createVerticalStrut(10));
+                add(add_corso_btn);
+            }
             corsi_panel = new ArrayList<>();
             for(Corso corso : corsi){
                 CorsoPanel corso_panel = new CorsoPanel(corso);
                 corsi_panel.add(corso_panel);
-                add(corso_panel);
                 add(Box.createVerticalStrut(10));
+                add(corso_panel);
+                
             }
         }
         public ArrayList<CorsoPanel> getCorsiPanel(){
             return corsi_panel;
         }
         
+        public void addAddCorsoButtonListener(ActionListener listener){
+            if(add_corso_btn != null){
+                add_corso_btn.addActionListener(listener);
+            }
+        }
+        
     }
 
-    private class CorsoPanel extends UiUtil.BorderedPanel {
-        private static final Dimension PANEL_DIMENSION = new Dimension(Integer.MAX_VALUE, 80);
+    private class AddCorsoButton extends JButton {
+        private static final int BUTTON_HEIGHT = 80;
+        public AddCorsoButton() {
+            super("+");
+            // Imposta solo l'altezza, lascia che la larghezza si adatti
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, BUTTON_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, BUTTON_HEIGHT));
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+            setBackground(UiUtil.COLORE_PRIMARIO);
+            setForeground(UiUtil.COLORE_ACCENTO);
+            setFocusPainted(false);
+            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
+        }
+
+    }
+
+    public class CorsoPanel extends UiUtil.BorderedPanel {
+        private static final int PANEL_HEIGHT = 80;
         private Integer corso_id;
         private JButton dettagli_btn;
         private JButton modifica_btn;
@@ -82,11 +118,12 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
             setBackground(UiUtil.TRASPARENT_COLOR);
+            setAlignmentX(Component.LEFT_ALIGNMENT);
 
-            setPreferredSize(PANEL_DIMENSION);
-            setMinimumSize(PANEL_DIMENSION);
-            setMaximumSize(PANEL_DIMENSION);
-
+            // Imposta solo l'altezza, lascia che la larghezza si adatti
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
+            
             UiUtil.BlankPanel nome_panel = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
             JLabel nome_label = new JLabel(corso.getNome());
             nome_label.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, NOME_CORSO_FONT_SIZE));
@@ -106,7 +143,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             this.modifica_btn = UiUtil.createButton("Modifica");
             modifica_btn.setEnabled(false);
 
-            add(Box.createHorizontalStrut(10));
+            add(Box.createHorizontalGlue());
             add(nome_panel);
             add(Box.createHorizontalStrut(10));
             add(categoria_panel);
@@ -116,16 +153,42 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             add(dettagli_btn);
             add(Box.createHorizontalStrut(10));
             add(modifica_btn);
+            add(Box.createHorizontalGlue());
         }
+
+        
 
         public Integer getCorso_id() {
             return corso_id;
         }
+
         public void addDettagliButtonListener(ActionListener listener){
             dettagli_btn.addActionListener(listener);
         }
 
+        public void enableModificaButton(){
+            modifica_btn.setEnabled(true);
+        }
 
+        public void addModificaButtonListener(ActionListener listener){
+            modifica_btn.addActionListener(listener);
+        }
+
+    }
+
+    public String getSearchCatText() {
+        return search_cat_field.getText();
+    }
+
+    public void addSearchCatButtonListener(ActionListener listener) {
+        search_cat_btn.addActionListener(listener);
+    }
+    public CorsiPanel getCorsiPanel(){
+        return corsi_panel;
+    }
+
+    public ArrayList<CorsoPanel> getArrayCorsiPanel(){
+        return corsi_panel.getCorsiPanel();
     }
 
     public static void main(String[] args) {
