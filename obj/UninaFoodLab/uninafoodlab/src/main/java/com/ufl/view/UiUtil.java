@@ -120,14 +120,26 @@ public class UiUtil {
         return textField;
     }
 
+    public static class ScrollablePanel extends JScrollPane {
+        public ScrollablePanel(JPanel container_panel) {
+            super(container_panel);
+            setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            setBorder(null);
+            getVerticalScrollBar().setUnitIncrement(16);
+        }
+    }
+
     public static void main(String[] args){
         TestFrame frame = new TestFrame();
         
-
-        BlankPanel blankPanel = new BlankPanel(TRASPARENT_COLOR);
+        BlankPanel blankPanel = new BlankPanel(COLORE_ACCENTO);
+        blankPanel.add(Box.createVerticalStrut(200));
         blankPanel.add(createButton("Test"));
-        frame.add(blankPanel);
-        frame.revalidate();
+        ScrollablePanel scrollablePanel = new ScrollablePanel(blankPanel);
+        frame.add(scrollablePanel);
+        frame.revalidate();     
+        
     }
 }
 
