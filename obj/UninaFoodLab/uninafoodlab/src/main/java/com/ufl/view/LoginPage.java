@@ -25,14 +25,12 @@ public class LoginPage extends UiUtil.BorderedPanel {
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         this.username_field = UiUtil.createInputTextField("Username", new Dimension(250, 35));
-        this.username_field.setMaximumSize(new Dimension(250, 35));
         this.username_field.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel passwordLabel = new JLabel("Inserisci Password:");
         passwordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         this.password_field = createPasswordTextField(new Dimension(250, 35));
-        this.password_field.setMaximumSize(new Dimension(250, 35));
         this.password_field.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         this.login_button = UiUtil.createButton("Accedi");
@@ -59,6 +57,8 @@ public class LoginPage extends UiUtil.BorderedPanel {
         passwordTextField.setBackground(UiUtil.COLORE_SFONDO);
         passwordTextField.setForeground(UiUtil.COLORE_TESTO1);
         passwordTextField.setPreferredSize(dimension);
+        passwordTextField.setMinimumSize(dimension);
+        passwordTextField.setMaximumSize(dimension);
         passwordTextField.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(UiUtil.COLORE_PRIMARIO, UiUtil.TEXT_FIELD_BORDER_THICKNESS, true),
             BorderFactory.createEmptyBorder(UiUtil.TEXT_FIELD_PADDING_TOP, UiUtil.TEXT_FIELD_PADDING_LEFT, UiUtil.TEXT_FIELD_PADDING_BOTTOM, UiUtil.TEXT_FIELD_PADDING_RIGHT)

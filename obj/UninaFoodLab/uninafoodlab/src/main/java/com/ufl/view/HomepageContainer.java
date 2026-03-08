@@ -29,7 +29,7 @@ public class HomepageContainer extends UiUtil.BlankPanel {
             setPreferredSize(size);
             setMinimumSize(size);
             setMaximumSize(size);
-            setBackground(new Color(220, 53, 69)); 
+            setBackground(UiUtil.COLORE_PRIMARIO); 
             setFocusPainted(false);
             setBorderPainted(false);
             setContentAreaFilled(true);
@@ -42,6 +42,7 @@ public class HomepageContainer extends UiUtil.BlankPanel {
     private class ButtonPanel extends UiUtil.BorderedPanel {
         public ButtonPanel() {
             super(UiUtil.COLORE_PRIMARIO, 3, 20);
+            setBackground(UiUtil.COLORE_PRIMARIO);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
             homepage_exit_btn = new ExitButton();
             miei_corsi_btn = UiUtil.createButton("I Miei Corsi");

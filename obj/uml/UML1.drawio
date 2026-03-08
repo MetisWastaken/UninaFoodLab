@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2" pages="4">
   <diagram id="_M2ImUDmSRaJPbU8sHvB" name="Model">
-    <mxGraphModel dx="946" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="983" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -58,7 +58,7 @@
         <mxCell id="J8yxJYLkMa16d1UPzr4S-29" parent="JUO4E5IXj7n8X4aSbpAK-17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getNotifiche():List&amp;lt;Notifica&amp;gt;" vertex="1">
           <mxGeometry height="26" width="400" y="138" as="geometry" />
         </mxCell>
-        <mxCell id="J8yxJYLkMa16d1UPzr4S-30" parent="JUO4E5IXj7n8X4aSbpAK-17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getCorsi(boolean mieiCorsi, String filtroCategoria):ArrayList&amp;lt;Corso&amp;gt;" vertex="1">
+        <mxCell id="J8yxJYLkMa16d1UPzr4S-30" parent="JUO4E5IXj7n8X4aSbpAK-17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getCorsi(boolean miei_corsi, String filtro_categoria):ArrayList&amp;lt;Corso&amp;gt;" vertex="1">
           <mxGeometry height="26" width="400" y="164" as="geometry" />
         </mxCell>
         <mxCell id="TFwzSm0Adf_vT0INGPQl-3" parent="JUO4E5IXj7n8X4aSbpAK-17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ recResoconto(): void" vertex="1">
@@ -638,7 +638,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="zm07d2_IBClaOcFRHgl8" name="dao">
-    <mxGraphModel dx="946" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="1240" dy="731" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -900,25 +900,25 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="VIO5rjuDrru1g4xlwjK5-6" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;ChefDAO&lt;/b&gt;" vertex="1">
-          <mxGeometry height="184" width="441" x="1319" y="493" as="geometry" />
+          <mxGeometry height="184" width="501" x="1319" y="493" as="geometry" />
         </mxCell>
         <mxCell id="VIO5rjuDrru1g4xlwjK5-7" parent="VIO5rjuDrru1g4xlwjK5-6" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="441" y="30" as="geometry" />
+          <mxGeometry height="8" width="501" y="30" as="geometry" />
         </mxCell>
         <mxCell id="VIO5rjuDrru1g4xlwjK5-8" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ Get(String username):Chef" vertex="1">
-          <mxGeometry height="30" width="441" y="38" as="geometry" />
+          <mxGeometry height="30" width="501" y="38" as="geometry" />
         </mxCell>
         <mxCell id="x7ilNq7SkVrpO4Yac_xu-1" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ verify(Chef chef):boolean" vertex="1">
-          <mxGeometry height="26" width="441" y="68" as="geometry" />
+          <mxGeometry height="26" width="501" y="68" as="geometry" />
         </mxCell>
         <mxCell id="VIO5rjuDrru1g4xlwjK5-13" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ getNotifiche(Chef chef):List&amp;lt;Notifica&amp;gt;" vertex="1">
-          <mxGeometry height="30" width="441" y="94" as="geometry" />
+          <mxGeometry height="30" width="501" y="94" as="geometry" />
         </mxCell>
-        <mxCell id="VIO5rjuDrru1g4xlwjK5-14" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ getCorsi(Chef chef, boolean mieiCorsi, String filtroCategoria):ArrayList&amp;lt;Corso&amp;gt;" vertex="1">
-          <mxGeometry height="30" width="441" y="124" as="geometry" />
+        <mxCell id="VIO5rjuDrru1g4xlwjK5-14" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ getCorsi(Chef chef, boolean miei_corsi, String filtro_categoria):ArrayList&amp;lt;Corso&amp;gt;" vertex="1">
+          <mxGeometry height="30" width="501" y="124" as="geometry" />
         </mxCell>
         <mxCell id="VIO5rjuDrru1g4xlwjK5-10" parent="VIO5rjuDrru1g4xlwjK5-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ recResoconto(Chef chef): Report" vertex="1">
-          <mxGeometry height="30" width="441" y="154" as="geometry" />
+          <mxGeometry height="30" width="501" y="154" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

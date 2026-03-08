@@ -91,17 +91,17 @@ public class ChefDAO extends ConnessioneDAO {
         return notifiche; 
     }
 
-    public static ArrayList<Corso> getCorsi(Chef chef , boolean mieiCorsi, String filtroCategoria){
+    public static ArrayList<Corso> getCorsi(Chef chef , boolean miei_corsi, String filtro_categoria){
         String query;
         ArrayList<Corso> corsi = new ArrayList<>();
-        if(mieiCorsi){
+        if(miei_corsi){
             query = "SELECT id_corso FROM corso WHERE chef_id=?";
         }
         else{
             query = "SELECT id_corso FROM corso WHERE chef_id IS NOT ?";
         }
         
-        if(filtroCategoria != null && !filtroCategoria.isEmpty()){
+        if(filtro_categoria != null && !filtro_categoria.isEmpty()){
             query += " AND categoria LIKE ?";
         }
         
@@ -110,8 +110,8 @@ public class ChefDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setString(1, chef.getUsername());
             
-            if(filtroCategoria != null && !filtroCategoria.isEmpty()){
-                ps.setString(2, "%" + filtroCategoria + "%");
+            if(filtro_categoria != null && !filtro_categoria.isEmpty()){
+                ps.setString(2, "%" + filtro_categoria + "%");
             }
             
             ResultSet rs = ps.executeQuery();

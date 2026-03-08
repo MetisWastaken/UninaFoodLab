@@ -18,7 +18,7 @@ public class Chef extends Utente {
 
     // --- Getters e Recs ---
 
-        public Report getResoconto(){
+    public Report getResoconto(){
         return resoconto; 
     }
     
@@ -32,8 +32,8 @@ public class Chef extends Utente {
 
     //--- Metodi ---
 
-    public ArrayList<Corso> getCorsi(boolean mieiCorsi, String filtroCategoria) {
-        return ChefDAO.getCorsi(this, mieiCorsi, filtroCategoria);
+    public ArrayList<Corso> getCorsi(boolean miei_corsi, String filtro_categoria) {
+        return ChefDAO.getCorsi(this, miei_corsi, filtro_categoria);
     }
 
     public void aggiungiNotifica(Notifica notifica){
