@@ -3,6 +3,9 @@ package com.ufl.view;
 import java.awt.*;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
 
 public class UiUtil {
     
@@ -28,15 +31,47 @@ public class UiUtil {
     public static final int TEXT_FIELD_PADDING_BOTTOM = 4;
     public static final int TEXT_FIELD_HINT_OFFSET_X = 2;
 
-
     public static class TestFrame extends JFrame {
         public TestFrame() {
             setTitle("TestFrame");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(200, 200);
+            setSize(500, 500);
             setLocationRelativeTo(null);
             setResizable(true);
             setVisible(true);
+        }
+    }
+
+    public static class PopUpFrame extends JFrame {
+        ScrollablePanel scrollablePanel;
+        public PopUpFrame(String title, Dimension dimension) {
+            setTitle(title);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setSize(dimension);
+            setLocationRelativeTo(null);
+            setResizable(false);
+            setType(Window.Type.UTILITY); // Nasconde il pulsante minimize su molti OS
+
+            setVisible(true);
+        }
+
+        public PopUpFrame(String title, Dimension dimension, JPanel contentPanel) {
+            this(title, dimension);
+            setContent(contentPanel);
+        }
+
+        public void setContent(JPanel contentPanel) {
+            if (scrollablePanel != null) {
+                remove(scrollablePanel);
+            }
+            scrollablePanel = new ScrollablePanel(contentPanel);
+            add(scrollablePanel);
+            revalidate();
+            repaint();
+        }
+
+        public void setHorizontalScrollTrue(){
+            scrollablePanel.setHorizontalScrollTrue();
         }
     }
 
@@ -105,7 +140,33 @@ public class UiUtil {
                 }
             });
             
+            getHorizontalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                    this.thumbColor = COLORE_PRIMARIO;
+                    this.trackColor = COLORE_ACCENTO;
+                }
+                
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton button = super.createIncreaseButton(orientation);
+                    button.setBackground(COLORE_ACCENTO);
+                    button.setForeground(COLORE_PRIMARIO);
+                    return button;
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton button = super.createDecreaseButton(orientation);
+                    button.setBackground(COLORE_ACCENTO);
+                    button.setForeground(COLORE_PRIMARIO);
+                    return button;
+                }
+            });
             
+        }
+        public void setHorizontalScrollTrue(){
+            setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         }
     }
 
@@ -166,18 +227,43 @@ public class UiUtil {
         });
         return textField;
     }
-
+    
+    public static JFormattedTextField createInputDateField(Dimension dimension) {
+        JFormattedTextField dateField = null;
+        try {
+            MaskFormatter dateFormatter = new MaskFormatter("##/##/####");
+            dateFormatter.setPlaceholderCharacter('_');
+            dateField = new JFormattedTextField(dateFormatter);
+            dateField.setBackground(COLORE_SFONDO);
+            dateField.setForeground(COLORE_TESTO1);
+            dateField.setPreferredSize(dimension);
+            dateField.setMinimumSize(dimension);
+            dateField.setMaximumSize(dimension);
+            dateField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(COLORE_PRIMARIO, TEXT_FIELD_BORDER_THICKNESS, true),
+                BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING_TOP, TEXT_FIELD_PADDING_LEFT, TEXT_FIELD_PADDING_BOTTOM, TEXT_FIELD_PADDING_RIGHT)
+            ));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Fallback: crea un campo semplice
+            dateField = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+            dateField.setPreferredSize(dimension);
+            dateField.setMinimumSize(dimension);
+            dateField.setMaximumSize(dimension);
+        }
+        return dateField;
+    }
     
 
     public static void main(String[] args){
-        TestFrame frame = new TestFrame();
         
-        BlankPanel blankPanel = new BlankPanel(COLORE_ACCENTO);
+        
+        BlankPanel blankPanel = new BlankPanel(COLORE_SFONDO);
         blankPanel.add(Box.createVerticalStrut(500));
-        blankPanel.add(createButton("Test"));
+        blankPanel.add(createInputDateField(new Dimension(200, 40)));
         blankPanel.add(Box.createHorizontalStrut(500));
-        ScrollablePanel scrollablePanel = new ScrollablePanel(blankPanel);
-        frame.add(scrollablePanel);
+        PopUpFrame frame = new PopUpFrame("Test ScrollablePanel", new Dimension(400, 300), blankPanel);
+        frame.setHorizontalScrollTrue();
         frame.revalidate();     
         
     }
