@@ -34,7 +34,6 @@ public class MainTest {
             System.out.println("Studenti iscritti: " + pratica.getStudentiIscritti());
             System.out.println("Ingredienti necessari per la pratica:");
             pratica.getIngredientiPratica().forEach(ingrediente -> System.out.println("- " + ingrediente.getNome() + " (" + ingrediente.getQuantita() + " " + ingrediente.getUnitMisura() + ")"));
-            pratica.recRicette();
             System.out.println("Ricette associate alla pratica:");
             pratica.getRicette().forEach(ricetta -> System.out.println("- " + ricetta.getNome()));
             //pratica.aggiungiRicetta(RicettaDAO.get(2));
@@ -80,9 +79,8 @@ public class MainTest {
             chef.getResoconto().getNumeroRicettePerPratiche().forEach((pratica, numeroRicette) -> {
                 System.out.println("Pratica del " + pratica.getGiornoSessione() + " in aula " + pratica.getAula() + ": " + numeroRicette + " ricette");
             });
-            
-            chef.aggiungiNotifica(new Notifica("GEsposito", "Palle","Belle palle fratello",false,LocalDate.now(),null));
-            chef.aggiungiNotifica(new Notifica("GEsposito", "Male Male","Le tue palle puzzano",true,LocalDate.now(),2));
+            new Notifica("GEsposito", "Palle","Belle palle fratello",false,LocalDate.now(),null).insert();
+            new Notifica("GEsposito", "Male Male","Le tue palle puzzano",true,LocalDate.now(),2).insert();
             chef.getNotifiche().forEach(notifica -> {
                 notifica.recMessagio();
                 notifica.recDataCreazione();
@@ -106,16 +104,13 @@ public class MainTest {
             System.out.println("Corso trovato: " + corso.getNome() + ", " + corso.getCategoria() + ", " + corso.getDataIn() + ", " + corso.getDataFin() + ", " + corso.getFrequenzaSettimanale());
             corso.recChef();
             System.out.println("Chi lo ha creato: " + corso.getChef().getNome()+ " " + corso.getChef().getCognome());
-            corso.recSessioniPratiche();
             System.out.println("\nSessioni pratiche del corso:");
             corso.getSessioniPratiche().forEach(pratica -> {
                 System.out.println("- Pratica del " + pratica.getGiornoSessione() + " in aula " + pratica.getAula() + " con " + pratica.getPostiTotali() + " posti totali");
-                pratica.recRicette();
                 System.out.println("  Ricette associate alla pratica:");
                 pratica.getRicette().forEach(ricetta -> System.out.println("  - " + ricetta.getNome()));
             });
-            corso.recSessioniOnline();
-            corso.modificaSessione(OnlineDAO.get(2), new Online(1, LocalDate.now().plusDays(143), "MEET12346"), new Notifica("GEsposito", "Modifica Sessione1","Palle meeting",true,LocalDate.now(),2));
+            OnlineDAO.get(2).update(new Online(1, LocalDate.now().plusDays(143), "MEET12346"));
             System.out.println("\nSessioni online del corso:");
             corso.getSessioniOnline().forEach(online -> {
                 System.out.println("- Online del " + online.getGiornoSessione() + " con codice meeting: " + online.getCodiceMeeting());
@@ -151,13 +146,13 @@ public class MainTest {
     }
     
     public static void main(String[] args) {
-        //testPratica();
+        testPratica();
         //testOnline();
         //testRicetta();
         //testChef();
         //testCorso();
         
-        testLoginPage();
+        //testLoginPage();
         //testHomepageContainer();
     }
 }
