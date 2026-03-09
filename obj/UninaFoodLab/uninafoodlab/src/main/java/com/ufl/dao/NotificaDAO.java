@@ -130,8 +130,8 @@ public class NotificaDAO extends ConnessioneDAO {
                 ps.setNull(6, java.sql.Types.INTEGER);
             }
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -144,8 +144,8 @@ public class NotificaDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_notifica);
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -78,6 +78,11 @@ public class LoginPage extends UiUtil.BorderedPanel {
     public String getPassword() {
         return new String(this.password_field.getPassword());
     }
+
+    public void pulisciCampi() {
+        this.username_field.setText("");
+        this.password_field.setText("");
+    }
     
     public static void main(String[] args) {
         UiUtil.TestFrame frame = new UiUtil.TestFrame();

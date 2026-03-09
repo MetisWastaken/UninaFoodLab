@@ -143,8 +143,8 @@ public class CorsoDAO extends ConnessioneDAO {
             ps.setString(5, corso.getFrequenzaSettimanale());
             ps.setString(6, corso.getChef().getUsername());
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

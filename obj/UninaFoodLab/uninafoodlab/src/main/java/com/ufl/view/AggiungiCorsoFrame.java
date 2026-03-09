@@ -2,11 +2,11 @@ package com.ufl.view;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-import com.ufl.view.UiUtil;
 
 public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
     private AggiungiCorsoPanel aggiungi_corso_panel;
@@ -98,11 +98,25 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
     }
 
     public LocalDate getDataInizioCorso() {
-        return LocalDate.parse(aggiungi_corso_panel.data_in_field.getText());
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dateText = aggiungi_corso_panel.data_in_field.getText();
+            return LocalDate.parse(dateText, formatter);
+        } catch (DateTimeParseException e) {
+            // Gestisci l'errore (data non valida)
+            return null;
+        }
     }
 
     public LocalDate getDataFineCorso() {
-        return LocalDate.parse(aggiungi_corso_panel.data_fin_field.getText());
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dateText = aggiungi_corso_panel.data_fin_field.getText();
+            return LocalDate.parse(dateText, formatter);
+        } catch (DateTimeParseException e) {
+            // Gestisci l'errore (data non valida)
+            return null;
+        }
     }
 
     public String getFrequenzaCorso() {
@@ -111,6 +125,14 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
 
     public void addAggiungiCorsoListener(ActionListener listener) {
         aggiungi_corso_panel.aggiungi_button.addActionListener(listener);
+    }
+
+    public void pulisciCampi() {
+        aggiungi_corso_panel.nome_field.setText("");
+        aggiungi_corso_panel.categoria_field.setText("");
+        aggiungi_corso_panel.data_in_field.setValue(null);
+        aggiungi_corso_panel.data_fin_field.setValue(null);
+        aggiungi_corso_panel.frequenza_field.setText("");
     }
 
     public static void main(String[] args) {

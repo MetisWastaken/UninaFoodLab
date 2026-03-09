@@ -155,8 +155,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(3, pratica.getPostiTotali());
             ps.setInt(4, pratica.getCorsoId());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -173,8 +173,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(4, pratica.getPostiTotali());
             ps.setInt(5, pratica.getCorsoId());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -187,8 +187,8 @@ public class PraticaDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_pratica);
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -202,8 +202,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(1, pratica.getIdSessione());
             ps.setInt(2, ricetta.getIdRicetta());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }

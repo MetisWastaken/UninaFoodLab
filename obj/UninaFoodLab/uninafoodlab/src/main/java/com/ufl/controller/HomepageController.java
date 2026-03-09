@@ -9,6 +9,7 @@ public class HomepageController {
                 main_controller.getMainframe().showInfoLog("SUCC", "Logout effettuato con successo!");
                 main_controller.setChefAttivo(null);
                 main_controller.setCorsoAttivo(null);
+                main_controller.getLoginPage().pulisciCampi();
                 main_controller.logOutAvvenuto();
             }
         );

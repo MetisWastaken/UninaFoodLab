@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 import com.ufl.controller.LoginController;
 import com.ufl.controller.CorsiContainerController;
 import com.ufl.controller.HomepageController;
+import com.ufl.controller.AggiungiCorsoController;
 
 import com.ufl.view.MainFrame;
 import com.ufl.view.UiUtil;
@@ -13,6 +14,7 @@ import com.ufl.view.HomepageContainer;
 import com.ufl.view.AggiungiCorsoFrame;
 import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
+
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
 
@@ -42,6 +44,10 @@ public class MainController {
     
     public CorsiContainerPanel getCorsiContainerPanel() {
         return corsi_container_panel;
+    }
+
+    public AggiungiCorsoFrame getAggiungiCorsoFrame() {
+        return aggiungi_corso_frame;
     }
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
@@ -91,7 +97,7 @@ public class MainController {
     public void CostruisciAggiungiCorso(){
         if(this.aggiungi_corso_frame == null) {
             this.aggiungi_corso_frame = new AggiungiCorsoFrame();
-            //AggiungiCorsoController.createAggiungiCorsoListener(this);
+            AggiungiCorsoController.createAggiungiCorsoListener(this);
         }
         aggiungi_corso_frame.setVisible(true);
     }
@@ -114,7 +120,6 @@ public class MainController {
 
     public void logOutAvvenuto() {
         System.out.println("Logout effettuato con successo!");
-        CostruisciLogIn();
         main_frame.setContent(login_page); 
     }
 
