@@ -2,8 +2,8 @@
 DROP TABLE IF EXISTS corso CASCADE;
 CREATE TABLE corso (
     id_corso SERIAL PRIMARY KEY,
-    nome VARCHAR(200) NOT NULL,
-    categoria VARCHAR(100),
+    nome VARCHAR(25) NOT NULL,
+    categoria VARCHAR(15),
     data_in DATE NOT NULL,
     data_fin DATE NOT NULL,
     frequenza_settimanale VARCHAR(100),
