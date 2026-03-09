@@ -77,11 +77,11 @@ public class Notifica {
 
     // ---- METODI ----
 
-    public void insert() {
-        NotificaDAO.insert(this);
+    public boolean insert() {
+        return NotificaDAO.insert(this);
     }
 
-    public void delete() {
-        NotificaDAO.delete(this.id_notifica);
+    public boolean delete() {
+        return NotificaDAO.delete(this.id_notifica);
     }
 }   

@@ -122,9 +122,7 @@ public class PraticaDAO extends ConnessioneDAO {
         return ingredienti;
     }
 
-    // ---- REC ----
-
-    public static ArrayList<Ricetta> recRicette(Pratica pratica) {
+    public static ArrayList<Ricetta> getRicette(Pratica pratica) {
         String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
         ArrayList<Ricetta> ricette = new ArrayList<>();
         try{

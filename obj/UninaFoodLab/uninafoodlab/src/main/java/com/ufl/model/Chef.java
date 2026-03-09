@@ -30,23 +30,11 @@ public class Chef extends Utente {
         resoconto = ChefDAO.recResoconto(this);
     }
 
-    //--- Metodi ---
-
     public ArrayList<Corso> getCorsi(boolean miei_corsi, String filtro_categoria) {
         return ChefDAO.getCorsi(this, miei_corsi, filtro_categoria);
     }
 
-    public void aggiungiNotifica(Notifica notifica){
-        notifica.insert();
-    }
-
-    public void eliminaNotifica(Notifica notifica){
-        notifica.delete();
-    }
-
-    public void aggiungiCorso(Corso corso){
-        corso.insert();
-    }
+//--- Metodi ---
 
     public boolean verify() {
         return ChefDAO.verify(this);
