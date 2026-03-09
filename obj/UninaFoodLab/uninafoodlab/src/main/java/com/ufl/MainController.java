@@ -41,7 +41,7 @@ public class MainController {
     public CorsiContainerPanel getCorsiContainerPanel() {
         return corsi_container_panel;
     }
-
+//----------------------------------------------------
     public void setChefAttivo(Chef chef) {
         this.chef_attivo = chef;
     }
@@ -56,44 +56,61 @@ public class MainController {
     public Corso getCorsoAttivo() {
         return corso_attivo;
     }
+//---------------------------------------------
 
-
-    public MainController() {
-        this.main_frame = new MainFrame();
+    public void CostruisciLogIn(){
         this.login_page = new LoginPage();
-        this.homepage_container = new HomepageContainer();
-
         LoginController.createLoginListener(this);
-        main_frame.setContent(login_page);
-        
     }
 
-    public void logAvvenuto() {
-        System.out.println("Login effettuato con successo!");
+    public void CostruisciHomepage(){
+        this.homepage_container = new HomepageContainer();
         HomepageController.createHomepageExitListener(this);
         HomepageController.createMieiCorsiListener(this);
         HomepageController.createAltriCorsiListener(this);
         HomepageController.createNotificheListener(this);
         HomepageController.createReportListener(this);
+    }
+
+    public void CostruisciMieiCorsi(String filtro_categoria){
+        this.corsi_container_panel = new CorsiContainerPanel(true, chef_attivo.getCorsi(true, filtro_categoria));
+        CorsiContainerController.createMCSearchCatButtonListener(this);
+        CorsiContainerController.createDettagliButtonListener(this);
+        CorsiContainerController.createModificaButtonListener(this);
+        CorsiContainerController.createAddCorsoButtonListener(this);
+    }
+
+    public void CostruisciAltriCorsi(String filtro_categoria){
+        this.corsi_container_panel = new CorsiContainerPanel(false, chef_attivo.getCorsi(false, filtro_categoria));
+        CorsiContainerController.createACSearchCatButtonListener(this);
+        CorsiContainerController.createDettagliButtonListener(this);
+    }
+//----------------------------------------------
+    public MainController() {
+        this.main_frame = new MainFrame();
+        CostruisciLogIn();
+        main_frame.setContent(login_page);
+        
+    }
+
+    
+//-----------------------------------------------
+    public void logAvvenuto() {
+        System.out.println("Login effettuato con successo!");
+        CostruisciHomepage();
         main_frame.setContent(homepage_container);
         mostraMieiCorsi();
     }
 
     public void logOutAvvenuto() {
         System.out.println("Logout effettuato con successo!");
-        this.login_page = new LoginPage();
+        CostruisciLogIn();
         main_frame.setContent(login_page); 
     }
 
-    
-
     public void mostraMieiCorsi(String filtro_categoria){
         System.out.println("I miei corsi filtrati per categoria: " + filtro_categoria);
-        corsi_container_panel = new CorsiContainerPanel(true, chef_attivo.getCorsi(true, filtro_categoria));
-        CorsiContainerController.createMCSearchCatButtonListener(this);
-        CorsiContainerController.createDettagliButtonListener(this);
-        CorsiContainerController.createModificaButtonListener(this);
-        CorsiContainerController.createAddCorsoButtonListener(this);
+        CostruisciMieiCorsi(filtro_categoria);
         homepage_container.setContent(corsi_container_panel);
     }
 
@@ -103,9 +120,7 @@ public class MainController {
 
     public void mostraAltriCorsi(String filtro_categoria){
         System.out.println("Altri corsi filtrati per categoria: " + filtro_categoria);
-        corsi_container_panel = new CorsiContainerPanel(false, chef_attivo.getCorsi(false, filtro_categoria));
-        CorsiContainerController.createACSearchCatButtonListener(this);
-        CorsiContainerController.createDettagliButtonListener(this);
+        CostruisciAltriCorsi(filtro_categoria);
         homepage_container.setContent(corsi_container_panel);
     }
 
@@ -125,7 +140,8 @@ public class MainController {
 
     public void mostraAggiungiCorso(){
         System.out.println("Aggiungi corso");
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_PRIMARIO.brighter()));
+        //homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_PRIMARIO.brighter()));
+        new UiUtil.TestFrame();
     }
 
     public void mostraNotifiche(){

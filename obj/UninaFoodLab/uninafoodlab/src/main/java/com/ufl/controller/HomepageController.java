@@ -17,6 +17,7 @@ public class HomepageController {
     public static void createMieiCorsiListener(MainController main_controller){
         main_controller.getHomepageContainer().addMieiCorsiButtonListener(e ->{
                 main_controller.getMainframe().showInfoLog("SUCC", "Visualizzazione dei miei corsi in corso!");
+                main_controller.setCorsoAttivo(null);
                 main_controller.mostraMieiCorsi();
 
             }
@@ -26,6 +27,7 @@ public class HomepageController {
     public static void createAltriCorsiListener(MainController main_controller){
         main_controller.getHomepageContainer().addAltriCorsiButtonListener(e ->{
                 main_controller.getMainframe().showInfoLog("SUCC", "Visualizzazione degli altri corsi in corso!");
+                main_controller.setCorsoAttivo(null);
                 main_controller.mostraAltriCorsi();
 
             }
@@ -35,6 +37,7 @@ public class HomepageController {
     public static void createNotificheListener(MainController main_controller){
         main_controller.getHomepageContainer().addNotificheButtonListener(e ->{
                 main_controller.getMainframe().showInfoLog("SUCC", "Visualizzazione delle notifiche in corso!");
+                main_controller.setCorsoAttivo(null);
                 main_controller.mostraNotifiche();
 
             }
@@ -44,6 +47,7 @@ public class HomepageController {
     public static void createReportListener(MainController main_controller){
         main_controller.getHomepageContainer().addReportButtonListener(e ->{
                 main_controller.getMainframe().showInfoLog("SUCC", "Visualizzazione del report in corso!");
+                main_controller.setCorsoAttivo(null);
                 main_controller.mostraReport();
 
             }

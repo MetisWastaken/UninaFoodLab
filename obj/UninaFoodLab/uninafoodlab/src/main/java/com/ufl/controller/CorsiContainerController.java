@@ -2,7 +2,7 @@ package com.ufl.controller;
 
 import com.ufl.MainController;
 
-import com.ufl.view.CorsiContainerPanel;
+import com.ufl.view.CorsiContainerPanel.CorsoPanel;
 
 import com.ufl.dao.CorsoDAO;
 
@@ -28,7 +28,7 @@ public class CorsiContainerController {
     }
 
     public static void createDettagliButtonListener(MainController main_controller){
-        for(CorsiContainerPanel.CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
+        for(CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
             corso_panel.addDettagliButtonListener(e -> {
                     Integer corso_id = corso_panel.getCorso_id();
                     main_controller.getMainframe().showInfoLog("SUCC", "Caricamento dettagli corso in corso!");
@@ -39,7 +39,7 @@ public class CorsiContainerController {
     }
     
     public static void createModificaButtonListener(MainController main_controller){
-        for(CorsiContainerPanel.CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
+        for(CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
             corso_panel.addModificaButtonListener(e -> {
                     Integer corso_id = corso_panel.getCorso_id();
                     main_controller.getMainframe().showInfoLog("SUCC", "Caricamento modifica corso in corso!");
