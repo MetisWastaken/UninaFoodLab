@@ -11,7 +11,7 @@ import com.ufl.view.UiUtil;
 import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
 import com.ufl.view.CorsiContainerPanel;
-
+import com.ufl.view.DettagliCorsoPanel;
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
 
@@ -115,7 +115,10 @@ public class MainController {
 
     public void mostraDettagliCorso(Corso corso){
         System.out.println("Dettagli corso: " + corso.getNome());
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_ACCENTO));
+        corso.recChef();
+        corso.recSessioniPratiche();
+        corso.recSessioniOnline();
+        homepage_container.setContent(new DettagliCorsoPanel(corso));
     }
 
     public void mostraModificaCorso(){
