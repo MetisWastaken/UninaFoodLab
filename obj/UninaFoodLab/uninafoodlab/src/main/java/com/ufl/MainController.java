@@ -10,6 +10,7 @@ import com.ufl.view.MainFrame;
 import com.ufl.view.UiUtil;
 import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
+import com.ufl.view.AggiungiCorsoFrame;
 import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
 import com.ufl.model.Chef;
@@ -21,6 +22,7 @@ public class MainController {
     private LoginPage login_page;
     private HomepageContainer homepage_container;
     private CorsiContainerPanel corsi_container_panel;
+    private AggiungiCorsoFrame aggiungi_corso_frame;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -85,6 +87,14 @@ public class MainController {
         CorsiContainerController.createACSearchCatButtonListener(this);
         CorsiContainerController.createDettagliButtonListener(this);
     }
+
+    public void CostruisciAggiungiCorso(){
+        if(this.aggiungi_corso_frame == null) {
+            this.aggiungi_corso_frame = new AggiungiCorsoFrame();
+            //AggiungiCorsoController.createAggiungiCorsoListener(this);
+        }
+        aggiungi_corso_frame.setVisible(true);
+    }
 //----------------------------------------------
     public MainController() {
         this.main_frame = new MainFrame();
@@ -131,8 +141,6 @@ public class MainController {
     public void mostraDettagliCorso(Corso corso){
         System.out.println("Dettagli corso: " + corso.getNome());
         corso.recChef();
-        corso.recSessioniPratiche();
-        corso.recSessioniOnline();
         homepage_container.setContent(new DettagliCorsoPanel(corso));
     }
 
@@ -143,8 +151,7 @@ public class MainController {
 
     public void mostraAggiungiCorso(){
         System.out.println("Aggiungi corso");
-        //homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_PRIMARIO.brighter()));
-        new UiUtil.TestFrame();
+        CostruisciAggiungiCorso();
     }
 
     public void mostraNotifiche(){
