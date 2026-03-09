@@ -86,7 +86,7 @@ public class CorsoDAO extends ConnessioneDAO {
         return null;
     }
 
-    public static List<Pratica> recSessioniPratiche(Corso corso) {
+    public static List<Pratica> getSessioniPratiche(Corso corso) {
         String query = "SELECT id_pratica FROM pratica WHERE corso_id = ?";
         List<Pratica> pratiche = new ArrayList<>();
         try {
@@ -108,7 +108,7 @@ public class CorsoDAO extends ConnessioneDAO {
         return pratiche;
     }
 
-    public static List<Online> recSessioniOnline(Corso corso) {
+    public static List<Online> getSessioniOnline(Corso corso) {
         String query = "SELECT id_online FROM online WHERE corso_id = ?";
         List<Online> pratiche = new ArrayList<>();
         try {
