@@ -72,25 +72,28 @@ public class DettagliCorsoPanel extends UiUtil.BlankPanel {
         rows.setLayout(new BoxLayout(rows, BoxLayout.Y_AXIS));
 
         List<Pratica> pratiche = corso.getSessioniPratiche() == null ? new ArrayList<>() : corso.getSessioniPratiche();
+        boolean hasPratiche = !pratiche.isEmpty();
+        
+        JPanel actionRow = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
+        actionRow.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
 
-        if(pratiche.isEmpty()){
+        JButton ricetteIngrBtn = UiUtil.createButton("Ricette e Ingredienti");
+        ricetteIngrBtn.addActionListener(e -> showRicetteTuttePopup(pratiche));
+        ricetteIngrBtn.setEnabled(hasPratiche);
+        actionRow.add(ricetteIngrBtn);
+
+        JButton iscrittiBtn = UiUtil.createButton("Iscritti");
+        iscrittiBtn.addActionListener(e -> showIscrittiTuttiPopup(pratiche));
+        iscrittiBtn.setEnabled(hasPratiche);
+        actionRow.add(iscrittiBtn);
+
+        actionRow.setAlignmentX(Component.LEFT_ALIGNMENT);
+        rows.add(actionRow);
+        rows.add(Box.createVerticalStrut(8));
+
+        if(!hasPratiche){
             rows.add(infoLabel("Nessuna sessione pratica disponibile"));
         }else{
-            JPanel actionRow = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-            actionRow.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
-
-            JButton ricetteIngrBtn = UiUtil.createButton("Ricette e Ingredienti");
-            ricetteIngrBtn.addActionListener(e -> showRicetteTuttePopup(pratiche));
-            actionRow.add(ricetteIngrBtn);
-
-            JButton iscrittiBtn = UiUtil.createButton("Iscritti");
-            iscrittiBtn.addActionListener(e -> showIscrittiTuttiPopup(pratiche));
-            actionRow.add(iscrittiBtn);
-
-            actionRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-            rows.add(actionRow);
-            rows.add(Box.createVerticalStrut(8));
-
             for (Pratica p : pratiche) {
                 rows.add(sessionRow(
                         "Data: " + p.getGiornoSessione() + " | Aula: " + p.getAula() + " | Posti: " + p.getPostiTotali() + " | Prenotati: " + p.getNStudentiIscritti()));
