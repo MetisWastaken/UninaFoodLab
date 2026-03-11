@@ -6,7 +6,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import com.ufl.model.Ingrediente;
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
-import com.ufl.view.UiUtil;
+
 
 import com.ufl.dao.CorsoDAO;
 
