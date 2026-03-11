@@ -7,7 +7,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-import java.util.Collections;
+
 import java.util.List;
 
 import com.ufl.model.Corso;
@@ -215,16 +215,15 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                     content.add(infoLabel("Ricetta: " + ricetta.getNome()));
                     ricetta.recIngredienti();
 
-                    List<Ingrediente> ingredienti = ricetta.getIngredienti() == null
-                        ? Collections.emptyList()
-                        : ricetta.getIngredienti();
-
-                    for (Ingrediente ingrediente : ingredienti) {
-                        content.add(infoLabel(
-                            "   Ingrediente: " + ingrediente.getNome()
-                            + " - Quantità: " + ingrediente.getQuantita()
-                            + " - Tipo: " + ingrediente.getUnitMisura()
-                        ));
+                    List<Ingrediente> ingredienti = ricetta.getIngredienti();
+                    if (ingredienti != null && !ingredienti.isEmpty()) {
+                        for (Ingrediente ingrediente : ingredienti) {
+                            content.add(infoLabel(
+                                "   Ingrediente: " + ingrediente.getNome()
+                                + " - Quantità: " + ingrediente.getQuantita()
+                                + " - Tipo: " + ingrediente.getUnitMisura()
+                            ));
+                        }
                     }
                     content.add(Box.createVerticalStrut(6));
                 }
