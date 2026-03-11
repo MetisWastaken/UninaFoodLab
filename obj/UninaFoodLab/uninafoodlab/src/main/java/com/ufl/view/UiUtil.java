@@ -88,7 +88,9 @@ public class UiUtil {
     public static class BlankPanel extends JPanel
     {
         public BlankPanel(Color backgroundColor){
-            setOpaque(true);
+            // Se il colore è trasparente, il panel NON deve essere opaque
+            boolean isTransparent = backgroundColor.getAlpha() < 255;
+            setOpaque(!isTransparent);
             setBackground(backgroundColor);
         }
 
@@ -104,11 +106,25 @@ public class UiUtil {
     public static class ScrollablePanel extends JScrollPane {
         public ScrollablePanel(JPanel container_panel) {
             super(container_panel);
+
+            // Evita artefatti durante lo scroll
+            getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
             setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             setBorder(null);
             getVerticalScrollBar().setUnitIncrement(16);
-            
+
+            // Viewport solida (niente trasparenza qui)
+            setOpaque(true);
+            getViewport().setOpaque(true);
+            setBackground(COLORE_SFONDO);
+            getViewport().setBackground(COLORE_SFONDO);
+
+            // Importante: il contenuto dello scroll deve essere opaco
+            container_panel.setOpaque(true);
+            container_panel.setBackground(COLORE_SFONDO);
+
             // Personalizza il colore della scrollbar
             getVerticalScrollBar().setBackground(COLORE_SFONDO);
             getVerticalScrollBar().setForeground(COLORE_PRIMARIO);

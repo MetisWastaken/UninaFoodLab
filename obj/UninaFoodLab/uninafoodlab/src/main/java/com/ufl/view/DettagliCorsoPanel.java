@@ -1,175 +1,340 @@
 package com.ufl.view;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Component;
+import java.awt.*;
+
+
+
+import javax.swing.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 
 import com.ufl.model.Corso;
 import com.ufl.model.Ingrediente;
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
-import com.ufl.view.UiUtil.BorderedPanel;
+import com.ufl.view.UiUtil;
 
-public class DettagliCorsoPanel extends UiUtil.BlankPanel {
+import com.ufl.dao.CorsoDAO;
+
+public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     private static final int TITLE_FONT_SIZE = 22;
     private static final int SUBTITLE_FONT_SIZE = 16;
     private static final int TEXT_FONT_SIZE = 14;
 
-    private final Corso corso;
+    private List<Pratica> pratiche;
+    private List<Online> online;
 
     public DettagliCorsoPanel(Corso corso) {
-        super(UiUtil.TRASPARENT_COLOR);
-        this.corso = corso;
-        setLayout(new BorderLayout());
-        
-        JPanel content = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        content.add(buildHeaderBigCorso());
-        content.add(Box.createVerticalStrut(10));
-        content.add(buildPraticheBox());
-        content.add(Box.createVerticalStrut(10));
-        content.add(buildOnlineBox());
-        content.add(Box.createVerticalGlue());
+        super(UiUtil.TRASPARENT_COLOR, 0, 10);
+        setBackground(UiUtil.TRASPARENT_COLOR);
 
-        add(new UiUtil.ScrollablePanel(content), BorderLayout.CENTER);
+        this.pratiche = corso.getSessioniPratiche();
+        this.online = corso.getSessioniOnline();
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
+        add(new HeaderBigCorsoPanel(corso), BorderLayout.CENTER);
+        add(Box.createVerticalStrut(10));
+        add(new PraticheBox(pratiche), BorderLayout.CENTER);
+        add(Box.createVerticalStrut(10));
+        add(new OnlineBox(online), BorderLayout.CENTER);
+        add(Box.createVerticalGlue());
+
+        
     }
 
-    private JPanel buildHeaderBigCorso(){
-        UiUtil.BorderedPanel box = new BorderedPanel(UiUtil.TRASPARENT_COLOR, 2, 12);
-        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-        box.setBackground(UiUtil.COLORE_SFONDO);
+    private class HeaderBigCorsoPanel extends UiUtil.BlankPanel {
+        private static final int PANEL_HEIGHT = 120;
 
-        JLabel titolo = new JLabel(corso.getNome());
-        titolo.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
-        
-        box.add(titolo);
-        box.add(Box.createVerticalStrut(5));
-        box.add(infoLabel("Categoria: " + corso.getCategoria()));
-        box.add(infoLabel("Periodo: " + corso.getDataIn() + " fino al " + corso.getDataFin()));
-        box.add(infoLabel("Frequenza settimanale: " + corso.getFrequenzaSettimanale()));
-        box.add(infoLabel("Chef: " + corso.getChef().getNome()));
-        
-        box.setAlignmentX(Component.LEFT_ALIGNMENT);
-        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, box.getPreferredSize().height));
+        public HeaderBigCorsoPanel(Corso corso) {
+            super(UiUtil.TRASPARENT_COLOR);
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        return box;
-    }
+            JLabel titolo = infoLabel(corso.getNome());
+            titolo.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
 
-    private JPanel buildPraticheBox(){
-        JPanel rows = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-        rows.setLayout(new BoxLayout(rows, BoxLayout.Y_AXIS));
+            add(titolo);
+            add(Box.createVerticalStrut(5));
+            add(infoLabel("Categoria: " + corso.getCategoria()));
+            add(infoLabel("Periodo: " + corso.getDataIn() + " fino al " + corso.getDataFin()));
+            add(infoLabel("Frequenza settimanale: " + corso.getFrequenzaSettimanale()));
+            add(infoLabel("Chef: " + corso.getChef().getNome()));
 
-        List<Pratica> pratiche = corso.getSessioniPratiche() == null ? new ArrayList<>() : corso.getSessioniPratiche();
-        boolean hasPratiche = !pratiche.isEmpty();
-        
-        JPanel actionRow = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-        actionRow.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
-
-        JButton ricetteIngrBtn = UiUtil.createButton("Ricette e Ingredienti");
-        ricetteIngrBtn.addActionListener(e -> showRicetteTuttePopup(pratiche));
-        ricetteIngrBtn.setEnabled(hasPratiche);
-        actionRow.add(ricetteIngrBtn);
-
-        JButton iscrittiBtn = UiUtil.createButton("Iscritti");
-        iscrittiBtn.addActionListener(e -> showIscrittiTuttiPopup(pratiche));
-        iscrittiBtn.setEnabled(hasPratiche);
-        actionRow.add(iscrittiBtn);
-
-        actionRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-        rows.add(actionRow);
-        rows.add(Box.createVerticalStrut(8));
-
-        if(!hasPratiche){
-            rows.add(infoLabel("Nessuna sessione pratica disponibile"));
-        }else{
-            for (Pratica p : pratiche) {
-                rows.add(sessionRow(
-                        "Data: " + p.getGiornoSessione() + " | Aula: " + p.getAula() + " | Posti: " + p.getPostiTotali() + " | Prenotati: " + p.getNStudentiIscritti()));
-                rows.add(Box.createVerticalStrut(6));
-            }
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
         }
-        return buildBox("Sessioni Pratiche: ", rows);
     }
+    
+    private class PraticheBox extends UiUtil.BorderedPanel {
+        private static final int PANEL_HEIGHT = 150;
+        public PraticheBox(List<Pratica> pratiche) {
+            super(UiUtil.COLORE_PRIMARIO, 2, 0);
+            setLayout(new BorderLayout(0, 8));
+            setBackground(UiUtil.TRASPARENT_COLOR);
 
-    private void showRicetteTuttePopup(List<Pratica> pratiche) {
-        JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+            UiUtil.BlankPanel pratica_container = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
+            pratica_container.setLayout(new BoxLayout(pratica_container, BoxLayout.Y_AXIS));
+            pratica_container.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+            
+            
+            JLabel title_pratica = new JLabel("Sessioni Pratiche:");
+            title_pratica.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, SUBTITLE_FONT_SIZE));
+            title_pratica.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        for (Pratica pratica : pratiche) {
-            content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
-            List<Ricetta> ricette = pratica.getRicette();
-            if (ricette == null || ricette.isEmpty()) {
-                content.add(infoLabel("  Nessuna ricetta associata."));
-            } else {
-                for (Ricetta ricetta : ricette) {
-                    content.add(infoLabel("  Ricetta: " + ricetta.getNome()));
-                    ricetta.recIngredienti();
-                    List<Ingrediente> ingredienti = ricetta.getIngredienti();
-                    if (ingredienti == null || ingredienti.isEmpty()) {
-                        content.add(infoLabel("Nessun ingrediente"));
-                    } else {
-                        for (Ingrediente ingrediente : ingredienti) {
-                            content.add(infoLabel("- " + ingrediente.getNome() + ": " + ingrediente.getQuantita() + " / " + ingrediente.getUnitMisura()));
-                        }
-                    }
+            pratica_container.add(title_pratica);
+            pratica_container.add(Box.createVerticalStrut(10));
+        
+            if(pratiche == null || pratiche.isEmpty()){
+                JLabel emptyLabel = infoLabel("Nessuna sessione pratica disponibile");
+                emptyLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                pratica_container.add(emptyLabel);
+            }
+            else{
+                for(Pratica pratica : pratiche){
+                    PraticaRow row = new PraticaRow(pratica);
+                    row.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    pratica_container.add(row);
+                    pratica_container.add(Box.createVerticalStrut(10));
                 }
             }
-            content.add(Box.createVerticalStrut(10));
+            add(new UiUtil.ScrollablePanel(pratica_container), BorderLayout.CENTER);
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
         }
 
-        new UiUtil.PopUpFrame("Ricette e Ingredienti", new Dimension(700, 460), content);
-    }
+        private class PraticaRow extends UiUtil.BlankPanel {
+            private Pratica pratica;
+            private JButton ricette_btn;
+            private JButton iscritti_btn;
+            private JButton ingredienti_btn;
+            private static final int ROW_HEIGHT = 40;
 
-    private void showIscrittiTuttiPopup(List<Pratica> pratiche) {
-        JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+            // Cache dati DB della pratica
+            private List<Ricetta> ricetteCache;
+            private String iscrittiCache;
+            private List<Ingrediente> ingredientiCache;
 
-        for (Pratica pratica : pratiche) {
-            content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
-            content.add(infoLabel("Iscritti: " + pratica.getNStudentiIscritti() + "/" + pratica.getPostiTotali()));
-            String studenti = pratica.getStudentiIscritti();
-            if (studenti == null) {
-                content.add(infoLabel(" Nessuno studente iscritto."));
-            } 
-            else {
-                content.add(infoLabel(studenti));
+            public PraticaRow(Pratica pratica) {
+                super(UiUtil.TRASPARENT_COLOR);
+                this.pratica = pratica;
+
+                // Carica una sola volta i dati dal DB
+                this.ricetteCache = pratica.getRicette();
+                this.iscrittiCache = pratica.getStudentiIscritti();
+                this.ingredientiCache = pratica.getIngredientiPratica();
+
+                setLayout(new GridBagLayout());
+                setBackground(UiUtil.COLORE_SFONDO);
+                setAlignmentX(Component.LEFT_ALIGNMENT);
+                setMaximumSize(new Dimension(Integer.MAX_VALUE, ROW_HEIGHT));
+                setPreferredSize(new Dimension(getPreferredSize().width, ROW_HEIGHT));
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridy = 0;
+                gbc.insets = new Insets(0, 6, 0, 6);
+                gbc.anchor = GridBagConstraints.WEST;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+
+                // Data
+                gbc.gridx = 0;
+                gbc.weightx = 0.28;
+                add(infoLabel("Data: " + pratica.getGiornoSessione()), gbc);
+
+                // Aula
+                gbc.gridx = 1;
+                gbc.weightx = 0.18;
+                add(infoLabel("Aula: " + pratica.getAula()), gbc);
+
+                // Posti/Prenotati
+                gbc.gridx = 2;
+                gbc.weightx = 0.24;
+                add(infoLabel("Posti: " + pratica.getPostiTotali() + " | Prenotati: " + pratica.getNStudentiIscritti()), gbc);
+
+                // Spaziatore elastico
+                gbc.gridx = 3;
+                gbc.weightx = 1.0;
+                add(Box.createHorizontalStrut(1), gbc);
+
+                // Bottoni a destra
+                gbc.weightx = 0;
+
+                ricette_btn = UiUtil.createButton("Ricette");
+                gbc.gridx = 4;
+                add(ricette_btn, gbc);
+
+                iscritti_btn = UiUtil.createButton("Iscritti");
+                gbc.gridx = 5;
+                add(iscritti_btn, gbc);
+
+                ingredienti_btn = UiUtil.createButton("Ingredienti");
+                gbc.gridx = 6;
+                add(ingredienti_btn, gbc);
+
+                updateButtonsState();
+                listenerRicette();
+                listenerIscritti();
+                listenerIngredienti();
+
             }
-            content.add(Box.createVerticalStrut(10));
-        }
 
-        new UiUtil.PopUpFrame("Studenti Iscritti", new Dimension(520, 420), content);
-    }
+            private void updateButtonsState() {
+                boolean hasRicette = ricetteCache != null && !ricetteCache.isEmpty();
+                ricette_btn.setEnabled(hasRicette);
 
-    private JPanel buildOnlineBox(){
-        JPanel rows = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-        rows.setLayout(new BoxLayout(rows, BoxLayout.Y_AXIS));
-        List<Online> online = corso.getSessioniOnline() == null
-            ? new ArrayList<>()
-            : new ArrayList<>(corso.getSessioniOnline());
-        
-        if(online.isEmpty()){
-            rows.add(infoLabel("Nessuna sessione online disponibile"));
-        }else{
-            for (Online o : online) {
-                rows.add(sessionRow(
-                    "Data: " + o.getGiornoSessione() + " | Meeting: " + o.getCodiceMeeting()));
-                rows.add(Box.createVerticalStrut(6));
+                boolean hasIscritti = iscrittiCache != null && !iscrittiCache.isBlank();
+                iscritti_btn.setEnabled(hasIscritti);
+
+                boolean hasIngredienti = ingredientiCache != null && !ingredientiCache.isEmpty();
+                ingredienti_btn.setEnabled(hasIngredienti);
+            }
+
+          private void listenerRicette(){
+                ricette_btn.addActionListener(e -> showRicettePopup(pratica));
+            }
+
+            private void listenerIscritti(){
+                iscritti_btn.addActionListener(e -> showIscrittiPopup(pratica));
+            }
+
+            
+
+            private void listenerIngredienti(){
+                ingredienti_btn.addActionListener(e -> showIngredientiPopup(pratica));
+            }
+
+            private void showRicettePopup(Pratica pratica) {
+                JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
+                content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
+                content.add(Box.createVerticalStrut(8));
+
+                for (Ricetta ricetta : ricetteCache) {
+                    content.add(infoLabel("Ricetta: " + ricetta.getNome()));
+                    ricetta.recIngredienti();
+
+                    List<Ingrediente> ingredienti = ricetta.getIngredienti() == null
+                        ? Collections.emptyList()
+                        : ricetta.getIngredienti();
+
+                    for (Ingrediente ingrediente : ingredienti) {
+                        content.add(infoLabel(
+                            "   Ingrediente: " + ingrediente.getNome()
+                            + " - Quantità: " + ingrediente.getQuantita()
+                            + " - Tipo: " + ingrediente.getUnitMisura()
+                        ));
+                    }
+                    content.add(Box.createVerticalStrut(6));
+                }
+
+                new UiUtil.PopUpFrame("Ricette e Ingredienti", new Dimension(700, 460), content);
+            }
+
+            private void showIscrittiPopup(Pratica pratica) {
+                JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
+                content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
+                content.add(infoLabel(iscrittiCache));
+
+                new UiUtil.PopUpFrame("Studenti Iscritti", new Dimension(520, 420), content);
+            }
+
+            private void showIngredientiPopup(Pratica pratica){
+                JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
+                content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
+                content.add(Box.createVerticalStrut(8));
+
+                for (Ingrediente ingrediente : ingredientiCache) {
+                    content.add(infoLabel(
+                        "Ingrediente: " + ingrediente.getNome()
+                        + " - Quantità: " + ingrediente.getQuantita()
+                        + " - Tipo: " + ingrediente.getUnitMisura()
+                    ));
+                    content.add(Box.createVerticalStrut(4));
+                }
+
+                new UiUtil.PopUpFrame("Ingredienti Pratica", new Dimension(620, 420), content);
             }
         }
-        return buildBox("Sessioni online:", rows);
     }
+
+    private class OnlineBox extends UiUtil.BorderedPanel {
+        private static final int PANEL_HEIGHT = 150;
+
+        public OnlineBox(List<Online> onlineList) {
+            super(UiUtil.COLORE_PRIMARIO, 2, 0);
+            setLayout(new BorderLayout(0, 8));
+            setBackground(UiUtil.TRASPARENT_COLOR);
+
+            UiUtil.BlankPanel onlineContainer = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
+            onlineContainer.setLayout(new BoxLayout(onlineContainer, BoxLayout.Y_AXIS));
+            onlineContainer.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
+            JLabel titleOnline = new JLabel("Sessioni Online:");
+            titleOnline.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, SUBTITLE_FONT_SIZE));
+            titleOnline.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            onlineContainer.add(titleOnline);
+            onlineContainer.add(Box.createVerticalStrut(10));
+
+            if (onlineList == null || onlineList.isEmpty()) {
+                JLabel emptyLabel = infoLabel("Nessuna sessione online disponibile");
+                emptyLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                onlineContainer.add(emptyLabel);
+            } else {
+                for (Online o : onlineList) {
+                    OnlineRow row = new OnlineRow(o);
+                    row.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    onlineContainer.add(row);
+                    onlineContainer.add(Box.createVerticalStrut(10));
+                }
+            }
+
+            add(new UiUtil.ScrollablePanel(onlineContainer), BorderLayout.CENTER);
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
+        }
+
+        private class OnlineRow extends UiUtil.BlankPanel {
+            private static final int ROW_HEIGHT = 40;
+
+            public OnlineRow(Online online) {
+                super(UiUtil.TRASPARENT_COLOR);
+                setLayout(new GridBagLayout());
+                setBackground(UiUtil.COLORE_SFONDO);
+                setAlignmentX(Component.LEFT_ALIGNMENT);
+                setMaximumSize(new Dimension(Integer.MAX_VALUE, ROW_HEIGHT));
+                setPreferredSize(new Dimension(getPreferredSize().width, ROW_HEIGHT));
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridy = 0;
+                gbc.insets = new Insets(0, 6, 0, 6);
+                gbc.anchor = GridBagConstraints.WEST;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+
+                // Data
+                gbc.gridx = 0;
+                gbc.weightx = 0.35;
+                add(infoLabel("Data: " + online.getGiornoSessione()), gbc);
+
+                // Meeting
+                gbc.gridx = 1;
+                gbc.weightx = 0.65;
+                add(infoLabel("Codice meeting: " + online.getCodiceMeeting()), gbc);
+
+                // Spaziatore elastico
+                gbc.gridx = 2;
+                gbc.weightx = 1.0;
+                add(Box.createHorizontalStrut(1), gbc);
+            }
+        }
+    }
+    
+
+    
 //Ausiliarie
     private JLabel infoLabel(String text) {
         JLabel label = new JLabel(text);
@@ -177,28 +342,12 @@ public class DettagliCorsoPanel extends UiUtil.BlankPanel {
         return label;
     }
 
-    private JPanel sessionRow(String text) {
-        JPanel row = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
-        row.setLayout(new FlowLayout(FlowLayout.LEFT));
-        row.add(infoLabel(text));
-        row.setAlignmentX(Component.LEFT_ALIGNMENT);
-        return row;
-    }
-
-    private JPanel buildBox(String title, JPanel body) {
-        UiUtil.BorderedPanel box= new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, 2, 10);
-        box.setLayout(new BorderLayout(0, 8));
-        box.setBackground(UiUtil.COLORE_SFONDO);
-
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, SUBTITLE_FONT_SIZE));
-
-        box.add(titleLabel, BorderLayout.NORTH);
-        box.add(body, BorderLayout.CENTER);
-
-        box.setAlignmentX(Component.LEFT_ALIGNMENT);
-        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, box.getPreferredSize().height));
-        return box;
+    public static void main(String[] args) {
+        Corso corso = CorsoDAO.get(1);
+        corso.recChef();
+        DettagliCorsoPanel panel = new DettagliCorsoPanel(corso);
+        UiUtil.PopUpFrame frame = new UiUtil.PopUpFrame( "Dettagli Corso", new Dimension(800, 600));
+        frame.setContent(panel);
     }
 
 }

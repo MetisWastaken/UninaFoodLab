@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import com.ufl.view.UiUtil.ScrollablePanel;
 import com.ufl.model.Corso;
@@ -25,11 +26,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
 
         this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
-        if(miei_corsi){
-            this.corsi_panel.getCorsiPanel().forEach(corso_panel -> {
-                corso_panel.enableModificaButton();
-            });
-        }
         ScrollablePanel scrollPane = new ScrollablePanel(this.corsi_panel);
         add(scrollPane);
 
@@ -68,7 +64,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             }
             corsi_panel = new ArrayList<>();
             for(Corso corso : corsi){
-                CorsoPanel corso_panel = new CorsoPanel(corso);
+                CorsoPanel corso_panel = new CorsoPanel(corso, miei_corsi);
                 corsi_panel.add(corso_panel);
                 add(Box.createVerticalStrut(10));
                 add(corso_panel);
@@ -114,9 +110,13 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         private Integer corso_id;
         private JButton dettagli_btn;
         private JButton modifica_btn;
+        private final Corso corso;
+        private final boolean mieiCorsi;
 
-        public CorsoPanel(Corso corso) {
+        public CorsoPanel(Corso corso, boolean miei_corsi) {
             super(UiUtil.COLORE_PRIMARIO, 3, 2);
+            this.corso = corso;
+            this.mieiCorsi = miei_corsi;
             this.corso_id = corso.getId();
 
             setLayout(new GridBagLayout());
@@ -173,12 +173,16 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
             // Bottone Modifica (colonna 5)
             this.modifica_btn = UiUtil.createButton("Modifica");
-            modifica_btn.setEnabled(false);
             gbc.gridx = 5; gbc.gridy = 0;
             add(modifica_btn, gbc);
+
+            updateButtonsState();
         }
 
-        
+        private void updateButtonsState() {
+            boolean corsoNonScaduto = !corso.getDataFin().isBefore(LocalDate.now());
+            modifica_btn.setEnabled(mieiCorsi && corsoNonScaduto);
+        }
 
         public Integer getCorso_id() {
             return corso_id;
@@ -186,10 +190,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
         public void addDettagliButtonListener(ActionListener listener){
             dettagli_btn.addActionListener(listener);
-        }
-
-        public void enableModificaButton(){
-            modifica_btn.setEnabled(true);
         }
 
         public void addModificaButtonListener(ActionListener listener){
