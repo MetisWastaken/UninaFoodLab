@@ -44,15 +44,21 @@ public class UiUtil {
 
     public static class PopUpFrame extends JFrame {
         ScrollablePanel scrollablePanel;
-        public PopUpFrame(String title, Dimension dimension) {
-            setTitle(title);
+
+        public PopUpFrame(Dimension dimension){
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setSize(dimension);
             setLocationRelativeTo(null);
             setResizable(false);
             setType(Window.Type.UTILITY); // Nasconde il pulsante minimize su molti OS
 
-            setVisible(true);
+            setVisible(false);
+        }
+
+        public PopUpFrame(String title, Dimension dimension) {
+            this(dimension);
+            setTitle(title);
+            
         }
 
         public PopUpFrame(String title, Dimension dimension, JPanel contentPanel) {
@@ -278,7 +284,8 @@ public class UiUtil {
         blankPanel.add(Box.createVerticalStrut(500));
         blankPanel.add(createInputDateField(new Dimension(200, 40)));
         blankPanel.add(Box.createHorizontalStrut(500));
-        PopUpFrame frame = new PopUpFrame("Test ScrollablePanel", new Dimension(400, 300), blankPanel);
+        PopUpFrame frame = new PopUpFrame( new Dimension(400, 300));
+        frame.setContent(blankPanel);
         frame.setHorizontalScrollTrue();
         frame.revalidate();     
         

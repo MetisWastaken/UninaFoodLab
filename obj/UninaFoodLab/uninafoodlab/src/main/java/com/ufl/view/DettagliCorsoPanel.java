@@ -2,8 +2,6 @@ package com.ufl.view;
 
 import java.awt.*;
 
-
-
 import javax.swing.*;
 
 
@@ -15,8 +13,7 @@ import com.ufl.model.Ingrediente;
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
-
-
+import com.ufl.view.UiUtil.PopUpFrame;
 import com.ufl.dao.CorsoDAO;
 
 public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
@@ -70,8 +67,12 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     
     private class PraticheBox extends UiUtil.BorderedPanel {
         private static final int PANEL_HEIGHT = 150;
+        private UiUtil.PopUpFrame activePopup;
+
         public PraticheBox(List<Pratica> pratiche) {
             super(UiUtil.COLORE_PRIMARIO, 2, 0);
+            activePopup = new PopUpFrame(new Dimension(700, 460));
+
             setLayout(new BorderLayout(0, 8));
             setBackground(UiUtil.TRASPARENT_COLOR);
 
@@ -228,7 +229,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                     content.add(Box.createVerticalStrut(6));
                 }
 
-                new UiUtil.PopUpFrame("Ricette e Ingredienti", new Dimension(700, 460), content);
+                openPraticaPopup(pratica, content);
             }
 
             private void showIscrittiPopup(Pratica pratica) {
@@ -237,7 +238,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
                 content.add(infoLabel(iscrittiCache));
 
-                new UiUtil.PopUpFrame("Studenti Iscritti", new Dimension(520, 420), content);
+                openPraticaPopup(pratica, content);
             }
 
             private void showIngredientiPopup(Pratica pratica){
@@ -255,7 +256,13 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                     content.add(Box.createVerticalStrut(4));
                 }
 
-                new UiUtil.PopUpFrame("Ingredienti Pratica", new Dimension(620, 420), content);
+                openPraticaPopup(pratica, content);
+            }
+        
+            private void openPraticaPopup(Pratica pratica, JPanel content) {
+                activePopup.setTitle("Dettagli Pratica - " + pratica.getGiornoSessione());
+                activePopup.setContent(content);
+                activePopup.setVisible(true);
             }
         }
     }
@@ -341,12 +348,14 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
         return label;
     }
 
+
+    
     public static void main(String[] args) {
         Corso corso = CorsoDAO.get(1);
         corso.recChef();
         DettagliCorsoPanel panel = new DettagliCorsoPanel(corso);
         UiUtil.PopUpFrame frame = new UiUtil.PopUpFrame( "Dettagli Corso", new Dimension(800, 600));
         frame.setContent(panel);
+        frame.setVisible(true);
     }
-
 }
