@@ -32,7 +32,8 @@ public class CorsiContainerController {
             corso_panel.addDettagliButtonListener(e -> {
                     Integer corso_id = corso_panel.getCorso_id();
                     main_controller.getMainframe().showInfoLog("SUCC", "Caricamento dettagli corso in corso!");
-                    main_controller.mostraDettagliCorso(CorsoDAO.get(corso_id));
+                    main_controller.setCorsoAttivo(CorsoDAO.get(corso_id));
+                    main_controller.mostraDettagliCorso();
                 }
             );
         }

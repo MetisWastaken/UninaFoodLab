@@ -20,27 +20,29 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     private static final int TITLE_FONT_SIZE = 22;
     private static final int SUBTITLE_FONT_SIZE = 16;
     private static final int TEXT_FONT_SIZE = 14;
+    private static UiUtil.PopUpFrame activePopup=null;
 
-    private List<Pratica> pratiche;
-    private List<Online> online;
+    private List<Pratica> pratiche=null;
+    private List<Online> online=null;
 
     public DettagliCorsoPanel(Corso corso) {
         super(UiUtil.TRASPARENT_COLOR, 0, 10);
         setBackground(UiUtil.TRASPARENT_COLOR);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        if(activePopup == null){
+            activePopup = new PopUpFrame( new Dimension(400, 300));
+        }
 
         this.pratiche = corso.getSessioniPratiche();
         this.online = corso.getSessioniOnline();
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
         add(new HeaderBigCorsoPanel(corso), BorderLayout.CENTER);
         add(Box.createVerticalStrut(10));
         add(new PraticheBox(pratiche), BorderLayout.CENTER);
         add(Box.createVerticalStrut(10));
         add(new OnlineBox(online), BorderLayout.CENTER);
         add(Box.createVerticalGlue());
-
-        
     }
 
     private class HeaderBigCorsoPanel extends UiUtil.BlankPanel {
@@ -67,11 +69,9 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     
     private class PraticheBox extends UiUtil.BorderedPanel {
         private static final int PANEL_HEIGHT = 150;
-        private UiUtil.PopUpFrame activePopup;
 
         public PraticheBox(List<Pratica> pratiche) {
             super(UiUtil.COLORE_PRIMARIO, 2, 0);
-            activePopup = new PopUpFrame(new Dimension(700, 460));
 
             setLayout(new BorderLayout(0, 8));
             setBackground(UiUtil.TRASPARENT_COLOR);
@@ -262,6 +262,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             private void openPraticaPopup(Pratica pratica, JPanel content) {
                 activePopup.setTitle("Dettagli Pratica - " + pratica.getGiornoSessione());
                 activePopup.setContent(content);
+                activePopup.setHorizontalScrollTrue();
                 activePopup.setVisible(true);
             }
         }

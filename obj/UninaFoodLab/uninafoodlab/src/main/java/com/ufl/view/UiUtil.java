@@ -192,6 +192,38 @@ public class UiUtil {
         }
     }
 
+    public static class CreateButton extends JButton {
+        
+        public CreateButton(String text, int height) {
+            super(text);
+            // Imposta solo l'altezza, lascia che la larghezza si adatti
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
+            setPreferredSize(new Dimension(getPreferredSize().width, height));
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+            setBackground(UiUtil.COLORE_PRIMARIO);
+            setForeground(UiUtil.COLORE_ACCENTO);
+            setFocusPainted(false);
+            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
+        }
+
+        
+        public CreateButton(String src,  Dimension size, Color background_color) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setBackground(background_color); 
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setContentAreaFilled(true);
+            setIcon(new ImageIcon(new ImageIcon(getClass().getResource(src)).getImage().getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH)));
+        }
+        
+        
+    }
+
+    
+
     public static JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setBackground(COLORE_PRIMARIO);

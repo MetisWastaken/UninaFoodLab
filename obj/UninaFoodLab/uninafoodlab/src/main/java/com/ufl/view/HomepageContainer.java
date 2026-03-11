@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class HomepageContainer extends UiUtil.BlankPanel {
 
-    private ExitButton homepage_exit_btn;
+    private UiUtil.CreateButton homepage_exit_btn;
     private JButton miei_corsi_btn;
     private JButton altri_corsi_btn;
     private JButton notifiche_btn;
@@ -22,29 +22,14 @@ public class HomepageContainer extends UiUtil.BlankPanel {
         
     }
 
-    private class ExitButton extends JButton {
-        public ExitButton() {
-            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            Dimension size = new Dimension(20, 20);
-            setPreferredSize(size);
-            setMinimumSize(size);
-            setMaximumSize(size);
-            setBackground(UiUtil.COLORE_PRIMARIO); 
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setContentAreaFilled(true);
-            setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/home.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-        }
-        
-        
-    }
+   
 
     private class ButtonPanel extends UiUtil.BorderedPanel {
         public ButtonPanel() {
             super(UiUtil.COLORE_PRIMARIO, 3, 20);
             setBackground(UiUtil.COLORE_PRIMARIO);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-            homepage_exit_btn = new ExitButton();
+            homepage_exit_btn = new UiUtil.CreateButton("/home.png", new Dimension(20, 20), UiUtil.COLORE_PRIMARIO);
             miei_corsi_btn = UiUtil.createButton("I Miei Corsi");
             altri_corsi_btn = UiUtil.createButton("Altri Corsi");
             notifiche_btn = UiUtil.createButton("Notifiche");

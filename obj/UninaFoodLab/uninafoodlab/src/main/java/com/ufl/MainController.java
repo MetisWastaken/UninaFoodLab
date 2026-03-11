@@ -25,6 +25,7 @@ public class MainController {
     private HomepageContainer homepage_container;
     private CorsiContainerPanel corsi_container_panel;
     private AggiungiCorsoFrame aggiungi_corso_frame;
+    private DettagliCorsoPanel dettagli_corso_panel;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -94,6 +95,12 @@ public class MainController {
         CorsiContainerController.createDettagliButtonListener(this);
     }
 
+    public void costruisciDettagliCorso(){
+        corso_attivo.recChef();
+        this.dettagli_corso_panel = new DettagliCorsoPanel(corso_attivo);
+        homepage_container.setContent(this.dettagli_corso_panel);
+    }
+
     public void CostruisciAggiungiCorso(){
         if(this.aggiungi_corso_frame == null) {
             this.aggiungi_corso_frame = new AggiungiCorsoFrame();
@@ -143,10 +150,10 @@ public class MainController {
         mostraAltriCorsi("");
     }
 
-    public void mostraDettagliCorso(Corso corso){
-        System.out.println("Dettagli corso: " + corso.getNome());
-        corso.recChef();
-        homepage_container.setContent(new DettagliCorsoPanel(corso));
+    public void mostraDettagliCorso(){
+        System.out.println("Dettagli corso: " + corso_attivo.getNome());
+        costruisciDettagliCorso();
+        homepage_container.setContent(dettagli_corso_panel);
     }
 
     public void mostraModificaCorso(){
