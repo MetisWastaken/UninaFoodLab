@@ -9,6 +9,7 @@ import com.ufl.controller.AggiungiCorsoController;
 
 import com.ufl.view.MainFrame;
 import com.ufl.view.UiUtil;
+import com.ufl.view.VisualizzaJFreeChartReport;
 import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
 import com.ufl.view.AggiungiCorsoFrame;
@@ -171,10 +172,19 @@ public class MainController {
         homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
     }
 
-    public void mostraReport(){
-        System.out.println("Report");
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_PRIMARIO.darker()));
+public void mostraReport() {
+    System.out.println("Report");
+
+    chef_attivo.recResoconto();
+    if(chef_attivo.getResoconto() == null){
+        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
+        return;
     }
+    chef_attivo.getResoconto().recNumeroRicettePerPratiche();
+    chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
+
+    homepage_container.setContent(new VisualizzaJFreeChartReport(chef_attivo.getResoconto()));
+}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainController());
