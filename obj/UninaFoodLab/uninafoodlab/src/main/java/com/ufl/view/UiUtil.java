@@ -44,15 +44,21 @@ public class UiUtil {
 
     public static class PopUpFrame extends JFrame {
         ScrollablePanel scrollablePanel;
-        public PopUpFrame(String title, Dimension dimension) {
-            setTitle(title);
+
+        public PopUpFrame(Dimension dimension){
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setSize(dimension);
             setLocationRelativeTo(null);
             setResizable(false);
             setType(Window.Type.UTILITY); // Nasconde il pulsante minimize su molti OS
 
-            setVisible(true);
+            setVisible(false);
+        }
+
+        public PopUpFrame(String title, Dimension dimension) {
+            this(dimension);
+            setTitle(title);
+            
         }
 
         public PopUpFrame(String title, Dimension dimension, JPanel contentPanel) {
@@ -88,7 +94,9 @@ public class UiUtil {
     public static class BlankPanel extends JPanel
     {
         public BlankPanel(Color backgroundColor){
-            setOpaque(true);
+            // Se il colore è trasparente, il panel NON deve essere opaque
+            boolean isTransparent = backgroundColor.getAlpha() < 255;
+            setOpaque(!isTransparent);
             setBackground(backgroundColor);
         }
 
@@ -104,11 +112,25 @@ public class UiUtil {
     public static class ScrollablePanel extends JScrollPane {
         public ScrollablePanel(JPanel container_panel) {
             super(container_panel);
+
+            // Evita artefatti durante lo scroll
+            getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
             setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             setBorder(null);
             getVerticalScrollBar().setUnitIncrement(16);
-            
+
+            // Viewport solida (niente trasparenza qui)
+            setOpaque(true);
+            getViewport().setOpaque(true);
+            setBackground(COLORE_SFONDO);
+            getViewport().setBackground(COLORE_SFONDO);
+
+            // Importante: il contenuto dello scroll deve essere opaco
+            container_panel.setOpaque(true);
+            container_panel.setBackground(COLORE_SFONDO);
+
             // Personalizza il colore della scrollbar
             getVerticalScrollBar().setBackground(COLORE_SFONDO);
             getVerticalScrollBar().setForeground(COLORE_PRIMARIO);
@@ -169,6 +191,38 @@ public class UiUtil {
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         }
     }
+
+    public static class CreateButton extends JButton {
+        
+        public CreateButton(String text, int height) {
+            super(text);
+            // Imposta solo l'altezza, lascia che la larghezza si adatti
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
+            setPreferredSize(new Dimension(getPreferredSize().width, height));
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+            setBackground(UiUtil.COLORE_PRIMARIO);
+            setForeground(UiUtil.COLORE_ACCENTO);
+            setFocusPainted(false);
+            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
+        }
+
+        
+        public CreateButton(String src,  Dimension size, Color background_color) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setBackground(background_color); 
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setContentAreaFilled(true);
+            setIcon(new ImageIcon(new ImageIcon(getClass().getResource(src)).getImage().getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH)));
+        }
+        
+        
+    }
+
+    
 
     public static JButton createButton(String text) {
         JButton button = new JButton(text);
@@ -262,7 +316,8 @@ public class UiUtil {
         blankPanel.add(Box.createVerticalStrut(500));
         blankPanel.add(createInputDateField(new Dimension(200, 40)));
         blankPanel.add(Box.createHorizontalStrut(500));
-        PopUpFrame frame = new PopUpFrame("Test ScrollablePanel", new Dimension(400, 300), blankPanel);
+        PopUpFrame frame = new PopUpFrame( new Dimension(400, 300));
+        frame.setContent(blankPanel);
         frame.setHorizontalScrollTrue();
         frame.revalidate();     
         

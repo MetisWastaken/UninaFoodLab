@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import com.ufl.view.UiUtil.ScrollablePanel;
 import com.ufl.model.Corso;
@@ -25,11 +26,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
 
         this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
-        if(miei_corsi){
-            this.corsi_panel.getCorsiPanel().forEach(corso_panel -> {
-                corso_panel.enableModificaButton();
-            });
-        }
         ScrollablePanel scrollPane = new ScrollablePanel(this.corsi_panel);
         add(scrollPane);
 
@@ -57,18 +53,18 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
     public class CorsiPanel extends UiUtil.BlankPanel {
         private ArrayList<CorsoPanel> corsi_panel;
-        private AddCorsoButton add_corso_btn;
+        private UiUtil.CreateButton add_corso_btn;
         public CorsiPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
             super(UiUtil.TRASPARENT_COLOR);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             if(miei_corsi){
-                add_corso_btn = new AddCorsoButton();
+                add_corso_btn = new UiUtil.CreateButton("+", 80);
                 add(Box.createVerticalStrut(10));
                 add(add_corso_btn);
             }
             corsi_panel = new ArrayList<>();
             for(Corso corso : corsi){
-                CorsoPanel corso_panel = new CorsoPanel(corso);
+                CorsoPanel corso_panel = new CorsoPanel(corso, miei_corsi);
                 corsi_panel.add(corso_panel);
                 add(Box.createVerticalStrut(10));
                 add(corso_panel);
@@ -87,21 +83,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         
     }
 
-    private class AddCorsoButton extends JButton {
-        private static final int BUTTON_HEIGHT = 80;
-        public AddCorsoButton() {
-            super("+");
-            // Imposta solo l'altezza, lascia che la larghezza si adatti
-            setMaximumSize(new Dimension(Integer.MAX_VALUE, BUTTON_HEIGHT));
-            setPreferredSize(new Dimension(getPreferredSize().width, BUTTON_HEIGHT));
-            setAlignmentX(Component.LEFT_ALIGNMENT);
-            setBackground(UiUtil.COLORE_PRIMARIO);
-            setForeground(UiUtil.COLORE_ACCENTO);
-            setFocusPainted(false);
-            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
-        }
-
-    }
+    
 
     public class CorsoPanel extends UiUtil.BorderedPanel {
         private static final int NOME_CORSO_FONT_SIZE = 16;
@@ -114,9 +96,13 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         private Integer corso_id;
         private JButton dettagli_btn;
         private JButton modifica_btn;
+        private final Corso corso;
+        private final boolean mieiCorsi;
 
-        public CorsoPanel(Corso corso) {
+        public CorsoPanel(Corso corso, boolean miei_corsi) {
             super(UiUtil.COLORE_PRIMARIO, 3, 2);
+            this.corso = corso;
+            this.mieiCorsi = miei_corsi;
             this.corso_id = corso.getId();
 
             setLayout(new GridBagLayout());
@@ -173,12 +159,16 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
             // Bottone Modifica (colonna 5)
             this.modifica_btn = UiUtil.createButton("Modifica");
-            modifica_btn.setEnabled(false);
             gbc.gridx = 5; gbc.gridy = 0;
             add(modifica_btn, gbc);
+
+            updateButtonsState();
         }
 
-        
+        private void updateButtonsState() {
+            boolean corsoNonScaduto = !corso.getDataFin().isBefore(LocalDate.now());
+            modifica_btn.setEnabled(mieiCorsi && corsoNonScaduto);
+        }
 
         public Integer getCorso_id() {
             return corso_id;
@@ -186,10 +176,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
         public void addDettagliButtonListener(ActionListener listener){
             dettagli_btn.addActionListener(listener);
-        }
-
-        public void enableModificaButton(){
-            modifica_btn.setEnabled(true);
         }
 
         public void addModificaButtonListener(ActionListener listener){
