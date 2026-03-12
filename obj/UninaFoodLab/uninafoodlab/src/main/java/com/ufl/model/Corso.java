@@ -14,8 +14,12 @@ public class Corso {
     private String frequenza_settimanale;
     private Chef chef = null;
 
-    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale) {
+    public Corso(Integer id){
         this.id = id;
+    }
+
+    public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale) {
+        this(id);
         this.nome = nome;
         this.categoria = categoria;
         this.data_in = data_in;
@@ -40,6 +44,10 @@ public class Corso {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getNomeById() {
+        return CorsoDAO.getNomeById(id);
     }
 
     public String getCategoria() {

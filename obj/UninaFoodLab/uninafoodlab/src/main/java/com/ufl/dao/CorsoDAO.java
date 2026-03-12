@@ -41,6 +41,23 @@ public class CorsoDAO extends ConnessioneDAO {
         return null;
     }
 
+    public static String getNomeById(Integer id){
+        String query = "SELECT nome FROM corso WHERE id_corso = ?";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("nome");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getStudentiIscritti(Corso corso) {
         String query = "SELECT u.nome, u.cognome FROM iscritto_c ic JOIN utente u ON ic.stud_id = u.username WHERE ic.corso_id = ?";
         StringBuilder studenti = new StringBuilder();
@@ -64,26 +81,6 @@ public class CorsoDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return studenti.toString();
-    }
-
-    // ---- REC ----
-
-    public static Chef recChef(Corso corso){
-        String query = "SELECT chef_id FROM corso WHERE id_corso = ?";
-        try {
-            PreparedStatement ps = connessione.prepareStatement(query);
-            ps.setInt(1, corso.getId());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()) {
-                String chefUsername = rs.getString("chef_id");
-                return ChefDAO.get(chefUsername);
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public static List<Pratica> getSessioniPratiche(Corso corso) {
@@ -128,6 +125,26 @@ public class CorsoDAO extends ConnessioneDAO {
             e.printStackTrace();
         }
         return pratiche;
+    }
+
+    // ---- REC ----
+
+    public static Chef recChef(Corso corso){
+        String query = "SELECT chef_id FROM corso WHERE id_corso = ?";
+        try {
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ps.setInt(1, corso.getId());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                String chefUsername = rs.getString("chef_id");
+                return ChefDAO.get(chefUsername);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // ---- METODI ----

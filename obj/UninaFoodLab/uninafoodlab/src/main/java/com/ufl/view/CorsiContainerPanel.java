@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
-import com.ufl.view.UiUtil.ScrollablePanel;
+
 import com.ufl.model.Corso;
 import com.ufl.model.Chef;
 import com.ufl.dao.ChefDAO;
@@ -26,7 +26,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
 
         this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
-        ScrollablePanel scrollPane = new ScrollablePanel(this.corsi_panel);
+        UiUtil.ScrollablePanel scrollPane = new UiUtil.ScrollablePanel(this.corsi_panel);
         add(scrollPane);
 
 
@@ -53,14 +53,14 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
     public class CorsiPanel extends UiUtil.BlankPanel {
         private ArrayList<CorsoPanel> corsi_panel;
-        private UiUtil.CreateButton add_corso_btn;
+        private UiUtil.CreateButton aggiungi_corso_btn;
         public CorsiPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
             super(UiUtil.TRASPARENT_COLOR);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             if(miei_corsi){
-                add_corso_btn = new UiUtil.CreateButton("+", 80);
+                aggiungi_corso_btn = new UiUtil.CreateButton("+", 80);
                 add(Box.createVerticalStrut(10));
-                add(add_corso_btn);
+                add(aggiungi_corso_btn);
             }
             corsi_panel = new ArrayList<>();
             for(Corso corso : corsi){
@@ -75,9 +75,9 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             return corsi_panel;
         }
         
-        public void addAddCorsoButtonListener(ActionListener listener){
-            if(add_corso_btn != null){
-                add_corso_btn.addActionListener(listener);
+        public void addAggiungiCorsoButtonListener(ActionListener listener){
+            if(aggiungi_corso_btn != null){
+                aggiungi_corso_btn.addActionListener(listener);
             }
         }
         

@@ -13,7 +13,7 @@ import com.ufl.model.Ingrediente;
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
-import com.ufl.view.UiUtil.PopUpFrame;
+
 import com.ufl.dao.CorsoDAO;
 
 public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
@@ -31,7 +31,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         if(activePopup == null){
-            activePopup = new PopUpFrame( new Dimension(400, 300));
+            activePopup = new UiUtil.PopUpFrame( new Dimension(400, 300));
         }
 
         this.pratiche = corso.getSessioniPratiche();
@@ -60,6 +60,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             add(infoLabel("Categoria: " + corso.getCategoria()));
             add(infoLabel("Periodo: " + corso.getDataIn() + " fino al " + corso.getDataFin()));
             add(infoLabel("Frequenza settimanale: " + corso.getFrequenzaSettimanale()));
+            add(infoLabel("Studenti iscritti: " + corso.getStudentiIscritti()));
             add(infoLabel("Chef: " + corso.getChef().getNome()));
 
             setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
@@ -192,15 +193,13 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 ingredienti_btn.setEnabled(hasIngredienti);
             }
 
-          private void listenerRicette(){
+            private void listenerRicette(){
                 ricette_btn.addActionListener(e -> showRicettePopup(pratica));
             }
 
             private void listenerIscritti(){
                 iscritti_btn.addActionListener(e -> showIscrittiPopup(pratica));
             }
-
-            
 
             private void listenerIngredienti(){
                 ingredienti_btn.addActionListener(e -> showIngredientiPopup(pratica));

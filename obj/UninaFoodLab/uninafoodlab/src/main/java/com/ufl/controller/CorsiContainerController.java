@@ -52,7 +52,7 @@ public class CorsiContainerController {
     }
 
     public static void createAddCorsoButtonListener(MainController main_controller){
-        main_controller.getCorsiContainerPanel().getCorsiPanel().addAddCorsoButtonListener(e->{
+        main_controller.getCorsiContainerPanel().getCorsiPanel().addAggiungiCorsoButtonListener(e->{
             main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta corso in corso!");
             main_controller.mostraAggiungiCorso();
         });

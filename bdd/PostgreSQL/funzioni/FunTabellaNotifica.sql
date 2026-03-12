@@ -54,3 +54,22 @@ CREATE TRIGGER trg_prevent_notifica_titolo_duplicato
 BEFORE INSERT OR UPDATE ON notifica
 FOR EACH ROW
 EXECUTE FUNCTION prevent_notifica_titolo_duplicato();
+
+--Funzione e trigger che impedisce la creazione di nuna notifica se il corso_id non e' associato allo chef che sta creando la notifica
+CREATE OR REPLACE FUNCTION enforce_notifica_corso_belongs_to_chef()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.corso_id IS NOT NULL THEN
+        PERFORM 1 FROM corso WHERE id_corso = NEW.corso_id AND chef_id = NEW.username_chef;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION 'Il corso con id "%" non e'' associato allo chef "%"', NEW.corso_id, NEW.username_chef;
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_enforce_notifica_corso_belongs_to_chef
+BEFORE INSERT OR UPDATE ON notifica
+FOR EACH ROW
+EXECUTE FUNCTION enforce_notifica_corso_belongs_to_chef();
