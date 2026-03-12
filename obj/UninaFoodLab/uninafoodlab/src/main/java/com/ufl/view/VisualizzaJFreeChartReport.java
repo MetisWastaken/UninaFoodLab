@@ -37,7 +37,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
         dataset.addValue(report.getNumeroCorsiTotali(), "", "Corsi Totali");
         dataset.addValue(report.getNumeroSessioniOnline(), "", "Online");
         dataset.addValue(report.getNumeroSessioniPratiche(), "", "Pratiche");
-        dataset.addValue(report.getmediaricette(), "", "Ricette");
+        dataset.addValue(report.getMediaRicette(), "", "Ricette");
         dataset.addValue(report.getMinRicette(), "", "Min Ricette");
         dataset.addValue(report.getMaxRicette(), "", "Max Ricette");
 
@@ -59,7 +59,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
         add(chartPanel, BorderLayout.CENTER);
 
             JLabel footer = new JLabel(
-            "Media ricette: " + report.getmediaricette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette()
+            "Media ricette: " + report.getMediaRicette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette()
         
         );
 
@@ -99,7 +99,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
                 writer.newLine();
                 writer.write("Sessioni Pratiche:    " + report.getNumeroSessioniPratiche());
                 writer.newLine();
-                writer.write("Media Ricette:        " + report.getmediaricette());
+                writer.write("Media Ricette:        " + report.getMediaRicette());
                 writer.newLine();
                 writer.write("Min Ricette:          " + report.getMinRicette());
                 writer.newLine();
