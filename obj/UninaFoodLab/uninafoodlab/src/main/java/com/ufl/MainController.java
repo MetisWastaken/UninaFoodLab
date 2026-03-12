@@ -51,6 +51,9 @@ public class MainController {
     public AggiungiCorsoFrame getAggiungiCorsoFrame() {
         return aggiungi_corso_frame;
     }
+    
+    // getDettagliCorsoPanel non è necessario perché i controlli vengono fatti al suo interno
+
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
         this.chef_attivo = chef;
@@ -96,18 +99,18 @@ public class MainController {
         CorsiContainerController.createDettagliButtonListener(this);
     }
 
-    public void costruisciDettagliCorso(){
-        corso_attivo.recChef();
-        this.dettagli_corso_panel = new DettagliCorsoPanel(corso_attivo);
-        homepage_container.setContent(this.dettagli_corso_panel);
-    }
-
     public void CostruisciAggiungiCorso(){
         if(this.aggiungi_corso_frame == null) {
             this.aggiungi_corso_frame = new AggiungiCorsoFrame();
             AggiungiCorsoController.createAggiungiCorsoListener(this);
         }
         aggiungi_corso_frame.setVisible(true);
+    }
+
+    public void costruisciDettagliCorso(){
+        corso_attivo.recChef();
+        this.dettagli_corso_panel = new DettagliCorsoPanel(corso_attivo);
+        
     }
 //----------------------------------------------
     public MainController() {
