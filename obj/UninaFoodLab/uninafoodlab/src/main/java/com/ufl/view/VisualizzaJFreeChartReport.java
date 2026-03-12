@@ -37,7 +37,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
         dataset.addValue(report.getNumeroCorsiTotali(), "", "Corsi Totali");
         dataset.addValue(report.getNumeroSessioniOnline(), "", "Online");
         dataset.addValue(report.getNumeroSessioniPratiche(), "", "Pratiche");
-        dataset.addValue(report.getMediaRicette(), "", "Ricette");
+        dataset.addValue(report.getMediaRicette(), "", "Media Ricette");
         dataset.addValue(report.getMinRicette(), "", "Min Ricette");
         dataset.addValue(report.getMaxRicette(), "", "Max Ricette");
 
@@ -59,18 +59,20 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
         add(chartPanel, BorderLayout.CENTER);
 
             JLabel footer = new JLabel(
-            "Media ricette: " + report.getMediaRicette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette()
+            "Media Ricette: " + report.getMediaRicette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette() + " | Corsi Totali: " + report.getNumeroCorsiTotali() + " | Online: " + report.getNumeroSessioniOnline() + " | Pratiche: " + report.getNumeroSessioniPratiche()
         
         );
-
-        footer.setForeground(UiUtil.COLORE_TESTO2);
-
-        add(footer, BorderLayout.SOUTH);
 
         JButton salvaBtn = UiUtil.createButton("Salva Report");
         salvaBtn.addActionListener(e -> SalvaReport(report, mese));
 
-        add(salvaBtn, BorderLayout.SOUTH);
+        JPanel footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setOpaque(false );
+
+        footerPanel.add(footer, BorderLayout.NORTH);
+        footerPanel.add(salvaBtn, BorderLayout.SOUTH);
+
+        add(footerPanel, BorderLayout.SOUTH);
 
     }
 
@@ -78,7 +80,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Salva Report");
-        fileChooser.setSelectedFile(new java.io.File("Report_" + mese + ".txt"));
+        fileChooser.setSelectedFile(new java.io.File("Report_" + mese + "_" + report.getUsernameChef() + ".txt"));
         
         int result = fileChooser.showSaveDialog(this);
         if (result != JFileChooser.APPROVE_OPTION) return;
@@ -89,6 +91,13 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
             file = new java.io.File(file.getPath() + ".txt");
         }
 
+        if(file.exists()){
+            JOptionPane.showMessageDialog(this, "Il file esiste già nel percorso selezionato. ",
+            "Salvataggio annullato",
+            JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 
                 writer.write("### Report Mensile: " + mese + " ###");
@@ -105,6 +114,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
                 writer.newLine();
                 writer.write("Max Ricette:          " + report.getMaxRicette());
                 writer.newLine();
+
 
                 JOptionPane.showMessageDialog(this, "Report salvato");
 
