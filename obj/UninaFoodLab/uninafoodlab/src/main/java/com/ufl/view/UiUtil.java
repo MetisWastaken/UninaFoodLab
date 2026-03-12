@@ -247,7 +247,11 @@ public class UiUtil {
 
         return button;
     }
-    
+    public static JLabel infoLabel(String text, int font_style, int font_size) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font(UiUtil.FONT_FAMILY, font_style, font_size));
+        return label;
+    }
     public static JTextField createInputTextField(String hint, Dimension dimension) {
         JTextField textField = new JTextField() {
             @Override

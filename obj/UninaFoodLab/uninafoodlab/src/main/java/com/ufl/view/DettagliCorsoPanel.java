@@ -52,16 +52,16 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             super(UiUtil.TRASPARENT_COLOR);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-            JLabel titolo = infoLabel(corso.getNome());
-            titolo.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, TITLE_FONT_SIZE));
+            JLabel titolo = UiUtil.infoLabel(corso.getNome(), Font.BOLD, TITLE_FONT_SIZE);
+            
 
             add(titolo);
             add(Box.createVerticalStrut(5));
-            add(infoLabel("Categoria: " + corso.getCategoria()));
-            add(infoLabel("Periodo: " + corso.getDataIn() + " fino al " + corso.getDataFin()));
-            add(infoLabel("Frequenza settimanale: " + corso.getFrequenzaSettimanale()));
-            add(infoLabel("Studenti iscritti: " + corso.getStudentiIscritti()));
-            add(infoLabel("Chef: " + corso.getChef().getNome()));
+            add(UiUtil.infoLabel("Categoria: " + corso.getCategoria(),Font.PLAIN, TEXT_FONT_SIZE));
+            add(UiUtil.infoLabel("Periodo: " + corso.getDataIn() + " fino al " + corso.getDataFin(), Font.PLAIN, TEXT_FONT_SIZE));
+            add(UiUtil.infoLabel("Frequenza settimanale: " + corso.getFrequenzaSettimanale(), Font.PLAIN, TEXT_FONT_SIZE));
+            add(UiUtil.infoLabel("Studenti iscritti: " + corso.getStudentiIscritti(), Font.PLAIN, TEXT_FONT_SIZE));
+            add(UiUtil.infoLabel("Chef: " + corso.getChef().getNome(), Font.PLAIN, TEXT_FONT_SIZE));
 
             setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
             setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
@@ -90,7 +90,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             pratica_container.add(Box.createVerticalStrut(10));
         
             if(pratiche == null || pratiche.isEmpty()){
-                JLabel emptyLabel = infoLabel("Nessuna sessione pratica disponibile");
+                JLabel emptyLabel = UiUtil.infoLabel("Nessuna sessione pratica disponibile", Font.ITALIC, TEXT_FONT_SIZE);
                 emptyLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
                 pratica_container.add(emptyLabel);
             }
@@ -143,17 +143,17 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 // Data
                 gbc.gridx = 0;
                 gbc.weightx = 0.28;
-                add(infoLabel("Data: " + pratica.getGiornoSessione()), gbc);
+                add(UiUtil.infoLabel("Data: " + pratica.getGiornoSessione(), Font.PLAIN, TEXT_FONT_SIZE), gbc);
 
                 // Aula
                 gbc.gridx = 1;
                 gbc.weightx = 0.18;
-                add(infoLabel("Aula: " + pratica.getAula()), gbc);
+                add(UiUtil.infoLabel("Aula: " + pratica.getAula(), Font.PLAIN, TEXT_FONT_SIZE), gbc);
 
                 // Posti/Prenotati
                 gbc.gridx = 2;
                 gbc.weightx = 0.24;
-                add(infoLabel("Posti: " + pratica.getPostiTotali() + " | Prenotati: " + pratica.getNStudentiIscritti()), gbc);
+                add(UiUtil.infoLabel("Posti: " + pratica.getPostiTotali() + " | Prenotati: " + pratica.getNStudentiIscritti(), Font.PLAIN, TEXT_FONT_SIZE), gbc);
 
                 // Spaziatore elastico
                 gbc.gridx = 3;
@@ -208,21 +208,21 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             private void showRicettePopup(Pratica pratica) {
                 JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
                 content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
+                content.add(UiUtil.infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula(), Font.ITALIC, TEXT_FONT_SIZE));
                 content.add(Box.createVerticalStrut(8));
 
                 for (Ricetta ricetta : ricetteCache) {
-                    content.add(infoLabel("Ricetta: " + ricetta.getNome()));
+                    content.add(UiUtil.infoLabel("Ricetta: " + ricetta.getNome(), Font.BOLD, TEXT_FONT_SIZE));
                     ricetta.recIngredienti();
 
                     List<Ingrediente> ingredienti = ricetta.getIngredienti();
                     if (ingredienti != null && !ingredienti.isEmpty()) {
                         for (Ingrediente ingrediente : ingredienti) {
-                            content.add(infoLabel(
-                                "   Ingrediente: " + ingrediente.getNome()
+                            content.add(UiUtil.infoLabel(
+                                "  " + ingrediente.getNome()
                                 + " - Quantità: " + ingrediente.getQuantita()
                                 + " - Tipo: " + ingrediente.getUnitMisura()
-                            ));
+                            , Font.PLAIN, TEXT_FONT_SIZE));
                         }
                     }
                     content.add(Box.createVerticalStrut(6));
@@ -234,8 +234,8 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             private void showIscrittiPopup(Pratica pratica) {
                 JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
                 content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
-                content.add(infoLabel(iscrittiCache));
+                content.add(UiUtil.infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula(), Font.ITALIC, TEXT_FONT_SIZE));
+                content.add(UiUtil.infoLabel(iscrittiCache, Font.PLAIN, TEXT_FONT_SIZE));
 
                 openPraticaPopup(pratica, content);
             }
@@ -243,14 +243,16 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             private void showIngredientiPopup(Pratica pratica){
                 JPanel content = new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO);
                 content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-                content.add(infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula()));
+                content.add(UiUtil.infoLabel("Pratica: " + pratica.getGiornoSessione() + " - " + pratica.getAula(), Font.ITALIC, TEXT_FONT_SIZE));
                 content.add(Box.createVerticalStrut(8));
 
                 for (Ingrediente ingrediente : ingredientiCache) {
-                    content.add(infoLabel(
-                        "Ingrediente: " + ingrediente.getNome()
+                    content.add(UiUtil.infoLabel(
+                        "  " + ingrediente.getNome()
                         + " - Quantità: " + ingrediente.getQuantita()
-                        + " - Tipo: " + ingrediente.getUnitMisura()
+                        + " - Tipo: " + ingrediente.getUnitMisura(),
+                        Font.PLAIN,
+                        TEXT_FONT_SIZE
                     ));
                     content.add(Box.createVerticalStrut(4));
                 }
@@ -287,7 +289,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
             onlineContainer.add(Box.createVerticalStrut(10));
 
             if (onlineList == null || onlineList.isEmpty()) {
-                JLabel emptyLabel = infoLabel("Nessuna sessione online disponibile");
+                JLabel emptyLabel = UiUtil.infoLabel("Nessuna sessione online disponibile", Font.ITALIC, TEXT_FONT_SIZE);
                 emptyLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
                 onlineContainer.add(emptyLabel);
             } else {
@@ -324,12 +326,12 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 // Data
                 gbc.gridx = 0;
                 gbc.weightx = 0.35;
-                add(infoLabel("Data: " + online.getGiornoSessione()), gbc);
+                add(UiUtil.infoLabel("Data: " + online.getGiornoSessione(), Font.PLAIN, TEXT_FONT_SIZE), gbc);
 
                 // Meeting
                 gbc.gridx = 1;
                 gbc.weightx = 0.65;
-                add(infoLabel("Codice meeting: " + online.getCodiceMeeting()), gbc);
+                add(UiUtil.infoLabel("Codice meeting: " + online.getCodiceMeeting(), Font.PLAIN, TEXT_FONT_SIZE), gbc);
 
                 // Spaziatore elastico
                 gbc.gridx = 2;
@@ -339,14 +341,6 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
         }
     }
     
-
-    
-//Ausiliarie
-    private JLabel infoLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font(UiUtil.FONT_FAMILY, Font.PLAIN, TEXT_FONT_SIZE));
-        return label;
-    }
 
 
     
