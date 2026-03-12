@@ -91,12 +91,19 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
             file = new java.io.File(file.getPath() + ".txt");
         }
 
-        if(file.exists()){
-            JOptionPane.showMessageDialog(this, "Il file esiste già nel percorso selezionato. ",
-            "Salvataggio annullato",
-            JOptionPane.WARNING_MESSAGE);
+    if (file.exists()) {
+        int scelta = JOptionPane.showConfirmDialog(
+            this,
+            "Il file esiste già. Vuoi sovrascriverlo?",
+            "Sovrascrivere?",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (scelta != JOptionPane.YES_OPTION) {
             return;
         }
+    }
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 
