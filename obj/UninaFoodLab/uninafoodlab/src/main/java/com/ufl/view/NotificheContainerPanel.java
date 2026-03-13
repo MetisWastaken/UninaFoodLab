@@ -69,7 +69,7 @@ public class NotificheContainerPanel extends UiUtil.BlankPanel {
         private JButton elimina_notifica_btn;
 
         public NotificaRowPanel(Notifica notifica) {
-            super(UiUtil.TRASPARENT_COLOR, 0, 2);
+            super(UiUtil.COLORE_PRIMARIO, 2, 1);
             this.notifica = notifica;
 
             setLayout(new GridBagLayout());
