@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import com.ufl.controller.LoginController;
 import com.ufl.controller.CorsiController;
 import com.ufl.controller.HomepageController;
-import com.ufl.controller.AggiungiCorsoController;
+
 
 import com.ufl.view.MainFrame;
 import com.ufl.view.UiUtil;
