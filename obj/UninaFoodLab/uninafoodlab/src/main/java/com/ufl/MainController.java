@@ -3,7 +3,7 @@ package com.ufl;
 import javax.swing.SwingUtilities;
 
 import com.ufl.controller.LoginController;
-import com.ufl.controller.CorsiContainerController;
+import com.ufl.controller.CorsiController;
 import com.ufl.controller.HomepageController;
 import com.ufl.controller.AggiungiCorsoController;
 
@@ -87,22 +87,22 @@ public class MainController {
 
     public void CostruisciMieiCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(true, chef_attivo.getCorsi(true, filtro_categoria));
-        CorsiContainerController.createMCSearchCatButtonListener(this);
-        CorsiContainerController.createDettagliButtonListener(this);
-        CorsiContainerController.createModificaButtonListener(this);
-        CorsiContainerController.createAddCorsoButtonListener(this);
+        CorsiController.createMCSearchCatButtonListener(this);
+        CorsiController.createDettagliButtonListener(this);
+        CorsiController.createModificaButtonListener(this);
+        CorsiController.createAggiungiCorsoButtonListener(this);
     }
 
     public void CostruisciAltriCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(false, chef_attivo.getCorsi(false, filtro_categoria));
-        CorsiContainerController.createACSearchCatButtonListener(this);
-        CorsiContainerController.createDettagliButtonListener(this);
+        CorsiController.createACSearchCatButtonListener(this);
+        CorsiController.createDettagliButtonListener(this);
     }
 
     public void CostruisciAggiungiCorso(){
         if(this.aggiungi_corso_frame == null) {
             this.aggiungi_corso_frame = new AggiungiCorsoFrame();
-            AggiungiCorsoController.createAggiungiCorsoListener(this);
+            CorsiController.createAggiungiCorsoListener(this);
         }
         aggiungi_corso_frame.setVisible(true);
     }
@@ -175,19 +175,21 @@ public class MainController {
         homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
     }
 
-public void mostraReport() {
-    System.out.println("Report");
-
-    chef_attivo.recResoconto();
-    if(chef_attivo.getResoconto() == null){
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
-        return;
     }
-    chef_attivo.getResoconto().recNumeroRicettePerPratiche();
-    chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
 
-    homepage_container.setContent(new VisualizzaJFreeChartReport(chef_attivo.getResoconto()));
-}
+    public void mostraReport() {
+        System.out.println("Report");
+
+        chef_attivo.recResoconto();
+        if(chef_attivo.getResoconto() == null){
+            homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
+            return;
+        }
+        chef_attivo.getResoconto().recNumeroRicettePerPratiche();
+        chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
+
+        homepage_container.setContent(new VisualizzaJFreeChartReport(chef_attivo.getResoconto()));
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainController());

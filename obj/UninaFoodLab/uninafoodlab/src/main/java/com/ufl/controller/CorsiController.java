@@ -1,12 +1,15 @@
 package com.ufl.controller;
 
+import java.time.LocalDate;
+
 import com.ufl.MainController;
 
 import com.ufl.view.CorsiContainerPanel.CorsoPanel;
 
 import com.ufl.dao.CorsoDAO;
+import com.ufl.model.Corso;
 
-public class CorsiContainerController {
+public class CorsiController {
     public static void createMCSearchCatButtonListener(MainController main_controller){
         main_controller.getCorsiContainerPanel().addSearchCatButtonListener(e -> {
                 String filtro_categoria = main_controller.getCorsiContainerPanel().getSearchCatText();
@@ -51,10 +54,36 @@ public class CorsiContainerController {
         }
     }
 
-    public static void createAddCorsoButtonListener(MainController main_controller){
+    public static void createAggiungiCorsoButtonListener(MainController main_controller){
         main_controller.getCorsiContainerPanel().getCorsiPanel().addAggiungiCorsoButtonListener(e->{
             main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta corso in corso!");
             main_controller.mostraAggiungiCorso();
+        });
+    }
+
+    public static void createAggiungiCorsoListener(MainController mainController) {
+        mainController.getAggiungiCorsoFrame().addAggiungiCorsoListener(e -> {
+            String nome = mainController.getAggiungiCorsoFrame().getNomeCorso();
+            String categoria = mainController.getAggiungiCorsoFrame().getCategoriaCorso();
+            LocalDate data_in = mainController.getAggiungiCorsoFrame().getDataInizioCorso();
+            LocalDate data_fin = mainController.getAggiungiCorsoFrame().getDataFineCorso();
+            String frequenza = mainController.getAggiungiCorsoFrame().getFrequenzaCorso();
+            
+            // Validazione
+            if (data_in == null || data_fin == null) {
+                mainController.getMainframe().showInfoLog("ERR", "Date non valide! Usa il formato gg/mm/aaaa");
+                return;
+            }
+            
+            Corso nuovo_corso = new Corso(nome, categoria, data_in, data_fin, frequenza, mainController.getChefAttivo());
+            if(nuovo_corso.insert()) {
+                mainController.getMainframe().showInfoLog("SUCC", "Corso aggiunto con successo!");
+                mainController.mostraMieiCorsi("");
+                mainController.getAggiungiCorsoFrame().pulisciCampi();
+                mainController.getAggiungiCorsoFrame().setVisible(false);
+            } else {
+                mainController.getMainframe().showInfoLog("ERR", "Errore durante l'aggiunta del corso!");
+            }
         });
     }
 }
