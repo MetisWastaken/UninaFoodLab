@@ -7,7 +7,7 @@ import com.ufl.model.Notifica;
 public class NotificheController {
     public static void createAggiungiNotificaButtonListener(MainController main_controller){
         main_controller.getNotificheContainerPanel().addAggiungiNotificaButtonListener(e -> {
-             main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta notifica in corso!");
+            main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta notifica in corso!");
             main_controller.mostraAggiungiNotifica();
         });
     }

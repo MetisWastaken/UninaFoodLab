@@ -3,12 +3,14 @@ package com.ufl;
 import javax.swing.SwingUtilities;
 
 import com.ufl.controller.LoginController;
+import com.ufl.controller.ModificheController;
 import com.ufl.controller.NotificheController;
 import com.ufl.controller.CorsiController;
 import com.ufl.controller.HomepageController;
 
 
 import com.ufl.view.MainFrame;
+import com.ufl.view.ModificaCorsoPanel;
 import com.ufl.view.NotificheContainerPanel;
 import com.ufl.view.UiUtil;
 import com.ufl.view.VisualizzaJFreeChartReport;
@@ -32,6 +34,7 @@ public class MainController {
     private DettagliCorsoPanel dettagli_corso_panel;
     private NotificheContainerPanel notifiche_container_panel;
     private AggiungiNotificheFrame aggiungi_notifiche_frame;
+    private ModificaCorsoPanel modifica_corso_panel;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -66,6 +69,10 @@ public class MainController {
 
     public AggiungiNotificheFrame getAggiungiNotificheFrame() {
         return aggiungi_notifiche_frame;
+    }
+
+    public ModificaCorsoPanel getModificaCorsoPanel() {
+        return modifica_corso_panel;
     }
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
@@ -140,6 +147,14 @@ public class MainController {
         }
         aggiungi_notifiche_frame.setVisible(true);
     }
+
+    public void costruisciModificaCorso(){
+        this.modifica_corso_panel = new ModificaCorsoPanel(corso_attivo);
+        ModificheController.createAggiungiNotificaButtonListener(this);
+        
+       
+    }
+
 //----------------------------------------------
     public MainController() {
         this.main_frame = new MainFrame();
@@ -190,7 +205,8 @@ public class MainController {
 
     public void mostraModificaCorso(){
         System.out.println("Modifica corso: " + corso_attivo.getNome());
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_PRIMARIO.darker()));
+        costruisciModificaCorso();
+        homepage_container.setContent(modifica_corso_panel);
     }
 
     public void mostraAggiungiCorso(){
