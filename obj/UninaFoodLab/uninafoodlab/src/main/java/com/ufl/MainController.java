@@ -3,16 +3,19 @@ package com.ufl;
 import javax.swing.SwingUtilities;
 
 import com.ufl.controller.LoginController;
+import com.ufl.controller.NotificheController;
 import com.ufl.controller.CorsiController;
 import com.ufl.controller.HomepageController;
 
 
 import com.ufl.view.MainFrame;
+import com.ufl.view.NotificheContainerPanel;
 import com.ufl.view.UiUtil;
 import com.ufl.view.VisualizzaJFreeChartReport;
 import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
 import com.ufl.view.AggiungiCorsoFrame;
+import com.ufl.view.AggiungiNotificheFrame;
 import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
 
@@ -27,6 +30,8 @@ public class MainController {
     private CorsiContainerPanel corsi_container_panel;
     private AggiungiCorsoFrame aggiungi_corso_frame;
     private DettagliCorsoPanel dettagli_corso_panel;
+    private NotificheContainerPanel notifiche_container_panel;
+    private AggiungiNotificheFrame aggiungi_notifiche_frame;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -54,6 +59,14 @@ public class MainController {
     
     // getDettagliCorsoPanel non è necessario perché i controlli vengono fatti al suo interno
 
+
+    public NotificheContainerPanel getNotificheContainerPanel() {
+        return notifiche_container_panel;
+    }
+
+    public AggiungiNotificheFrame getAggiungiNotificheFrame() {
+        return aggiungi_notifiche_frame;
+    }
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
         this.chef_attivo = chef;
@@ -71,12 +84,12 @@ public class MainController {
     }
 //---------------------------------------------
 
-    public void CostruisciLogIn(){
+    public void costruisciLogIn(){
         this.login_page = new LoginPage();
         LoginController.createLoginListener(this);
     }
 
-    public void CostruisciHomepage(){
+    public void costruisciHomepage(){
         this.homepage_container = new HomepageContainer();
         HomepageController.createHomepageExitListener(this);
         HomepageController.createMieiCorsiListener(this);
@@ -85,7 +98,7 @@ public class MainController {
         HomepageController.createReportListener(this);
     }
 
-    public void CostruisciMieiCorsi(String filtro_categoria){
+    public void costruisciMieiCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(true, chef_attivo.getCorsi(true, filtro_categoria));
         CorsiController.createMCSearchCatButtonListener(this);
         CorsiController.createDettagliButtonListener(this);
@@ -93,13 +106,13 @@ public class MainController {
         CorsiController.createAggiungiCorsoButtonListener(this);
     }
 
-    public void CostruisciAltriCorsi(String filtro_categoria){
+    public void costruisciAltriCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(false, chef_attivo.getCorsi(false, filtro_categoria));
         CorsiController.createACSearchCatButtonListener(this);
         CorsiController.createDettagliButtonListener(this);
     }
 
-    public void CostruisciAggiungiCorso(){
+    public void costruisciAggiungiCorso(){
         if(this.aggiungi_corso_frame == null) {
             this.aggiungi_corso_frame = new AggiungiCorsoFrame();
             CorsiController.createAggiungiCorsoListener(this);
@@ -112,10 +125,25 @@ public class MainController {
         this.dettagli_corso_panel = new DettagliCorsoPanel(corso_attivo);
         
     }
+
+    public void costruisciNotificheContainer(){
+        this.notifiche_container_panel = new NotificheContainerPanel(chef_attivo.getNotifiche());
+        NotificheController.createAggiungiNotificaButtonListener(this);
+        NotificheController.createEliminaNotificaButtonListener(this);
+        
+    }
+
+    public void costruisciAggiungiNotifica(){
+        if(this.aggiungi_notifiche_frame == null) {
+            this.aggiungi_notifiche_frame = new AggiungiNotificheFrame(corso_attivo != null ? "ai partecipanti del corso " + corso_attivo.getNome() : "a tutti");
+            NotificheController.createAggiungiNotificaListener(this);
+        }
+        aggiungi_notifiche_frame.setVisible(true);
+    }
 //----------------------------------------------
     public MainController() {
         this.main_frame = new MainFrame();
-        CostruisciLogIn();
+        costruisciLogIn();
         main_frame.setContent(login_page);
         
     }
@@ -124,7 +152,7 @@ public class MainController {
 //-----------------------------------------------
     public void logAvvenuto() {
         System.out.println("Login effettuato con successo!");
-        CostruisciHomepage();
+        costruisciHomepage();
         main_frame.setContent(homepage_container);
         mostraMieiCorsi();
     }
@@ -136,7 +164,7 @@ public class MainController {
 
     public void mostraMieiCorsi(String filtro_categoria){
         System.out.println("I miei corsi filtrati per categoria: " + filtro_categoria);
-        CostruisciMieiCorsi(filtro_categoria);
+        costruisciMieiCorsi(filtro_categoria);
         homepage_container.setContent(corsi_container_panel);
     }
 
@@ -146,7 +174,7 @@ public class MainController {
 
     public void mostraAltriCorsi(String filtro_categoria){
         System.out.println("Altri corsi filtrati per categoria: " + filtro_categoria);
-        CostruisciAltriCorsi(filtro_categoria);
+        costruisciAltriCorsi(filtro_categoria);
         homepage_container.setContent(corsi_container_panel);
     }
 
@@ -167,14 +195,18 @@ public class MainController {
 
     public void mostraAggiungiCorso(){
         System.out.println("Aggiungi corso");
-        CostruisciAggiungiCorso();
+        costruisciAggiungiCorso();
     }
 
     public void mostraNotifiche(){
         System.out.println("Notifiche");
-        homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
+        costruisciNotificheContainer();
+        homepage_container.setContent(this.notifiche_container_panel);
     }
 
+    public void mostraAggiungiNotifica(){
+        System.out.println("Aggiungi notifica");
+        costruisciAggiungiNotifica();
     }
 
     public void mostraReport() {
