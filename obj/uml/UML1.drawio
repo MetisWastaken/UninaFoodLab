@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1" pages="4">
   <diagram id="_M2ImUDmSRaJPbU8sHvB" name="Model">
-    <mxGraphModel dx="224" dy="654" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="946" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -562,7 +562,7 @@
         <mxCell id="J8yxJYLkMa16d1UPzr4S-7" parent="oonsp33WK2BINXqslqSu-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Notifica(&amp;nbsp;Integer&amp;nbsp;id_notifica, String username_chef, String titolo, Integer corso_id)" vertex="1">
           <mxGeometry height="26" width="706" y="216" as="geometry" />
         </mxCell>
-        <mxCell id="oonsp33WK2BINXqslqSu-9" parent="oonsp33WK2BINXqslqSu-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Notifica(String username_chef, String titolo, String messaggio, boolean&amp;nbsp;solo_iscritti, LocalDate data_creazione, Integer corso_id)" vertex="1">
+        <mxCell id="oonsp33WK2BINXqslqSu-9" parent="oonsp33WK2BINXqslqSu-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Notifica(String username_chef, String titolo, String messaggio, boolean&amp;nbsp;solo_iscritti, Integer corso_id)" vertex="1">
           <mxGeometry height="26" width="706" y="242" as="geometry" />
         </mxCell>
         <mxCell id="xdxyMLxVMhyBMxG2Xxew-1" parent="oonsp33WK2BINXqslqSu-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIdNotifica(): Integer" vertex="1">

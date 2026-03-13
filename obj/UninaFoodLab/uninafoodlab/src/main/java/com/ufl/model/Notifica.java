@@ -10,7 +10,7 @@ public class Notifica {
     private String titolo;
     private String messaggio;
     private boolean solo_iscritti=false;
-    private LocalDate data_creazione;
+    private LocalDate data_creazione=null;
     private Integer corso_id;
 
     public Notifica(Integer id_notifica, String username_chef, String titolo, Integer corso_id) {
@@ -20,11 +20,10 @@ public class Notifica {
         this.corso_id = corso_id;
     }
 
-    public Notifica(String username_chef, String titolo, String messaggio, boolean solo_iscritti, LocalDate data_creazione, Integer corso_id) {
+    public Notifica(String username_chef, String titolo, String messaggio, boolean solo_iscritti, Integer corso_id) {
         this(null, username_chef, titolo, corso_id);
         this.messaggio = messaggio;
         this.solo_iscritti = solo_iscritti;
-        this.data_creazione = data_creazione;
     }
 
     // ---- GET ----

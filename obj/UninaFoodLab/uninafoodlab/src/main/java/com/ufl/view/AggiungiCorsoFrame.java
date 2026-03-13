@@ -15,10 +15,10 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
         super("AggiungiCorso", new Dimension(450, 400));
         aggiungi_corso_panel = new AggiungiCorsoPanel();
         setContent(aggiungi_corso_panel);
-        setVisible(false);
     }
 
     private class AggiungiCorsoPanel extends UiUtil.BlankPanel {
+        private static final int TEXT_SIZE = 12;
         private static final Dimension INPUT_DIMENSION = new Dimension(200, 30);
         private static final Dimension DATE_DIMENSION = new Dimension(80, 30);
         private static final int HORIZONTAL_STRUT = 5;
@@ -39,7 +39,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
             gbc.fill = GridBagConstraints.HORIZONTAL;
 
             // Nome del corso
-            JLabel nome_label = new JLabel("Nome del corso:");
+            JLabel nome_label = UiUtil.infoLabel("Nome del corso:", Font.PLAIN, TEXT_SIZE);
             nome_field = UiUtil.createInputTextField("Nome del corso", INPUT_DIMENSION);
             gbc.gridx = 0; gbc.gridy = 0; gbc.anchor = GridBagConstraints.EAST;
             add(nome_label, gbc);
@@ -47,7 +47,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
             add(nome_field, gbc);
 
             // Categoria del corso
-            JLabel categoria_label = new JLabel("Categoria del corso:");
+            JLabel categoria_label = UiUtil.infoLabel("Categoria del corso:", Font.PLAIN, TEXT_SIZE);
             categoria_field = UiUtil.createInputTextField("Categoria del corso", INPUT_DIMENSION);
             gbc.gridx = 0; gbc.gridy = 1; gbc.anchor = GridBagConstraints.EAST;
             add(categoria_label, gbc);
@@ -55,7 +55,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
             add(categoria_field, gbc);
 
             // Data inizio del corso
-            JLabel data_in_label = new JLabel("Data inizio del corso:");
+            JLabel data_in_label = UiUtil.infoLabel("Data inizio del corso:", Font.PLAIN, TEXT_SIZE);
             data_in_field = UiUtil.createInputDateField(DATE_DIMENSION);
             gbc.gridx = 0; gbc.gridy = 2; gbc.anchor = GridBagConstraints.EAST;
             add(data_in_label, gbc);
@@ -63,7 +63,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
             add(data_in_field, gbc);
 
             // Data fine del corso
-            JLabel data_fin_label = new JLabel("Data fine del corso:");
+            JLabel data_fin_label = UiUtil.infoLabel("Data fine del corso:", Font.PLAIN, TEXT_SIZE);
             data_fin_field = UiUtil.createInputDateField(DATE_DIMENSION);
             gbc.gridx = 0; gbc.gridy = 3; gbc.anchor = GridBagConstraints.EAST;
             add(data_fin_label, gbc);
@@ -71,7 +71,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
             add(data_fin_field, gbc);
 
             // Frequenza settimanale del corso
-            JLabel frequenza_label = new JLabel("Frequenza settimanale del corso:");
+            JLabel frequenza_label = UiUtil.infoLabel("Frequenza settimanale del corso:", Font.PLAIN, TEXT_SIZE);
             frequenza_field = UiUtil.createInputTextField("Frequenza settimanale del corso", INPUT_DIMENSION);
             gbc.gridx = 0; gbc.gridy = 4; gbc.anchor = GridBagConstraints.EAST;
             add(frequenza_label, gbc);
@@ -136,8 +136,10 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new AggiungiCorsoFrame();
-        });
+       
+        AggiungiCorsoFrame frame = new AggiungiCorsoFrame();
+        frame.setVisible(true);
+
+        
     }
 }

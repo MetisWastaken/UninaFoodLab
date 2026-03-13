@@ -120,6 +120,15 @@ public class MainTest {
             System.out.println("Errore nella connessione al database.");
         }
     }
+
+    public static void testNotifica(){
+        Notifica notifica = new Notifica("GEsposito", "Palle","Belle fr palle fratello",false,null,null);
+        if(notifica.insert()){
+            System.out.println("Notifica inserita con successo.");
+        } else {
+            System.out.println("Errore nell'inserimento della notifica.");
+        }
+    }
     public static void testLoginPage(){
         MainFrame mainframe = new MainFrame();
         LoginPage loginPage = new LoginPage();
@@ -146,12 +155,14 @@ public class MainTest {
     }
     
     public static void main(String[] args) {
-        testPratica();
+        //testPratica();
         //testOnline();
         //testRicetta();
         //testChef();
         //testCorso();
-        
+        testNotifica();
+
+
         //testLoginPage();
         //testHomepageContainer();
     }

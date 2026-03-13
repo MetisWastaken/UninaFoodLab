@@ -115,19 +115,18 @@ public class NotificaDAO extends ConnessioneDAO {
     // ---- METODI ----
 
     public static boolean insert(Notifica notifica){
-        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
+        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
             ps.setString(1, notifica.getTitolo());
             ps.setString(2, notifica.getMessaggio());
             ps.setBoolean(3, notifica.isSoloIscritti());
-            ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
-            ps.setString(5, notifica.getUsernameChef());
+            ps.setString(4, notifica.getUsernameChef());
             
             if(notifica.getCorsoId() != null) {
-                ps.setInt(6, notifica.getCorsoId());
+                ps.setInt(5, notifica.getCorsoId());
             } else {
-                ps.setNull(6, java.sql.Types.INTEGER);
+                ps.setNull(5, java.sql.Types.INTEGER);
             }
 
             ps.executeUpdate();
