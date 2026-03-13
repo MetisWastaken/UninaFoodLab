@@ -79,8 +79,8 @@ public class MainTest {
             chef.getResoconto().getNumeroRicettePerPratiche().forEach((pratica, numeroRicette) -> {
                 System.out.println("Pratica del " + pratica.getGiornoSessione() + " in aula " + pratica.getAula() + ": " + numeroRicette + " ricette");
             });
-            new Notifica("GEsposito", "Palle","Belle palle fratello",false,LocalDate.now(),null).insert();
-            new Notifica("GEsposito", "Male Male","Le tue palle puzzano",true,LocalDate.now(),2).insert();
+            new Notifica("GEsposito", "Palle","Belle palle fratello",false,null).insert();
+            new Notifica("GEsposito", "Male Male","Le tue palle puzzano",true,null).insert();
             chef.getNotifiche().forEach(notifica -> {
                 notifica.recMessagio();
                 notifica.recDataCreazione();
@@ -122,7 +122,7 @@ public class MainTest {
     }
 
     public static void testNotifica(){
-        Notifica notifica = new Notifica("GEsposito", "Palle","Belle fr palle fratello",false,null,null);
+        Notifica notifica = new Notifica("GEsposito", "Palle","Belle fr palle fratello",false,null);
         if(notifica.insert()){
             System.out.println("Notifica inserita con successo.");
         } else {
