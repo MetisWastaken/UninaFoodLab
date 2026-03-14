@@ -28,7 +28,7 @@ GROUP BY p.id_pratica, i.nome, i.unit_misura;
 
 -- View per visualizzare le notifiche inviate da uno chef entro 30 giorni dalla data_creazione
 --(se solo_iscritti è true, mostra le notifiche solo agli studenti iscritti al corso)
---(altrimenti mostra le notifiche agli studenti iscritti ad almeno un corso dello chef)
+--(altrimenti mostra le notifiche agli studenti iscritti ad almeno un corso dello chef(Attivo [data_fin] del corso > data_creazione della notifica))
 CREATE OR REPLACE VIEW view_notifiche_studente AS
 SELECT DISTINCT
     n.id_notifica,
@@ -38,27 +38,29 @@ JOIN utente u ON u.tipo_utente = 'Studente'
 WHERE 
     n.data_creazione >= CURRENT_TIMESTAMP - INTERVAL '30 days'
     AND (
-        -- Caso 1: solo_iscritti = TRUE, mostra solo agli iscritti al corso specifico
         (
             n.solo_iscritti = TRUE
             AND n.corso_id IS NOT NULL
             AND EXISTS (
-                SELECT 1 FROM iscritto_c ic 
-                WHERE ic.corso_id = n.corso_id AND ic.stud_id = u.username
+                SELECT 1
+                FROM iscritto_c ic
+                WHERE ic.corso_id = n.corso_id
+                  AND ic.stud_id = u.username
             )
         )
         OR
         (
-            -- Caso 2: solo_iscritti = FALSE, mostra agli iscritti ad almeno un corso dello chef
             n.solo_iscritti = FALSE
             AND EXISTS (
-                SELECT 1 FROM iscritto_c ic
+                SELECT 1
+                FROM iscritto_c ic
                 JOIN corso c ON ic.corso_id = c.id_corso
-                WHERE ic.stud_id = u.username AND c.chef_id = n.username_chef
+                WHERE ic.stud_id = u.username
+                  AND c.chef_id = n.username_chef
+                  AND c.data_fin > n.data_creazione  
             )
         )
     );
-
 
 -- una view che mostra il numero di ricette svolte per ogni pratica, organizzando i risultati in questo modo:
 -- username_chef / id_pratica / numero_ricette_svolte

@@ -140,11 +140,13 @@ public class MainController {
         
     }
 
-    public void costruisciAggiungiNotifica(){
+    public void costruisciAggiungiNotifica(String a_chi_si_riferisce){
         if(this.aggiungi_notifiche_frame == null) {
-            this.aggiungi_notifiche_frame = new AggiungiNotificheFrame(corso_attivo != null ? "ai partecipanti del corso " + corso_attivo.getNome() : "a tutti");
+            this.aggiungi_notifiche_frame = new AggiungiNotificheFrame();
             NotificheController.createAggiungiNotificaListener(this);
         }
+        
+        aggiungi_notifiche_frame.inserisciTesto(a_chi_si_riferisce);
         aggiungi_notifiche_frame.setVisible(true);
     }
 
@@ -222,7 +224,7 @@ public class MainController {
 
     public void mostraAggiungiNotifica(){
         System.out.println("Aggiungi notifica");
-        costruisciAggiungiNotifica();
+        costruisciAggiungiNotifica(this.corso_attivo != null ? "ai partecipanti di/del " + corso_attivo.getNome() : "a tutti");
     }
 
     public void mostraReport() {
