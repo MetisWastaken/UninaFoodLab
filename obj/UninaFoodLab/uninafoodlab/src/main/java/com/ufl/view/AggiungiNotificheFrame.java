@@ -7,8 +7,8 @@ import javax.swing.*;
 public class AggiungiNotificheFrame extends UiUtil.PopUpFrame {
     private AggiungiNotifichePanel aggiungi_notifiche_panel;
 
-    public AggiungiNotificheFrame(String a_chi_si_aggiunge) {
-        super("Aggiungi Notifica "+a_chi_si_aggiunge, new Dimension(500, 300));
+    public AggiungiNotificheFrame() {
+        super(new Dimension(500, 300));
         aggiungi_notifiche_panel = new AggiungiNotifichePanel();
         setContent(aggiungi_notifiche_panel);
     }
@@ -106,8 +106,16 @@ public class AggiungiNotificheFrame extends UiUtil.PopUpFrame {
         aggiungi_notifiche_panel.messaggio_area.setText("");
     }
 
+    public void inserisciTesto(String a_chi_si_riferisce){
+        setTitle("Aggiungi Notifica "+ a_chi_si_riferisce);
+    }
+
     public static void main(String[] args) {
-        AggiungiNotificheFrame frame = new AggiungiNotificheFrame("a tutti");
+        AggiungiNotificheFrame frame = new AggiungiNotificheFrame();
+        frame.inserisciTesto(" Corso di prova");
+        frame.addAggiungiNotificaListener(e ->{
+             frame.inserisciTesto("Palle");
+        });
         frame.setVisible(true);
     }
 }

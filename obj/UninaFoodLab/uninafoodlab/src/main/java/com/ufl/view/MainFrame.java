@@ -58,9 +58,9 @@ public class MainFrame extends JFrame {
         setTitle("UninaFoodLab");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+    
         setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
 
         JPanel main_panel = buildMainPanel();
         add(main_panel);
