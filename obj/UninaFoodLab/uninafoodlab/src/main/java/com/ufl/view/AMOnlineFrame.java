@@ -1,6 +1,10 @@
 package com.ufl.view;
 
 import com.ufl.model.Online;
+import com.ufl.model.Chef;
+import com.ufl.model.Corso;
+import com.ufl.dao.ChefDAO;
+import com.ufl.dao.CorsoDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -203,8 +207,17 @@ public class AMOnlineFrame extends UiUtil.BlankPanel {
             gbc.anchor = GridBagConstraints.EAST;
             add(actionsPanel, gbc);
         }
+    }
 
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Corso corso = CorsoDAO.get(1);
+            AMOnlineFrame panel = new AMOnlineFrame(corso.getSessioniOnline());
+            UiUtil.TestFrame frame = new UiUtil.TestFrame();
+            frame.add(panel);
+            frame.revalidate();
+            frame.repaint();
+        });
     }
 }
 
