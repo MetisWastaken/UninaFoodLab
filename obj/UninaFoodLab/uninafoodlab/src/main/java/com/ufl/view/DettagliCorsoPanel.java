@@ -20,6 +20,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     private static final int TITLE_FONT_SIZE = 22;
     private static final int SUBTITLE_FONT_SIZE = 16;
     private static final int TEXT_FONT_SIZE = 14;
+    private static final int SECTION_PANEL_HEIGHT = 190; // FIX: altezza comune box pratiche/online
     private static UiUtil.PopUpFrame activePopup=null;
 
     private List<Pratica> pratiche=null;
@@ -28,6 +29,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     public DettagliCorsoPanel(Corso corso) {
         super(UiUtil.TRASPARENT_COLOR, 0, 10);
         setBackground(UiUtil.TRASPARENT_COLOR);
+        setOpaque(false);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         if(activePopup == null){
@@ -69,15 +71,15 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     }
     
     private class PraticheBox extends UiUtil.BorderedPanel {
-        private static final int PANEL_HEIGHT = 150;
-
         public PraticheBox(List<Pratica> pratiche) {
             super(UiUtil.COLORE_PRIMARIO, 2, 0);
 
             setLayout(new BorderLayout(0, 8));
             setBackground(UiUtil.TRASPARENT_COLOR);
+            setOpaque(false);
 
             UiUtil.BlankPanel pratica_container = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
+            pratica_container.setOpaque(false);
             pratica_container.setLayout(new BoxLayout(pratica_container, BoxLayout.Y_AXIS));
             pratica_container.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
             
@@ -102,9 +104,9 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                     pratica_container.add(Box.createVerticalStrut(10));
                 }
             }
-            add(new UiUtil.ScrollablePanel(pratica_container), BorderLayout.CENTER);
-            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
-            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
+            add(new UiUtil.ScrollablePanel(pratica_container, UiUtil.TRASPARENT_COLOR, false), BorderLayout.CENTER);
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, SECTION_PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, SECTION_PANEL_HEIGHT));
         }
 
         private class PraticaRow extends UiUtil.BlankPanel {
@@ -270,14 +272,14 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     }
 
     private class OnlineBox extends UiUtil.BorderedPanel {
-        private static final int PANEL_HEIGHT = 150;
-
         public OnlineBox(List<Online> onlineList) {
             super(UiUtil.COLORE_PRIMARIO, 2, 0);
             setLayout(new BorderLayout(0, 8));
             setBackground(UiUtil.TRASPARENT_COLOR);
+            setOpaque(false);
 
             UiUtil.BlankPanel onlineContainer = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
+            onlineContainer.setOpaque(false);
             onlineContainer.setLayout(new BoxLayout(onlineContainer, BoxLayout.Y_AXIS));
             onlineContainer.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
@@ -301,21 +303,17 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 }
             }
 
-            add(new UiUtil.ScrollablePanel(onlineContainer), BorderLayout.CENTER);
-            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
-            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
+            add(new UiUtil.ScrollablePanel(onlineContainer, UiUtil.TRASPARENT_COLOR, false), BorderLayout.CENTER);
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, SECTION_PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, SECTION_PANEL_HEIGHT));
         }
 
         private class OnlineRow extends UiUtil.BlankPanel {
-            private static final int ROW_HEIGHT = 40;
-
             public OnlineRow(Online online) {
                 super(UiUtil.TRASPARENT_COLOR);
+                setOpaque(false);
                 setLayout(new GridBagLayout());
-                setBackground(UiUtil.COLORE_SFONDO);
-                setAlignmentX(Component.LEFT_ALIGNMENT);
-                setMaximumSize(new Dimension(Integer.MAX_VALUE, ROW_HEIGHT));
-                setPreferredSize(new Dimension(getPreferredSize().width, ROW_HEIGHT));
+                // rimuovi/evita: setBackground(UiUtil.COLORE_SFONDO);
 
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridy = 0;

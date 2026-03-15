@@ -56,7 +56,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
 
             // Data inizio del corso
             JLabel data_in_label = UiUtil.infoLabel("Data inizio del corso:", Font.PLAIN, TEXT_SIZE);
-            data_in_field = UiUtil.createInputDateField(DATE_DIMENSION);
+            data_in_field = UiUtil.createInputDateField(DATE_DIMENSION, null);
             gbc.gridx = 0; gbc.gridy = 2; gbc.anchor = GridBagConstraints.EAST;
             add(data_in_label, gbc);
             gbc.gridx = 1; gbc.anchor = GridBagConstraints.WEST;
@@ -64,7 +64,7 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
 
             // Data fine del corso
             JLabel data_fin_label = UiUtil.infoLabel("Data fine del corso:", Font.PLAIN, TEXT_SIZE);
-            data_fin_field = UiUtil.createInputDateField(DATE_DIMENSION);
+            data_fin_field = UiUtil.createInputDateField(DATE_DIMENSION,null);
             gbc.gridx = 0; gbc.gridy = 3; gbc.anchor = GridBagConstraints.EAST;
             add(data_fin_label, gbc);
             gbc.gridx = 1; gbc.anchor = GridBagConstraints.WEST;

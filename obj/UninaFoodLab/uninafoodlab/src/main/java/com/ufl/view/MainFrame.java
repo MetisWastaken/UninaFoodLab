@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 public class MainFrame extends JFrame {
 
     // Window Configuration
-    private static final int WINDOW_WIDTH = 1024;
-    private static final int WINDOW_HEIGHT = 768;
+//    private static final int WINDOW_WIDTH = 1024;
+//    private static final int WINDOW_HEIGHT = 768;
     
 
     // Border and Padding
@@ -57,10 +57,10 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("UninaFoodLab");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-    
-        setLocationRelativeTo(null);
-        setResizable(false);
+
+        // Avvio a schermo intero (finestra massimizzata)
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(true);
 
         JPanel main_panel = buildMainPanel();
         add(main_panel);
@@ -136,7 +136,7 @@ public class MainFrame extends JFrame {
     private JPanel buildContainerPanel() {
         container_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS, 1);
         container_panel.setLayout(new BorderLayout()); 
-        container_panel.setBackground(UiUtil.COLORE_SFONDO);
+        container_panel.setBackground(UiUtil.COLORE_SFONDO.darker());
         container_panel.add(buildContentPanel(), BorderLayout.CENTER);
         return container_panel;
     }

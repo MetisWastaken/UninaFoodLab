@@ -61,18 +61,18 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
     }
 
     public class POBox extends UiUtil.BlankPanel {
-        private static final int SIDE_BOX_W = 325;
-        private static final int SIDE_BOX_H = 225;
-        private static final int CENTER_GAP = 50;
+        private static final int SIDE_BOX_W = 520;
+        private static final int SIDE_BOX_H = 350;
+        private static final int CENTER_GAP = 20;
         
         private UiUtil.BorderedPanel pratiche_panel;
-        private UiUtil.BorderedPanel online_panel;
+        private AMEOnlinePanel online_panel;
 
         public POBox(List<Pratica> pratiche, List<Online> online) {
             super(UiUtil.TRASPARENT_COLOR);
 
             setLayout(new GridBagLayout());
-            setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40)); 
+            setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); 
 
             JPanel inner = new JPanel(new GridBagLayout());
             inner.setOpaque(false);
@@ -86,7 +86,7 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
             this.pratiche_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_ACCENTO, 3, 0);
             pratiche_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
 
-            this.online_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_ACCENTO, 3, 0);
+            this.online_panel = new AMEOnlinePanel(online);
             online_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
 
             JLabel praticheLabel = UiUtil.infoLabel("Sessioni Pratiche", Font.BOLD, SUBTITLE_FONT_SIZE);
@@ -122,6 +122,10 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
             inner.add(rightColumn, gbc);
 
             add(inner);
+        }
+
+        public AMEOnlinePanel getOnlinePanel() {
+            return online_panel;
         }
     }
         

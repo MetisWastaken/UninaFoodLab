@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import com.ufl.MainController;
 
-import com.ufl.view.CorsiContainerPanel.CorsoPanel;
 
+import com.ufl.view.CorsiContainerPanel.CorsoRow;
 import com.ufl.dao.CorsoDAO;
 import com.ufl.model.Corso;
 
@@ -31,7 +31,7 @@ public class CorsiController {
     }
 
     public static void createDettagliButtonListener(MainController main_controller){
-        for(CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
+        for(CorsoRow corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiRows()){
             corso_panel.addDettagliButtonListener(e -> {
                     Integer corso_id = corso_panel.getCorso_id();
                     main_controller.getMainframe().showInfoLog("SUCC", "Caricamento dettagli corso in corso!");
@@ -43,7 +43,7 @@ public class CorsiController {
     }
     
     public static void createModificaButtonListener(MainController main_controller){
-        for(CorsoPanel corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiPanel()){
+        for(CorsoRow corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiRows()){
             corso_panel.addModificaButtonListener(e -> {
                     Integer corso_id = corso_panel.getCorso_id();
                     main_controller.getMainframe().showInfoLog("SUCC", "Caricamento modifica corso in corso!");

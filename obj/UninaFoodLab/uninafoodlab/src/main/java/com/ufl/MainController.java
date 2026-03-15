@@ -10,7 +10,6 @@ import com.ufl.controller.HomepageController;
 
 
 import com.ufl.view.MainFrame;
-import com.ufl.view.ModificaCorsoPanel;
 import com.ufl.view.NotificheContainerPanel;
 import com.ufl.view.UiUtil;
 import com.ufl.view.VisualizzaJFreeChartReport;
@@ -20,10 +19,15 @@ import com.ufl.view.AggiungiCorsoFrame;
 import com.ufl.view.AggiungiNotificheFrame;
 import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
+import com.ufl.view.ModificaCorsoPanel;
+import com.ufl.view.AMOnlineFrame;
+
 
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
 
+import com.ufl.model.Online;
+import com.ufl.model.Pratica;
 
 public class MainController {
     private MainFrame main_frame;
@@ -35,6 +39,7 @@ public class MainController {
     private NotificheContainerPanel notifiche_container_panel;
     private AggiungiNotificheFrame aggiungi_notifiche_frame;
     private ModificaCorsoPanel modifica_corso_panel;
+    private AMOnlineFrame am_online_frame;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -73,6 +78,10 @@ public class MainController {
 
     public ModificaCorsoPanel getModificaCorsoPanel() {
         return modifica_corso_panel;
+    }
+
+    public AMOnlineFrame getAMOnlineFrame() {
+        return am_online_frame;
     }
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
@@ -153,8 +162,21 @@ public class MainController {
     public void costruisciModificaCorso(){
         this.modifica_corso_panel = new ModificaCorsoPanel(corso_attivo);
         ModificheController.createAggiungiNotificaButtonListener(this);
-        
-       
+        // Per Online
+        ModificheController.createAggiungiOnlineButtonListener(this);
+        ModificheController.createModificaOnlineButtonListener(this);
+        ModificheController.createEliminaOnlineButtonListener(this);
+        // Per Pratica
+
+    }
+
+    public void costruisciAMOnlineFrame(Online online) {
+        if(this.am_online_frame == null) {
+            this.am_online_frame = new AMOnlineFrame();
+        }
+        am_online_frame.setAMOnlineFrame(online);
+        ModificheController.createAMOnlineConfermaButtonListener(this);
+        am_online_frame.setVisible(true);
     }
 
 //----------------------------------------------
@@ -225,6 +247,11 @@ public class MainController {
     public void mostraAggiungiNotifica(){
         System.out.println("Aggiungi notifica");
         costruisciAggiungiNotifica(this.corso_attivo != null ? "ai partecipanti di/del " + corso_attivo.getNome() : "a tutti");
+    }
+
+    public void mostraAggModOnline(Online online) {
+        System.out.println((online == null ? "Aggiungi" : "Modifica") + " sessione online");
+        costruisciAMOnlineFrame(online);
     }
 
     public void mostraReport() {

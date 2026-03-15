@@ -124,7 +124,7 @@ public class NotificheContainerPanel extends UiUtil.BlankPanel {
                 content.add(Box.createVerticalStrut(10));
                 content.add(UiUtil.infoLabel("Titolo: " + notifica.getTitolo(), Font.PLAIN, TEXT_FONT_SIZE));
                 content.add(UiUtil.infoLabel("Messaggio: " + notifica.getMessaggio(), Font.PLAIN, TEXT_FONT_SIZE));
-                content.add(UiUtil.infoLabel("Data creazione: " + notifica.getDataCreazione(), Font.PLAIN, TEXT_FONT_SIZE));
+                content.add(UiUtil.infoLabel("Data creazione: " + notifica.getDataCreazione().format(UiUtil.DATE_FORMATTER), Font.PLAIN, TEXT_FONT_SIZE));
                 if (notifica.isSoloIscritti()) {
                     content.add(UiUtil.infoLabel("Corso associato: " + new Corso(notifica.getCorsoId()).getNomeById(), Font.PLAIN, TEXT_FONT_SIZE));
                 }

@@ -3,7 +3,10 @@ package com.ufl.view;
 import java.awt.*;
 
 import javax.swing.*;
-import java.text.SimpleDateFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
@@ -30,6 +33,8 @@ public class UiUtil {
     public static final int TEXT_FIELD_PADDING_RIGHT = 8;
     public static final int TEXT_FIELD_PADDING_BOTTOM = 4;
     public static final int TEXT_FIELD_HINT_OFFSET_X = 2;
+
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static class TestFrame extends JFrame {
         public TestFrame() {
@@ -83,7 +88,6 @@ public class UiUtil {
 
     public static class BorderedPanel extends JPanel {
         public BorderedPanel(Color borderColor, int borderThickness, int padding) {
-            setOpaque(true);
             setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(borderColor, borderThickness, true),
                 BorderFactory.createEmptyBorder(padding, padding, padding, padding)
@@ -110,28 +114,33 @@ public class UiUtil {
     }
 
     public static class ScrollablePanel extends JScrollPane {
+
         public ScrollablePanel(JPanel container_panel) {
+            this(container_panel, container_panel.getBackground(), container_panel.isOpaque());
+        }
+
+        public ScrollablePanel(JPanel container_panel, Color background, boolean opaqueContent) {
             super(container_panel);
 
-            // Evita artefatti durante lo scroll
             getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
-
             setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             setBorder(null);
             getVerticalScrollBar().setUnitIncrement(16);
 
-            // Viewport solida (niente trasparenza qui)
-            setOpaque(true);
-            getViewport().setOpaque(true);
-            setBackground(COLORE_SFONDO);
-            getViewport().setBackground(COLORE_SFONDO);
+            if (opaqueContent) {
+                setOpaque(true);
+                getViewport().setOpaque(true);
+                setBackground(background);
+                getViewport().setBackground(background);
+                container_panel.setOpaque(true);
+                container_panel.setBackground(background);
+            } else {
+                setOpaque(false);
+                getViewport().setOpaque(false);
+                container_panel.setOpaque(false);
+            }
 
-            // Importante: il contenuto dello scroll deve essere opaco
-            container_panel.setOpaque(true);
-            container_panel.setBackground(COLORE_SFONDO);
-
-            // Personalizza il colore della scrollbar
             getVerticalScrollBar().setBackground(COLORE_SFONDO);
             getVerticalScrollBar().setForeground(COLORE_PRIMARIO);
             getHorizontalScrollBar().setBackground(COLORE_SFONDO);
@@ -203,7 +212,7 @@ public class UiUtil {
             setBackground(UiUtil.COLORE_PRIMARIO);
             setForeground(UiUtil.COLORE_ACCENTO);
             setFocusPainted(false);
-            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, 24));
+            setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, (int)(height/2)));
         }
 
         
@@ -286,12 +295,23 @@ public class UiUtil {
         return textField;
     }
     
-    public static JFormattedTextField createInputDateField(Dimension dimension) {
-        JFormattedTextField dateField = null;
+    public static JFormattedTextField createInputDateField(Dimension dimension, LocalDate date) {
+        JFormattedTextField dateField;
+        DateTimeFormatter outFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         try {
             MaskFormatter dateFormatter = new MaskFormatter("##/##/####");
             dateFormatter.setPlaceholderCharacter('_');
+
             dateField = new JFormattedTextField(dateFormatter);
+            dateField.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+            if (date == null) {
+                dateField.setValue(null); // mostra __/__/____
+            } else {
+                dateField.setText(date.format(outFmt)); // sostituisce i _ con la data
+            }
+
             dateField.setBackground(COLORE_SFONDO);
             dateField.setForeground(COLORE_TESTO1);
             dateField.setPreferredSize(dimension);
@@ -303,12 +323,13 @@ public class UiUtil {
             ));
         } catch (ParseException e) {
             e.printStackTrace();
-            // Fallback: crea un campo semplice
-            dateField = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+            dateField = new JFormattedTextField(DATE_FORMATTER);
             dateField.setPreferredSize(dimension);
             dateField.setMinimumSize(dimension);
             dateField.setMaximumSize(dimension);
+            dateField.setText(date == null ? "__/__/____" : date.format(outFmt));
         }
+
         return dateField;
     }
     
@@ -318,12 +339,13 @@ public class UiUtil {
         
         BlankPanel blankPanel = new BlankPanel(COLORE_SFONDO);
         blankPanel.add(Box.createVerticalStrut(500));
-        blankPanel.add(createInputDateField(new Dimension(200, 40)));
+        blankPanel.add(createInputDateField(new Dimension(200, 40), LocalDate.now()));
         blankPanel.add(Box.createHorizontalStrut(500));
         PopUpFrame frame = new PopUpFrame( new Dimension(400, 300));
         frame.setContent(blankPanel);
         frame.setHorizontalScrollTrue();
         frame.revalidate();     
+        frame.setVisible(true);
         
     }
 }

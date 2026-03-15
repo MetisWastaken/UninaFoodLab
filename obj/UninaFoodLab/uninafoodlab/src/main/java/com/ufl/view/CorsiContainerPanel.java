@@ -6,7 +6,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 
@@ -52,7 +51,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
     }
 
     public class CorsiPanel extends UiUtil.BlankPanel {
-        private ArrayList<CorsoPanel> corsi_panel;
+        private ArrayList<CorsoRow> corsi_rows;
         private UiUtil.CreateButton aggiungi_corso_btn;
         public CorsiPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
             super(UiUtil.TRASPARENT_COLOR);
@@ -62,17 +61,16 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
                 add(Box.createVerticalStrut(10));
                 add(aggiungi_corso_btn);
             }
-            corsi_panel = new ArrayList<>();
+            corsi_rows = new ArrayList<>();
             for(Corso corso : corsi){
-                CorsoPanel corso_panel = new CorsoPanel(corso, miei_corsi);
-                corsi_panel.add(corso_panel);
+                CorsoRow corso_row = new CorsoRow(corso, miei_corsi);
+                corsi_rows.add(corso_row);
                 add(Box.createVerticalStrut(10));
-                add(corso_panel);
-                
+                add(corso_row);
             }
         }
-        public ArrayList<CorsoPanel> getCorsiPanel(){
-            return corsi_panel;
+        public ArrayList<CorsoRow> getCorsiRows(){
+            return corsi_rows;
         }
         
         public void addAggiungiCorsoButtonListener(ActionListener listener){
@@ -85,21 +83,21 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
     
 
-    public class CorsoPanel extends UiUtil.BorderedPanel {
+    public class CorsoRow extends UiUtil.BorderedPanel {
         private static final int NOME_CORSO_FONT_SIZE = 16;
         private final static int DATE_CORSO_FONT_SIZE = 12;
         private static final int PANEL_HEIGHT = 80;
         private static final int NOME_WIDTH = 200;      
         private static final int CATEGORIA_WIDTH = 110; 
         private static final int DATE_WIDTH = 150;      
-        private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
         private Integer corso_id;
         private JButton dettagli_btn;
         private JButton modifica_btn;
         private final Corso corso;
         private final boolean mieiCorsi;
 
-        public CorsoPanel(Corso corso, boolean miei_corsi) {
+        public CorsoRow(Corso corso, boolean miei_corsi) {
             super(UiUtil.COLORE_PRIMARIO, 3, 2);
             this.corso = corso;
             this.mieiCorsi = miei_corsi;
@@ -134,8 +132,8 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             add(categoria_label, gbc);
 
             // Date (colonna 2)
-            String dataInFormattata = corso.getDataIn().format(DATE_FORMATTER);
-            String dataFinFormattata = corso.getDataFin().format(DATE_FORMATTER);
+            String dataInFormattata = corso.getDataIn().format(UiUtil.DATE_FORMATTER);
+            String dataFinFormattata = corso.getDataFin().format(UiUtil.DATE_FORMATTER);
             JLabel date_label = new JLabel(dataInFormattata+ " - " + dataFinFormattata);
             date_label.setFont(new Font(UiUtil.FONT_FAMILY, Font.PLAIN, DATE_CORSO_FONT_SIZE));
             date_label.setPreferredSize(new Dimension(DATE_WIDTH, 20));
@@ -195,8 +193,8 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         return corsi_panel;
     }
 
-    public ArrayList<CorsoPanel> getArrayCorsiPanel(){
-        return corsi_panel.getCorsiPanel();
+    public ArrayList<CorsoRow> getArrayCorsiRows(){
+        return corsi_panel.getCorsiRows();
     }
 
     public static void main(String[] args) {

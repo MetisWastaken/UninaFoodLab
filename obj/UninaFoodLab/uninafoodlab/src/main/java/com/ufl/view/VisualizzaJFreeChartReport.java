@@ -20,7 +20,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
 
     public VisualizzaJFreeChartReport(Report report) {
 
-        super(UiUtil.COLORE_SFONDO);
+        super(UiUtil.TRASPARENT_COLOR);
 
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
