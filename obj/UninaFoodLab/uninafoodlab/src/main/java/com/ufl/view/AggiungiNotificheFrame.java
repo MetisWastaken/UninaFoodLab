@@ -44,7 +44,6 @@ public class AggiungiNotificheFrame extends UiUtil.PopUpFrame {
             // Messaggio notifica
             UiUtil.BorderedPanel messaggio_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, 2, 0);
             messaggio_panel.setLayout(new BorderLayout());
-
             JLabel messaggio_label = UiUtil.infoLabel("Messaggio:", Font.PLAIN, TEXT_SIZE);
             messaggio_area = new JTextArea();
             messaggio_area.setLineWrap(true);
@@ -57,6 +56,7 @@ public class AggiungiNotificheFrame extends UiUtil.PopUpFrame {
             UiUtil.BorderedPanel messaggio_container = new UiUtil.BorderedPanel(UiUtil.TRASPARENT_COLOR, 0, 6);
             messaggio_container.setLayout(new BorderLayout());
             messaggio_container.add(messaggio_area, BorderLayout.CENTER);
+            messaggio_container.setBackground(UiUtil.COLORE_SFONDO);
 
             UiUtil.ScrollablePanel messaggio_scroll = new UiUtil.ScrollablePanel(messaggio_container);
             messaggio_scroll.setBorder(null);

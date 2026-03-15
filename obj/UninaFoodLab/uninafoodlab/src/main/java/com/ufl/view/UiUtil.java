@@ -122,7 +122,8 @@ public class UiUtil {
         public ScrollablePanel(JPanel container_panel, Color background, boolean opaqueContent) {
             super(container_panel);
 
-            getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+            // prima: SIMPLE_SCROLL_MODE
+            getViewport().setScrollMode(JViewport.BLIT_SCROLL_MODE);
             setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             setBorder(null);
@@ -319,7 +320,8 @@ public class UiUtil {
             dateField.setMaximumSize(dimension);
             dateField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(COLORE_PRIMARIO, TEXT_FIELD_BORDER_THICKNESS, true),
-                BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING_TOP, TEXT_FIELD_PADDING_LEFT, TEXT_FIELD_PADDING_BOTTOM, TEXT_FIELD_PADDING_RIGHT)
+                BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING_TOP, TEXT_FIELD_PADDING_LEFT,
+                    TEXT_FIELD_PADDING_BOTTOM, TEXT_FIELD_PADDING_RIGHT)
             ));
         } catch (ParseException e) {
             e.printStackTrace();
@@ -333,6 +335,50 @@ public class UiUtil {
         return dateField;
     }
     
+    public static JSpinner createInputNumberField(Dimension dimension, Integer default_value) {
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(
+            default_value == null ? 1 : default_value,
+            1,
+            99999,
+            1
+        );
+
+        JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.setPreferredSize(dimension);
+        spinner.setMinimumSize(dimension);
+        spinner.setMaximumSize(dimension);
+        spinner.setBackground(COLORE_SFONDO); // FIX: sfondo spinner
+
+        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spinner, "#");
+        editor.setBackground(COLORE_SFONDO);  // FIX: sfondo editor
+        spinner.setEditor(editor);
+
+        // Sfondo e testo del campo numerico
+        JFormattedTextField textField = editor.getTextField();
+        textField.setBackground(COLORE_SFONDO);
+        textField.setForeground(COLORE_TESTO1);
+        textField.setFont(new Font(FONT_FAMILY, Font.PLAIN, HINT_FONT_SIZE));
+        textField.setHorizontalAlignment(JTextField.LEFT);
+        textField.setBorder(BorderFactory.createEmptyBorder()); // FIX: rimuove bordo interno del textField
+
+        // Colore bottoni freccia su/giù
+        for (Component c : spinner.getComponents()) {
+            if (c instanceof JButton btn) {
+                btn.setBackground(COLORE_ACCENTO);
+                btn.setForeground(COLORE_TESTO1);
+                btn.setFocusPainted(false);
+                btn.setBorderPainted(false);
+            }
+        }
+
+        spinner.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(COLORE_PRIMARIO, TEXT_FIELD_BORDER_THICKNESS, true),
+            BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING_TOP, TEXT_FIELD_PADDING_LEFT,
+                TEXT_FIELD_PADDING_BOTTOM, TEXT_FIELD_PADDING_RIGHT)
+        ));
+
+        return spinner;
+    }
 
     public static void main(String[] args){
         

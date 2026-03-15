@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 import com.ufl.MainController;
 import com.ufl.model.Online;
-import com.ufl.view.AMEOnlinePanel.OnlineRow;
+import com.ufl.model.Pratica;
+
 
 
 public class ModificheController {
@@ -16,7 +17,7 @@ public class ModificheController {
     }
 
     public static void createAggiungiOnlineButtonListener(MainController main_controller) {
-        main_controller.getModificaCorsoPanel().getPoBox().getOnlinePanel().addAggiungiButtonListener(e -> {
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEOnlinePanel().addAggiungiButtonListener(e -> {
             main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta sessione online in corso!");
             main_controller.mostraAggModOnline(null);
         });
@@ -24,7 +25,7 @@ public class ModificheController {
 
     public static void createModificaOnlineButtonListener(MainController main_controller) {
 
-        main_controller.getModificaCorsoPanel().getPoBox().getOnlinePanel().getOnlinePanel().getOnlineRows().forEach(selectedRow -> {
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEOnlinePanel().getOnlinePanel().getOnlineRows().forEach(selectedRow -> {
             selectedRow.addModificaButtonListener(e -> {
                 main_controller.getMainframe().showInfoLog("SUCC", "Caricamento modifica sessione online in corso!");
                 main_controller.mostraAggModOnline(selectedRow.getSessioneOnline());
@@ -35,7 +36,7 @@ public class ModificheController {
 
     public static void createEliminaOnlineButtonListener(MainController main_controller) {
 
-        main_controller.getModificaCorsoPanel().getPoBox().getOnlinePanel().getOnlinePanel().getOnlineRows().forEach(selectedRow -> {
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEOnlinePanel().getOnlinePanel().getOnlineRows().forEach(selectedRow -> {
             selectedRow.addEliminaButtonListener(e -> {
                 main_controller.getMainframe().showInfoLog("SUCC", "Caricamento eliminazione sessione online in corso!");
                 selectedRow.getSessioneOnline().delete();
@@ -44,8 +45,44 @@ public class ModificheController {
         });
     }
 
+    public static void createAggiungiPraticaButtonListener(MainController main_controller) {
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEPratichePanel().addAggiungiButtonListener(e -> {
+            main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta sessione pratica in corso!");
+            main_controller.mostraAggModPratica(null);
+        });
+    }
 
+    public static void createModificaPraticaButtonListener(MainController main_controller) {
 
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEPratichePanel().getPraticaPanel().getPraticaRows().forEach(selectedRow -> {
+            selectedRow.addModificaButtonListener(e -> {
+                main_controller.getMainframe().showInfoLog("SUCC", "Caricamento modifica sessione pratica in corso!");
+                main_controller.mostraAggModPratica(selectedRow.getSessionePratica());
+            });
+        });
+
+    }
+
+    public static void createEliminaPraticaButtonListener(MainController main_controller) {
+
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEPratichePanel().getPraticaPanel().getPraticaRows().forEach(selectedRow -> {
+            selectedRow.addEliminaButtonListener(e -> {
+                main_controller.getMainframe().showInfoLog("SUCC", "Caricamento eliminazione sessione pratica in corso!");
+                selectedRow.getSessionePratica().delete();
+                main_controller.mostraModificaCorso();;
+            });
+        });
+    }
+
+    public static void createAggRicettaPraticaButtonListener(MainController main_controller) {
+
+        main_controller.getModificaCorsoPanel().getPoBox().getAMEPratichePanel().getPraticaPanel().getPraticaRows().forEach(selectedRow -> {
+            selectedRow.addAggRicettaButtonListener(e -> {
+                main_controller.getMainframe().showInfoLog("SUCC", "Caricamento aggiunta ricette alla pratica in corso!");
+                main_controller.mostraAggRicettaPratica(selectedRow.getSessionePratica());
+            });
+        });
+    }
 
     public static void createAMOnlineConfermaButtonListener(MainController main_controller) {
         main_controller.getAMOnlineFrame().addConfermaListener(e -> {
@@ -82,4 +119,43 @@ public class ModificheController {
             }
         });
     }
+
+    public static void createAMPraticaConfermaButtonListener(MainController main_controller) {
+        main_controller.getAMPraticaFrame().addConfermaListener(e -> {
+            LocalDate giorno_sessione = main_controller.getAMPraticaFrame().getGiornoSessione();
+            String aula = main_controller.getAMPraticaFrame().getAula();
+            int posti_totali = main_controller.getAMPraticaFrame().getPostiTotali();
+
+            if(aula.isEmpty() || giorno_sessione == null || posti_totali <= 0) {
+                main_controller.getMainframe().showInfoLog("ERR", "Tutti i campi devono essere compilati!");
+                return;
+            }
+            Pratica vecchia_sessione_pratica= main_controller.getAMPraticaFrame().getPraticaOriginale();
+            if(vecchia_sessione_pratica == null) {
+                // Aggiunta
+                Pratica nuova_sessione_pratica = new Pratica(main_controller.getCorsoAttivo().getId(), giorno_sessione, aula, posti_totali);
+                if(nuova_sessione_pratica.insert()) {
+                    main_controller.getMainframe().showInfoLog("SUCC", "Sessione pratica aggiunta con successo!");
+                    main_controller.getAMPraticaFrame().pulisciCampi();
+                    main_controller.getAMPraticaFrame().setVisible(false);
+                    main_controller.mostraModificaCorso();
+                } else {
+                    main_controller.getMainframe().showInfoLog("ERR", "Errore durante l'aggiunta della sessione pratica!");
+                }
+            } else {
+                // Modifica
+                Pratica nuova_sessione_pratica = new Pratica(main_controller.getCorsoAttivo().getId(), giorno_sessione, aula, posti_totali);
+                if(vecchia_sessione_pratica.update(nuova_sessione_pratica)) {
+                    main_controller.getMainframe().showInfoLog("SUCC", "Sessione pratica modificata con successo!");
+                    main_controller.getAMPraticaFrame().pulisciCampi();
+                    main_controller.getAMPraticaFrame().setVisible(false);
+                    main_controller.mostraModificaCorso();
+                } else {
+                    main_controller.getMainframe().showInfoLog("ERR", "Errore durante la modifica della sessione pratica!");
+                }
+            }
+        });
+    }
+
+
 }

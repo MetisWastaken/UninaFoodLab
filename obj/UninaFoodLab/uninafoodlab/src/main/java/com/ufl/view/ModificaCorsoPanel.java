@@ -65,8 +65,8 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
         private static final int SIDE_BOX_H = 350;
         private static final int CENTER_GAP = 20;
         
-        private UiUtil.BorderedPanel pratiche_panel;
-        private AMEOnlinePanel online_panel;
+        private AMEPraticaPanel ame_pratiche_panel;
+        private AMEOnlinePanel ame_online_panel;
 
         public POBox(List<Pratica> pratiche, List<Online> online) {
             super(UiUtil.TRASPARENT_COLOR);
@@ -83,11 +83,11 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
             gbc.fill = GridBagConstraints.NONE;
             gbc.weightx = 0;
 
-            this.pratiche_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_ACCENTO, 3, 0);
-            pratiche_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
+            this.ame_pratiche_panel = new AMEPraticaPanel(pratiche);
+            ame_pratiche_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
 
-            this.online_panel = new AMEOnlinePanel(online);
-            online_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
+            this.ame_online_panel = new AMEOnlinePanel(online);
+            ame_online_panel.setPreferredSize(new Dimension(SIDE_BOX_W, SIDE_BOX_H));
 
             JLabel praticheLabel = UiUtil.infoLabel("Sessioni Pratiche", Font.BOLD, SUBTITLE_FONT_SIZE);
             JLabel onlineLabel = UiUtil.infoLabel("Sessioni Online", Font.BOLD, SUBTITLE_FONT_SIZE);
@@ -95,18 +95,18 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
             UiUtil.BlankPanel leftColumn = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
             leftColumn.setLayout(new BoxLayout(leftColumn, BoxLayout.Y_AXIS));
             praticheLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            pratiche_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            ame_pratiche_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
             leftColumn.add(praticheLabel);
             leftColumn.add(Box.createVerticalStrut(5));
-            leftColumn.add(pratiche_panel);
+            leftColumn.add(ame_pratiche_panel);
 
             UiUtil.BlankPanel rightColumn = new UiUtil.BlankPanel(UiUtil.TRASPARENT_COLOR);
             rightColumn.setLayout(new BoxLayout(rightColumn, BoxLayout.Y_AXIS));
             onlineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            online_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            ame_online_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
             rightColumn.add(onlineLabel);
             rightColumn.add(Box.createVerticalStrut(5));
-            rightColumn.add(online_panel);
+            rightColumn.add(ame_online_panel);
 
             JPanel gap = new JPanel();
             gap.setOpaque(false);
@@ -124,8 +124,12 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
             add(inner);
         }
 
-        public AMEOnlinePanel getOnlinePanel() {
-            return online_panel;
+        public AMEPraticaPanel getAMEPratichePanel() {
+            return ame_pratiche_panel;
+        }
+
+        public AMEOnlinePanel getAMEOnlinePanel() {
+            return ame_online_panel;
         }
     }
         

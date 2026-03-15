@@ -7,24 +7,25 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ufl.model.Online;
+
 import com.ufl.dao.CorsoDAO;
 import com.ufl.model.Corso;
-import com.ufl.model.Online;
-import com.ufl.view.UiUtil.CreateButton;
 
 public class AMEOnlinePanel extends UiUtil.BorderedPanel {
     private static final int FONT_SIZE = 12;
 
-    private CreateButton aggiungi_online_btn;
+    private UiUtil.CreateButton aggiungi_online_btn;
     private OnlinePanel online_panel;
  
 
     public AMEOnlinePanel(List<Online> sessioni_online) {
         super(UiUtil.COLORE_PRIMARIO, 3, 0);
         setBackground(UiUtil.TRASPARENT_COLOR);
+        setOpaque(false);
         setLayout(new BorderLayout(0, 10)); 
 
-        this.aggiungi_online_btn = new CreateButton("Aggiungi Sessione", 35);
+        this.aggiungi_online_btn = new UiUtil.CreateButton("Aggiungi Sessione", 35);
         this.online_panel = new OnlinePanel(sessioni_online);
 
         add(aggiungi_online_btn, BorderLayout.NORTH); 

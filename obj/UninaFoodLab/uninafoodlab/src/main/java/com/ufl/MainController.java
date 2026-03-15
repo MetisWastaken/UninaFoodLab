@@ -21,8 +21,7 @@ import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
 import com.ufl.view.ModificaCorsoPanel;
 import com.ufl.view.AMOnlineFrame;
-
-
+import com.ufl.view.AMPraticaFrame;
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
 
@@ -40,6 +39,7 @@ public class MainController {
     private AggiungiNotificheFrame aggiungi_notifiche_frame;
     private ModificaCorsoPanel modifica_corso_panel;
     private AMOnlineFrame am_online_frame;
+    private AMPraticaFrame am_pratica_frame;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -83,6 +83,11 @@ public class MainController {
     public AMOnlineFrame getAMOnlineFrame() {
         return am_online_frame;
     }
+
+    public AMPraticaFrame getAMPraticaFrame() {
+        return am_pratica_frame; 
+    }
+
 //----------------------------------------------------
     public void setChefAttivo(Chef chef) {
         this.chef_attivo = chef;
@@ -167,7 +172,10 @@ public class MainController {
         ModificheController.createModificaOnlineButtonListener(this);
         ModificheController.createEliminaOnlineButtonListener(this);
         // Per Pratica
-
+        ModificheController.createAggiungiPraticaButtonListener(this);
+        ModificheController.createModificaPraticaButtonListener(this);
+        ModificheController.createEliminaPraticaButtonListener(this);
+        ModificheController.createAggRicettaPraticaButtonListener(this);
     }
 
     public void costruisciAMOnlineFrame(Online online) {
@@ -177,6 +185,15 @@ public class MainController {
         am_online_frame.setAMOnlineFrame(online);
         ModificheController.createAMOnlineConfermaButtonListener(this);
         am_online_frame.setVisible(true);
+    }
+
+    public void costruisciAMPraticaFrame(Pratica pratica) {
+        if(this.am_pratica_frame == null) {
+            this.am_pratica_frame = new AMPraticaFrame();
+        }
+        am_pratica_frame.setAMPraticaFrame(pratica);
+        ModificheController.createAMPraticaConfermaButtonListener(this);
+        am_pratica_frame.setVisible(true);
     }
 
 //----------------------------------------------
@@ -252,6 +269,16 @@ public class MainController {
     public void mostraAggModOnline(Online online) {
         System.out.println((online == null ? "Aggiungi" : "Modifica") + " sessione online");
         costruisciAMOnlineFrame(online);
+    }
+
+    public void mostraAggModPratica(Pratica pratica) {
+        System.out.println((pratica == null ? "Aggiungi" : "Modifica") + " sessione pratica");
+        costruisciAMPraticaFrame(pratica);
+    }
+
+    public void mostraAggRicettaPratica(Pratica pratica) {
+        System.out.println("Aggiungi ricette alla pratica del " + UiUtil.DATE_FORMATTER.format(pratica.getGiornoSessione()));
+        costruisciAMPraticaFrame(pratica);
     }
 
     public void mostraReport() {

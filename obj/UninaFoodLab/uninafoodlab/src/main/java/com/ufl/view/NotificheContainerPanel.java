@@ -73,7 +73,7 @@ public class NotificheContainerPanel extends UiUtil.BlankPanel {
             this.notifica = notifica;
 
             setLayout(new GridBagLayout());
-            setBackground(UiUtil.COLORE_SFONDO);
+            setBackground(UiUtil.TRASPARENT_COLOR);
             setAlignmentX(Component.LEFT_ALIGNMENT);
             setMaximumSize(new Dimension(Integer.MAX_VALUE, ROW_HEIGHT));
             setPreferredSize(new Dimension(getPreferredSize().width, ROW_HEIGHT));
