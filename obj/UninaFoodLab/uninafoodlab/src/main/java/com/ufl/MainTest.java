@@ -36,7 +36,8 @@ public class MainTest {
             pratica.getIngredientiPratica().forEach(ingrediente -> System.out.println("- " + ingrediente.getNome() + " (" + ingrediente.getQuantita() + " " + ingrediente.getUnitMisura() + ")"));
             System.out.println("Ricette associate alla pratica:");
             pratica.getRicette().forEach(ricetta -> System.out.println("- " + ricetta.getNome()));
-            //pratica.aggiungiRicetta(RicettaDAO.get(2));
+            System.out.println("Tutte le ricette disponibili:");
+            pratica.getAllRicette().forEach(ricetta -> System.out.println("- " + ricetta.getNome()));
         } else {
             System.out.println("Errore nella connessione al database.");
         }
@@ -155,12 +156,12 @@ public class MainTest {
     }
     
     public static void main(String[] args) {
-        //testPratica();
+        testPratica();
         //testOnline();
         //testRicetta();
         //testChef();
         //testCorso();
-        testNotifica();
+        //testNotifica();
 
 
         //testLoginPage();

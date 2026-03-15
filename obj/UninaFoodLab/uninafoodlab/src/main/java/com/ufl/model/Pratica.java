@@ -35,6 +35,10 @@ public class Pratica extends Sessione {
         return PraticaDAO.getRicette(this);
     }
 
+    public List<Ricetta> getAllRicette(){
+        return PraticaDAO.getAllRicette();
+    }
+
     public int getNStudentiIscritti() {
         return PraticaDAO.getNStudentiIscritti(this);
     }
@@ -50,6 +54,11 @@ public class Pratica extends Sessione {
 
     // ---- METODI ----
 
+    public boolean aggiungiRicetta(Ricetta ricetta) {
+        return PraticaDAO.aggiungiRicetta(this, ricetta);
+    }
+
+
     public boolean insert() {
         return PraticaDAO.insert(this);
     }
@@ -62,7 +71,6 @@ public class Pratica extends Sessione {
         return PraticaDAO.delete(this.getIdSessione());
     }
 
-    public boolean aggiungiRicetta(Ricetta ricetta) {
-        return PraticaDAO.aggiungiRicetta(this, ricetta);
-    }
+    
+
 }

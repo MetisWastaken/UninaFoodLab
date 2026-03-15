@@ -305,7 +305,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="JUO4E5IXj7n8X4aSbpAK-36" parent="1" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Pratica" vertex="1">
-          <mxGeometry height="462" width="251" x="410" y="1360" as="geometry" />
+          <mxGeometry height="488" width="251" x="410" y="1360" as="geometry" />
         </mxCell>
         <mxCell id="JUO4E5IXj7n8X4aSbpAK-37" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- aula: String" vertex="1">
           <mxGeometry height="26" width="251" y="26" as="geometry" />
@@ -331,26 +331,29 @@
         <mxCell id="ItqOigTbeOmum5XjhkME-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getRicette(): ArrayList&amp;lt;Ricetta&amp;gt;" vertex="1">
           <mxGeometry height="26" width="251" y="254" as="geometry" />
         </mxCell>
-        <mxCell id="VQVDxTv16nPPMSpm3FqP-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getNStudentiIscritti(): int" vertex="1">
+        <mxCell id="daYxmsK3FyuaRFmbnRgr-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getAllRicette(): ArrayList&amp;lt;Ricetta&amp;gt;" vertex="1">
           <mxGeometry height="26" width="251" y="280" as="geometry" />
         </mxCell>
-        <mxCell id="4LxSUTactRfEjEU8kUls-4" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getStudentiIscritti(): String" vertex="1">
+        <mxCell id="VQVDxTv16nPPMSpm3FqP-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getNStudentiIscritti(): int" vertex="1">
           <mxGeometry height="26" width="251" y="306" as="geometry" />
         </mxCell>
-        <mxCell id="VQVDxTv16nPPMSpm3FqP-2" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIngredientiPratica(): List&amp;lt;Ingrediente&amp;gt;" vertex="1">
+        <mxCell id="4LxSUTactRfEjEU8kUls-4" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getStudentiIscritti(): String" vertex="1">
           <mxGeometry height="26" width="251" y="332" as="geometry" />
         </mxCell>
-        <mxCell id="JCST15fLJeTcqeiJ3XtF-8" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ insert(): boolean" vertex="1">
+        <mxCell id="VQVDxTv16nPPMSpm3FqP-2" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIngredientiPratica(): List&amp;lt;Ingrediente&amp;gt;" vertex="1">
           <mxGeometry height="26" width="251" y="358" as="geometry" />
         </mxCell>
-        <mxCell id="JCST15fLJeTcqeiJ3XtF-9" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ update(Online online): boolean" vertex="1">
+        <mxCell id="JCST15fLJeTcqeiJ3XtF-8" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ insert(): boolean" vertex="1">
           <mxGeometry height="26" width="251" y="384" as="geometry" />
         </mxCell>
-        <mxCell id="JCST15fLJeTcqeiJ3XtF-10" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ delete(): boolean" vertex="1">
+        <mxCell id="JCST15fLJeTcqeiJ3XtF-9" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ update(Online online): boolean" vertex="1">
           <mxGeometry height="26" width="251" y="410" as="geometry" />
         </mxCell>
-        <mxCell id="X0-pQtcoNrwzIDyqjzDP-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ aggiungiicetta(Ricetta ricetta) : boolean" vertex="1">
+        <mxCell id="JCST15fLJeTcqeiJ3XtF-10" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ delete(): boolean" vertex="1">
           <mxGeometry height="26" width="251" y="436" as="geometry" />
+        </mxCell>
+        <mxCell id="X0-pQtcoNrwzIDyqjzDP-1" parent="JUO4E5IXj7n8X4aSbpAK-36" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ aggiungiicetta(Ricetta ricetta) : boolean" vertex="1">
+          <mxGeometry height="26" width="251" y="462" as="geometry" />
         </mxCell>
         <mxCell id="JUO4E5IXj7n8X4aSbpAK-43" edge="1" parent="1" source="JUO4E5IXj7n8X4aSbpAK-46" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;startArrow=none;startFill=0;" target="JUO4E5IXj7n8X4aSbpAK-67" value="">
           <mxGeometry relative="1" as="geometry">
@@ -608,7 +611,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="zm07d2_IBClaOcFRHgl8" name="dao">
-    <mxGraphModel dx="701" dy="490" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="1892" dy="1324" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -707,7 +710,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WXIEgsgQzTcrv4qVOCVf-10" parent="1" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="PraticaDAO" vertex="1">
-          <mxGeometry height="294" width="360" x="1309" y="1333" as="geometry" />
+          <mxGeometry height="320" width="360" x="1309" y="1333" as="geometry" />
         </mxCell>
         <mxCell id="WXIEgsgQzTcrv4qVOCVf-11" parent="WXIEgsgQzTcrv4qVOCVf-10" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="360" y="26" as="geometry" />
@@ -730,17 +733,20 @@
         <mxCell id="G2WPrWFuiN_M9oi0To9l-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getRicette(Pratica pratica):&amp;nbsp;&amp;nbsp;ArrayList&amp;lt;Ricetta&amp;gt;" vertex="1">
           <mxGeometry height="26" width="360" y="164" as="geometry" />
         </mxCell>
-        <mxCell id="FFy1e2sj-CxmQIRvZovP-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getNStudentiIscritti(Pratica pratica): int" vertex="1">
+        <mxCell id="Hv-txQxl9svBaugF25yU-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getAllRicette(): ArrayList&amp;lt;Ricetta&amp;gt;" vertex="1">
           <mxGeometry height="26" width="360" y="190" as="geometry" />
         </mxCell>
-        <mxCell id="H1G368XdOMaz19vVTS64-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getStudentiIscritti(Pratica pratica): String" vertex="1">
+        <mxCell id="FFy1e2sj-CxmQIRvZovP-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getNStudentiIscritti(Pratica pratica): int" vertex="1">
           <mxGeometry height="26" width="360" y="216" as="geometry" />
         </mxCell>
-        <mxCell id="FFy1e2sj-CxmQIRvZovP-2" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIngredientiPratica(Pratica pratica): List&amp;lt;Ingrediente&amp;gt;" vertex="1">
+        <mxCell id="H1G368XdOMaz19vVTS64-1" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getStudentiIscritti(Pratica pratica): String" vertex="1">
           <mxGeometry height="26" width="360" y="242" as="geometry" />
         </mxCell>
-        <mxCell id="YzInqR85g_rjwABvZuKv-3" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ aggiungiRicetta(Pratica pratica, Ricetta ricetta) : boolean" vertex="1">
+        <mxCell id="FFy1e2sj-CxmQIRvZovP-2" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getIngredientiPratica(Pratica pratica): List&amp;lt;Ingrediente&amp;gt;" vertex="1">
           <mxGeometry height="26" width="360" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="YzInqR85g_rjwABvZuKv-3" parent="WXIEgsgQzTcrv4qVOCVf-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ aggiungiRicetta(Pratica pratica, Ricetta ricetta) : boolean" vertex="1">
+          <mxGeometry height="26" width="360" y="294" as="geometry" />
         </mxCell>
         <mxCell id="pYHw3BNLLNPOtac5_4_N-9" edge="1" parent="1" source="WXIEgsgQzTcrv4qVOCVf-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="VIO5rjuDrru1g4xlwjK5-6">
           <mxGeometry relative="1" as="geometry">
