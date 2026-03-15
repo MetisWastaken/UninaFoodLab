@@ -144,6 +144,25 @@ public class PraticaDAO extends ConnessioneDAO {
         return ricette; 
     }
 
+    public static List<Ricetta> getAllRicette(){
+        String query = "SELECT id_ricetta FROM ricetta";
+        List<Ricetta> ricette = new ArrayList<>();
+        try{
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Integer id_ricetta = rs.getInt("id_ricetta");
+                Ricetta ricetta = RicettaDAO.get(id_ricetta);
+                if(ricetta != null){
+                    ricette.add(ricetta);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return ricette;
+    }
+
     // ---- METODI ----
 
     public static boolean insert(Pratica pratica) {
