@@ -91,7 +91,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         private static final int CATEGORIA_WIDTH = 110; 
         private static final int DATE_WIDTH = 150;      
         
-        private Integer corso_id;
         private JButton dettagli_btn;
         private JButton modifica_btn;
         private final Corso corso;
@@ -101,7 +100,6 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             super(UiUtil.COLORE_PRIMARIO, 3, 2);
             this.corso = corso;
             this.mieiCorsi = miei_corsi;
-            this.corso_id = corso.getId();
 
             setLayout(new GridBagLayout());
             setBackground(UiUtil.TRASPARENT_COLOR);
@@ -168,8 +166,8 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             modifica_btn.setEnabled(mieiCorsi && corsoNonScaduto);
         }
 
-        public Integer getCorso_id() {
-            return corso_id;
+        public Corso getCorso() {
+            return corso;
         }
 
         public void addDettagliButtonListener(ActionListener listener){
