@@ -25,6 +25,7 @@ import com.ufl.view.AMOnlineFrame;
 import com.ufl.view.AMPraticaFrame;
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
+import com.ufl.model.Report;
 
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
@@ -42,7 +43,7 @@ public class MainController {
     private AMOnlineFrame am_online_frame;
     private AMPraticaFrame am_pratica_frame;
     private AggiungiRicetteFrame aggiungi_ricette_frame;
-    //TODO: inseirsci private VisualizzaJFreeChartReport visualizza_report;
+    private VisualizzaJFreeChartReport visualizza_report;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -211,8 +212,16 @@ public class MainController {
         aggiungi_ricette_frame.setVisible(true);
     }
 
-    //TODO: inseirsci public costruisciJFreeChartReport visualizza_report;
-
+    public void costruisciJFreeChartReport(){
+        chef_attivo.recResoconto();
+        if(chef_attivo.getResoconto() == null){
+            visualizza_report = null;
+            return;
+        }
+        chef_attivo.getResoconto().recNumeroRicettePerPratiche();
+        chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
+        visualizza_report = new VisualizzaJFreeChartReport(chef_attivo.getResoconto());
+    }
 //----------------------------------------------
     public MainController() {
         this.main_frame = new MainFrame();
@@ -220,8 +229,6 @@ public class MainController {
         main_frame.setContent(login_page);
         
     }
-
-    
 //-----------------------------------------------
     public void logAvvenuto() {
         System.out.println("Login effettuato con successo!");
@@ -301,15 +308,12 @@ public class MainController {
     public void mostraReport() {
         System.out.println("Report");
 
-        chef_attivo.recResoconto();
-        if(chef_attivo.getResoconto() == null){
+        costruisciJFreeChartReport();
+        if (visualizza_report == null) {
             homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
             return;
         }
-        chef_attivo.getResoconto().recNumeroRicettePerPratiche();
-        chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
-
-        homepage_container.setContent(new VisualizzaJFreeChartReport(chef_attivo.getResoconto()));
+        homepage_container.setContent(visualizza_report);
     }
 
     public static void main(String[] args) {
