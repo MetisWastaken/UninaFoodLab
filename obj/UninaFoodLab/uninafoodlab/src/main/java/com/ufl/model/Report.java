@@ -9,9 +9,9 @@ public class Report {
     private int numero_sessioni_online;
     private int numero_sessioni_pratiche;
     private Map<Pratica, Integer> numero_ricette_per_pratica = new HashMap<>();
-    private double media_ricette;
-    private int max_ricette;
-    private int min_ricette;
+    private double media_ricette = 0.0;
+    private int max_ricette = 0;
+    private int min_ricette = 0;
 
 
     public Report(String username_chef, int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche) {
@@ -65,13 +65,6 @@ public class Report {
 
     // ---- METODI ----
     public void calcolaStatisticheRicettePratiche() {
-        if (numero_ricette_per_pratica == null || numero_ricette_per_pratica.isEmpty()) {
-            media_ricette = 0.0;
-            min_ricette = 0;
-            max_ricette = 0;
-            return;
-        }
-        
         int somma = 0;
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;

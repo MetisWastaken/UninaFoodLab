@@ -11,7 +11,8 @@ import com.ufl.controller.HomepageController;
 
 import com.ufl.view.MainFrame;
 import com.ufl.view.NotificheContainerPanel;
-import com.ufl.view.UiUtil;
+
+
 import com.ufl.view.VisualizzaJFreeChartReport;
 import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
@@ -23,14 +24,16 @@ import com.ufl.view.DettagliCorsoPanel;
 import com.ufl.view.ModificaCorsoPanel;
 import com.ufl.view.AMOnlineFrame;
 import com.ufl.view.AMPraticaFrame;
+
 import com.ufl.model.Chef;
 import com.ufl.model.Corso;
-import com.ufl.model.Report;
+
 
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 
 public class MainController {
+    
     private MainFrame main_frame;
     private LoginPage login_page;
     private HomepageContainer homepage_container;
@@ -91,6 +94,7 @@ public class MainController {
     public AMPraticaFrame getAMPraticaFrame() {
         return am_pratica_frame; 
     }
+
     public AggiungiRicetteFrame getAggiungiRicetteFrame() {
         return aggiungi_ricette_frame; 
     }
@@ -110,68 +114,68 @@ public class MainController {
     public Corso getCorsoAttivo() {
         return corso_attivo;
     }
-//---------------------------------------------
 
-    public void costruisciLogIn(){
+//----------------------------------------------
+    public MainController() {
+        this.main_frame = new MainFrame();
+
         this.login_page = new LoginPage();
         LoginController.createLoginListener(this);
-    }
 
-    public void costruisciHomepage(){
+        main_frame.setContent(login_page);
+        
+    }
+//-----------------------------------------------
+    public void logAvvenuto() {
         this.homepage_container = new HomepageContainer();
         HomepageController.createHomepageExitListener(this);
         HomepageController.createMieiCorsiListener(this);
         HomepageController.createAltriCorsiListener(this);
         HomepageController.createNotificheListener(this);
         HomepageController.createReportListener(this);
+
+        main_frame.setContent(homepage_container);
+        mostraMieiCorsi();
     }
 
-    public void costruisciMieiCorsi(String filtro_categoria){
+    public void logOutAvvenuto() {
+        main_frame.setContent(login_page); 
+    }
+
+    public void mostraMieiCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(true, chef_attivo.getCorsi(true, filtro_categoria));
         CorsiController.createMCSearchCatButtonListener(this);
         CorsiController.createDettagliButtonListener(this);
         CorsiController.createModificaButtonListener(this);
         CorsiController.createAggiungiCorsoButtonListener(this);
+
+        homepage_container.setContent(corsi_container_panel);
     }
 
-    public void costruisciAltriCorsi(String filtro_categoria){
+    public void mostraMieiCorsi(){
+        mostraMieiCorsi("");
+    }
+
+    public void mostraAltriCorsi(String filtro_categoria){
         this.corsi_container_panel = new CorsiContainerPanel(false, chef_attivo.getCorsi(false, filtro_categoria));
         CorsiController.createACSearchCatButtonListener(this);
         CorsiController.createDettagliButtonListener(this);
+
+        homepage_container.setContent(corsi_container_panel);
     }
 
-    public void costruisciAggiungiCorso(){
-        if(this.aggiungi_corso_frame == null) {
-            this.aggiungi_corso_frame = new AggiungiCorsoFrame();
-            CorsiController.createAggiungiCorsoListener(this);
-        }
-        aggiungi_corso_frame.setVisible(true);
+    public void mostraAltriCorsi(){
+        mostraAltriCorsi("");
     }
 
-    public void costruisciDettagliCorso(){
+    public void mostraDettagliCorso(){
         corso_attivo.recChef();
         this.dettagli_corso_panel = new DettagliCorsoPanel(corso_attivo);
-        
+
+        homepage_container.setContent(dettagli_corso_panel);
     }
 
-    public void costruisciNotificheContainer(){
-        this.notifiche_container_panel = new NotificheContainerPanel(chef_attivo.getNotifiche());
-        NotificheController.createAggiungiNotificaButtonListener(this);
-        NotificheController.createEliminaNotificaButtonListener(this);
-        
-    }
-
-    public void costruisciAggiungiNotifica(String a_chi_si_riferisce){
-        if(this.aggiungi_notifiche_frame == null) {
-            this.aggiungi_notifiche_frame = new AggiungiNotificheFrame();
-            NotificheController.createAggiungiNotificaListener(this);
-        }
-        
-        aggiungi_notifiche_frame.inserisciTesto(a_chi_si_riferisce);
-        aggiungi_notifiche_frame.setVisible(true);
-    }
-
-    public void costruisciModificaCorso(){
+    public void mostraModificaCorso(){
         this.modifica_corso_panel = new ModificaCorsoPanel(corso_attivo);
         ModificheController.createAggiungiNotificaButtonListener(this);
         // Per Online
@@ -183,136 +187,74 @@ public class MainController {
         ModificheController.createModificaPraticaButtonListener(this);
         ModificheController.createEliminaPraticaButtonListener(this);
         ModificheController.createAggRicettaPraticaButtonListener(this);
+
+        homepage_container.setContent(modifica_corso_panel);
     }
 
-    public void costruisciAMOnlineFrame(Online online) {
+    public void mostraAggiungiCorso(){
+        if(this.aggiungi_corso_frame == null) {
+            this.aggiungi_corso_frame = new AggiungiCorsoFrame();
+            CorsiController.createAggiungiCorsoListener(this);
+        }
+        aggiungi_corso_frame.setVisible(true);
+    }
+
+    public void mostraNotifiche(){
+        this.notifiche_container_panel = new NotificheContainerPanel(chef_attivo.getNotifiche());
+        NotificheController.createAggiungiNotificaButtonListener(this);
+        NotificheController.createEliminaNotificaButtonListener(this);
+
+        homepage_container.setContent(this.notifiche_container_panel);
+    }
+
+    public void mostraAggiungiNotifica(){
+        if(this.aggiungi_notifiche_frame == null) {
+            this.aggiungi_notifiche_frame = new AggiungiNotificheFrame();
+            NotificheController.createAggiungiNotificaListener(this);
+        }
+        
+        aggiungi_notifiche_frame.inserisciTesto(this.corso_attivo != null ? "ai partecipanti di/del " + corso_attivo.getNome() : "a tutti");
+        aggiungi_notifiche_frame.setVisible(true);
+    }
+
+    public void mostraAggModOnline(Online online) {
         if(this.am_online_frame == null) {
             this.am_online_frame = new AMOnlineFrame();
         }
+
         am_online_frame.setAMOnlineFrame(online);
         ModificheController.createAMOnlineConfermaButtonListener(this);
         am_online_frame.setVisible(true);
     }
 
-    public void costruisciAMPraticaFrame(Pratica pratica) {
+    public void mostraAggModPratica(Pratica pratica) {
         if(this.am_pratica_frame == null) {
             this.am_pratica_frame = new AMPraticaFrame();
         }
+
         am_pratica_frame.setAMPraticaFrame(pratica);
         ModificheController.createAMPraticaConfermaButtonListener(this);
         am_pratica_frame.setVisible(true);
     }
 
-    public void costruisciAggiungiRicetteFrame(Pratica pratica) {
+    public void mostraAggRicettaPratica(Pratica pratica) {
         if(this.aggiungi_ricette_frame == null) {
             this.aggiungi_ricette_frame = new AggiungiRicetteFrame();
         }
+
         aggiungi_ricette_frame.setAggiungiRicetteFrame(pratica);
         ModificheController.createRicettaRowListener(this);
         aggiungi_ricette_frame.setVisible(true);
     }
 
-    public void costruisciJFreeChartReport(){
+    public void mostraReport() {
         chef_attivo.recResoconto();
-        if(chef_attivo.getResoconto() == null){
-            visualizza_report = null;
-            return;
-        }
+
         chef_attivo.getResoconto().recNumeroRicettePerPratiche();
         chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
+
         visualizza_report = new VisualizzaJFreeChartReport(chef_attivo.getResoconto());
-    }
-//----------------------------------------------
-    public MainController() {
-        this.main_frame = new MainFrame();
-        costruisciLogIn();
-        main_frame.setContent(login_page);
-        
-    }
-//-----------------------------------------------
-    public void logAvvenuto() {
-        System.out.println("Login effettuato con successo!");
-        costruisciHomepage();
-        main_frame.setContent(homepage_container);
-        mostraMieiCorsi();
-    }
 
-    public void logOutAvvenuto() {
-        System.out.println("Logout effettuato con successo!");
-        main_frame.setContent(login_page); 
-    }
-
-    public void mostraMieiCorsi(String filtro_categoria){
-        System.out.println("I miei corsi filtrati per categoria: " + filtro_categoria);
-        costruisciMieiCorsi(filtro_categoria);
-        homepage_container.setContent(corsi_container_panel);
-    }
-
-    public void mostraMieiCorsi(){
-        mostraMieiCorsi("");
-    }
-
-    public void mostraAltriCorsi(String filtro_categoria){
-        System.out.println("Altri corsi filtrati per categoria: " + filtro_categoria);
-        costruisciAltriCorsi(filtro_categoria);
-        homepage_container.setContent(corsi_container_panel);
-    }
-
-    public void mostraAltriCorsi(){
-        mostraAltriCorsi("");
-    }
-
-    public void mostraDettagliCorso(){
-        System.out.println("Dettagli corso: " + corso_attivo.getNome());
-        costruisciDettagliCorso();
-        homepage_container.setContent(dettagli_corso_panel);
-    }
-
-    public void mostraModificaCorso(){
-        System.out.println("Modifica corso: " + corso_attivo.getNome());
-        costruisciModificaCorso();
-        homepage_container.setContent(modifica_corso_panel);
-    }
-
-    public void mostraAggiungiCorso(){
-        System.out.println("Aggiungi corso");
-        costruisciAggiungiCorso();
-    }
-
-    public void mostraNotifiche(){
-        System.out.println("Notifiche");
-        costruisciNotificheContainer();
-        homepage_container.setContent(this.notifiche_container_panel);
-    }
-
-    public void mostraAggiungiNotifica(){
-        System.out.println("Aggiungi notifica");
-        costruisciAggiungiNotifica(this.corso_attivo != null ? "ai partecipanti di/del " + corso_attivo.getNome() : "a tutti");
-    }
-
-    public void mostraAggModOnline(Online online) {
-        System.out.println((online == null ? "Aggiungi" : "Modifica") + " sessione online");
-        costruisciAMOnlineFrame(online);
-    }
-
-    public void mostraAggModPratica(Pratica pratica) {
-        System.out.println((pratica == null ? "Aggiungi" : "Modifica") + " sessione pratica");
-        costruisciAMPraticaFrame(pratica);
-    }
-
-    public void mostraAggRicettaPratica(Pratica pratica) {
-        System.out.println("Aggiungi ricette alla pratica del " + UiUtil.DATE_FORMATTER.format(pratica.getGiornoSessione()));
-        costruisciAggiungiRicetteFrame(pratica);
-    }
-
-    public void mostraReport() {
-        System.out.println("Report");
-
-        costruisciJFreeChartReport();
-        if (visualizza_report == null) {
-            homepage_container.setContent(new UiUtil.BlankPanel(UiUtil.COLORE_SFONDO));
-            return;
-        }
         homepage_container.setContent(visualizza_report);
     }
 
