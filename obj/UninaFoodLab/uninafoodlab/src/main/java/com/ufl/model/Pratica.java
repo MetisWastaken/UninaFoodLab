@@ -9,7 +9,6 @@ import com.ufl.dao.PraticaDAO;
 public class Pratica extends Sessione {
     private String aula;
     private int posti_totali;
-    private List<Ricetta> ricette = null;
 
     public Pratica(Integer corso_id, LocalDate giorno_sessione, String aula, int posti_totali) {
         super(corso_id, giorno_sessione);
@@ -33,7 +32,11 @@ public class Pratica extends Sessione {
     }
 
     public List<Ricetta> getRicette() {
-        return ricette;
+        return PraticaDAO.getRicette(this);
+    }
+
+    public List<Ricetta> getAllRicette(){
+        return PraticaDAO.getAllRicette();
     }
 
     public int getNStudentiIscritti() {
@@ -48,13 +51,13 @@ public class Pratica extends Sessione {
         return PraticaDAO.getIngredientiPratica(this);
     }
 
-    // ---- REC ----
-
-    public void recRicette() {
-        ricette = PraticaDAO.recRicette(this);
-    }
 
     // ---- METODI ----
+
+    public boolean aggiungiRicetta(Ricetta ricetta) {
+        return PraticaDAO.aggiungiRicetta(this, ricetta);
+    }
+
 
     public boolean insert() {
         return PraticaDAO.insert(this);
@@ -68,9 +71,6 @@ public class Pratica extends Sessione {
         return PraticaDAO.delete(this.getIdSessione());
     }
 
-    public void aggiungiRicetta(Ricetta ricetta) {
-        if (PraticaDAO.aggiungiRicetta(this, ricetta)) {
-            ricette.add(ricetta);
-        }
-    }
+    
+
 }

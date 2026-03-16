@@ -20,6 +20,19 @@ public abstract class Utente {
         this.cognome = cognome;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Utente utente = (Utente) obj;
+        return username.equals(utente.username);
+    }
+    
     // ---- GET ----
 
     public String getUsername() {
@@ -48,18 +61,6 @@ public abstract class Utente {
         cognome = UtenteDAO.recCognome(this);
     }
 
-    // ---- METODI ----
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Utente utente = (Utente) obj;
-        return username.equals(utente.username);
-    }
 
 }

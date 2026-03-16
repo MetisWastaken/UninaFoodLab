@@ -122,9 +122,7 @@ public class PraticaDAO extends ConnessioneDAO {
         return ingredienti;
     }
 
-    // ---- REC ----
-
-    public static ArrayList<Ricetta> recRicette(Pratica pratica) {
+    public static ArrayList<Ricetta> getRicette(Pratica pratica) {
         String query = "SELECT ps.ricetta_id FROM pratica_svolta ps WHERE ps.pratica_id = ?";
         ArrayList<Ricetta> ricette = new ArrayList<>();
         try{
@@ -146,6 +144,25 @@ public class PraticaDAO extends ConnessioneDAO {
         return ricette; 
     }
 
+    public static List<Ricetta> getAllRicette(){
+        String query = "SELECT id_ricetta FROM ricetta";
+        List<Ricetta> ricette = new ArrayList<>();
+        try{
+            PreparedStatement ps = connessione.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Integer id_ricetta = rs.getInt("id_ricetta");
+                Ricetta ricetta = RicettaDAO.get(id_ricetta);
+                if(ricetta != null){
+                    ricette.add(ricetta);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return ricette;
+    }
+
     // ---- METODI ----
 
     public static boolean insert(Pratica pratica) {
@@ -157,8 +174,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(3, pratica.getPostiTotali());
             ps.setInt(4, pratica.getCorsoId());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -175,8 +192,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(4, pratica.getPostiTotali());
             ps.setInt(5, pratica.getCorsoId());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -189,8 +206,8 @@ public class PraticaDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_pratica);
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -204,8 +221,8 @@ public class PraticaDAO extends ConnessioneDAO {
             ps.setInt(1, pratica.getIdSessione());
             ps.setInt(2, ricetta.getIdRicetta());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }

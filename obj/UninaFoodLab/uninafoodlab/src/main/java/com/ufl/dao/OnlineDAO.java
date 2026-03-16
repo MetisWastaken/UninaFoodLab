@@ -64,8 +64,8 @@ public class OnlineDAO extends ConnessioneDAO {
             ps.setString(2, online.getCodiceMeeting());
             ps.setInt(3, online.getCorsoId());
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -81,8 +81,8 @@ public class OnlineDAO extends ConnessioneDAO {
             ps.setString(3, online.getCodiceMeeting());
             ps.setInt(4, online.getCorsoId());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -95,8 +95,8 @@ public class OnlineDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_online);
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch(SQLException e) {
             e.printStackTrace();
         }

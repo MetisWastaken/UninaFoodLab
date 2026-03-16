@@ -9,6 +9,10 @@ public class Report {
     private int numero_sessioni_online;
     private int numero_sessioni_pratiche;
     private Map<Pratica, Integer> numero_ricette_per_pratica = new HashMap<>();
+    private double media_ricette = 0.0;
+    private int max_ricette = 0;
+    private int min_ricette = 0;
+
 
     public Report(String username_chef, int numero_corsi_totali, int numero_sessioni_online, int numero_sessioni_pratiche) {
         this.username_chef = username_chef;
@@ -40,6 +44,19 @@ public class Report {
         return numero_ricette_per_pratica;
     }
 
+    public double getMediaRicette() {
+        return media_ricette;
+    }
+
+    public int getMaxRicette() {
+        return max_ricette;
+    }
+
+    public int getMinRicette() {
+        return min_ricette;
+    }
+
+
     // ---- REC ----
 
     public void recNumeroRicettePerPratiche() {
@@ -47,8 +64,23 @@ public class Report {
     }
 
     // ---- METODI ----
+    public void calcolaStatisticheRicettePratiche() {
+        int somma = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
 
-    public void visualizzaGrafico() {
-        // TODO: compito della view
+        for (Integer n : numero_ricette_per_pratica.values()) {
+            if (n == null) {
+                continue;
+            }
+            somma = somma + n;
+            if (n < min) min = n;
+            if (n > max) max = n;
+        }
+
+        int count = numero_ricette_per_pratica.size();
+        media_ricette = count == 0 ? 0.0 : (double) somma / count;
+        min_ricette = (min == Integer.MAX_VALUE) ? 0 : min;
+        max_ricette = (max == Integer.MIN_VALUE) ? 0 : max;
     }
 }

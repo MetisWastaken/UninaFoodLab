@@ -13,6 +13,15 @@ public class Ricetta {
         this.descrizione = descrizione;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Ricetta ricetta = (Ricetta) obj;
+        return nome.equals(ricetta.nome);
+    }
+    
     // ---- GET ----
 
     public String getNome() {

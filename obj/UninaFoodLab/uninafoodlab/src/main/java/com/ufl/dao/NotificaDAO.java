@@ -3,7 +3,7 @@ package com.ufl.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+
 
 import java.time.LocalDate;
 
@@ -115,23 +115,22 @@ public class NotificaDAO extends ConnessioneDAO {
     // ---- METODI ----
 
     public static boolean insert(Notifica notifica){
-        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?, ?)";
+        String query  = "CALL InsertNotifica(?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps=connessione.prepareStatement(query);
             ps.setString(1, notifica.getTitolo());
             ps.setString(2, notifica.getMessaggio());
             ps.setBoolean(3, notifica.isSoloIscritti());
-            ps.setDate(4, Date.valueOf(notifica.getDataCreazione()));
-            ps.setString(5, notifica.getUsernameChef());
+            ps.setString(4, notifica.getUsernameChef());
             
             if(notifica.getCorsoId() != null) {
-                ps.setInt(6, notifica.getCorsoId());
+                ps.setInt(5, notifica.getCorsoId());
             } else {
-                ps.setNull(6, java.sql.Types.INTEGER);
+                ps.setNull(5, java.sql.Types.INTEGER);
             }
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -144,8 +143,8 @@ public class NotificaDAO extends ConnessioneDAO {
             PreparedStatement ps = connessione.prepareStatement(query);
             ps.setInt(1, id_notifica);
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

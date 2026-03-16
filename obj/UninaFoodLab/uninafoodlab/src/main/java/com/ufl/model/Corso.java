@@ -13,11 +13,13 @@ public class Corso {
     private LocalDate data_fin;
     private String frequenza_settimanale;
     private Chef chef = null;
-    private List<Pratica> sessioni_pratiche=null;
-    private List<Online> sessioni_online=null;
+
+    public Corso(Integer id){
+        this.id = id;
+    }
 
     public Corso(Integer id, String nome, String categoria, LocalDate data_in, LocalDate data_fin, String frequenza_settimanale) {
-        this.id = id;
+        this(id);
         this.nome = nome;
         this.categoria = categoria;
         this.data_in = data_in;
@@ -44,6 +46,10 @@ public class Corso {
         return nome;
     }
 
+    public String getNomeById() {
+        return CorsoDAO.getNomeById(id);
+    }
+
     public String getCategoria() {
         return categoria;
     }
@@ -65,11 +71,11 @@ public class Corso {
     }
 
     public List<Pratica> getSessioniPratiche() {
-        return sessioni_pratiche;
+        return CorsoDAO.getSessioniPratiche(this);
     }
 
     public List<Online> getSessioniOnline() {
-        return sessioni_online;
+        return CorsoDAO.getSessioniOnline(this);
     }
 
     public String getStudentiIscritti() {
@@ -82,57 +88,9 @@ public class Corso {
         chef = CorsoDAO.recChef(this);
     }
 
-    public void recSessioniPratiche() {
-        sessioni_pratiche = CorsoDAO.recSessioniPratiche(this);
-    }
-
-    public void recSessioniOnline() {
-        sessioni_online = CorsoDAO.recSessioniOnline(this);
-    }
-
     // ---- METODI ----
 
-    public void insert() {
-        CorsoDAO.insert(this);
-    }
-
-    public void aggiungiSessione(Pratica sessione) {
-        if (sessione.insert()) {
-            sessioni_pratiche.add(sessione);
-        }
-    }
-
-    public void aggiungiSessione(Online sessione) {
-        if (sessione.insert()) {
-            sessioni_online.add(sessione);
-        }
-    }
-
-    public void modificaSessione(Pratica sessione1, Pratica sessione2, Notifica notifica) {
-        if (sessione1.update(sessione2)) {
-            notifica.insert();
-            sessioni_pratiche.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
-        }
-    }
-
-    public void modificaSessione(Online sessione1, Online sessione2, Notifica notifica) {
-        if (sessione1.update(sessione2)) {
-            notifica.insert();
-            sessioni_online.replaceAll(s -> s.equals(sessione1) ? sessione2 : s);
-        }
-    }
-
-    public void eliminaSessione(Pratica sessione, Notifica notifica) {
-        if (sessione.delete()) {
-            notifica.insert();
-            sessioni_pratiche.remove(sessione);
-        }
-    }
-
-    public void eliminaSessione(Online sessione, Notifica notifica) {
-        if (sessione.delete()) {
-            notifica.insert();
-            sessioni_online.remove(sessione);
-        }
+    public boolean insert() {
+        return CorsoDAO.insert(this);
     }
 }
