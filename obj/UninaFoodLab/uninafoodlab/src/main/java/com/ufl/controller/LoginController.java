@@ -13,11 +13,11 @@ public class LoginController {
                 System.out.println("Tentativo di login con username: " + username + " e password: " + password);
                 Chef chefAutenticato =new Chef(username, password);
                 if (chefAutenticato.verify()) {
-                    main_controller.getMainframe().showInfoLog("SUCC", "Login effettuato con successo!");
+                    main_controller.getMainFrame().showInfoLog("SUCC", "Login effettuato con successo!");
                     main_controller.setChefAttivo(chefAutenticato);
                     main_controller.logAvvenuto();
                 } else {
-                    main_controller.getMainframe().showInfoLog("ERR", "Credenziali errate. Riprova.");
+                    main_controller.getMainFrame().showInfoLog("ERR", "Credenziali errate. Riprova.");
                 }
             }
         );

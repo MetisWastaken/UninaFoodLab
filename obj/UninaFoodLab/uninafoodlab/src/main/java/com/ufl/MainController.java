@@ -52,7 +52,7 @@ public class MainController {
     private Corso corso_attivo = null;
 
 
-    public MainFrame getMainframe() {
+    public MainFrame getMainFrame() {
         return main_frame;
     }
 
