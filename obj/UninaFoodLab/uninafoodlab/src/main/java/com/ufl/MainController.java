@@ -17,6 +17,7 @@ import com.ufl.view.LoginPage;
 import com.ufl.view.HomepageContainer;
 import com.ufl.view.AggiungiCorsoFrame;
 import com.ufl.view.AggiungiNotificheFrame;
+import com.ufl.view.AggiungiRicetteFrame;
 import com.ufl.view.CorsiContainerPanel;
 import com.ufl.view.DettagliCorsoPanel;
 import com.ufl.view.ModificaCorsoPanel;
@@ -40,6 +41,8 @@ public class MainController {
     private ModificaCorsoPanel modifica_corso_panel;
     private AMOnlineFrame am_online_frame;
     private AMPraticaFrame am_pratica_frame;
+    private AggiungiRicetteFrame aggiungi_ricette_frame;
+    //TODO: inseirsci private VisualizzaJFreeChartReport visualizza_report;
 
     private Chef chef_attivo = null;
     private Corso corso_attivo = null;
@@ -86,6 +89,9 @@ public class MainController {
 
     public AMPraticaFrame getAMPraticaFrame() {
         return am_pratica_frame; 
+    }
+    public AggiungiRicetteFrame getAggiungiRicetteFrame() {
+        return aggiungi_ricette_frame; 
     }
 
 //----------------------------------------------------
@@ -196,6 +202,17 @@ public class MainController {
         am_pratica_frame.setVisible(true);
     }
 
+    public void costruisciAggiungiRicetteFrame(Pratica pratica) {
+        if(this.aggiungi_ricette_frame == null) {
+            this.aggiungi_ricette_frame = new AggiungiRicetteFrame();
+        }
+        aggiungi_ricette_frame.setAggiungiRicetteFrame(pratica);
+        ModificheController.createRicettaRowListener(this);
+        aggiungi_ricette_frame.setVisible(true);
+    }
+
+    //TODO: inseirsci public costruisciJFreeChartReport visualizza_report;
+
 //----------------------------------------------
     public MainController() {
         this.main_frame = new MainFrame();
@@ -278,7 +295,7 @@ public class MainController {
 
     public void mostraAggRicettaPratica(Pratica pratica) {
         System.out.println("Aggiungi ricette alla pratica del " + UiUtil.DATE_FORMATTER.format(pratica.getGiornoSessione()));
-        costruisciAMPraticaFrame(pratica);
+        costruisciAggiungiRicetteFrame(pratica);
     }
 
     public void mostraReport() {

@@ -48,14 +48,14 @@ public class UiUtil {
     }
 
     public static class PopUpFrame extends JFrame {
-        ScrollablePanel scrollablePanel;
+        private ScrollablePanel scrollablePanel;
 
         public PopUpFrame(Dimension dimension){
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setSize(dimension);
             setLocationRelativeTo(null);
             setResizable(false);
-            setType(Window.Type.UTILITY); // Nasconde il pulsante minimize su molti OS
+            setType(Window.Type.UTILITY); 
 
             setVisible(false);
         }

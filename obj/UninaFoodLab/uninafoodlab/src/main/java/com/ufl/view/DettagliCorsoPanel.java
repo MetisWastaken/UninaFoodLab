@@ -219,7 +219,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
 
                     List<Ingrediente> ingredienti = ricetta.getIngredienti();
                     if (ingredienti != null && !ingredienti.isEmpty()) {
-                        for (Ingrediente ingrediente : ingredienti) {
+                        for (Ingrediente ingrediente : ingredienti) { //poteva esse fatto con il metodo toString Override in Ricetta
                             content.add(UiUtil.infoLabel(
                                 "  " + ingrediente.getNome()
                                 + " - Quantità: " + ingrediente.getQuantita()
@@ -313,7 +313,7 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
                 super(UiUtil.TRASPARENT_COLOR);
                 setOpaque(false);
                 setLayout(new GridBagLayout());
-                // rimuovi/evita: setBackground(UiUtil.COLORE_SFONDO);
+                
 
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridy = 0;

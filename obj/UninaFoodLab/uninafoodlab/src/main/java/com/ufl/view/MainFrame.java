@@ -136,7 +136,7 @@ public class MainFrame extends JFrame {
     private JPanel buildContainerPanel() {
         container_panel = new UiUtil.BorderedPanel(UiUtil.COLORE_PRIMARIO, CONTAINER_BORDER_THICKNESS, 1);
         container_panel.setLayout(new BorderLayout()); 
-        container_panel.setBackground(UiUtil.COLORE_SFONDO.darker());
+        container_panel.setBackground(UiUtil.COLORE_SFONDO);
         container_panel.add(buildContentPanel(), BorderLayout.CENTER);
         return container_panel;
     }

@@ -53,7 +53,7 @@ CREATE OR REPLACE FUNCTION prevent_past_sessione_online_deletion()
 RETURNS TRIGGER AS $$  
 BEGIN
     IF OLD.giorno_sessione < CURRENT_DATE THEN
-        RAISE EXCEPTION 'Non è possibile eliminare una sessione già passata. La sessione del giorno % non può essere eliminata.', OLD.giorno_sessione;
+        RAISE EXCEPTION 'Non e'' possibile eliminare una sessione gia'' passata. La sessione del giorno % non puo'' essere eliminata.', OLD.giorno_sessione;
     END IF;
 
     RETURN OLD;
@@ -63,3 +63,19 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_prevent_past_sessione_online_deletion
 BEFORE DELETE ON online
 FOR EACH ROW EXECUTE FUNCTION prevent_past_sessione_online_deletion();
+
+--trigger per impedire la modifica di una sessione pratica già passata
+CREATE OR REPLACE FUNCTION prevent_past_sessione_online_modification()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.giorno_sessione < CURRENT_DATE THEN
+        RAISE EXCEPTION 'Non e'' possibile modificare una sessione gia'' passata. La sessione del giorno % non puo'' essere modificata.', OLD.giorno_sessione;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_prevent_past_sessione_online_modification
+BEFORE UPDATE ON online
+FOR EACH ROW EXECUTE FUNCTION prevent_past_sessione_online_modification();

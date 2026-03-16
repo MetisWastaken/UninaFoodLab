@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.ufl.MainController;
 import com.ufl.model.Online;
 import com.ufl.model.Pratica;
+import com.ufl.model.Ricetta;
 
 
 
@@ -38,9 +39,15 @@ public class ModificheController {
 
         main_controller.getModificaCorsoPanel().getPoBox().getAMEOnlinePanel().getOnlinePanel().getOnlineRows().forEach(selectedRow -> {
             selectedRow.addEliminaButtonListener(e -> {
-                main_controller.getMainframe().showInfoLog("SUCC", "Caricamento eliminazione sessione online in corso!");
-                selectedRow.getSessioneOnline().delete();
-                main_controller.mostraModificaCorso();;
+                if(selectedRow.getSessioneOnline().delete()){
+                    main_controller.getMainframe().showInfoLog("SUCC", "Eliminazione sessione online in corso!");
+                    main_controller.mostraModificaCorso();;
+                }
+                else {
+                    main_controller.getMainframe().showInfoLog("ERR", "Errore durante l'eliminazione della sessione online!");
+                }
+                
+                
             });
         });
     }
@@ -67,9 +74,14 @@ public class ModificheController {
 
         main_controller.getModificaCorsoPanel().getPoBox().getAMEPratichePanel().getPraticaPanel().getPraticaRows().forEach(selectedRow -> {
             selectedRow.addEliminaButtonListener(e -> {
-                main_controller.getMainframe().showInfoLog("SUCC", "Caricamento eliminazione sessione pratica in corso!");
-                selectedRow.getSessionePratica().delete();
-                main_controller.mostraModificaCorso();;
+                if(selectedRow.getSessionePratica().delete()){
+                    main_controller.getMainframe().showInfoLog("SUCC", "Eliminazione sessione pratica in corso!");
+                    main_controller.mostraModificaCorso();;
+                }
+                else {
+                    main_controller.getMainframe().showInfoLog("ERR", "Errore durante l'eliminazione della sessione pratica!");
+
+                }
             });
         });
     }
@@ -156,6 +168,25 @@ public class ModificheController {
             }
         });
     }
+    public static void createRicettaRowListener(MainController main_controller) {
+        if(main_controller.getAggiungiRicetteFrame() == null) return;
+        main_controller.getAggiungiRicetteFrame().getRicettePanel().getRicetteRows().forEach(ricettaRow -> {
+            ricettaRow.addRicettaRowListener(e -> {
+                Ricetta ricetta_selezionata = ricettaRow.getRicetta();
+                Pratica pratica_attiva = main_controller.getAggiungiRicetteFrame().getPraticaAttiva();
 
+                if(pratica_attiva == null) {
+                    main_controller.getMainframe().showInfoLog("ERR", "Nessuna pratica selezionata!");
+                    return;
+                }
 
+                if(pratica_attiva.aggiungiRicetta(ricetta_selezionata)) {
+                    main_controller.getMainframe().showInfoLog("SUCC", "Ricetta aggiunta alla pratica con successo!");
+                    ricettaRow.disableRicettaRow();
+                } else {
+                    main_controller.getMainframe().showInfoLog("ERR", "Errore durante l'aggiunta della ricetta alla pratica!");
+                }
+            });
+        });
+    }
 }
