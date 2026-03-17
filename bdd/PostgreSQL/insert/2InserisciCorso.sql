@@ -1,11 +1,46 @@
 --Inserimento corsi di esempio
 INSERT INTO corso (nome,categoria,data_in,data_fin,frequenza_settimanale,chef_id) VALUES
-('Corso di Pasta Fresca','Cucina Italiana',CURRENT_DATE + INTERVAL '1 days',CURRENT_DATE + INTERVAL '157 days','Lunedi, Mercoledi','GEsposito'),
-('Corso di Pasticceria Base','Dolci e Dessert',CURRENT_DATE + INTERVAL '131 days',CURRENT_DATE + INTERVAL '188 days','Martedi, Giovedi','GEsposito');
-
+('Corso di Pasticceria Base','Dolci e Dessert',CURRENT_DATE + INTERVAL '131 days',CURRENT_DATE + INTERVAL '188 days','Martedi, Giovedi','GEsposito'),
+('Corso di Pasta Fresca','Etnica',CURRENT_DATE + INTERVAL '1 days',CURRENT_DATE + INTERVAL '157 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Arancini','Etnica',CURRENT_DATE + INTERVAL '60 days',CURRENT_DATE + INTERVAL '150 days','Lunedi, Mercoledi','ASmith'),
+('Corso di Cucina Tradizionale','Etnica',CURRENT_DATE + INTERVAL '65 days',CURRENT_DATE + INTERVAL '155 days','Martedi, Giovedi','ASmith'),
+('Corso di Cucina Cinese','Etnica',CURRENT_DATE + INTERVAL '70 days',CURRENT_DATE + INTERVAL '160 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Cucina per Bambini','Inclusiva',CURRENT_DATE + INTERVAL '45 days',CURRENT_DATE + INTERVAL '135 days','Martedi, Giovedi','GEsposito'),
+('Corso di Cucina per Anziani','Inclusiva',CURRENT_DATE + INTERVAL '35 days',CURRENT_DATE + INTERVAL '125 days','Martedi, Giovedi','ASmith'),
+('Corso di Cucina Celiaca','Inclusiva',CURRENT_DATE + INTERVAL '40 days',CURRENT_DATE + INTERVAL '130 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Cucina per Intolleranti al Lattosio','Inclusiva',CURRENT_DATE + INTERVAL '50 days',CURRENT_DATE + INTERVAL '140 days','Martedi, Giovedi','ASmith'),
+('Corso di Cucina per Diabetici','Inclusiva',CURRENT_DATE + INTERVAL '55 days',CURRENT_DATE + INTERVAL '145 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Cucina per Principianti','Tecnica',CURRENT_DATE + INTERVAL '10 days',CURRENT_DATE + INTERVAL '80 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Cucina per Professionisti','Tecnica',CURRENT_DATE + INTERVAL '20 days',CURRENT_DATE + INTERVAL '100 days','Martedi, Giovedi','ASmith'),
+('Corso di Sfilettatura','Tecnica',CURRENT_DATE + INTERVAL '25 days',CURRENT_DATE + INTERVAL '110 days','Lunedi, Mercoledi','GEsposito'),
+('Corso di Cucina Vegetariana','Veg',CURRENT_DATE + INTERVAL '15 days',CURRENT_DATE + INTERVAL '90 days','Lunedi, Mercoledi','ASmith'),
+('Corso di Cucina Vegana','Veg',CURRENT_DATE + INTERVAL '30 days',CURRENT_DATE + INTERVAL '120 days','Martedi, Giovedi','ASmith')
 
 --Inserimento iscritto_c di esempio
 INSERT INTO iscritto_c (stud_id,corso_id,data_iscrizione) VALUES
 ('MFerraro', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasta Fresca'), CURRENT_DATE + INTERVAL '1 days'),
 ('LBianchi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasta Fresca'), CURRENT_DATE + INTERVAL '1 days'),
-('MFerraro', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), CURRENT_DATE + INTERVAL '124 days');
+('MFerraro', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), CURRENT_DATE + INTERVAL '124 days'),
+('LBianchi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), CURRENT_DATE + INTERVAL '124 days'),
+('JDoe', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Principianti'), CURRENT_DATE + INTERVAL '12 days'),
+('RVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Principianti'), CURRENT_DATE + INTERVAL '12 days'),
+('CDeMarco', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Vegetariana'), CURRENT_DATE + INTERVAL '17 days'),
+('MS Rossi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Vegetariana'), CURRENT_DATE + INTERVAL '17 days'),
+('FBruno', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Vegana'), CURRENT_DATE + INTERVAL '32 days'),
+('LVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Vegana'), CURRENT_DATE + INTERVAL '32 days'),
+('Lverdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Principianti'), CURRENT_DATE + INTERVAL '12 days'),
+('FBruno', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Principianti'), CURRENT_DATE + INTERVAL '12 days'),
+('RVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Anziani'), CURRENT_DATE + INTERVAL '37 days'),
+('CDeMarco', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Anziani'), CURRENT_DATE + INTERVAL '37 days'),
+('MS Rossi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Sfilettatura'), CURRENT_DATE + INTERVAL '110 days'),
+('FBruno', (SELECT id_corso FROM corso WHERE nome = 'Corso di Sfilettatura'), CURRENT_DATE + INTERVAL '110 days'),
+('LVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Sfilettatura'), CURRENT_DATE + INTERVAL '110 days'),
+('RVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Celiaca'), CURRENT_DATE + INTERVAL '42 days'),
+('CDeMarco', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Celiaca'), CURRENT_DATE + INTERVAL '42 days'),
+('MS Rossi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Celiaca'), CURRENT_DATE + INTERVAL '42 days'),
+('JDoe', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Diabetici'), CURRENT_DATE + INTERVAL '57 days'),
+('RVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Diabetici'), CURRENT_DATE + INTERVAL '57 days'),
+('CDeMarco', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina per Diabetici'), CURRENT_DATE + INTERVAL '57 days'),
+('MS Rossi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Tradizionale'), CURRENT_DATE + INTERVAL '155 days'),
+('FBruno', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Tradizionale'), CURRENT_DATE + INTERVAL '155 days'),
+('LVerdi', (SELECT id_corso FROM corso WHERE nome = 'Corso di Cucina Tradizionale'), CURRENT_DATE + INTERVAL '155 days');
