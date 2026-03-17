@@ -1,23 +1,94 @@
  --inserimento pratica di esempio
 INSERT INTO pratica (giorno_sessione, aula, corso_id, posti_totali) 
-VALUES (CURRENT_DATE + INTERVAL '2 days', 'Aula 101', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasta Fresca'), 30),
-    (CURRENT_DATE + INTERVAL '4 days', 'Aula 102', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasta Fresca'), 25),
-    (CURRENT_DATE + INTERVAL '136 days', 'Aula 201', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), 20),
-    (CURRENT_DATE + INTERVAL '138 days', 'Aula 202', (SELECT id_corso FROM corso WHERE nome = 'Corso di Pasticceria Base'), 15);
+VALUES (CURRENT_DATE + INTERVAL '2 days', 'Aula 101', (SELECT id_corso FROM corso WHERE nome = 'Pasta Fresca'), 30),
+    (CURRENT_DATE + INTERVAL '4 days', 'Aula 102', (SELECT id_corso FROM corso WHERE nome = 'Pasta Fresca'), 25),
+    (CURRENT_DATE + INTERVAL '136 days', 'Aula 201', (SELECT id_corso FROM corso WHERE nome = 'Pasticceria Base'), 20),
+    (CURRENT_DATE + INTERVAL '138 days', 'Aula 202', (SELECT id_corso FROM corso WHERE nome = 'Pasticceria Base'), 15),
+    (CURRENT_DATE + INTERVAL '11 days', 'Aula 301', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Novizi'), 40),
+    (CURRENT_DATE + INTERVAL '16 days', 'Aula 302', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Novizi'), 35),
+    (CURRENT_DATE + INTERVAL '153 days', 'Aula 401', (SELECT id_corso FROM corso WHERE nome = 'Cucina Tradizionale'), 30),
+    (CURRENT_DATE + INTERVAL '154 days', 'Aula 402', (SELECT id_corso FROM corso WHERE nome = 'Cucina Tradizionale'), 25),
+    (CURRENT_DATE + INTERVAL '18 days', 'Aula 501', (SELECT id_corso FROM corso WHERE nome = 'Cucina Vegetariana'), 20),
+    (CURRENT_DATE + INTERVAL '19 days', 'Aula 502', (SELECT id_corso FROM corso WHERE nome = 'Cucina Vegetariana'), 15),
+    (CURRENT_DATE + INTERVAL '33 days', 'Aula 601', (SELECT id_corso FROM corso WHERE nome = 'Cucina Vegana'), 25),
+    (CURRENT_DATE + INTERVAL '34 days', 'Aula 602', (SELECT id_corso FROM corso WHERE nome = 'Cucina Vegana'), 20),
+    (CURRENT_DATE + INTERVAL '108 days', 'Aula 701', (SELECT id_corso FROM corso WHERE nome = 'Sfilettatura'), 15),
+    (CURRENT_DATE + INTERVAL '109 days', 'Aula 702', (SELECT id_corso FROM corso WHERE nome = 'Sfilettatura'), 10),
+    (CURRENT_DATE + INTERVAL '41 days', 'Aula 801', (SELECT id_corso FROM corso WHERE nome = 'Cucina Celiaca'), 20),
+    (CURRENT_DATE + INTERVAL '44 days', 'Aula 802', (SELECT id_corso FROM corso WHERE nome = 'Cucina Celiaca'), 15),
+    (CURRENT_DATE + INTERVAL '56 days', 'Aula 901', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Diabetici'), 25),
+    (CURRENT_DATE + INTERVAL '59 days', 'Aula 902', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Diabetici'), 20),
+    (CURRENT_DATE + INTERVAL '15 days', 'Aula 1001', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Novizi'), 40),
+    (CURRENT_DATE + INTERVAL '36 days', 'Aula 1101', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Anziani'), 30),
+    (CURRENT_DATE + INTERVAL '39 days', 'Aula 1102', (SELECT id_corso FROM corso WHERE nome = 'Cucina per Anziani'), 25),
+    (CURRENT_DATE + INTERVAL '155 days', 'Aula 1201', (SELECT id_corso FROM corso WHERE nome = 'Cucina Cinese'), 30);
+
+
 
 --update data d'inizio corso
-UPDATE corso SET data_in = CURRENT_DATE + INTERVAL '1 days' WHERE nome = 'Corso di Pasta Fresca';
-UPDATE corso SET data_in = CURRENT_DATE + INTERVAL '1 days' WHERE nome = 'Corso di Pasticceria Base';
+UPDATE corso SET data_in = CURRENT_DATE + INTERVAL '1 days' WHERE nome = 'Pasta Fresca';
+UPDATE corso SET data_in = CURRENT_DATE + INTERVAL '1 days' WHERE nome = 'Pasticceria Base';
 
 --inserimento iscritto_p di esempio
 INSERT INTO iscritto_p (stud_id, pratica_id) 
 VALUES ('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '2 days' AND aula = 'Aula 101')),
-    ('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '4 days' AND aula = 'Aula 102')),
-    ('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '136 days' AND aula = 'Aula 201')),
-    ('LBianchi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '4 days' AND aula = 'Aula 102'));
+('JDoe', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '4 days' AND aula = 'Aula 102')),
+('JDoe', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '136 days' AND aula = 'Aula 201')),
+('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '138 days' AND aula = 'Aula 202')),
+('LBianchi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '11 days' AND aula = 'Aula 301')),
+('RVerdi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '16 days' AND aula = 'Aula 302')),
+('MS Rossi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '153 days' AND aula = 'Aula 401')),
+('CDeMarco', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '154 days' AND aula = 'Aula 402')),
+('FBruno', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '18 days' AND aula = 'Aula 501')),
+('LVerdi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '19 days' AND aula = 'Aula 502')),
+('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '33 days' AND aula = 'Aula 601')),
+('JDoe', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '34 days' AND aula = 'Aula 602')),
+('LBianchi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '108 days' AND aula = 'Aula 701')),
+('RVerdi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '109 days' AND aula = 'Aula 702')),
+('MS Rossi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '41 days' AND aula = 'Aula 801')),
+('CDeMarco', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '44 days' AND aula = 'Aula 802')),
+('FBruno', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '56 days' AND aula = 'Aula 901')),
+('LVerdi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '59 days' AND aula = 'Aula 902')),
+('MFerraro', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '15 days' AND aula = 'Aula 1001')),
+('JDoe', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '16 days' AND aula = 'Aula 302')),
+('LBianchi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '36 days' AND aula = 'Aula 1101')),
+('RVerdi', (SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '39 days' AND aula = 'Aula 1102'));
 
 --inserimento pratica_svolta di esempio
 INSERT INTO pratica_svolta (pratica_id, ricetta_id)
 VALUES ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '2 days' AND aula = 'Aula 101'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pasta Fresca')),
     ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '4 days' AND aula = 'Aula 102'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pasta Fresca')),
-    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '2 days' AND aula = 'Aula 101'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Torta al Cioccolato'));
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '2 days' AND aula = 'Aula 101'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Torta al Cioccolato')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '4 days' AND aula = 'Aula 102'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Torta al Cioccolato')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '136 days' AND aula = 'Aula 201'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pasta Fresca')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '138 days' AND aula = 'Aula 202'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Torta al Cioccolato')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '11 days' AND aula = 'Aula 301'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Risotto ai Funghi')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '11 days' AND aula = 'Aula 301'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Insalata Caprese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '16 days' AND aula = 'Aula 302'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Lasagna alla Bolognese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '16 days' AND aula = 'Aula 302'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pennette al Pomodoro')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '18 days' AND aula = 'Aula 501'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Insalata Caprese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '18 days' AND aula = 'Aula 501'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pasta al pesto')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '19 days' AND aula = 'Aula 502'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Hamburger vegetariano')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '33 days' AND aula = 'Aula 601'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Polpette vegetali')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '33 days' AND aula = 'Aula 601'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Couscous con verdure')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '34 days' AND aula = 'Aula 602'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Arancino agli spinaci')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '108 days' AND aula = 'Aula 701'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Sfilettatura')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '108 days' AND aula = 'Aula 701'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Poke con Uova e Tofu')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '109 days' AND aula = 'Aula 702'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pollo al Curry')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '41 days' AND aula = 'Aula 801'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Zuppa di Lenticchie')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '41 days' AND aula = 'Aula 801'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pasta al pesto')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '44 days' AND aula = 'Aula 802'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Risotto ai Funghi')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '56 days' AND aula = 'Aula 901'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Zuppa di Lenticchie')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '56 days' AND aula = 'Aula 901'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Insalata Caprese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '59 days' AND aula = 'Aula 902'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pizza Margherita')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '153 days' AND aula = 'Aula 401'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Arancino agli spinaci')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '153 days' AND aula = 'Aula 401'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Noodles')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '154 days' AND aula = 'Aula 402'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Riso alla cantonese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '15 days' AND aula = 'Aula 1001'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Risotto ai Funghi')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '15 days' AND aula = 'Aula 1001'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Lasagna alla Bolognese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '16 days' AND aula = 'Aula 302'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Arancino agli spinaci')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '36 days' AND aula = 'Aula 1101'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Zuppa di Lenticchie')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '36 days' AND aula = 'Aula 1101'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Pennette al Pomodoro')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '39 days' AND aula = 'Aula 1102'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Insalata Caprese')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '155 days' AND aula = 'Aula 1201'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Noodles')),
+    ((SELECT id_pratica FROM pratica WHERE giorno_sessione = CURRENT_DATE + INTERVAL '155 days' AND aula = 'Aula 1201'), (SELECT id_ricetta FROM ricetta WHERE nome = 'Riso alla cantonese'));
