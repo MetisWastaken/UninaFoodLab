@@ -65,6 +65,26 @@ INSERT INTO ricetta (nome, descrizione) VALUES
 ('Pasta al pesto', 'Pasta con salsa al pesto fatta in casa'),
 ('Riso alla cantonese', 'Riso saltato con uova, piselli e prosciutto cotto');
 
+('Torta al Cioccolato', 'Deliziosa torta al cioccolato per ogni occasione.'),
+('Risotto ai Funghi', 'Ricetta classica per un risotto cremoso ai funghi.'),
+('Insalata Caprese', 'Fresca insalata con pomodoro, mozzarella e basilico.'),
+('Lasagna alla Bolognese', 'Lasagna ricca con ragù alla bolognese e besciamella.'),
+('Tiramisu', 'Dessert italiano a base di mascarpone, caffè e savoiardi.'),
+('Pizza Margherita', 'Classica pizza con pomodoro, mozzarella e basilico.'),
+('Pollo al Curry', 'Ricetta speziata per un pollo al curry saporito.'),
+('Zuppa di Lenticchie', 'Zuppa nutriente a base di lenticchie e verdure.'),
+('Pennette al Pomodoro', 'Semplice e gustosa ricetta di pennette al pomodoro.'),
+('Noodles', 'Ricetta per preparare noodles fatti in casa.'),
+('Sfilettatura', 'Guida passo passo per sfilettare il pesce.'),
+('Poke con Uova e Tofu', 'Insalata poke con uova sode, tofu e verdure fresche.'),
+('Polpette vegetali', 'Pasta di ceci e condimenti dolci'),
+('Arancino agli spinaci', 'Arancino con ripieno di spinaci'),
+('Bubble tea', 'Tè freddo con perle di tapioca'),
+('Couscous con verdure', 'Couscous con verdure miste e spezie'),
+('Hamburger vegetariano', 'Hamburger a base di legumi e verdure'),
+('Pasta al pesto', 'Pasta con salsa al pesto fatta in casa'),
+('Riso alla cantonese', 'Riso saltato con uova, piselli e prosciutto cotto');
+
 
 
 --Inserimento necessita di esempio
