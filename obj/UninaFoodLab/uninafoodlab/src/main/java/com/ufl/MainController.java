@@ -250,6 +250,10 @@ public class MainController {
     public void mostraReport() {
         chef_attivo.recResoconto();
 
+        if(chef_attivo.getResoconto() == null) {
+            main_frame.showInfoLog("ERR", "Resoconto non disponibile (di questo mese)");
+            return;
+        }
         chef_attivo.getResoconto().recNumeroRicettePerPratiche();
         chef_attivo.getResoconto().calcolaStatisticheRicettePratiche();
 

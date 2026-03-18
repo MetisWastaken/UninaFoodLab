@@ -14,6 +14,8 @@ public class LoginController {
                 Chef chefAutenticato =new Chef(username, password);
                 if (chefAutenticato.verify()) {
                     main_controller.getMainFrame().showInfoLog("SUCC", "Login effettuato con successo!");
+                    chefAutenticato.recNome();
+                    chefAutenticato.recCognome();
                     main_controller.setChefAttivo(chefAutenticato);
                     main_controller.logAvvenuto();
                 } else {
