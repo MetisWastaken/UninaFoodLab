@@ -22,7 +22,7 @@ VALUES (
 ),
 (
     'Comunicazione di servizio corso Cucina Vegetariana',
-    'Cari alunni, dopo gli ultimi accadimenti, sono tenuto a precisare che è severamente vietato utilizzare le foglie della pianta del corridoio interno come elemento decorativo dei piatti, soprattutto durante gli esami pratici con esterni.',
+    'Cari alunni, dopo gli ultimi accadimenti, sono tenuta a precisare che è severamente vietato utilizzare le foglie della pianta del corridoio interno come elemento decorativo dei piatti, soprattutto durante gli esami pratici con esterni.',
     TRUE,  
     'ASmith',
     (SELECT id_corso FROM corso WHERE nome = 'Cucina Vegetariana')
