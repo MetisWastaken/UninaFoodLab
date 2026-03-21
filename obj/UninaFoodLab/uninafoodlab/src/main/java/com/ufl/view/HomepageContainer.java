@@ -29,7 +29,7 @@ public class HomepageContainer extends UiUtil.BlankPanel {
             super(UiUtil.COLORE_PRIMARIO, 3, 20);
             setBackground(UiUtil.COLORE_PRIMARIO);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-            homepage_exit_btn = new UiUtil.CreateButton("/Exit.png", new Dimension(20, 20), UiUtil.COLORE_PRIMARIO);
+            homepage_exit_btn = new UiUtil.CreateButton("/ExitMan.png", new Dimension(26, 26), UiUtil.COLORE_PRIMARIO);
             miei_corsi_btn = UiUtil.createButton("I Miei Corsi");
             altri_corsi_btn = UiUtil.createButton("Altri Corsi");
             notifiche_btn = UiUtil.createButton("Notifiche");
