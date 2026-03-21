@@ -27,8 +27,8 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
 
     public CorsiContainerPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
         super(UiUtil.TRASPARENT_COLOR);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new SearchCatPanel());
+        setLayout(new BorderLayout());
+        add(new SearchCatPanel(), BorderLayout.NORTH);
 
         this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
         UiUtil.ScrollablePanel scrollPane = new UiUtil.ScrollablePanel(this.corsi_panel);
