@@ -14,8 +14,8 @@ public class UiUtil {
     
     // Color Configuration
     public static final Color COLORE_SFONDO = new Color(250, 248, 240); // Crema chiaro
-    public static final Color COLORE_PRIMARIO = new Color(160, 82, 45); // Terracotta/Marrone
-    public static final Color COLORE_ACCENTO = new Color(218, 165, 32); // Oro scuro
+    public static final Color COLORE_PRIMARIO = new Color(183, 115, 82); // Terracotta/Marrone
+    public static final Color COLORE_ACCENTO = new Color(213, 213, 213); // Platino
     public static final Color COLORE_TESTO1 = new Color(60, 40, 30);     // Marrone scuro
     public static final Color COLORE_TESTO2 = new Color(46, 69, 63);    // Verde scuro
     public static final Color HINT_COLOR = new Color(180, 160, 140);    // Grigio caldo per hint
@@ -152,13 +152,13 @@ public class UiUtil {
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = COLORE_PRIMARIO;
-                    this.trackColor = COLORE_ACCENTO;
+                    this.trackColor = TRASPARENT_COLOR; 
                 }
                 
                 @Override
                 protected JButton createIncreaseButton(int orientation) {
                     JButton button = super.createIncreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
+                    button.setBackground(TRASPARENT_COLOR);
                     button.setForeground(COLORE_PRIMARIO);
                     return button;
                 }
@@ -166,7 +166,7 @@ public class UiUtil {
                 @Override
                 protected JButton createDecreaseButton(int orientation) {
                     JButton button = super.createDecreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
+                    button.setBackground(TRASPARENT_COLOR);
                     button.setForeground(COLORE_PRIMARIO);
                     return button;
                 }
@@ -176,13 +176,13 @@ public class UiUtil {
                 @Override
                 protected void configureScrollBarColors() {
                     this.thumbColor = COLORE_PRIMARIO;
-                    this.trackColor = COLORE_ACCENTO;
+                    this.trackColor = TRASPARENT_COLOR;
                 }
                 
                 @Override
                 protected JButton createIncreaseButton(int orientation) {
                     JButton button = super.createIncreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
+                    button.setBackground(TRASPARENT_COLOR);
                     button.setForeground(COLORE_PRIMARIO);
                     return button;
                 }
@@ -190,7 +190,7 @@ public class UiUtil {
                 @Override
                 protected JButton createDecreaseButton(int orientation) {
                     JButton button = super.createDecreaseButton(orientation);
-                    button.setBackground(COLORE_ACCENTO);
+                    button.setBackground(TRASPARENT_COLOR);
                     button.setForeground(COLORE_PRIMARIO);
                     return button;
                 }
@@ -381,7 +381,6 @@ public class UiUtil {
     }
 
     public static void main(String[] args){
-        
         
         BlankPanel blankPanel = new BlankPanel(COLORE_SFONDO);
         blankPanel.add(Box.createVerticalStrut(500));

@@ -14,15 +14,21 @@ import com.ufl.model.Chef;
 import com.ufl.dao.ChefDAO;
 
 public class CorsiContainerPanel extends UiUtil.BlankPanel {
+    private static final int NOME_CORSO_FONT_SIZE = 16;
+    private final static int DATE_CORSO_FONT_SIZE = 12;
+    private static final int PANEL_HEIGHT = 80;
+    private static final int NOME_WIDTH = 200;      
+    private static final int CATEGORIA_WIDTH = 110; 
+    private static final int DATE_WIDTH = 150;  
+
     private JButton search_cat_btn;
     private JTextField search_cat_field;
     private CorsiPanel corsi_panel;
 
     public CorsiContainerPanel(boolean miei_corsi, ArrayList<Corso> corsi) {
         super(UiUtil.TRASPARENT_COLOR);
-        setLayout(new BorderLayout());
-        add(new SearchCatPanel(), BorderLayout.NORTH);
-
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(new SearchCatPanel());
 
         this.corsi_panel = new CorsiPanel(miei_corsi, corsi);
         UiUtil.ScrollablePanel scrollPane = new UiUtil.ScrollablePanel(this.corsi_panel);
@@ -58,10 +64,11 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             if(miei_corsi){
                 aggiungi_corso_btn = new UiUtil.CreateButton("+", 80);
-                add(Box.createVerticalStrut(10));
+                add(Box.createVerticalStrut(5));
                 add(aggiungi_corso_btn);
             }
             corsi_rows = new ArrayList<>();
+            add(new CorsoRowInfo());
             for(Corso corso : corsi){
                 CorsoRow corso_row = new CorsoRow(corso, miei_corsi);
                 corsi_rows.add(corso_row);
@@ -81,15 +88,59 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         
     }
 
+
+    public class CorsoRowInfo  extends UiUtil.BlankPanel {
+        private static final int PANEL_HEIGHT = 40;
+        public CorsoRowInfo() {
+            super(UiUtil.TRASPARENT_COLOR);
+           
+
+            setLayout(new GridBagLayout());
+        
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, PANEL_HEIGHT));
+            setPreferredSize(new Dimension(getPreferredSize().width, PANEL_HEIGHT));
+            
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 10, 5, 10);
+            gbc.fill = GridBagConstraints.NONE;
+            gbc.anchor = GridBagConstraints.WEST;
+
+            // Nome (colonna 0)
+            JLabel nome_label = UiUtil.infoLabel("Nome Corso",Font.BOLD, NOME_CORSO_FONT_SIZE);
+            nome_label.setPreferredSize(new Dimension(NOME_WIDTH, 20));
+            nome_label.setMinimumSize(new Dimension(NOME_WIDTH, 20));
+            gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.0;
+            add(nome_label, gbc);
+
+            // Categoria (colonna 1)
+            JLabel categoria_label = UiUtil.infoLabel("Categoria",Font.PLAIN, DATE_CORSO_FONT_SIZE);
+            categoria_label.setPreferredSize(new Dimension(CATEGORIA_WIDTH, 20));
+            categoria_label.setMinimumSize(new Dimension(CATEGORIA_WIDTH, 20));
+            gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 0.0;
+            add(categoria_label, gbc);
+
+            // Date (colonna 2)
+            
+            JLabel date_label = UiUtil.infoLabel("Data Inizio - Data Fine",Font.PLAIN, DATE_CORSO_FONT_SIZE);
+            date_label.setPreferredSize(new Dimension(DATE_WIDTH, 20));
+            date_label.setMinimumSize(new Dimension(DATE_WIDTH, 20));
+            gbc.gridx = 2; gbc.gridy = 0; gbc.weightx = 0.0;
+            add(date_label, gbc);
+
+            // Spazio 
+            gbc.gridx = 3; gbc.gridy = 0; gbc.weightx = 1.0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(Box.createGlue(), gbc);
+
+
+    
+        }
+    }
     
 
-    public class CorsoRow extends UiUtil.BorderedPanel {
-        private static final int NOME_CORSO_FONT_SIZE = 16;
-        private final static int DATE_CORSO_FONT_SIZE = 12;
-        private static final int PANEL_HEIGHT = 80;
-        private static final int NOME_WIDTH = 200;      
-        private static final int CATEGORIA_WIDTH = 110; 
-        private static final int DATE_WIDTH = 150;      
+    public class CorsoRow extends UiUtil.BorderedPanel {   
         
         private JButton dettagli_btn;
         private JButton modifica_btn;
@@ -114,16 +165,14 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             gbc.anchor = GridBagConstraints.WEST;
 
             // Nome (colonna 0)
-            JLabel nome_label = new JLabel(corso.getNome());
-            nome_label.setFont(new Font(UiUtil.FONT_FAMILY, Font.BOLD, NOME_CORSO_FONT_SIZE));
+            JLabel nome_label = UiUtil.infoLabel(corso.getNome(),Font.BOLD, NOME_CORSO_FONT_SIZE);
             nome_label.setPreferredSize(new Dimension(NOME_WIDTH, 20));
             nome_label.setMinimumSize(new Dimension(NOME_WIDTH, 20));
             gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.0;
             add(nome_label, gbc);
 
             // Categoria (colonna 1)
-            JLabel categoria_label = new JLabel(corso.getCategoria());
-            categoria_label.setFont(new Font(UiUtil.FONT_FAMILY, Font.PLAIN, DATE_CORSO_FONT_SIZE));
+            JLabel categoria_label = UiUtil.infoLabel(corso.getCategoria(),Font.PLAIN, DATE_CORSO_FONT_SIZE);
             categoria_label.setPreferredSize(new Dimension(CATEGORIA_WIDTH, 20));
             categoria_label.setMinimumSize(new Dimension(CATEGORIA_WIDTH, 20));
             gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 0.0;
@@ -132,8 +181,7 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
             // Date (colonna 2)
             String dataInFormattata = corso.getDataIn().format(UiUtil.DATE_FORMATTER);
             String dataFinFormattata = corso.getDataFin().format(UiUtil.DATE_FORMATTER);
-            JLabel date_label = new JLabel(dataInFormattata+ " - " + dataFinFormattata);
-            date_label.setFont(new Font(UiUtil.FONT_FAMILY, Font.PLAIN, DATE_CORSO_FONT_SIZE));
+            JLabel date_label = UiUtil.infoLabel(dataInFormattata+ " - " + dataFinFormattata,Font.PLAIN, DATE_CORSO_FONT_SIZE);
             date_label.setPreferredSize(new Dimension(DATE_WIDTH, 20));
             date_label.setMinimumSize(new Dimension(DATE_WIDTH, 20));
             gbc.gridx = 2; gbc.gridy = 0; gbc.weightx = 0.0;
