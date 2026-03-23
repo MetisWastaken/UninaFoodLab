@@ -13,9 +13,10 @@ public class LoginController {
                 System.out.println("Tentativo di login con username: " + username + " e password: " + password);
                 Chef chefAutenticato =new Chef(username, password);
                 if (chefAutenticato.verify()) {
-                    main_controller.getMainFrame().showInfoLog("SUCC", "Login effettuato con successo!");
                     chefAutenticato.recNome();
                     chefAutenticato.recCognome();
+
+                    main_controller.getMainFrame().showInfoLog("SUCC", "Ben tornato " + chefAutenticato.getNome() + " " + chefAutenticato.getCognome() + "!");
                     main_controller.setChefAttivo(chefAutenticato);
                     main_controller.logAvvenuto();
                 } else {

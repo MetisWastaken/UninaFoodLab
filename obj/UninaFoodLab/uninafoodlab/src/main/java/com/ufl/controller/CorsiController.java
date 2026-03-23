@@ -13,7 +13,6 @@ public class CorsiController {
     public static void createMCSearchCatButtonListener(MainController main_controller){
         main_controller.getCorsiContainerPanel().addSearchCatButtonListener(e -> {
                 String filtro_categoria = main_controller.getCorsiContainerPanel().getSearchCatText();
-                main_controller.getMainFrame().showInfoLog("SUCC", "Ricerca dei corsi in corso!");
                 main_controller.mostraMieiCorsi(filtro_categoria);
             }
         );
@@ -23,7 +22,6 @@ public class CorsiController {
     public static void createACSearchCatButtonListener(MainController main_controller){
         main_controller.getCorsiContainerPanel().addSearchCatButtonListener(e -> {
                 String filtro_categoria = main_controller.getCorsiContainerPanel().getSearchCatText();
-                main_controller.getMainFrame().showInfoLog("SUCC", "Ricerca dei corsi in corso!");
                 main_controller.mostraAltriCorsi(filtro_categoria);
             }
         );
@@ -33,7 +31,6 @@ public class CorsiController {
     public static void createDettagliButtonListener(MainController main_controller){
         for(CorsoRow corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiRows()){
             corso_panel.addDettagliButtonListener(e -> {
-                    main_controller.getMainFrame().showInfoLog("SUCC", "Caricamento dettagli corso in corso!");
                     main_controller.setCorsoAttivo(corso_panel.getCorso());
                     main_controller.mostraDettagliCorso();
                 }
@@ -44,7 +41,6 @@ public class CorsiController {
     public static void createModificaButtonListener(MainController main_controller){
         for(CorsoRow corso_panel : main_controller.getCorsiContainerPanel().getArrayCorsiRows()){
             corso_panel.addModificaButtonListener(e -> {
-                    main_controller.getMainFrame().showInfoLog("SUCC", "Caricamento modifica corso in corso!");
                     main_controller.setCorsoAttivo(corso_panel.getCorso());
                     main_controller.mostraModificaCorso();
                 }
@@ -54,7 +50,6 @@ public class CorsiController {
 
     public static void createAggiungiCorsoButtonListener(MainController main_controller){
         main_controller.getCorsiContainerPanel().getCorsiPanel().addAggiungiCorsoButtonListener(e->{
-            main_controller.getMainFrame().showInfoLog("SUCC", "Caricamento aggiunta corso in corso!");
             main_controller.mostraAggiungiCorso();
         });
     }
