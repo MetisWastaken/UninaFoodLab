@@ -1,6 +1,8 @@
 package com.ufl.view;
 
 import com.ufl.model.Report;
+import com.ufl.view.UiUtil.CreateButton;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -26,8 +28,7 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
         setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
         String mese = LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
-        JLabel titolo = new JLabel("Report del mese corrente: " + mese);
-        titolo.setFont((new Font(UiUtil.FONT_FAMILY, Font.BOLD, 18)));
+        JLabel titolo = UiUtil.infoLabel("Report del mese corrente: " + mese, Font.BOLD, 18);
         titolo.setForeground(UiUtil.COLORE_TESTO1);
 
         add(titolo, BorderLayout.NORTH);
@@ -58,12 +59,13 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
 
         add(chartPanel, BorderLayout.CENTER);
 
-            JLabel footer = new JLabel(
-            "Media Ricette: " + report.getMediaRicette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette() + " | Corsi Totali: " + report.getNumeroCorsiTotali() + " | Online: " + report.getNumeroSessioniOnline() + " | Pratiche: " + report.getNumeroSessioniPratiche()
-        
+        JLabel footer = UiUtil.infoLabel(
+            "Media Ricette: " + report.getMediaRicette() + " | Min: " + report.getMinRicette() + " | Max: " + report.getMaxRicette() + " | Corsi Totali: " + report.getNumeroCorsiTotali() + " | Online: " + report.getNumeroSessioniOnline() + " | Pratiche: " + report.getNumeroSessioniPratiche(),
+            Font.PLAIN,
+            14
         );
 
-        JButton salvaBtn = UiUtil.createButton("Salva Report");
+        CreateButton salvaBtn = new UiUtil.CreateButton("Salva Report",25);
         salvaBtn.addActionListener(e -> SalvaReport(report, mese));
 
         JPanel footerPanel = new JPanel(new BorderLayout());
