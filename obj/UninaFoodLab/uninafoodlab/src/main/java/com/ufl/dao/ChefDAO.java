@@ -102,7 +102,7 @@ public class ChefDAO extends ConnessioneDAO {
         }
         
         if(filtro_categoria != null && !filtro_categoria.isEmpty()){
-            query += " AND categoria LIKE ?";
+            query += " AND categoria ILIKE ?";
         }
         
         
@@ -111,7 +111,7 @@ public class ChefDAO extends ConnessioneDAO {
             ps.setString(1, chef.getUsername());
             
             if(filtro_categoria != null && !filtro_categoria.isEmpty()){
-                ps.setString(2, "%" + filtro_categoria + "%");
+                ps.setString(2, "%" + filtro_categoria.trim() + "%");
             }
             
             ResultSet rs = ps.executeQuery();
