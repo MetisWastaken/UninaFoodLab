@@ -1,5 +1,7 @@
 package com.ufl.model;
 import java.util.Map;
+
+import java.util.Collections;
 import java.util.HashMap;
 import com.ufl.dao.ReportDAO;
 
@@ -65,22 +67,18 @@ public class Report {
 
     // ---- METODI ----
     public void calcolaStatisticheRicettePratiche() {
-        int somma = 0;
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
+        if(numero_ricette_per_pratica.isEmpty()){
+            media_ricette = 0.0;
+            min_ricette = 0;
+            max_ricette = 0;
+        } else {
+            int somma = numero_ricette_per_pratica.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
 
-        for (Integer n : numero_ricette_per_pratica.values()) {
-            if (n == null) {
-                continue;
-            }
-            somma = somma + n;
-            if (n < min) min = n;
-            if (n > max) max = n;
+            media_ricette = somma / numero_ricette_per_pratica.values().size();
+            min_ricette = Collections.min(numero_ricette_per_pratica.values());
+            max_ricette = Collections.max(numero_ricette_per_pratica.values());
         }
-
-        int count = numero_ricette_per_pratica.size();
-        media_ricette = count == 0 ? 0.0 : (double) somma / count;
-        min_ricette = (min == Integer.MAX_VALUE) ? 0 : min;
-        max_ricette = (max == Integer.MIN_VALUE) ? 0 : max;
     }
 }
