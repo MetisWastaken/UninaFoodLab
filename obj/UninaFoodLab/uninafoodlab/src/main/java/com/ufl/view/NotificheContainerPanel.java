@@ -8,12 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-import com.ufl.model.Chef;
 import com.ufl.model.Corso;
 import com.ufl.model.Notifica;
 
-
-import com.ufl.dao.ChefDAO;
 
 
 public class NotificheContainerPanel extends UiUtil.BlankPanel {
@@ -160,24 +157,4 @@ public class NotificheContainerPanel extends UiUtil.BlankPanel {
         return notifiche_panel.getNotificheRowPanel();
     }
 
-
-
-    public static void main(String[] args) {
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-
-        Chef chef = ChefDAO.get("GEsposito");
-        NotificheContainerPanel notifiche_panel = new NotificheContainerPanel(chef.getNotifiche());
-        notifiche_panel.addAggiungiNotificaButtonListener(e -> {
-            System.out.println("Aggiungi notifica button clicked");
-        });
-
-        notifiche_panel.getNotificheRowPanel().forEach(notifica_row_panel -> {
-            notifica_row_panel.addEliminaNotificaButtonListener(e -> {
-                System.out.println("Elimina notifica button clicked for notifica id: " + notifica_row_panel.getNotifica().getIdNotifica());
-            });
-        });
-        
-        frame.add(notifiche_panel);
-        frame.revalidate();
-    }
 }

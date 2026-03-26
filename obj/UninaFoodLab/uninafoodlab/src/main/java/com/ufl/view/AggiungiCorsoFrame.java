@@ -134,12 +134,4 @@ public class AggiungiCorsoFrame extends UiUtil.PopUpFrame {
         aggiungi_corso_panel.data_fin_field.setValue(null);
         aggiungi_corso_panel.frequenza_field.setText("");
     }
-
-    public static void main(String[] args) {
-       
-        AggiungiCorsoFrame frame = new AggiungiCorsoFrame();
-        frame.setVisible(true);
-
-        
-    }
 }

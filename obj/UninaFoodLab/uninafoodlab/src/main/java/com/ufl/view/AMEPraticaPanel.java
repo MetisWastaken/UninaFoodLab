@@ -9,8 +9,7 @@ import javax.swing.*;
 
 import com.ufl.model.Pratica;
 
-import com.ufl.dao.CorsoDAO;
-import com.ufl.model.Corso;
+
 
 public class AMEPraticaPanel extends UiUtil.BorderedPanel {
     private static final int FONT_SIZE = 12;
@@ -133,14 +132,4 @@ public class AMEPraticaPanel extends UiUtil.BorderedPanel {
         return pratica_panel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Corso corso = CorsoDAO.get(1);
-            AMEPraticaPanel panel = new AMEPraticaPanel(corso.getSessioniPratiche());
-            UiUtil.TestFrame frame = new UiUtil.TestFrame();
-            frame.add(panel);
-            frame.revalidate();
-            frame.repaint();
-        });
-    }
 }

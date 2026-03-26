@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import com.ufl.dao.PraticaDAO;
 
 public class AMPraticaFrame extends UiUtil.PopUpFrame {
     private AMPraticaPanel am_pratica_panel;
@@ -142,15 +141,5 @@ public class AMPraticaFrame extends UiUtil.PopUpFrame {
         am_pratica_panel.giorno_sessione_field.setValue(null);
         am_pratica_panel.aula_field.setText("");
         am_pratica_panel.posti_totali_spinner.setValue(1);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            AMPraticaFrame frameAggiunta = new AMPraticaFrame();
-            frameAggiunta.setAMPraticaFrame(PraticaDAO.get(1));
-            frameAggiunta.setVisible(true);
-
-            
-        });
     }
 }

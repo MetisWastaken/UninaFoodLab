@@ -109,13 +109,4 @@ public class AggiungiNotificheFrame extends UiUtil.PopUpFrame {
     public void inserisciTesto(String a_chi_si_riferisce){
         setTitle("Aggiungi Notifica "+ a_chi_si_riferisce);
     }
-
-    public static void main(String[] args) {
-        AggiungiNotificheFrame frame = new AggiungiNotificheFrame();
-        frame.inserisciTesto(" Corso di prova");
-        frame.addAggiungiNotificaListener(e ->{
-             frame.inserisciTesto("Palle");
-        });
-        frame.setVisible(true);
-    }
 }

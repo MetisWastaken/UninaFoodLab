@@ -82,12 +82,4 @@ public class HomepageContainer extends UiUtil.BlankPanel {
         container_panel.repaint();
     }
 
-    public static void main(String[] args) {
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-        
-        HomepageContainer home_page_container = new HomepageContainer();
-        home_page_container.setContent(new LoginPage());
-        frame.add(home_page_container);
-        frame.revalidate();
-    }
 }

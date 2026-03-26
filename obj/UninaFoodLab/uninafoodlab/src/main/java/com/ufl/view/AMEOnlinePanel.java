@@ -9,8 +9,6 @@ import java.util.List;
 
 import com.ufl.model.Online;
 
-import com.ufl.dao.CorsoDAO;
-import com.ufl.model.Corso;
 
 public class AMEOnlinePanel extends UiUtil.BorderedPanel {
     private static final int FONT_SIZE = 12;
@@ -122,17 +120,5 @@ public class AMEOnlinePanel extends UiUtil.BorderedPanel {
 
     public OnlinePanel getOnlinePanel(){
         return online_panel;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Corso corso = CorsoDAO.get(1);
-            AMEOnlinePanel panel = new AMEOnlinePanel(corso.getSessioniOnline());
-            UiUtil.TestFrame frame = new UiUtil.TestFrame();
-            frame.add(panel);
-            frame.revalidate();
-            frame.repaint();
-            
-        });
     }
 }

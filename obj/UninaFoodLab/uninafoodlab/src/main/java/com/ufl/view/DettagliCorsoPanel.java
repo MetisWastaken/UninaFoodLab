@@ -14,7 +14,6 @@ import com.ufl.model.Online;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
 
-import com.ufl.dao.CorsoDAO;
 
 public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
     private static final int TITLE_FONT_SIZE = 22;
@@ -339,15 +338,4 @@ public class DettagliCorsoPanel extends UiUtil.BorderedPanel {
         }
     }
     
-
-
-    
-    public static void main(String[] args) {
-        Corso corso = CorsoDAO.get(1);
-        corso.recChef();
-        DettagliCorsoPanel panel = new DettagliCorsoPanel(corso);
-        UiUtil.PopUpFrame frame = new UiUtil.PopUpFrame( "Dettagli Corso", new Dimension(800, 600));
-        frame.setContent(panel);
-        frame.setVisible(true);
-    }
 }

@@ -133,13 +133,4 @@ public class VisualizzaJFreeChartReport extends UiUtil.BlankPanel {
 
     }
     
-    public static void main(String[] args) {
-        Report report = new Report("GEsposito",10, 6, 4);
-        report.recNumeroRicettePerPratiche();
-        report.calcolaStatisticheRicettePratiche();
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-        VisualizzaJFreeChartReport visualizza_report = new VisualizzaJFreeChartReport(report);
-        frame.add(visualizza_report);
-        frame.revalidate();
-    }
 }

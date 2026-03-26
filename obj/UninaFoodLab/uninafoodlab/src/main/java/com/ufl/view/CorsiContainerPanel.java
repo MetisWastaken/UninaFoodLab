@@ -10,8 +10,7 @@ import java.time.LocalDate;
 
 
 import com.ufl.model.Corso;
-import com.ufl.model.Chef;
-import com.ufl.dao.ChefDAO;
+
 
 public class CorsiContainerPanel extends UiUtil.BlankPanel {
     private static final int NOME_CORSO_FONT_SIZE = 16;
@@ -243,13 +242,4 @@ public class CorsiContainerPanel extends UiUtil.BlankPanel {
         return corsi_panel.getCorsiRows();
     }
 
-    public static void main(String[] args) {
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-
-        Chef chef = ChefDAO.get("GEsposito");
-        CorsiContainerPanel corsi_panel = new CorsiContainerPanel(true, chef.getCorsi(true,""));
-        
-        frame.add(corsi_panel);
-        frame.revalidate();
-    }
 }

@@ -234,7 +234,4 @@ public class MainFrame extends JFrame {
         layered_pane.repaint();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame());
-    }
 }

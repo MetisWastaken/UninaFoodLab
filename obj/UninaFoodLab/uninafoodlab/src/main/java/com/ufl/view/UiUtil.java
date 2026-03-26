@@ -380,18 +380,5 @@ public class UiUtil {
         return spinner;
     }
 
-    public static void main(String[] args){
-        
-        BlankPanel blankPanel = new BlankPanel(COLORE_SFONDO);
-        blankPanel.add(Box.createVerticalStrut(500));
-        blankPanel.add(createInputDateField(new Dimension(200, 40), LocalDate.now()));
-        blankPanel.add(Box.createHorizontalStrut(500));
-        PopUpFrame frame = new PopUpFrame( new Dimension(400, 300));
-        frame.setContent(blankPanel);
-        frame.setHorizontalScrollTrue();
-        frame.revalidate();     
-        frame.setVisible(true);
-        
-    }
 }
 

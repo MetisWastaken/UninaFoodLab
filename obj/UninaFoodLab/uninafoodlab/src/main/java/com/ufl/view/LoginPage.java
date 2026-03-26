@@ -84,12 +84,4 @@ public class LoginPage extends UiUtil.BorderedPanel {
         this.password_field.setText("");
     }
     
-    public static void main(String[] args) {
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-        frame.setLayout(new FlowLayout());
-        frame.setBackground(UiUtil.COLORE_SFONDO);
-        JPanel loginPanel = new LoginPage();
-        frame.add(loginPanel);
-        frame.revalidate();
-    }
 }

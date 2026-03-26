@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import com.ufl.dao.CorsoDAO;
+
 import com.ufl.model.Corso;
 import com.ufl.model.Pratica;
 import com.ufl.model.Online;
@@ -139,16 +139,5 @@ public class ModificaCorsoPanel extends UiUtil.BlankPanel {
 
     public POBox getPoBox() {
         return po_box;
-    }
-
-    public static void main(String[] args) {
-        Corso corso = CorsoDAO.get(1);
-        corso.recChef();
-        ModificaCorsoPanel panel = new ModificaCorsoPanel(corso);
-        UiUtil.TestFrame frame = new UiUtil.TestFrame();
-        
-        frame.add(panel);
-        frame.setVisible(true);
-    
     }
 }

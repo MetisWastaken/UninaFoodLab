@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import com.ufl.dao.OnlineDAO;
-
 public class AMOnlineFrame extends UiUtil.PopUpFrame {
     private AMOnlinePanel am_online_panel;
     private Online online= null;
@@ -124,14 +122,6 @@ public class AMOnlineFrame extends UiUtil.PopUpFrame {
     public void pulisciCampi() {
         am_online_panel.giorno_sessione_field.setValue(null);
         am_online_panel.codice_meeting_field.setText("");
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            AMOnlineFrame frameAggiunta = new AMOnlineFrame();
-            frameAggiunta.setAMOnlineFrame(OnlineDAO.get(1));
-            frameAggiunta.setVisible(true);
-        });
     }
 }
 

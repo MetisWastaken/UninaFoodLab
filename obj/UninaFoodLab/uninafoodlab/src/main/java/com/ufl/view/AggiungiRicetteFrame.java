@@ -8,7 +8,6 @@ import java.util.List;
 import com.ufl.model.Pratica;
 import com.ufl.model.Ricetta;
 
-import com.ufl.dao.PraticaDAO;
 
 public class AggiungiRicetteFrame extends UiUtil.PopUpFrame  {
     RicettePanel ricette_panel;
@@ -88,20 +87,4 @@ public class AggiungiRicetteFrame extends UiUtil.PopUpFrame  {
         return pratica_attiva;
     }
 
-    public static void main(String[] args) {
-        Pratica p = PraticaDAO.get(2);
-        SwingUtilities.invokeLater(() -> {
-            AggiungiRicetteFrame frame = new AggiungiRicetteFrame();
-            frame.setAggiungiRicetteFrame(p);
-            frame.setVisible(true);
-
-            frame.getRicettePanel().getRicetteRows().forEach(row -> {
-                row.addRicettaRowListener(e -> {
-                    System.out.println("Ricetta selezionata: " + row.getRicetta().getNome());
-                    row.disableRicettaRow();
-                });
-            });
-        });
-        
-    }
 }
